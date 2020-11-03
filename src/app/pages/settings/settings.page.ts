@@ -47,7 +47,7 @@ export class SettingsPage implements OnInit {
   async openCourseModal() {
     const modal = await this.modalController.create({
       component: CourseSelectPage,
-      cssClass: 'modal',
+      cssClass: 'app-modal',
       swipeToClose: true,
     });
     return await modal.present();

@@ -8,6 +8,7 @@ import { BlockComponent } from 'src/app/components/block/block.component';
 import { LectureComponent } from 'src/app/components/lecture/lecture.component';
 import { LectureStatusFabComponent } from 'src/app/components/lecture-status-fab/lecture-status-fab.component';
 import { EventComponent } from 'src/app/components/event/event.component';
+import { TaskComponent } from 'src/app/components/task/task.component';
 
 const components = [
   HeaderComponent,
@@ -15,6 +16,7 @@ const components = [
   LectureComponent,
   LectureStatusFabComponent,
   EventComponent,
+  TaskComponent,
 ];
 
 @NgModule({

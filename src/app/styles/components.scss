@@ -25,3 +25,27 @@
     margin-right: 10px;
   }
 }
+
+.app-modal {
+  .modal-wrapper {
+    min-width: 50%;
+    box-shadow: var(--app-box-shadow);
+
+    @media only screen and (min-width: 768px) {
+      border-radius: var(--app-border-radius);
+    }
+  }
+
+  &--fullscreen {
+    .modal-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.app-alert {
+  .delete {
+    color: var(--ion-color-danger);
+  }
+}

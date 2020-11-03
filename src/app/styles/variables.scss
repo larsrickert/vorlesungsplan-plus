@@ -2,13 +2,23 @@
   --app-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   --app-border-radius: 4px;
 
-  --ion-color-block: #ffffff;
-  --ion-color-lecture-accent: #f9f9f9;
-  --ion-color-border: #dddddd;
+  --app-color-block: #ffffff;
+  --app-color-lecture-accent: #f9f9f9;
+  --app-color-border: #dddddd;
+
+  --ion-color-segment-indicator: #ffffff;
+  --ion-color-divider: #f2f2f2;
+
+  --app-form-field: #f9f9f9;
 }
 
 body.dark {
-  --ion-color-block: var(--ion-color-step-50);
-  --ion-color-lecture-accent: var(--ion-color-step-100);
-  --ion-color-border: var(--ion-color-step-150);
+  --app-color-block: var(--ion-color-step-50);
+  --app-color-lecture-accent: var(--ion-color-step-100);
+  --app-color-border: var(--ion-color-step-150);
+
+  --ion-color-segment-indicator: var(--ion-color-step-150);
+  --ion-color-divider: var(--ion-color-step-100);
+
+  --app-form-field: var(--ion-color-step-50);
 }

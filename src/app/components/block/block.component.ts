@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBlock, IEventBlock, ILectureBlock } from 'src/app/interfaces/IBlock';
+import {
+  IBlock,
+  IEventBlock,
+  ILectureBlock,
+  ITaskBlock,
+} from 'src/app/interfaces/IBlock';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 
 @Component({
@@ -9,11 +14,12 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 })
 export class BlockComponent implements OnInit {
   @Input() block: IBlock;
-  @Input() skeleton = false;
+  @Input() skeleton: string;
 
   now = new Date(Date.now());
   lectureBlock = false;
   eventBlock = false;
+  taskBlock = false;
   dateString = null;
 
   constructor(public utility: UtilityService) {}
@@ -22,6 +28,8 @@ export class BlockComponent implements OnInit {
     if (this.block && this.block.items) {
       this.lectureBlock = this.isLectureBlock(this.block);
       this.eventBlock = this.isEventBlock(this.block);
+      this.taskBlock = this.isTaskBlock(this.block);
+
       this.dateString = this.blockDateToString();
     }
   }
@@ -51,7 +59,7 @@ export class BlockComponent implements OnInit {
       hasKeys.push('status');
     }
 
-    return JSON.stringify(neededKeys) === JSON.stringify(hasKeys);
+    return JSON.stringify(neededKeys.sort()) === JSON.stringify(hasKeys.sort());
   }
 
   // returns whether or not arg is Interface IEventBlock
@@ -74,7 +82,33 @@ export class BlockComponent implements OnInit {
     const neededKeys = Object.keys(block.items[0]);
     const hasKeys = Object.keys(this.block.items[0]);
 
-    return JSON.stringify(neededKeys) === JSON.stringify(hasKeys);
+    return JSON.stringify(neededKeys.sort()) === JSON.stringify(hasKeys.sort());
+  }
+
+  // returns whether or not arg is Interface IEventBlock
+  private isTaskBlock(arg: any): arg is ITaskBlock {
+    const block: ITaskBlock = {
+      date: null,
+      items: [
+        {
+          id: null,
+          name: null,
+          start: new Date(),
+          end: new Date(),
+          course: null,
+          notes: null,
+        },
+      ],
+    };
+
+    const neededKeys = Object.keys(block.items[0]);
+    const hasKeys = Object.keys(this.block.items[0]);
+
+    if (!hasKeys.includes('notes')) {
+      hasKeys.push('notes');
+    }
+
+    return JSON.stringify(neededKeys.sort()) === JSON.stringify(hasKeys.sort());
   }
 
   private blockDateToString() {

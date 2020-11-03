@@ -24,6 +24,13 @@
       [event]="item"
       [isLast]="i === block.items.length - 1"
     ></app-event>
+
+    <app-task
+      *ngIf="taskBlock"
+      [task]="item"
+      [isLast]="i === block.items.length - 1"
+      [accent]="i % 2 === 0"
+    ></app-task>
   </div>
 </div>
 
@@ -33,5 +40,6 @@
     <ion-skeleton-text animated class="skeleton__date"></ion-skeleton-text>
   </div>
 
-  <app-lecture [skeleton]="true"></app-lecture>
+  <app-lecture *ngIf="skeleton === 'lecture'" [skeleton]="true"></app-lecture>
+  <app-task *ngIf="skeleton === 'task'" [skeleton]="true"></app-task>
 </div>

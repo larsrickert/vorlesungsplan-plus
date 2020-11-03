@@ -1,0 +1,32 @@
+<app-header title="Aufgaben ({{ count }})"></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="action-buttons">
+    <ion-chip color="primary" (click)="addTask()">
+      Neue Aufgabe
+      <ion-icon name="add"></ion-icon>
+    </ion-chip>
+
+    <!-- <ion-chip class="share-btn" color="primary" (click)="showShareSheet()">
+      <ion-icon name="share-outline"></ion-icon>
+    </ion-chip>
+
+    <input
+      type="file"
+      style="display: none"
+      (change)="import($event)"
+      id="importFile"
+    /> -->
+  </div>
+
+  <div *ngIf="blocks.length === 0">
+    <p class="placeholder">
+      Füge Aufgaben hinzu, die du für deine Vorlesungen erledigen musst. So
+      behälst du immer den Überblick über deine Abgabefristen.
+    </p>
+
+    <app-block skeleton="task"></app-block>
+  </div>
+
+  <app-block *ngFor="let block of blocks" [block]="block"></app-block>
+</ion-content>

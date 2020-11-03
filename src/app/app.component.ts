@@ -28,6 +28,11 @@ export class AppComponent {
       url: '/events',
       icon: 'calendar-outline',
     },
+    {
+      title: 'Aufgaben',
+      url: '/tasks',
+      icon: 'file-tray-full-outline',
+    },
   ];
   public bottomNavItems = [
     {

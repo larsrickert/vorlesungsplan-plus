@@ -1,5 +1,6 @@
 import { IEvent } from './IEvent';
 import { ILecture } from './ILecture';
+import { ITask } from './ITask';
 
 export interface IBlock {
   date: Date;
@@ -17,4 +18,8 @@ export interface ILectureBlock extends IBlock {
 
 export interface IEventBlock extends IBlock {
   items: IEvent[];
+}
+
+export interface ITaskBlock extends IBlock {
+  items: ITask[];
 }

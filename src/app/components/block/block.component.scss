@@ -2,18 +2,18 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-bottom: 30px;
-  background: var(--ion-color-block);
+  background: var(--app-color-block);
 
   &__heading {
     display: block;
     color: var(--ion-color-primary);
     font-size: 18px;
     padding: 20px;
-    border-bottom: 1px solid var(--ion-color-border);
+    border-bottom: 1px solid var(--app-color-border);
   }
 
   &__item-wrapper:nth-child(even) {
-    background: var(--ion-color-lecture-accent);
+    background: var(--app-color-lecture-accent);
   }
 
   &__item-wrapper:last-child {

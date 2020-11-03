@@ -1,0 +1,35 @@
+.field-wrapper {
+  display: grid;
+  grid-gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+}
+
+.field {
+  border-radius: 4px;
+  background: var(--app-form-field);
+
+  ion-select,
+  ion-input,
+  ion-datetime,
+  ion-textarea {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+  }
+
+  &--single {
+    margin-top: 20px;
+  }
+}
+
+ion-footer {
+  ion-button {
+    margin: 0;
+  }
+}

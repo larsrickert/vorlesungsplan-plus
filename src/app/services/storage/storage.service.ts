@@ -76,8 +76,6 @@ export class StorageService {
         key: SettingKey.LASTUPDATED,
         value: new Date(Date.now()),
       });
-
-      console.log('Fetched lectures.');
       return true;
     } catch (error) {
       console.error('Error while fetching lectures!');

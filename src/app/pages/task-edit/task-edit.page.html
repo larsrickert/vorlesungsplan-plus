@@ -1,0 +1,65 @@
+<app-header
+  title="Aufgabe {{ task ? 'bearbeiten' : 'erstellen' }}"
+></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="field-wrapper">
+    <div class="field">
+      <ion-input
+        type="text"
+        inputmode="text"
+        placeholder="Name*"
+        [clearInput]="true"
+        [(ngModel)]="changedTask.name"
+        autocapitalize="on"
+      ></ion-input>
+    </div>
+
+    <div class="field">
+      <ion-datetime
+        [min]="min"
+        [max]="max"
+        cancelText="Schließen"
+        doneText="Fertig"
+        displayFormat="DDD, DD. MMMM YYYY HH:mm"
+        pickerFormat="DDD, DD. MMM YYYY HH:mm"
+        [(ngModel)]="isoDate"
+        monthNames="[Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]"
+        monthShortNames="[Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]"
+        dayShortNames="[So, Mo, Di, Mi, Do, Fr, Sa]"
+        placeholder="Abgabetermin auswählen*"
+      ></ion-datetime>
+    </div>
+  </div>
+
+  <div class="field field--single">
+    <ion-select
+      placeholder="Vorlesung auswählen*"
+      cancelText="Schließen"
+      okText="Auswählen"
+      [(ngModel)]="changedTask.course"
+      interface="alert"
+      [interfaceOptions]="{header: 'Vorlesung auswählen'}"
+    >
+      <ion-select-option
+        *ngFor="let course of availableCourses"
+        [value]="course"
+        >{{ course }}</ion-select-option
+      >
+    </ion-select>
+  </div>
+
+  <div class="field field--single">
+    <ion-textarea
+      placeholder="Beschreibung eingeben (optional)"
+      [autoGrow]="true"
+      inputmode="text"
+      [(ngModel)]="changedTask.notes"
+      autocapitalize="on"
+    ></ion-textarea>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-button expand="full" (click)="save()">Speichern</ion-button>
+</ion-footer>

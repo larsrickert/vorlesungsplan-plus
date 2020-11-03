@@ -70,7 +70,7 @@
 
   <!-- Skeleton -->
   <div class="block" *ngIf="!course">
-    <app-block [skeleton]="true"></app-block>
+    <app-block skeleton="lecture"></app-block>
   </div>
 
   <app-block *ngFor="let block of displayedBlocks" [block]="block"></app-block>

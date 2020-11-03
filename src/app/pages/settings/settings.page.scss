@@ -3,7 +3,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   cursor: pointer;
-  background: var(--ion-color-block);
+  background: var(--app-color-block);
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -37,7 +37,7 @@
 }
 
 .setting:active {
-  background: var(--ion-color-lecture-accent);
+  background: var(--app-color-lecture-accent);
 }
 
 .selectable__item {

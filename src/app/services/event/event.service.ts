@@ -36,7 +36,6 @@ export class EventService {
 
       // store fetched events in local storage
       await this.storage.store(StorageKey.EVENTS, events);
-      console.log('Fetched events.');
       return true;
     } catch (error) {
       console.error('Error while fetching events!');

@@ -40,6 +40,14 @@ const routes: Routes = [
         (m) => m.EventDetailsPageModule
       ),
   },
+  {
+    path: 'tasks',
+    loadChildren: () => import('./pages/tasks/tasks.module').then( m => m.TasksPageModule)
+  },
+  {
+    path: 'task-edit',
+    loadChildren: () => import('./pages/task-edit/task-edit.module').then( m => m.TaskEditPageModule)
+  },
 ];
 
 @NgModule({
