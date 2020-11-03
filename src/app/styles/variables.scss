@@ -6,10 +6,12 @@
   --app-color-lecture-accent: #f9f9f9;
   --app-color-border: #dddddd;
 
+  --app-color-form: #f9f9f9;
+  --app-form-field: #f9f9f9;
+
+  // ionic overwrites
   --ion-color-segment-indicator: #ffffff;
   --ion-color-divider: #f2f2f2;
-
-  --app-form-field: #f9f9f9;
 }
 
 body.dark {
@@ -17,8 +19,10 @@ body.dark {
   --app-color-lecture-accent: var(--ion-color-step-100);
   --app-color-border: var(--ion-color-step-150);
 
+  --app-color-form: #171717;
+  --app-form-field: var(--ion-color-step-50);
+
+  // ionic overwrites
   --ion-color-segment-indicator: var(--ion-color-step-150);
   --ion-color-divider: var(--ion-color-step-100);
-
-  --app-form-field: var(--ion-color-step-50);
 }

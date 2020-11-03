@@ -1,0 +1,93 @@
+<app-header title="Fehler melden"></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="form">
+    <div class="warning warning--danger" *ngIf="!valid">
+      <ion-icon name="alert-circle"></ion-icon>
+      <ion-label>Bitte fülle alle Felder aus.</ion-label>
+    </div>
+
+    <form name="bug-report" method="POST">
+      <fieldset>
+        <legend><span class="number">1</span>Deine Daten</legend>
+        <!-- name -->
+        <ion-input
+          type="text"
+          name="name"
+          placeholder="Name*"
+          [(ngModel)]="name"
+          [class.invalidField]="invalidFields.includes('name') && !name"
+        >
+        </ion-input>
+
+        <!-- email -->
+        <ion-input
+          type="email"
+          name="email"
+          placeholder="E-Mail Adresse*"
+          required
+          [(ngModel)]="email"
+          [class.invalidField]="invalidFields.includes('email') && !email"
+        >
+        </ion-input>
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="number">2</span>Fehler</legend>
+        <!-- Bug type -->
+        <label>Um welchen Fehler handelt es sich?</label>
+        <ion-select
+          name="type"
+          required
+          [(ngModel)]="type"
+          [class.invalidField]="invalidFields.includes('type') && !type"
+          cancelText="Schließen"
+          okText="Auswählen"
+          [interfaceOptions]="{header: 'Fehlerart auswählen'}"
+          placeholder="Fehlerart auswählen*"
+        >
+          <ion-select-option value="Synchronisierungsfehler">
+            Synchronisierungsfehler
+          </ion-select-option>
+          <ion-select-option value="Falsche / fehlende Klausur">
+            Falsche / fehlende Klausur
+          </ion-select-option>
+          <ion-select-option value="Darstellungsfehler (visuell)">
+            Darstellungsfehler (visuell)
+          </ion-select-option>
+          <ion-select-option value="Fehlende Daten">
+            Fehlende Daten
+          </ion-select-option>
+          <ion-select-option value="Anderer Fehler"
+            >Anderer Fehler</ion-select-option
+          >
+        </ion-select>
+
+        <!-- message -->
+        <textarea
+          name="description"
+          placeholder="Beschreibe den Fehler / Schritte zum Reproduzieren*"
+          required
+          rows="5"
+          [(ngModel)]="message"
+          [class.invalidField]="invalidFields.includes('message') && !message"
+        ></textarea>
+      </fieldset>
+
+      <ion-item
+        lines="none"
+        id="checkbox"
+        [class.invalidField]="invalidFields.includes('checkbox') && !checkbox"
+      >
+        <ion-checkbox [(ngModel)]="checkbox" name="checkbox"></ion-checkbox>
+        <ion-label class="ion-text-wrap"
+          >Ich erkläre mich damit einverstanden, dass meine persönlichen Daten
+          zum Zwecke der Bearbeitung dieser Anfrage verwendet und ggf.
+          gespeichert werden.</ion-label
+        >
+      </ion-item>
+
+      <button (click)="send()">Fehler melden</button>
+    </form>
+  </div>
+</ion-content>

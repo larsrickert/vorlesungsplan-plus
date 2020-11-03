@@ -1,0 +1,97 @@
+.form {
+  padding: 30px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: var(--app-color-form);
+  border: 1px solid var(--app-color-border);
+
+  fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  legend {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  ion-select,
+  ion-input,
+  textarea {
+    outline: 0;
+    background: var(--app-form-field);
+    border: 1px solid var(--app-color-border);
+    border-radius: 4px;
+    font-size: 15px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
+
+  textarea {
+    padding: 10px;
+  }
+
+  .number {
+    background: var(--ion-color-primary);
+    color: #ffffff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 10px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 15px 0px;
+  }
+
+  button {
+    padding: 12px 20px;
+    outline: 0;
+    border-radius: 4px;
+    color: #fff;
+    background: var(--ion-color-primary);
+    font-size: 18px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  button:hover {
+    background: var(--ion-color-primary-shade);
+  }
+}
+
+.invalidField {
+  border: 1px solid var(--ion-color-danger) !important;
+  background: rgba(var(--ion-color-danger-rgb), 0.1) !important;
+}
+
+#checkbox {
+  margin-top: -20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  --background: transparent;
+  --background-active: transparent;
+  --background-hover: transparent;
+  font-size: 14px;
+
+  @media only screen and (max-width: 768px) {
+    --padding-start: 6px;
+    --inner-padding-end: 0;
+  }
+
+  ion-checkbox {
+    margin-right: 10px;
+  }
+}

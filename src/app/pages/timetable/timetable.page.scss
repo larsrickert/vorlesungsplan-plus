@@ -7,3 +7,18 @@ ion-searchbar {
 ion-segment {
   margin-bottom: 40px;
 }
+
+.examInfo__wrapper {
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-primary);
+  margin-bottom: 20px;
+  outline: 0;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 30px;
+    margin-right: 10px;
+    min-width: 30px;
+  }
+}

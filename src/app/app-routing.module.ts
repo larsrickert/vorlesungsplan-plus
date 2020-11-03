@@ -52,6 +52,14 @@ const routes: Routes = [
     path: 'installation',
     loadChildren: () => import('./pages/installation/installation.module').then( m => m.InstallationPageModule)
   },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'report',
+    loadChildren: () => import('./pages/report/report.module').then( m => m.ReportPageModule)
+  },
 ];
 
 @NgModule({

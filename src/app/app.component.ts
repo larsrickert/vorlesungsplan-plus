@@ -36,14 +36,24 @@ export class AppComponent {
   ];
   public bottomNavItems = [
     {
+      title: 'Einstellungen',
+      url: '/settings',
+      icon: 'cog-outline',
+    },
+    {
       title: 'Installation',
       url: '/installation',
       icon: 'download-outline',
     },
     {
-      title: 'Einstellungen',
-      url: '/settings',
-      icon: 'cog-outline',
+      title: 'Fehler melden',
+      url: '/report',
+      icon: 'megaphone-outline',
+    },
+    {
+      title: 'Über die App',
+      url: '/about',
+      icon: 'information-circle-outline',
     },
   ];
 

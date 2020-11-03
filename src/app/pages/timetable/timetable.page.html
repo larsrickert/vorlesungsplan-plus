@@ -23,6 +23,18 @@
     #searchBar
   ></ion-searchbar>
 
+  <div
+    class="examInfo__wrapper"
+    *ngIf="segment && segment.value === 'exams'"
+    routerLink="/report"
+  >
+    <ion-icon name="information-circle-outline"></ion-icon>
+    <span
+      >Falsche oder fehlende Klausur gefunden? Klicke hier, um die
+      Klausurerkennung zu verbessern.</span
+    >
+  </div>
+
   <!-- Segment -->
   <ion-segment
     class="segment"
