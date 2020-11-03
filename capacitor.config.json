@@ -1,6 +1,6 @@
 {
-  "appId": "com.rickstack.capacitor",
-  "appName": "Vorlesungsplan",
+  "appId": "com.rickstack.vorlesungsplan",
+  "appName": "Vorlesungsplan+",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",

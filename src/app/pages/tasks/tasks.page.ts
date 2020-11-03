@@ -63,12 +63,18 @@ export class TasksPage implements OnInit {
           text: 'Als Datei exportieren',
           icon: 'document-outline',
           handler: () => {
-            this.taskService.exportFile();
+            if (this.count > 0) {
+              this.taskService.exportFile();
+            } else {
+              this.utility.showToast(
+                'Du hast noch keine Aufgaben hinzugefügt.'
+              );
+            }
           },
         },
         {
           text: 'Importieren',
-          icon: 'arrow-up-circle-outline',
+          icon: 'download-outline',
           handler: () => {
             document.getElementById('importFile').click();
           },
