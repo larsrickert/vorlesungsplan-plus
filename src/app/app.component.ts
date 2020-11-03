@@ -45,16 +45,6 @@ export class AppComponent {
       url: '/installation',
       icon: 'download-outline',
     },
-    {
-      title: 'Fehler melden',
-      url: '/report',
-      icon: 'megaphone-outline',
-    },
-    {
-      title: 'Über die App',
-      url: '/about',
-      icon: 'information-circle-outline',
-    },
   ];
 
   setThemeFunction;
@@ -82,6 +72,13 @@ export class AppComponent {
     // https://capacitor.ionicframework.com/docs/apis/splash-screen#hiding-the-splash-screen
     if (Capacitor.isPluginAvailable('SplashScreen')) {
       SplashScreen.hide();
+    }
+
+    // remove "installation" nav item when running native
+    if (Capacitor.isNative) {
+      this.bottomNavItems = this.bottomNavItems.filter((item) => {
+        return item.url !== '/installation';
+      });
     }
   }
 

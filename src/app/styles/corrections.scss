@@ -25,6 +25,6 @@ ion-segment-button {
 
 // action sheet
 .sc-ion-action-sheet-ios-h {
-  --button-background-selected: var(--ion-color-step-50);
-  --background: var(--ion-color-step-50);
+  --button-background-selected: var(--ion-color-step-50, #f2f2f2);
+  --background: var(--ion-color-step-50, #f2f2f2);
 }
