@@ -10,7 +10,7 @@ import {
 import { Subscription } from 'rxjs';
 import { SettingKey } from './interfaces/ISetting';
 import { StorageService } from './services/storage/storage.service';
-const { SplashScreen, StatusBar, Keyboard } = Plugins;
+const { SplashScreen, StatusBar, Keyboard, Browser } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,7 @@ const { SplashScreen, StatusBar, Keyboard } = Plugins;
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  public navItems = [
+  navItems = [
     {
       title: 'Vorlesungsplan',
       url: '/timetable',
@@ -35,22 +35,36 @@ export class AppComponent {
       icon: 'file-tray-full-outline',
     },
   ];
-  public bottomNavItems = [
-    {
-      title: 'Einstellungen',
-      url: '/settings',
-      icon: 'cog-outline',
-    },
+  bottomNavItems = [
     {
       title: 'Installation',
       url: '/installation',
       icon: 'download-outline',
     },
+    {
+      title: 'Einstellungen',
+      url: '/settings',
+      icon: 'cog-outline',
+    },
+  ];
+  links = [
+    {
+      title: 'INF19 Wiki',
+      href: 'https://wiki.siphalor.de/',
+      image: '/assets/images/logo-siphalor-wiki.png',
+    },
+    {
+      title: 'INF19 OneDrive',
+      desc: 'Du musst dich mit deinem DHBW Microsoft-Konto anmelden',
+      href:
+        'https://lehremosbachdhbwde-my.sharepoint.com/:f:/g/personal/lar_rickert_19_lehre_mosbach_dhbw_de/Eii8oVgD33pDovLSbxYxsk0BAVJDy5DMMEGpZy-A5xVZ1Q?e=h6NzDz',
+      image: '/assets/images/logo-onedrive.svg',
+    },
   ];
 
   setThemeFunction;
   darkModeUserPreference: MediaQueryList;
-  introSubscription: Subscription;
+  showLinks = false;
 
   constructor(public router: Router, private storage: StorageService) {
     this.initializeApp();
@@ -83,16 +97,16 @@ export class AppComponent {
     }
 
     // redirect to intro when no course is set
-    this.introSubscription = this.storage.settings.subscribe(() => {
+    // watch whether to hide links or not
+    this.storage.settings.subscribe(() => {
       if (StorageService.INIT_SETTINGS) {
-        if (
-          !this.storage.getSetting(SettingKey.INTRO) &&
-          !this.storage.getSetting(SettingKey.COURSE)
-        ) {
+        const course = this.storage.getSetting(SettingKey.COURSE);
+
+        if (!this.storage.getSetting(SettingKey.INTRO) && !course) {
           this.router.navigate(['/intro']);
         }
 
-        this.introSubscription.unsubscribe();
+        this.showLinks = course && course.includes('INF19');
       }
     });
   }
@@ -165,5 +179,9 @@ export class AppComponent {
       const style = dark ? KeyboardStyle.Dark : KeyboardStyle.Light;
       Keyboard.setStyle({ style });
     }
+  }
+
+  navigate(url: string) {
+    Browser.open({ url });
   }
 }

@@ -17,7 +17,7 @@ export class LectureStatusFabComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.skeleton) {
+    if (!this.skeleton) {
       this.storage.lectures.subscribe((lectures) => {
         this.hasChanges = this.utility.hasChanges(lectures);
       });
@@ -25,7 +25,7 @@ export class LectureStatusFabComponent implements OnInit {
   }
 
   async clearChanges(): Promise<void> {
-    if (this.skeleton) {
+    if (!this.skeleton) {
       await this.storage.resetStatus();
     }
   }

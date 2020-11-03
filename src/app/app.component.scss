@@ -70,4 +70,44 @@ ion-menu {
       color: var(--ion-color-primary);
     }
   }
+
+  .showLinks {
+    margin-top: 20px;
+    margin-left: 10px;
+
+    summary {
+      outline: 0;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .link {
+      cursor: pointer;
+
+      &__image {
+        max-height: 30px;
+        max-width: 30px;
+        margin-right: 10px;
+      }
+
+      &__desc {
+        margin-left: 12px;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: var(--ion-color-dark);
+
+        &__icon {
+          font-size: 18px;
+          min-width: 18px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .link:hover {
+      --background: rgba(var(--ion-color-medium-rgb), 0.07);
+    }
+  }
 }

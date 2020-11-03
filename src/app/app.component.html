@@ -48,6 +48,35 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+
+        <!-- links -->
+        <details class="showLinks" *ngIf="showLinks">
+          <summary>Verknüpfungen anzeigen</summary>
+
+          <ng-container *ngFor="let link of links">
+            <ion-item
+              class="link"
+              lines="none"
+              detail="false"
+              (click)="navigate(link.href)"
+            >
+              <img
+                class="link__image"
+                [src]="link.image"
+                [alt]="link.title"
+                [title]="link.title"
+              />
+              <ion-label>{{ link.title }}</ion-label>
+            </ion-item>
+            <div *ngIf="link.desc" class="link__desc">
+              <ion-icon
+                class="link__desc__icon"
+                name="information-circle-outline"
+              ></ion-icon>
+              <ion-text>{{ link.desc }}</ion-text>
+            </div>
+          </ng-container>
+        </details>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
