@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && ionic capacitor add ios && ionic capacitor add android && ionic capacitor copy",
+    "build": "ng build --prod && ionic capacitor copy",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

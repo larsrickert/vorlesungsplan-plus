@@ -1,0 +1,148 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["pages-about-about-module"],{
+
+/***/ "6hSs":
+/*!*********************************************!*\
+  !*** ./src/app/pages/about/about.page.scss ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".wrapper {\n  padding: 20px;\n  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n  background: var(--app-color-block);\n  border: 1px solid var(--app-color-border);\n}\n\np {\n  line-height: 1.4em;\n}\n\nol {\n  font-size: 15px;\n}\n\nol li {\n  margin-bottom: 5px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvYWJvdXQvYWJvdXQucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBQTtFQUNBLHVDQUFBO0VBQ0Esa0JBQUE7RUFDQSxrQ0FBQTtFQUNBLHlDQUFBO0FBQ0Y7O0FBRUE7RUFDRSxrQkFBQTtBQUNGOztBQUVBO0VBQ0UsZUFBQTtBQUNGOztBQUNFO0VBQ0Usa0JBQUE7QUFDSiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2Fib3V0L2Fib3V0LnBhZ2Uuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi53cmFwcGVyIHtcclxuICBwYWRkaW5nOiAyMHB4O1xyXG4gIGJveC1zaGFkb3c6IDAgMCAxMHB4IHJnYmEoMCwgMCwgMCwgMC4xKTtcclxuICBib3JkZXItcmFkaXVzOiA0cHg7XHJcbiAgYmFja2dyb3VuZDogdmFyKC0tYXBwLWNvbG9yLWJsb2NrKTtcclxuICBib3JkZXI6IDFweCBzb2xpZCB2YXIoLS1hcHAtY29sb3ItYm9yZGVyKTtcclxufVxyXG5cclxucCB7XHJcbiAgbGluZS1oZWlnaHQ6IDEuNGVtO1xyXG59XHJcblxyXG5vbCB7XHJcbiAgZm9udC1zaXplOiAxNXB4O1xyXG5cclxuICBsaSB7XHJcbiAgICBtYXJnaW4tYm90dG9tOiA1cHg7XHJcbiAgfVxyXG59XHJcbiJdfQ== */");
+
+/***/ }),
+
+/***/ "P6uQ":
+/*!*****************************************************!*\
+  !*** ./src/app/pages/about/about-routing.module.ts ***!
+  \*****************************************************/
+/*! exports provided: AboutPageRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboutPageRoutingModule", function() { return AboutPageRoutingModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _about_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./about.page */ "fr+C");
+
+
+
+
+const routes = [
+    {
+        path: '',
+        component: _about_page__WEBPACK_IMPORTED_MODULE_3__["AboutPage"]
+    }
+];
+let AboutPageRoutingModule = class AboutPageRoutingModule {
+};
+AboutPageRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
+    })
+], AboutPageRoutingModule);
+
+
+
+/***/ }),
+
+/***/ "UoYK":
+/*!*********************************************!*\
+  !*** ./src/app/pages/about/about.module.ts ***!
+  \*********************************************/
+/*! exports provided: AboutPageModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboutPageModule", function() { return AboutPageModule; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+/* harmony import */ var _about_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./about-routing.module */ "P6uQ");
+/* harmony import */ var _about_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./about.page */ "fr+C");
+/* harmony import */ var src_app_modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/modules/shared/shared.module */ "FpXt");
+
+
+
+
+
+
+
+
+let AboutPageModule = class AboutPageModule {
+};
+AboutPageModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
+            _about_routing_module__WEBPACK_IMPORTED_MODULE_5__["AboutPageRoutingModule"],
+            src_app_modules_shared_shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
+        ],
+        declarations: [_about_page__WEBPACK_IMPORTED_MODULE_6__["AboutPage"]],
+    })
+], AboutPageModule);
+
+
+
+/***/ }),
+
+/***/ "fr+C":
+/*!*******************************************!*\
+  !*** ./src/app/pages/about/about.page.ts ***!
+  \*******************************************/
+/*! exports provided: AboutPage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AboutPage", function() { return AboutPage; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _raw_loader_about_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! raw-loader!./about.page.html */ "zRMW");
+/* harmony import */ var _about_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./about.page.scss */ "6hSs");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
+
+
+
+
+let AboutPage = class AboutPage {
+    constructor() { }
+    ngOnInit() {
+    }
+};
+AboutPage.ctorParameters = () => [];
+AboutPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-about',
+        template: _raw_loader_about_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_about_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+    })
+], AboutPage);
+
+
+
+/***/ }),
+
+/***/ "zRMW":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/pages/about/about.page.html ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<app-header title=\"Über die App\" [back]=\"true\"></app-header>\n\n<ion-content class=\"ion-padding\" [fullscreen]=\"true\">\n  <div class=\"wrapper\">\n    <p>\n      Mehr Informationen zur Herkunft der Daten / API:\n      <a href=\"https://api.rickstack.de/help\" target=\"_blank\"\n        >https://api.rickstack.de/help</a\n      >\n    </p>\n\n    <br />\n\n    <ol>\n      <li>\n        Diese App ist keine offizielle App der DHBW, sondern sie soll ein Ersatz\n        für die teilweise unoptimierte (<em>*hust*</em> iOS <em>*hust*</em>)\n        offizielle App sein.\n      </li>\n      <li>\n        Zwar werden die Vorlesungen und Veranstaltungen von den offiziellen DHWB\n        Kalendern bezogen, doch ich gebe dennoch keine Garantie für die\n        Korrektheit der Daten.\n      </li>\n    </ol>\n  </div>\n</ion-content>\n");
+
+/***/ })
+
+}]);
+//# sourceMappingURL=pages-about-about-module-es2015.js.map

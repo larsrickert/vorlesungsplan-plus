@@ -506,7 +506,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       __webpack_require__(
-      /*! D:\Capacitor\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-polyfills.js */
+      /*! D:\vorlesungsplan-capacitor\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-polyfills.js */
       "mRIq");
 
       __webpack_require__(
@@ -514,15 +514,15 @@
       "R0gw");
 
       __webpack_require__(
-      /*! D:\Capacitor\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */
+      /*! D:\vorlesungsplan-capacitor\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\jit-polyfills.js */
       "LEsg");
 
       __webpack_require__(
-      /*! D:\Capacitor\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-jit-polyfills.js */
+      /*! D:\vorlesungsplan-capacitor\node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\es5-jit-polyfills.js */
       "YJXN");
 
       module.exports = __webpack_require__(
-      /*! D:\Capacitor\src\polyfills.ts */
+      /*! D:\vorlesungsplan-capacitor\src\polyfills.ts */
       "hN/g");
       /***/
     },

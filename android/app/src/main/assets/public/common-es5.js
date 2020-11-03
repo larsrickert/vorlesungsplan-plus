@@ -5,7 +5,33 @@
 
   function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
   (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"], {
+    /***/
+    "1/we":
+    /*!***************************************************************************************************!*\
+      !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/pages/course-select/course-select.page.html ***!
+      \***************************************************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function we(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "<app-header title=\"Kurs auswählen\"></app-header>\n\n<ion-content [fullscreen]=\"true\">\n  <div class=\"ion-padding\">\n    <ion-searchbar\n      animated\n      showCancelButton=\"focus\"\n      mode=\"ios\"\n      placeholder=\"Suchen...\"\n      cancelButtonText=\"Abbrechen\"\n      (ionChange)=\"searchCourse($event)\"\n    ></ion-searchbar>\n\n    <div *ngIf=\"courseGroups.length > 0 && displayedGroups.length === 0\">\n      <p>Deine Suche hat keine Treffer ergeben.</p>\n    </div>\n\n    <div *ngIf=\"courseGroups.length === 0\">\n      <ion-label>Kurse werden geladen...</ion-label>\n      <ion-progress-bar type=\"indeterminate\"></ion-progress-bar>\n    </div>\n  </div>\n\n  <ion-list *ngFor=\"let group of displayedGroups\">\n    <ion-item-divider>\n      <ion-label> {{ group.name }} </ion-label>\n    </ion-item-divider>\n\n    <ion-item lines=\"none\" *ngFor=\"let course of group.courses\">\n      <ion-checkbox\n        (ionChange)=\"select($event, course)\"\n        [checked]=\"selectedCourse === course\"\n      ></ion-checkbox>\n      <ion-label>{{ course }}</ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>\n";
+      /***/
+    },
+
     /***/
     "2c9M":
     /*!**************************************************************!*\
@@ -312,6 +338,251 @@
     },
 
     /***/
+    "GqVL":
+    /*!*************************************************************!*\
+      !*** ./src/app/pages/course-select/course-select.page.scss ***!
+      \*************************************************************/
+
+    /*! exports provided: default */
+
+    /***/
+    function GqVL(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony default export */
+
+
+      __webpack_exports__["default"] = "ion-checkbox {\n  margin-right: 20px;\n}\n\nion-list {\n  padding: 0;\n}\n\nion-searchbar {\n  padding-left: 0;\n  padding-right: 0;\n}\n\nion-progress-bar {\n  margin-top: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvY291cnNlLXNlbGVjdC9jb3Vyc2Utc2VsZWN0LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxVQUFBO0FBQ0Y7O0FBRUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7QUFDRjs7QUFFQTtFQUNFLGdCQUFBO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9jb3Vyc2Utc2VsZWN0L2NvdXJzZS1zZWxlY3QucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNoZWNrYm94IHtcclxuICBtYXJnaW4tcmlnaHQ6IDIwcHg7XHJcbn1cclxuXHJcbmlvbi1saXN0IHtcclxuICBwYWRkaW5nOiAwO1xyXG59XHJcblxyXG5pb24tc2VhcmNoYmFyIHtcclxuICBwYWRkaW5nLWxlZnQ6IDA7XHJcbiAgcGFkZGluZy1yaWdodDogMDtcclxufVxyXG5cclxuaW9uLXByb2dyZXNzLWJhciB7XHJcbiAgbWFyZ2luLXRvcDogMTBweDtcclxufVxyXG4iXX0= */";
+      /***/
+    },
+
+    /***/
+    "HPLd":
+    /*!***********************************************************!*\
+      !*** ./src/app/pages/course-select/course-select.page.ts ***!
+      \***********************************************************/
+
+    /*! exports provided: CourseSelectPage */
+
+    /***/
+    function HPLd(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "CourseSelectPage", function () {
+        return CourseSelectPage;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _raw_loader_course_select_page_html__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! raw-loader!./course-select.page.html */
+      "1/we");
+      /* harmony import */
+
+
+      var _course_select_page_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! ./course-select.page.scss */
+      "GqVL");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+      /* harmony import */
+
+
+      var src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+      /*! src/app/interfaces/ISetting */
+      "N4YS");
+      /* harmony import */
+
+
+      var src_app_services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! src/app/services/storage/storage.service */
+      "E2f4");
+
+      var CourseSelectPage = /*#__PURE__*/function () {
+        function CourseSelectPage(storage, modalController, router) {
+          _classCallCheck(this, CourseSelectPage);
+
+          this.storage = storage;
+          this.modalController = modalController;
+          this.router = router;
+          this.redirect = true;
+          this.courseGroups = [];
+          this.displayedGroups = [];
+          this.selectedCourse = null;
+        }
+
+        _createClass(CourseSelectPage, [{
+          key: "ngOnInit",
+          value: function ngOnInit() {
+            var _this = this;
+
+            this.storage.fetchCourses().then(function (courses) {
+              _this.courseGroups = _this.groupCourses(courses);
+              _this.displayedGroups = _this.courseGroups;
+            })["catch"](function () {
+              _this.courseGroups = [];
+              _this.displayedGroups = [];
+            });
+            this.selectedCourse = this.storage.getSetting(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__["SettingKey"].COURSE);
+          }
+        }, {
+          key: "select",
+          value: function select(ev, course) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+              return regeneratorRuntime.wrap(function _callee$(_context) {
+                while (1) {
+                  switch (_context.prev = _context.next) {
+                    case 0:
+                      if (ev.target.checked) {
+                        _context.next = 2;
+                        break;
+                      }
+
+                      return _context.abrupt("return");
+
+                    case 2:
+                      this.selectedCourse = course;
+                      _context.next = 5;
+                      return this.storage.addSetting({
+                        key: src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__["SettingKey"].COURSE,
+                        value: course
+                      });
+
+                    case 5:
+                      if (this.redirect) {
+                        this.router.navigate(['/timetable']);
+                      } // close modal
+
+
+                      _context.next = 8;
+                      return this.modalController.getTop();
+
+                    case 8:
+                      if (!_context.sent) {
+                        _context.next = 11;
+                        break;
+                      }
+
+                      _context.next = 11;
+                      return this.modalController.dismiss();
+
+                    case 11:
+                    case "end":
+                      return _context.stop();
+                  }
+                }
+              }, _callee, this);
+            }));
+          }
+        }, {
+          key: "searchCourse",
+          value: function searchCourse(ev) {
+            var searchedValue = ev.target.value.toLowerCase().trim();
+            var matches = [];
+
+            if (searchedValue === '') {
+              // user cleared searchbar
+              this.displayedGroups = this.courseGroups;
+              return;
+            }
+
+            this.courseGroups.forEach(function (group) {
+              group.courses.forEach(function (course) {
+                if (course.toLowerCase().includes(searchedValue)) {
+                  matches.push(course);
+                }
+              });
+            });
+            this.displayedGroups = this.groupCourses(matches);
+          } // returns the groupname of a course, a.e. group for INF19B wis INF
+
+        }, {
+          key: "getGroup",
+          value: function getGroup(course) {
+            return course.split(/\d/)[0];
+          }
+        }, {
+          key: "groupCourses",
+          value: function groupCourses(courses) {
+            var _this2 = this;
+
+            var groups = []; // get unique groups
+
+            courses.forEach(function (course) {
+              var group = _this2.getGroup(course);
+
+              if (!groups.includes(group)) {
+                groups.push(group);
+              }
+            });
+            var courseGroups = [];
+            groups.forEach(function (group) {
+              var relatedCourses = courses.filter(function (course) {
+                return _this2.getGroup(course) === group;
+              });
+              courseGroups.push({
+                name: group,
+                courses: relatedCourses
+              });
+            });
+            return courseGroups;
+          }
+        }]);
+
+        return CourseSelectPage;
+      }();
+
+      CourseSelectPage.ctorParameters = function () {
+        return [{
+          type: src_app_services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ModalController"]
+        }, {
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+        }];
+      };
+
+      CourseSelectPage.propDecorators = {
+        redirect: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"]
+        }]
+      };
+      CourseSelectPage = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
+        selector: 'app-course-select',
+        template: _raw_loader_course_select_page_html__WEBPACK_IMPORTED_MODULE_1__["default"],
+        styles: [_course_select_page_scss__WEBPACK_IMPORTED_MODULE_2__["default"]]
+      })], CourseSelectPage);
+      /***/
+    },
+
+    /***/
     "NqGI":
     /*!**************************************************************************!*\
       !*** ./node_modules/@ionic/core/dist/esm/framework-delegate-d1eb6504.js ***!
@@ -338,22 +609,22 @@
       });
 
       var attachComponent = /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(delegate, container, component, cssClasses, componentProps) {
+        var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(delegate, container, component, cssClasses, componentProps) {
           var el;
-          return regeneratorRuntime.wrap(function _callee$(_context) {
+          return regeneratorRuntime.wrap(function _callee2$(_context2) {
             while (1) {
-              switch (_context.prev = _context.next) {
+              switch (_context2.prev = _context2.next) {
                 case 0:
                   if (!delegate) {
-                    _context.next = 2;
+                    _context2.next = 2;
                     break;
                   }
 
-                  return _context.abrupt("return", delegate.attachViewToDom(container, component, componentProps, cssClasses));
+                  return _context2.abrupt("return", delegate.attachViewToDom(container, component, componentProps, cssClasses));
 
                 case 2:
                   if (!(typeof component !== 'string' && !(component instanceof HTMLElement))) {
-                    _context.next = 4;
+                    _context2.next = 4;
                     break;
                   }
 
@@ -375,22 +646,22 @@
                   container.appendChild(el);
 
                   if (!el.componentOnReady) {
-                    _context.next = 11;
+                    _context2.next = 11;
                     break;
                   }
 
-                  _context.next = 11;
+                  _context2.next = 11;
                   return el.componentOnReady();
 
                 case 11:
-                  return _context.abrupt("return", el);
+                  return _context2.abrupt("return", el);
 
                 case 12:
                 case "end":
-                  return _context.stop();
+                  return _context2.stop();
               }
             }
-          }, _callee);
+          }, _callee2);
         }));
 
         return function attachComponent(_x, _x2, _x3, _x4, _x5) {
@@ -537,6 +808,194 @@
     },
 
     /***/
+    "gcxx":
+    /*!*************************************************!*\
+      !*** ./src/app/services/event/event.service.ts ***!
+      \*************************************************/
+
+    /*! exports provided: EventService */
+
+    /***/
+    function gcxx(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "EventService", function () {
+        return EventService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/common/http */
+      "tk/3");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! rxjs */
+      "qCKp");
+      /* harmony import */
+
+
+      var src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! src/app/interfaces/ISetting */
+      "N4YS");
+      /* harmony import */
+
+
+      var _storage_storage_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      /*! ../storage/storage.service */
+      "E2f4");
+
+      var EventService_1;
+
+      var EventService = EventService_1 = /*#__PURE__*/function () {
+        function EventService(http, storage) {
+          var _this3 = this;
+
+          _classCallCheck(this, EventService);
+
+          this.http = http;
+          this.storage = storage;
+          this.eventsBs = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+          this.events = this.eventsBs.asObservable();
+          this.getEvents().then(function (events) {
+            _this3.eventsBs.next(events);
+          });
+        }
+
+        _createClass(EventService, [{
+          key: "fetchEvents",
+          value: function fetchEvents() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+              var events, local;
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                  switch (_context3.prev = _context3.next) {
+                    case 0:
+                      _context3.prev = 0;
+                      _context3.next = 3;
+                      return this.http.get(EventService_1.API_HOST).toPromise();
+
+                    case 3:
+                      events = _context3.sent;
+                      events.forEach(function (event) {
+                        event.start = new Date(event.start);
+                        event.end = new Date(event.end);
+                      });
+                      this.eventsBs.next(events); // store fetched events in local storage
+
+                      _context3.next = 8;
+                      return this.storage.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_4__["StorageKey"].EVENTS, events);
+
+                    case 8:
+                      return _context3.abrupt("return", true);
+
+                    case 11:
+                      _context3.prev = 11;
+                      _context3.t0 = _context3["catch"](0);
+                      console.error('Error while fetching events!'); // load lectures from local storage
+
+                      _context3.next = 16;
+                      return this.getEvents();
+
+                    case 16:
+                      local = _context3.sent;
+                      this.eventsBs.next(local ? local : []);
+                      console.log('Fetched events from local storage.');
+                      return _context3.abrupt("return", false);
+
+                    case 20:
+                    case "end":
+                      return _context3.stop();
+                  }
+                }
+              }, _callee3, this, [[0, 11]]);
+            }));
+          }
+        }, {
+          key: "getEvents",
+          value: function getEvents() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+              var events;
+              return regeneratorRuntime.wrap(function _callee4$(_context4) {
+                while (1) {
+                  switch (_context4.prev = _context4.next) {
+                    case 0:
+                      _context4.next = 2;
+                      return this.storage.get(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_4__["StorageKey"].EVENTS);
+
+                    case 2:
+                      events = _context4.sent;
+
+                      if (!Array.isArray(events)) {
+                        _context4.next = 8;
+                        break;
+                      }
+
+                      events.forEach(function (event) {
+                        event.start = new Date(event.start);
+                        event.end = new Date(event.end);
+                      });
+                      return _context4.abrupt("return", events);
+
+                    case 8:
+                      return _context4.abrupt("return", []);
+
+                    case 9:
+                    case "end":
+                      return _context4.stop();
+                  }
+                }
+              }, _callee4, this);
+            }));
+          }
+        }, {
+          key: "getEventById",
+          value: function getEventById(id) {
+            var event = this.eventsBs.getValue().find(function (event) {
+              return event.id === id;
+            });
+            return event ? event : null;
+          }
+        }]);
+
+        return EventService;
+      }();
+
+      EventService.API_HOST = 'https://api.rickstack.de/events/';
+
+      EventService.ctorParameters = function () {
+        return [{
+          type: _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]
+        }, {
+          type: _storage_storage_service__WEBPACK_IMPORTED_MODULE_5__["StorageService"]
+        }];
+      };
+
+      EventService = EventService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["Injectable"])({
+        providedIn: 'root'
+      })], EventService);
+      /***/
+    },
+
+    /***/
     "sPtc":
     /*!*************************************************************!*\
       !*** ./node_modules/@ionic/core/dist/esm/theme-5641d27f.js ***!
@@ -614,21 +1073,21 @@
       var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
 
       var openURL = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(url, ev, direction, animation) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(url, ev, direction, animation) {
           var router;
-          return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          return regeneratorRuntime.wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context2.prev = _context2.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
                   if (!(url != null && url[0] !== '#' && !SCHEME.test(url))) {
-                    _context2.next = 5;
+                    _context5.next = 5;
                     break;
                   }
 
                   router = document.querySelector('ion-router');
 
                   if (!router) {
-                    _context2.next = 5;
+                    _context5.next = 5;
                     break;
                   }
 
@@ -636,17 +1095,17 @@
                     ev.preventDefault();
                   }
 
-                  return _context2.abrupt("return", router.push(url, direction, animation));
+                  return _context5.abrupt("return", router.push(url, direction, animation));
 
                 case 5:
-                  return _context2.abrupt("return", false);
+                  return _context5.abrupt("return", false);
 
                 case 6:
                 case "end":
-                  return _context2.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee2);
+          }, _callee5);
         }));
 
         return function openURL(_x6, _x7, _x8, _x9) {

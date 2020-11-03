@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\Capacitor\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! D:\vorlesungsplan-capacitor\src\main.ts */"zUnb");
 
 
 /***/ }),
@@ -40,6 +40,262 @@ const environment = {
 
 /***/ }),
 
+/***/ "E2f4":
+/*!*****************************************************!*\
+  !*** ./src/app/services/storage/storage.service.ts ***!
+  \*****************************************************/
+/*! exports provided: StorageService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StorageService", function() { return StorageService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "qCKp");
+/* harmony import */ var src_app_interfaces_ILecture__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/interfaces/ILecture */ "dP1x");
+/* harmony import */ var src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/interfaces/ISetting */ "N4YS");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+var StorageService_1;
+
+
+
+
+
+
+
+const { Storage } = _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"];
+let StorageService = StorageService_1 = class StorageService {
+    constructor(http) {
+        this.http = http;
+        // observables
+        this.settingsBs = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.settings = this.settingsBs.asObservable();
+        this.lecturesBs = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
+        this.lectures = this.lecturesBs.asObservable();
+        // init settings
+        this.get(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].SETTINGS).then((settings) => {
+            StorageService_1.INIT_SETTINGS = true;
+            this.settingsBs.next(Array.isArray(settings) ? settings : []);
+        });
+        // init lectures
+        this.get(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].LECTURES).then((lectures) => {
+            this.lecturesBs.next(Array.isArray(lectures) ? this.validateLectures(lectures) : []);
+        });
+    }
+    get(key) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const ret = yield Storage.get({ key });
+            return JSON.parse(ret.value);
+        });
+    }
+    store(key, value) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            yield Storage.set({
+                key,
+                value: JSON.stringify(value),
+            });
+        });
+    }
+    // fetch lectures for set course from api or local storage if api is not available
+    fetchLectures() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const course = this.getSetting(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].COURSE);
+            if (!course) {
+                // no course set, so lectures can't be fetched
+                console.error('Can not fetch lectures for undefined or invalid course.');
+                return false;
+            }
+            try {
+                // send get request to api
+                let lectures = yield this.http
+                    .get(`${StorageService_1.API_HOST}?course=${course.toLowerCase()}`)
+                    .toPromise();
+                lectures = this.validateLectures(lectures);
+                // add status to lectures
+                lectures = this.setStatus(this.lecturesBs.getValue(), lectures);
+                this.lecturesBs.next(lectures);
+                // store fetched lectures in local storage and update last updated date
+                yield this.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].LECTURES, lectures);
+                yield this.addSetting({
+                    key: src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].LASTUPDATED,
+                    value: new Date(Date.now()),
+                });
+                return true;
+            }
+            catch (error) {
+                console.error('Error while fetching lectures!');
+                console.error(error);
+                // try to load lectures from local storage
+                const local = yield this.get(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].LECTURES);
+                this.lecturesBs.next(local ? this.validateLectures(local) : []);
+                console.log('Fetched lectures from local storage.');
+                return false;
+            }
+        });
+    }
+    // returns array of all available courses
+    fetchCourses() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            return this.http.get(`${StorageService_1.API_HOST}`).toPromise();
+        });
+    }
+    // ensures that lectures from local storage are valid
+    validateLectures(lectures) {
+        lectures.forEach((lecture) => {
+            lecture.end = new Date(lecture.end);
+            lecture.start = new Date(lecture.start);
+            lecture.lastModified = new Date(lecture.lastModified);
+        });
+        return lectures;
+    }
+    setStatus(oldLectures, newLectures) {
+        if (!oldLectures || oldLectures.length === 0) {
+            return newLectures;
+        }
+        // remove past lectures from old lectures
+        oldLectures = oldLectures.filter((lecture) => {
+            return lecture.end.getTime() >= Date.now();
+        });
+        const checked = [];
+        // check if new lectures were added
+        newLectures.forEach((newLecture) => {
+            const lecture = oldLectures.find((oldLecture) => {
+                return this.compareLectures(oldLecture, newLecture);
+            });
+            if (!lecture || lecture.status) {
+                // newLecture was added
+                newLecture.status = src_app_interfaces_ILecture__WEBPACK_IMPORTED_MODULE_4__["LectureStatus"].ADDED;
+            }
+            else if (lecture.status) {
+                newLecture.status = lecture.status;
+            }
+            checked.push(newLecture);
+        });
+        // checked now contains all new lectures and newly added lectures have status "added"
+        // check if old lectures were removed
+        oldLectures.forEach((oldLecture) => {
+            const lecture = newLectures.find((newLecture) => {
+                return this.compareLectures(newLecture, oldLecture);
+            });
+            if (!lecture) {
+                // oldLecture was removed
+                oldLecture.status = src_app_interfaces_ILecture__WEBPACK_IMPORTED_MODULE_4__["LectureStatus"].REMOVED;
+                checked.push(oldLecture);
+            }
+        });
+        return checked.sort((a, b) => {
+            return a.start.getTime() - b.start.getTime();
+        });
+    }
+    // resets status of all lectures and removes lecture with status "removed"
+    resetStatus() {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const lectures = this.lecturesBs.getValue();
+            const reset = [];
+            lectures.forEach((lecture) => {
+                if (lecture.status === src_app_interfaces_ILecture__WEBPACK_IMPORTED_MODULE_4__["LectureStatus"].ADDED || !lecture.status) {
+                    lecture.status = null;
+                    reset.push(lecture);
+                }
+            });
+            this.lecturesBs.next(reset);
+            yield this.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].LECTURES, reset);
+        });
+    }
+    // returns true when both lectures are equal
+    compareLectures(a, b) {
+        for (const attr in a) {
+            // ignore status, lastModified and uid
+            if (attr === 'status' || attr === 'lastModified' || attr === 'uid') {
+                continue;
+            }
+            if (a[attr] instanceof Date && b[attr] instanceof Date) {
+                // compare date attribute
+                if (a[attr].getTime() !== b[attr].getTime()) {
+                    return false;
+                }
+            }
+            else if (a[attr] !== b[attr]) {
+                // attributes are different
+                return false;
+            }
+        }
+        // lectures are equal
+        return true;
+    }
+    // update or add setting to local storage if its no duplicate
+    addSetting(setting) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const settings = this.settingsBs.getValue();
+            const storedSetting = settings.find((storedSetting) => {
+                return storedSetting.key === setting.key;
+            });
+            if (storedSetting) {
+                storedSetting.value = setting.value;
+            }
+            else {
+                settings.push(setting);
+            }
+            this.settingsBs.next(settings);
+            yield this.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].SETTINGS, settings);
+        });
+    }
+    getSetting(identifier) {
+        const settings = this.settingsBs.getValue();
+        const match = settings.find((setting) => {
+            return setting.key === identifier;
+        });
+        return match ? match.value : null;
+    }
+};
+StorageService.API_HOST = 'https://api.rickstack.de/';
+StorageService.INIT_SETTINGS = false;
+StorageService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+StorageService = StorageService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root',
+    })
+], StorageService);
+
+
+
+/***/ }),
+
+/***/ "N4YS":
+/*!****************************************!*\
+  !*** ./src/app/interfaces/ISetting.ts ***!
+  \****************************************/
+/*! exports provided: SettingKey, StorageKey */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingKey", function() { return SettingKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StorageKey", function() { return StorageKey; });
+// keys to identify setting
+var SettingKey;
+(function (SettingKey) {
+    SettingKey["DARKMODE"] = "darkMode";
+    SettingKey["LASTUPDATED"] = "lastUpdated";
+    SettingKey["COURSE"] = "course";
+    SettingKey["INTRO"] = "intro";
+})(SettingKey || (SettingKey = {}));
+// keys for local storage
+var StorageKey;
+(function (StorageKey) {
+    StorageKey["SETTINGS"] = "settings";
+    StorageKey["LECTURES"] = "lectures";
+    StorageKey["TASKS"] = "tasks";
+    StorageKey["EVENTS"] = "events";
+})(StorageKey || (StorageKey = {}));
+
+
+/***/ }),
+
 /***/ "Sy1n":
 /*!**********************************!*\
   !*** ./src/app/app.component.ts ***!
@@ -56,33 +312,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+/* harmony import */ var _interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./interfaces/ISetting */ "N4YS");
+/* harmony import */ var _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/storage/storage.service */ "E2f4");
 
 
 
 
 
 
-const { SplashScreen, StatusBar, Keyboard } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
+
+
+const { SplashScreen, StatusBar, Keyboard, Browser } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
 let AppComponent = class AppComponent {
-    constructor(router) {
+    constructor(router, storage) {
         this.router = router;
+        this.storage = storage;
         this.navItems = [
             {
-                title: 'Title',
-                url: '/home',
-                icon: 'information-circle-outline',
+                title: 'Vorlesungsplan',
+                url: '/timetable',
+                icon: 'school-outline',
+            },
+            {
+                title: 'Veranstaltungen',
+                url: '/events',
+                icon: 'calendar-outline',
+            },
+            {
+                title: 'Aufgaben',
+                url: '/tasks',
+                icon: 'file-tray-full-outline',
             },
         ];
         this.bottomNavItems = [
             {
-                title: 'Title',
-                url: '/',
-                icon: 'information-circle-outline',
+                title: 'Installation',
+                url: '/installation',
+                icon: 'download-outline',
+            },
+            {
+                title: 'Einstellungen',
+                url: '/settings',
+                icon: 'cog-outline',
             },
         ];
+        this.links = [
+            {
+                title: 'INF19 Wiki',
+                href: 'https://wiki.siphalor.de/',
+                image: '/assets/images/logo-siphalor-wiki.png',
+            },
+            {
+                title: 'INF19 OneDrive',
+                desc: 'Du musst dich mit deinem DHBW Microsoft-Konto anmelden',
+                href: 'https://lehremosbachdhbwde-my.sharepoint.com/:f:/g/personal/lar_rickert_19_lehre_mosbach_dhbw_de/Eii8oVgD33pDovLSbxYxsk0BAVJDy5DMMEGpZy-A5xVZ1Q?e=h6NzDz',
+                image: '/assets/images/logo-onedrive.svg',
+            },
+        ];
+        this.showLinks = false;
         this.initializeApp();
     }
-    // initialze app style and theme
     initializeApp() {
         // set theme listeners (dark / light mode)
         this.setTheme();
@@ -99,47 +388,66 @@ let AppComponent = class AppComponent {
         if (_capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Capacitor"].isPluginAvailable('SplashScreen')) {
             SplashScreen.hide();
         }
+        // remove "installation" nav item when running native
+        if (_capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Capacitor"].isNative) {
+            this.bottomNavItems = this.bottomNavItems.filter((item) => {
+                return item.url !== '/installation';
+            });
+        }
+        // redirect to intro when no course is set
+        // watch whether to hide links or not
+        this.storage.settings.subscribe(() => {
+            if (_services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"].INIT_SETTINGS) {
+                const course = this.storage.getSetting(_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__["SettingKey"].COURSE);
+                if (!this.storage.getSetting(_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__["SettingKey"].INTRO) && !course) {
+                    this.router.navigate(['/intro']);
+                }
+                this.showLinks = course && course.includes('INF19');
+            }
+        });
     }
     // call once to enable auto changing of theme (dark / light)
     // user preference can be added, a.e. theme depending on a setting
     setTheme() {
-        // get reference to users device dark mode setting
-        if (!this.darkModeUserPreference) {
-            this.darkModeUserPreference = window.matchMedia('(prefers-color-scheme: dark)');
-        }
-        // set inital theme to user device preference, will eventuelly be changed to user selection (may prevent visual artifacts)
-        this.toggleDarkTheme(this.darkModeUserPreference.matches);
-        // remove any theme listeners
-        if (this.setThemeFunction) {
-            this.darkModeUserPreference.removeEventListener('change', this.setThemeFunction);
-            this.setThemeFunction = null;
-        }
-        // change value of customUserSetting to change theme to user selection
-        // true = dark mode
-        // false = light mode
-        // null = auto (based on device settings)
-        const customUserSetting = null;
-        if (customUserSetting === null) {
-            // auto dark mode detection (based on device settings)
-            if (!this.setThemeFunction) {
-                // create function that toggles theme
-                this.setThemeFunction = function toggleDarkTheme(e) {
-                    document.body.classList.toggle('dark', e.matches);
-                };
+        this.storage.settings.subscribe((settings) => {
+            // get reference to users device dark mode setting
+            if (!this.darkModeUserPreference) {
+                this.darkModeUserPreference = window.matchMedia('(prefers-color-scheme: dark)');
             }
-            // apply app theme (dark / light) to auto deteced value
+            // set inital theme to user device preference, will eventuelly be changed to user selection (may prevent visual artifacts)
             this.toggleDarkTheme(this.darkModeUserPreference.matches);
-            // add listener for changes to user device theme setting
-            this.darkModeUserPreference.addEventListener('change', this.setThemeFunction);
-        }
-        else if (!customUserSetting) {
-            // enable static light mode
-            this.toggleDarkTheme(false);
-        }
-        else {
-            // enable static dark mode
-            this.toggleDarkTheme(true);
-        }
+            // remove any theme listeners
+            if (this.setThemeFunction) {
+                this.darkModeUserPreference.removeEventListener('change', this.setThemeFunction);
+                this.setThemeFunction = null;
+            }
+            // change value of customUserSetting to change theme to user selection
+            // true = dark mode
+            // false = light mode
+            // null = auto (based on device settings)
+            const customUserSetting = this.storage.getSetting(_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__["SettingKey"].DARKMODE);
+            if (customUserSetting === null) {
+                // auto dark mode detection (based on device settings)
+                if (!this.setThemeFunction) {
+                    // create function that toggles theme
+                    this.setThemeFunction = function toggleDarkTheme(e) {
+                        document.body.classList.toggle('dark', e.matches);
+                    };
+                }
+                // apply app theme (dark / light) to auto deteced value
+                this.toggleDarkTheme(this.darkModeUserPreference.matches);
+                // add listener for changes to user device theme setting
+                this.darkModeUserPreference.addEventListener('change', this.setThemeFunction);
+            }
+            else if (!customUserSetting) {
+                // enable static light mode
+                this.toggleDarkTheme(false);
+            }
+            else {
+                // enable static dark mode
+                this.toggleDarkTheme(true);
+            }
+        });
     }
     // apply dark / light mode to app
     toggleDarkTheme(dark) {
@@ -153,9 +461,13 @@ let AppComponent = class AppComponent {
             Keyboard.setStyle({ style });
         }
     }
+    navigate(url) {
+        Browser.open({ url });
+    }
 };
 AppComponent.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
+    { type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({
@@ -178,7 +490,7 @@ AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <!-- main navigation -->\n        <ion-list id=\"mainNav\">\n          <!-- app details -->\n          <div class=\"app-details\">\n            <img class=\"logo\" src=\"../assets/images/logo.svg\" alt=\"Logo\" />\n            <div>\n              <ion-label class=\"app-details__title\">App Name</ion-label>\n              <ion-note>Subtitle</ion-note>\n            </div>\n          </div>\n\n          <!-- navigation -->\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let page of navItems\">\n            <ion-item\n              routerDirection=\"root\"\n              [routerLink]=\"[page.url]\"\n              lines=\"none\"\n              detail=\"false\"\n              [class.item--selected]=\"page.url === router.url\"\n            >\n              <ion-icon slot=\"start\" [name]=\"page.icon\"></ion-icon>\n              <ion-label>{{ page.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n        <!-- bottom navigation -->\n        <ion-list>\n          <ion-note>Bottom Navigation</ion-note>\n\n          <ion-menu-toggle\n            auto-hide=\"false\"\n            *ngFor=\"let page of bottomNavItems\"\n          >\n            <ion-item\n              routerDirection=\"root\"\n              [routerLink]=\"[page.url]\"\n              lines=\"none\"\n              detail=\"false\"\n              [class.item--selected]=\"page.url === router.url\"\n            >\n              <ion-icon slot=\"start\" [name]=\"page.icon\"></ion-icon>\n              <ion-label>{{ page.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <!-- main navigation -->\n        <ion-list id=\"mainNav\">\n          <!-- app details -->\n          <div class=\"app-details\">\n            <img class=\"logo\" src=\"../assets/images/logo.svg\" alt=\"Logo\" />\n            <div>\n              <ion-label class=\"app-details__title\">Vorlesungsplan+</ion-label>\n              <ion-note>DHBW Mosbach</ion-note>\n            </div>\n          </div>\n\n          <!-- navigation -->\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let page of navItems\">\n            <ion-item\n              routerDirection=\"root\"\n              [routerLink]=\"[page.url]\"\n              lines=\"none\"\n              detail=\"false\"\n              [class.item--selected]=\"page.url === router.url\"\n            >\n              <ion-icon slot=\"start\" [name]=\"page.icon\"></ion-icon>\n              <ion-label>{{ page.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n        <!-- bottom navigation -->\n        <ion-list>\n          <ion-note>App</ion-note>\n\n          <ion-menu-toggle\n            auto-hide=\"false\"\n            *ngFor=\"let page of bottomNavItems\"\n          >\n            <ion-item\n              routerDirection=\"root\"\n              [routerLink]=\"[page.url]\"\n              lines=\"none\"\n              detail=\"false\"\n              [class.item--selected]=\"page.url === router.url\"\n            >\n              <ion-icon slot=\"start\" [name]=\"page.icon\"></ion-icon>\n              <ion-label>{{ page.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n        <!-- links -->\n        <details class=\"showLinks\" *ngIf=\"showLinks\">\n          <summary>Verknüpfungen anzeigen</summary>\n\n          <ng-container *ngFor=\"let link of links\">\n            <ion-item\n              class=\"link\"\n              lines=\"none\"\n              detail=\"false\"\n              (click)=\"navigate(link.href)\"\n            >\n              <img\n                class=\"link__image\"\n                [src]=\"link.image\"\n                [alt]=\"link.title\"\n                [title]=\"link.title\"\n              />\n              <ion-label>{{ link.title }}</ion-label>\n            </ion-item>\n            <div *ngIf=\"link.desc\" class=\"link__desc\">\n              <ion-icon\n                class=\"link__desc__icon\"\n                name=\"information-circle-outline\"\n              ></ion-icon>\n              <ion-text>{{ link.desc }}</ion-text>\n            </div>\n          </ng-container>\n        </details>\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>\n");
 
 /***/ }),
 
@@ -201,6 +513,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/status-bar/ngx */ "VYYF");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "Sy1n");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "vY5A");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "ofXK");
+/* harmony import */ var _angular_common_locales_de__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common/locales/de */ "VLs4");
+/* harmony import */ var _angular_common_locales_de__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_de__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 
 
 
@@ -210,6 +526,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+Object(_angular_common__WEBPACK_IMPORTED_MODULE_9__["registerLocaleData"])(_angular_common_locales_de__WEBPACK_IMPORTED_MODULE_10___default.a, 'de');
 let AppModule = class AppModule {
 };
 AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
@@ -219,17 +539,38 @@ AppModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(),
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"]
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"],
         ],
         providers: [
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
-            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] }
+            { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
+            { provide: _angular_core__WEBPACK_IMPORTED_MODULE_1__["LOCALE_ID"], useValue: 'de' },
         ],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
     })
 ], AppModule);
 
+
+
+/***/ }),
+
+/***/ "dP1x":
+/*!****************************************!*\
+  !*** ./src/app/interfaces/ILecture.ts ***!
+  \****************************************/
+/*! exports provided: LectureStatus */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LectureStatus", function() { return LectureStatus; });
+var LectureStatus;
+(function (LectureStatus) {
+    LectureStatus["ADDED"] = "added";
+    LectureStatus["REMOVED"] = "removed";
+})(LectureStatus || (LectureStatus = {}));
 
 
 /***/ }),
@@ -491,22 +832,62 @@ __webpack_require__.r(__webpack_exports__);
 const routes = [
     {
         path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
+        redirectTo: '/timetable',
+        pathMatch: 'full',
     },
     {
-        path: 'home',
-        loadChildren: () => __webpack_require__.e(/*! import() | pages-home-home-module */ "pages-home-home-module").then(__webpack_require__.bind(null, /*! ./pages/home/home.module */ "99Un")).then(m => m.HomePageModule)
-    }
+        path: 'timetable',
+        loadChildren: () => Promise.all(/*! import() | pages-timetable-timetable-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("pages-timetable-timetable-module")]).then(__webpack_require__.bind(null, /*! ./pages/timetable/timetable.module */ "QUEe")).then((m) => m.TimetablePageModule),
+    },
+    {
+        path: 'settings',
+        loadChildren: () => Promise.all(/*! import() | pages-settings-settings-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("common"), __webpack_require__.e("pages-settings-settings-module")]).then(__webpack_require__.bind(null, /*! ./pages/settings/settings.module */ "yPrK")).then((m) => m.SettingsPageModule),
+    },
+    {
+        path: 'course-select',
+        loadChildren: () => Promise.all(/*! import() | pages-course-select-course-select-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("common"), __webpack_require__.e("pages-course-select-course-select-module")]).then(__webpack_require__.bind(null, /*! ./pages/course-select/course-select.module */ "/lGa")).then((m) => m.CourseSelectPageModule),
+    },
+    {
+        path: 'events',
+        loadChildren: () => Promise.all(/*! import() | pages-events-events-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("common"), __webpack_require__.e("pages-events-events-module")]).then(__webpack_require__.bind(null, /*! ./pages/events/events.module */ "Obr4")).then((m) => m.EventsPageModule),
+    },
+    {
+        path: 'event-details/:id',
+        loadChildren: () => Promise.all(/*! import() | pages-event-details-event-details-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("common"), __webpack_require__.e("pages-event-details-event-details-module")]).then(__webpack_require__.bind(null, /*! ./pages/event-details/event-details.module */ "T4q2")).then((m) => m.EventDetailsPageModule),
+    },
+    {
+        path: 'tasks',
+        loadChildren: () => Promise.all(/*! import() | pages-tasks-tasks-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("pages-tasks-tasks-module")]).then(__webpack_require__.bind(null, /*! ./pages/tasks/tasks.module */ "i854")).then(m => m.TasksPageModule)
+    },
+    {
+        path: 'task-edit',
+        loadChildren: () => Promise.all(/*! import() | pages-task-edit-task-edit-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("pages-task-edit-task-edit-module")]).then(__webpack_require__.bind(null, /*! ./pages/task-edit/task-edit.module */ "kFKP")).then(m => m.TaskEditPageModule)
+    },
+    {
+        path: 'installation',
+        loadChildren: () => Promise.all(/*! import() | pages-installation-installation-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("pages-installation-installation-module")]).then(__webpack_require__.bind(null, /*! ./pages/installation/installation.module */ "Nnce")).then(m => m.InstallationPageModule)
+    },
+    {
+        path: 'about',
+        loadChildren: () => Promise.all(/*! import() | pages-about-about-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("pages-about-about-module")]).then(__webpack_require__.bind(null, /*! ./pages/about/about.module */ "UoYK")).then(m => m.AboutPageModule)
+    },
+    {
+        path: 'report',
+        loadChildren: () => Promise.all(/*! import() | pages-report-report-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("pages-report-report-module")]).then(__webpack_require__.bind(null, /*! ./pages/report/report.module */ "Q0Id")).then(m => m.ReportPageModule)
+    },
+    {
+        path: 'intro',
+        loadChildren: () => Promise.all(/*! import() | pages-intro-intro-module */[__webpack_require__.e("default~pages-about-about-module~pages-course-select-course-select-module~pages-event-details-event-~1f79c393"), __webpack_require__.e("common"), __webpack_require__.e("pages-intro-intro-module")]).then(__webpack_require__.bind(null, /*! ./pages/intro/intro.module */ "a+tW")).then(m => m.IntroPageModule)
+    },
 ];
 let AppRoutingModule = class AppRoutingModule {
 };
 AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         imports: [
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"] })
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { preloadingStrategy: _angular_router__WEBPACK_IMPORTED_MODULE_2__["PreloadAllModules"] }),
         ],
-        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]],
     })
 ], AppRoutingModule);
 
@@ -523,7 +904,7 @@ AppRoutingModule = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("ion-menu ion-content {\n  --background: var(--ion-item-background, var(--ion-background-color, #fff));\n  --padding-start: 16px;\n  --padding-end: 16px;\n  --padding-top: 16px;\n  --padding-bottom: 16px;\n}\nion-menu .logo {\n  max-height: 60px;\n  max-width: 50px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  display: block;\n  margin-left: 10px;\n  margin-right: 10px;\n}\nion-menu .app-details {\n  margin-top: constant(safe-area-inset-top);\n  margin-top: env(safe-area-inset-top);\n  margin-bottom: 30px;\n  display: flex;\n  align-items: center;\n}\n@media only screen and (min-width: 768px) {\n  ion-menu .app-details {\n    margin-top: calc(constant(safe-area-inset-top) + 20px);\n    margin-top: calc(env(safe-area-inset-top) + 20px);\n  }\n}\nion-menu .app-details__title {\n  display: block;\n  padding-left: 10px;\n  font-size: 22px;\n  font-weight: 600;\n  margin-bottom: 5px;\n}\n@media only screen and (max-width: 768px) {\n  ion-menu .app-details__title {\n    font-size: 20px;\n  }\n}\nion-menu ion-note {\n  padding-left: 10px;\n  font-size: 16px;\n  color: var(--ion-color-medium-shade);\n}\nion-menu #mainNav {\n  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);\n  margin-bottom: 20px;\n}\nion-menu ion-item {\n  border-radius: var(--app-border-radius);\n  margin: 5px 0px;\n  --padding-start: 10px;\n}\nion-menu ion-item ion-icon {\n  color: #616e7e;\n}\nion-menu .item--selected {\n  --color: var(--ion-color-primary);\n  --background: rgba(var(--ion-color-primary-rgb), 0.14);\n}\nion-menu .item--selected ion-icon {\n  color: var(--ion-color-primary);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNFO0VBQ0UsMkVBQUE7RUFDQSxxQkFBQTtFQUNBLG1CQUFBO0VBQ0EsbUJBQUE7RUFDQSxzQkFBQTtBQUFKO0FBR0U7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSwwQkFBQTtFQUFBLHVCQUFBO0VBQUEsa0JBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQURKO0FBS0U7RUFFRSx5Q0FBQTtFQUNBLG9DQUFBO0VBT0EsbUJBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7QUFWSjtBQUdJO0VBTEY7SUFNSSxzREFBQTtJQUNBLGlEQUFBO0VBQUo7QUFDRjtBQU1JO0VBQ0UsY0FBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUFKTjtBQU1NO0VBUEY7SUFRSSxlQUFBO0VBSE47QUFDRjtBQVFFO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0Esb0NBQUE7QUFOSjtBQVNFO0VBQ0UsMkRBQUE7RUFDQSxtQkFBQTtBQVBKO0FBV0U7RUFDRSx1Q0FBQTtFQUNBLGVBQUE7RUFDQSxxQkFBQTtBQVRKO0FBV0k7RUFDRSxjQUFBO0FBVE47QUFhRTtFQUNFLGlDQUFBO0VBQ0Esc0RBQUE7QUFYSjtBQWFJO0VBQ0UsK0JBQUE7QUFYTiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1tZW51IHtcbiAgaW9uLWNvbnRlbnQge1xuICAgIC0tYmFja2dyb3VuZDogdmFyKC0taW9uLWl0ZW0tYmFja2dyb3VuZCwgdmFyKC0taW9uLWJhY2tncm91bmQtY29sb3IsICNmZmYpKTtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDE2cHg7XG4gICAgLS1wYWRkaW5nLWVuZDogMTZweDtcbiAgICAtLXBhZGRpbmctdG9wOiAxNnB4O1xuICAgIC0tcGFkZGluZy1ib3R0b206IDE2cHg7XG4gIH1cblxuICAubG9nbyB7XG4gICAgbWF4LWhlaWdodDogNjBweDtcbiAgICBtYXgtd2lkdGg6IDUwcHg7XG4gICAgd2lkdGg6IGZpdC1jb250ZW50O1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIG1hcmdpbi1sZWZ0OiAxMHB4O1xuICAgIG1hcmdpbi1yaWdodDogMTBweDtcbiAgfVxuXG4gIC8vIHdyYXBwZXIgd2l0aCBsb2dvLCBhcHAgdGl0bGUgYW5kIHN1YnRpdGxlXG4gIC5hcHAtZGV0YWlscyB7XG4gICAgLy8gbm90Y2hlc1xuICAgIG1hcmdpbi10b3A6IGNvbnN0YW50KHNhZmUtYXJlYS1pbnNldC10b3ApO1xuICAgIG1hcmdpbi10b3A6IGVudihzYWZlLWFyZWEtaW5zZXQtdG9wKTtcblxuICAgIEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNzY4cHgpIHtcbiAgICAgIG1hcmdpbi10b3A6IGNhbGMoY29uc3RhbnQoc2FmZS1hcmVhLWluc2V0LXRvcCkgKyAyMHB4KTtcbiAgICAgIG1hcmdpbi10b3A6IGNhbGMoZW52KHNhZmUtYXJlYS1pbnNldC10b3ApICsgMjBweCk7XG4gICAgfVxuXG4gICAgbWFyZ2luLWJvdHRvbTogMzBweDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG5cbiAgICAmX190aXRsZSB7XG4gICAgICBkaXNwbGF5OiBibG9jaztcbiAgICAgIHBhZGRpbmctbGVmdDogMTBweDtcbiAgICAgIGZvbnQtc2l6ZTogMjJweDtcbiAgICAgIGZvbnQtd2VpZ2h0OiA2MDA7XG4gICAgICBtYXJnaW4tYm90dG9tOiA1cHg7XG5cbiAgICAgIEBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogNzY4cHgpIHtcbiAgICAgICAgZm9udC1zaXplOiAyMHB4O1xuICAgICAgfVxuICAgIH1cbiAgfVxuXG4gIC8vIGFwcCBzdWJ0aXRsZSBhbmQgYm90dG9tIG5hdiB0aXRsZVxuICBpb24tbm90ZSB7XG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xuICAgIGZvbnQtc2l6ZTogMTZweDtcbiAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLW1lZGl1bS1zaGFkZSk7XG4gIH1cblxuICAjbWFpbk5hdiB7XG4gICAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkIHZhcigtLWlvbi1jb2xvci1zdGVwLTE1MCwgI2Q3ZDhkYSk7XG4gICAgbWFyZ2luLWJvdHRvbTogMjBweDtcbiAgfVxuXG4gIC8vIG5hdiBpdGVtc1xuICBpb24taXRlbSB7XG4gICAgYm9yZGVyLXJhZGl1czogdmFyKC0tYXBwLWJvcmRlci1yYWRpdXMpO1xuICAgIG1hcmdpbjogNXB4IDBweDtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDEwcHg7XG5cbiAgICBpb24taWNvbiB7XG4gICAgICBjb2xvcjogIzYxNmU3ZTtcbiAgICB9XG4gIH1cblxuICAuaXRlbS0tc2VsZWN0ZWQge1xuICAgIC0tY29sb3I6IHZhcigtLWlvbi1jb2xvci1wcmltYXJ5KTtcbiAgICAtLWJhY2tncm91bmQ6IHJnYmEodmFyKC0taW9uLWNvbG9yLXByaW1hcnktcmdiKSwgMC4xNCk7XG5cbiAgICBpb24taWNvbiB7XG4gICAgICBjb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xuICAgIH1cbiAgfVxufVxuIl19 */");
+/* harmony default export */ __webpack_exports__["default"] = ("ion-menu ion-content {\n  --background: var(--ion-item-background, var(--ion-background-color, #fff));\n  --padding-start: 16px;\n  --padding-end: 16px;\n  --padding-top: 16px;\n  --padding-bottom: 16px;\n}\nion-menu .logo {\n  max-height: 60px;\n  max-width: 50px;\n  width: -webkit-fit-content;\n  width: -moz-fit-content;\n  width: fit-content;\n  display: block;\n  margin-left: 10px;\n  margin-right: 10px;\n}\nion-menu .app-details {\n  margin-top: constant(safe-area-inset-top);\n  margin-top: env(safe-area-inset-top);\n  margin-bottom: 30px;\n  display: flex;\n  align-items: center;\n}\nion-menu .app-details__title {\n  display: block;\n  padding-left: 10px;\n  font-size: 22px;\n  font-weight: 600;\n  margin-bottom: 5px;\n}\n@media only screen and (max-width: 768px) {\n  ion-menu .app-details__title {\n    font-size: 20px;\n  }\n}\nion-menu ion-note {\n  padding-left: 10px;\n  font-size: 16px;\n  color: var(--ion-color-medium-shade);\n}\nion-menu #mainNav {\n  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);\n  margin-bottom: 20px;\n}\nion-menu ion-item {\n  border-radius: var(--app-border-radius);\n  margin: 5px 0px;\n  --padding-start: 10px;\n}\nion-menu ion-item ion-icon {\n  color: #616e7e;\n}\nion-menu .item--selected {\n  --color: var(--ion-color-primary);\n  --background: rgba(var(--ion-color-primary-rgb), 0.14);\n}\nion-menu .item--selected ion-icon {\n  color: var(--ion-color-primary);\n}\nion-menu .showLinks {\n  margin-top: 20px;\n  margin-left: 10px;\n}\nion-menu .showLinks summary {\n  outline: 0;\n  cursor: pointer;\n  font-size: 14px;\n  margin-bottom: 10px;\n}\nion-menu .showLinks .link {\n  cursor: pointer;\n}\nion-menu .showLinks .link__image {\n  max-height: 30px;\n  max-width: 30px;\n  margin-right: 10px;\n}\nion-menu .showLinks .link__desc {\n  margin-left: 12px;\n  display: flex;\n  align-items: center;\n  font-size: 12px;\n  color: var(--ion-color-dark);\n}\nion-menu .showLinks .link__desc__icon {\n  font-size: 18px;\n  min-width: 18px;\n  margin-right: 10px;\n}\nion-menu .showLinks .link:hover {\n  --background: rgba(var(--ion-color-medium-rgb), 0.07);\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXBwLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUNFO0VBQ0UsMkVBQUE7RUFDQSxxQkFBQTtFQUNBLG1CQUFBO0VBQ0EsbUJBQUE7RUFDQSxzQkFBQTtBQUFKO0FBR0U7RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSwwQkFBQTtFQUFBLHVCQUFBO0VBQUEsa0JBQUE7RUFDQSxjQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQURKO0FBS0U7RUFFRSx5Q0FBQTtFQUNBLG9DQUFBO0VBQ0EsbUJBQUE7RUFFQSxhQUFBO0VBQ0EsbUJBQUE7QUFMSjtBQU9JO0VBQ0UsY0FBQTtFQUNBLGtCQUFBO0VBQ0EsZUFBQTtFQUNBLGdCQUFBO0VBQ0Esa0JBQUE7QUFMTjtBQU9NO0VBUEY7SUFRSSxlQUFBO0VBSk47QUFDRjtBQVNFO0VBQ0Usa0JBQUE7RUFDQSxlQUFBO0VBQ0Esb0NBQUE7QUFQSjtBQVVFO0VBQ0UsMkRBQUE7RUFDQSxtQkFBQTtBQVJKO0FBWUU7RUFDRSx1Q0FBQTtFQUNBLGVBQUE7RUFDQSxxQkFBQTtBQVZKO0FBWUk7RUFDRSxjQUFBO0FBVk47QUFjRTtFQUNFLGlDQUFBO0VBQ0Esc0RBQUE7QUFaSjtBQWNJO0VBQ0UsK0JBQUE7QUFaTjtBQWdCRTtFQUNFLGdCQUFBO0VBQ0EsaUJBQUE7QUFkSjtBQWdCSTtFQUNFLFVBQUE7RUFDQSxlQUFBO0VBQ0EsZUFBQTtFQUNBLG1CQUFBO0FBZE47QUFpQkk7RUFDRSxlQUFBO0FBZk47QUFpQk07RUFDRSxnQkFBQTtFQUNBLGVBQUE7RUFDQSxrQkFBQTtBQWZSO0FBa0JNO0VBQ0UsaUJBQUE7RUFDQSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxlQUFBO0VBQ0EsNEJBQUE7QUFoQlI7QUFrQlE7RUFDRSxlQUFBO0VBQ0EsZUFBQTtFQUNBLGtCQUFBO0FBaEJWO0FBcUJJO0VBQ0UscURBQUE7QUFuQk4iLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tbWVudSB7XG4gIGlvbi1jb250ZW50IHtcbiAgICAtLWJhY2tncm91bmQ6IHZhcigtLWlvbi1pdGVtLWJhY2tncm91bmQsIHZhcigtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yLCAjZmZmKSk7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAxNnB4O1xuICAgIC0tcGFkZGluZy1lbmQ6IDE2cHg7XG4gICAgLS1wYWRkaW5nLXRvcDogMTZweDtcbiAgICAtLXBhZGRpbmctYm90dG9tOiAxNnB4O1xuICB9XG5cbiAgLmxvZ28ge1xuICAgIG1heC1oZWlnaHQ6IDYwcHg7XG4gICAgbWF4LXdpZHRoOiA1MHB4O1xuICAgIHdpZHRoOiBmaXQtY29udGVudDtcbiAgICBkaXNwbGF5OiBibG9jaztcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbiAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XG4gIH1cblxuICAvLyB3cmFwcGVyIHdpdGggbG9nbywgYXBwIHRpdGxlIGFuZCBzdWJ0aXRsZVxuICAuYXBwLWRldGFpbHMge1xuICAgIC8vIG5vdGNoZXNcbiAgICBtYXJnaW4tdG9wOiBjb25zdGFudChzYWZlLWFyZWEtaW5zZXQtdG9wKTtcbiAgICBtYXJnaW4tdG9wOiBlbnYoc2FmZS1hcmVhLWluc2V0LXRvcCk7XG4gICAgbWFyZ2luLWJvdHRvbTogMzBweDtcblxuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcblxuICAgICZfX3RpdGxlIHtcbiAgICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xuICAgICAgZm9udC1zaXplOiAyMnB4O1xuICAgICAgZm9udC13ZWlnaHQ6IDYwMDtcbiAgICAgIG1hcmdpbi1ib3R0b206IDVweDtcblxuICAgICAgQG1lZGlhIG9ubHkgc2NyZWVuIGFuZCAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgICAgICBmb250LXNpemU6IDIwcHg7XG4gICAgICB9XG4gICAgfVxuICB9XG5cbiAgLy8gYXBwIHN1YnRpdGxlIGFuZCBib3R0b20gbmF2IHRpdGxlXG4gIGlvbi1ub3RlIHtcbiAgICBwYWRkaW5nLWxlZnQ6IDEwcHg7XG4gICAgZm9udC1zaXplOiAxNnB4O1xuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItbWVkaXVtLXNoYWRlKTtcbiAgfVxuXG4gICNtYWluTmF2IHtcbiAgICBib3JkZXItYm90dG9tOiAxcHggc29saWQgdmFyKC0taW9uLWNvbG9yLXN0ZXAtMTUwLCAjZDdkOGRhKTtcbiAgICBtYXJnaW4tYm90dG9tOiAyMHB4O1xuICB9XG5cbiAgLy8gbmF2IGl0ZW1zXG4gIGlvbi1pdGVtIHtcbiAgICBib3JkZXItcmFkaXVzOiB2YXIoLS1hcHAtYm9yZGVyLXJhZGl1cyk7XG4gICAgbWFyZ2luOiA1cHggMHB4O1xuICAgIC0tcGFkZGluZy1zdGFydDogMTBweDtcblxuICAgIGlvbi1pY29uIHtcbiAgICAgIGNvbG9yOiAjNjE2ZTdlO1xuICAgIH1cbiAgfVxuXG4gIC5pdGVtLS1zZWxlY3RlZCB7XG4gICAgLS1jb2xvcjogdmFyKC0taW9uLWNvbG9yLXByaW1hcnkpO1xuICAgIC0tYmFja2dyb3VuZDogcmdiYSh2YXIoLS1pb24tY29sb3ItcHJpbWFyeS1yZ2IpLCAwLjE0KTtcblxuICAgIGlvbi1pY29uIHtcbiAgICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItcHJpbWFyeSk7XG4gICAgfVxuICB9XG5cbiAgLnNob3dMaW5rcyB7XG4gICAgbWFyZ2luLXRvcDogMjBweDtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcblxuICAgIHN1bW1hcnkge1xuICAgICAgb3V0bGluZTogMDtcbiAgICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICAgIGZvbnQtc2l6ZTogMTRweDtcbiAgICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XG4gICAgfVxuXG4gICAgLmxpbmsge1xuICAgICAgY3Vyc29yOiBwb2ludGVyO1xuXG4gICAgICAmX19pbWFnZSB7XG4gICAgICAgIG1heC1oZWlnaHQ6IDMwcHg7XG4gICAgICAgIG1heC13aWR0aDogMzBweDtcbiAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xuICAgICAgfVxuXG4gICAgICAmX19kZXNjIHtcbiAgICAgICAgbWFyZ2luLWxlZnQ6IDEycHg7XG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1kYXJrKTtcblxuICAgICAgICAmX19pY29uIHtcbiAgICAgICAgICBmb250LXNpemU6IDE4cHg7XG4gICAgICAgICAgbWluLXdpZHRoOiAxOHB4O1xuICAgICAgICAgIG1hcmdpbi1yaWdodDogMTBweDtcbiAgICAgICAgfVxuICAgICAgfVxuICAgIH1cblxuICAgIC5saW5rOmhvdmVyIHtcbiAgICAgIC0tYmFja2dyb3VuZDogcmdiYSh2YXIoLS1pb24tY29sb3ItbWVkaXVtLXJnYiksIDAuMDcpO1xuICAgIH1cbiAgfVxufVxuIl19 */");
 
 /***/ }),
 
