@@ -7,10 +7,15 @@ import {
   Plugins,
   StatusBarStyle,
 } from '@capacitor/core';
-import { Subscription } from 'rxjs';
 import { SettingKey } from './interfaces/ISetting';
 import { StorageService } from './services/storage/storage.service';
-const { SplashScreen, StatusBar, Keyboard, Browser } = Plugins;
+const {
+  SplashScreen,
+  StatusBar,
+  Keyboard,
+  Browser,
+  LocalNotifications,
+} = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -109,6 +114,9 @@ export class AppComponent {
         this.showLinks = course && course.includes('INF19');
       }
     });
+
+    // request permissions for sending notifications
+    LocalNotifications.requestPermission();
   }
 
   // call once to enable auto changing of theme (dark / light)

@@ -2,10 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ILecture, LectureStatus } from 'src/app/interfaces/ILecture';
-import { ISetting, SettingKey, StorageKey } from 'src/app/interfaces/ISetting';
+import {
+  ILectureChangeNotification,
+  ISetting,
+  SettingKey,
+  StorageKey,
+} from 'src/app/interfaces/ISetting';
 
 import { Plugins } from '@capacitor/core';
-const { Storage } = Plugins;
+const { Storage, LocalNotifications } = Plugins;
 
 @Injectable({
   providedIn: 'root',
@@ -78,6 +83,8 @@ export class StorageService {
         key: SettingKey.LASTUPDATED,
         value: new Date(Date.now()),
       });
+
+      this.checkForChanges(lectures);
       return true;
     } catch (error) {
       console.error('Error while fetching lectures!');
@@ -224,5 +231,138 @@ export class StorageService {
     });
 
     return match ? match.value : null;
+  }
+
+  async checkForChanges(lectures: ILecture[]): Promise<void> {
+    if (lectures.length === 0) {
+      return;
+    }
+
+    // copy lectures (avoids reference problems when modifing those lectures)
+    const temp: ILecture[] = [];
+
+    lectures.forEach((lec) => {
+      temp.push(Object.assign({}, lec));
+    });
+
+    lectures = temp;
+
+    let hasChanges = false;
+
+    // check if new fetched lectures have changes
+    for (const lecture of lectures) {
+      if (lecture.status) {
+        hasChanges = true;
+        break;
+      }
+    }
+
+    const currentCourse = this.getSetting(SettingKey.COURSE);
+
+    const settingValue: ILectureChangeNotification = {
+      course: currentCourse,
+      lectures: JSON.stringify(lectures),
+    };
+
+    // store currently checked lectures to local storage
+    await this.addSetting({
+      key: SettingKey.LASTCHANGENOTIFICATION,
+      value: settingValue,
+    });
+
+    // new lectures does not have changes
+    if (!hasChanges) {
+      return;
+    }
+
+    let lastChecked: ILectureChangeNotification | null = this.getSetting(
+      SettingKey.LASTCHANGENOTIFICATION
+    );
+
+    // last checked is unset
+    if (!lastChecked) {
+      return;
+    }
+
+    let lastLectures = this.validateLectures(JSON.parse(lastChecked.lectures));
+    let checkedCourse = lastChecked.course;
+
+    // last checked lectures are empty or last checked course is different from current course
+    if (lastChecked.lectures.length === 0 || checkedCourse !== currentCourse) {
+      return;
+    }
+
+    // remove old lectures and status
+    lastLectures = lastLectures.filter((lecture) => {
+      lecture.status = null;
+      return lecture.end.getTime() > Date.now();
+    });
+
+    lectures = lectures.filter((lecture) => {
+      lecture.status = null;
+      return lecture.end.getTime() > Date.now();
+    });
+
+    const h1 = this.createHash(JSON.stringify(lectures));
+    const h2 = this.createHash(JSON.stringify(lastLectures));
+
+    // lectures have changed sinced last check
+    // send push notification
+    if (h1 !== h2) {
+      await this.sendNotification('Der Vorlesungsplan hat sich geändert', '');
+
+      const settingValue: ILectureChangeNotification = {
+        course: currentCourse,
+        lectures: JSON.stringify(lectures),
+      };
+
+      // store currently checked lectures to local storage
+      await this.addSetting({
+        key: SettingKey.LASTCHANGENOTIFICATION,
+        value: settingValue,
+      });
+    }
+  }
+
+  private createHash(str: string) {
+    let hash = 0;
+    let i;
+    let chr;
+
+    for (i = 0; i < str.length; i++) {
+      chr = str.charCodeAt(i);
+      hash = (hash << 5) - hash + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+
+    return hash;
+  }
+
+  private async sendNotification(
+    title: string,
+    message: string
+  ): Promise<void> {
+    if (!title && !message) {
+      return;
+    }
+
+    const permission = (await LocalNotifications.areEnabled()).value;
+
+    if (permission) {
+      await LocalNotifications.schedule({
+        notifications: [
+          {
+            title,
+            body: message,
+            id: 1,
+            schedule: { at: new Date(Date.now()) },
+            sound: null,
+            attachments: null,
+            actionTypeId: '',
+            extra: null,
+          },
+        ],
+      });
+    }
   }
 }
