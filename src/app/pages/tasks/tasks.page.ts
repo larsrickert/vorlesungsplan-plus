@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { ITaskBlock } from 'src/app/interfaces/IBlock';
 import { ITask } from 'src/app/interfaces/ITask';
 import { TaskService } from 'src/app/services/task/task.service';
@@ -18,12 +18,14 @@ export class TasksPage implements OnInit {
   constructor(
     private taskService: TaskService,
     private utility: UtilityService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private actionSheetController: ActionSheetController
   ) {}
 
   ngOnInit() {
     this.taskService.tasks.subscribe((tasks) => {
       this.blocks = <ITaskBlock[]>this.utility.createBlocks(tasks);
+      this.count = tasks.length;
     });
   }
 
@@ -34,5 +36,64 @@ export class TasksPage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  async showShareSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Aufgaben teilen',
+      cssClass: 'my-custom-class',
+      buttons: [
+        {
+          text: 'In die Zwischenablage',
+          icon: 'copy-outline',
+          handler: async () => {
+            if (this.count > 0) {
+              await this.taskService.copyToClipboard();
+              this.utility.showToast(
+                'Aufgabe(n) in die Zwischenablage kopiert.'
+              );
+            } else {
+              this.utility.showToast(
+                'Du hast noch keine Aufgaben hinzugefügt.'
+              );
+            }
+          },
+        },
+        {
+          text: 'Als Datei exportieren',
+          icon: 'document-outline',
+          handler: () => {
+            this.taskService.exportFile();
+          },
+        },
+        {
+          text: 'Importieren',
+          icon: 'arrow-up-circle-outline',
+          handler: () => {
+            document.getElementById('importFile').click();
+          },
+        },
+        {
+          text: 'Abbrechen',
+          icon: 'close',
+          role: 'cancel',
+          handler: () => {},
+        },
+      ],
+    });
+
+    await actionSheet.present();
+  }
+
+  async import(ev): Promise<void> {
+    const imported = await this.taskService.import(ev.target.files[0]);
+
+    if (imported) {
+      this.utility.showToast('Aufgaben erfolgreich importiert.');
+    } else {
+      this.utility.showToast(
+        'Beim Import deiner Aufgaben ist ein Fehler aufgetreten.'
+      );
+    }
   }
 }
