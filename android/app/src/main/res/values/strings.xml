@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Vorlesungsplan+</string>
+    <string name="title_activity_main">Vorlesungsplan+</string>
+    <string name="package_name">com.rickstack.vorlesungsplan</string>
+    <string name="custom_url_scheme">com.rickstack.vorlesungsplan</string>
+</resources>
