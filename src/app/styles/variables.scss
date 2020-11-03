@@ -9,20 +9,16 @@
   --app-color-form: #f9f9f9;
   --app-form-field: #f9f9f9;
 
-  // ionic overwrites
-  --ion-color-segment-indicator: #ffffff;
-  --ion-color-divider: #f2f2f2;
+  --app-segment-indicator: #f9f9f9;
 }
 
 body.dark {
   --app-color-block: var(--ion-color-step-50);
-  --app-color-lecture-accent: var(--ion-color-step-100);
+  --app-color-lecture-accent: #262626;
   --app-color-border: var(--ion-color-step-150);
 
   --app-color-form: #171717;
   --app-form-field: var(--ion-color-step-50);
 
-  // ionic overwrites
-  --ion-color-segment-indicator: var(--ion-color-step-150);
-  --ion-color-divider: var(--ion-color-step-100);
+  --app-segment-indicator: var(--ion-color-step-100);
 }

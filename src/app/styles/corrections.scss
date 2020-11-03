@@ -18,3 +18,7 @@ p {
 .native-textarea.sc-ion-textarea-ios {
   min-height: 100px;
 }
+
+ion-segment-button {
+  --indicator-color: var(--app-segment-indicator);
+}

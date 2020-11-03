@@ -139,6 +139,11 @@ export class TaskService {
   async exportFile(): Promise<void> {
     const tasks = this.tasksBs.getValue();
 
+    // remove "start" attribute
+    tasks.forEach((task) => {
+      delete task.start;
+    });
+
     try {
       // create exports folder if it does not exist
       try {
@@ -161,17 +166,11 @@ export class TaskService {
       });
 
       if (result) {
-        const title = `${tasks.length} Aufgabe(n) exportiert`;
         await Share.share({
-          title,
-          text: title,
           url: `${result.uri}`,
-          dialogTitle: title,
         });
       }
     } catch (e) {
-      console.error(e);
-
       // Web Share API may not be available
 
       var blob = new Blob([JSON.stringify(tasks)], {
@@ -195,25 +194,27 @@ export class TaskService {
       readFile.onload = async (e) => {
         const buffer = e.target.result;
         const json: any[] = JSON.parse(buffer.toString());
-        let validTask: ITask[] = [];
+        let validTasks: ITask[] = [];
 
         for (const task of json) {
           if (
             'id' in task &&
-            'date' in task &&
+            'end' in task &&
             'name' in task &&
             'notes' in task &&
             'course' in task
           ) {
-            task.date = new Date(task.date);
-            validTask.push(task);
+            task.end = new Date(task.end);
+            task.start = task.end;
+            validTasks.push(task);
           }
         }
 
-        if (validTask.length > 0) {
-          validTask = this.sortTasks(validTask);
-          this.tasksBs.next(validTask);
-          await this.storage.store(StorageKey.TASKS, validTask);
+        if (validTasks.length > 0) {
+          validTasks = this.sortTasks(validTasks);
+          this.tasksBs.next(validTasks);
+          await this.storage.store(StorageKey.TASKS, validTasks);
+          validImport = true;
         } else {
           validImport = false;
         }
