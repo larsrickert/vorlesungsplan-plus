@@ -70,6 +70,7 @@ export class AppComponent {
   setThemeFunction;
   darkModeUserPreference: MediaQueryList;
   showLinks = false;
+  autoFetch: any;
 
   constructor(public router: Router, private storage: StorageService) {
     this.initializeApp();
@@ -117,6 +118,26 @@ export class AppComponent {
 
     // request permissions for sending notifications
     LocalNotifications.requestPermission();
+
+    // fetch lectures every 10 minutes
+    if (!this.autoFetch) {
+      this.autoFetch = setInterval(() => {
+        LocalNotifications.schedule({
+          notifications: [
+            {
+              title: 'Testnachricht',
+              body: 'Test',
+              id: 1,
+              schedule: { at: new Date(Date.now()) },
+              sound: null,
+              attachments: null,
+              actionTypeId: '',
+              extra: null,
+            },
+          ],
+        });
+      }, 1000 * 60 * 1);
+    }
   }
 
   // call once to enable auto changing of theme (dark / light)
