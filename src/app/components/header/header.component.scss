@@ -1,0 +1,31 @@
+ion-toolbar {
+  --background: linear-gradient(
+    90deg,
+    var(--ion-color-primary) 0%,
+    var(--ion-color-secondary) 50%,
+    var(--ion-color-tertiary) 100%
+  );
+  --color: #ffffff;
+  box-shadow: var(--app-box-shadow);
+
+  // more rounded header look:
+  // border-radius: 0 0 40px 40px;
+  border-radius: 0 0 var(--app-border-radius) var(--app-border-radius);
+  padding: calc(var(--ion-safe-area-top, 0) + 10px) 10px 10px 10px !important;
+
+  ion-menu-button,
+  ion-back-button {
+    color: #ffffff;
+  }
+
+  #btn--closeModal {
+    font-size: 20px;
+    height: 48px;
+    width: 48px;
+    --color: #ffffff;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 24px;
+    }
+  }
+}

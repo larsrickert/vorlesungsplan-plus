@@ -1,0 +1,7 @@
+{
+  "name": "Vorlesungsplan",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

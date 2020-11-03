@@ -1,0 +1,31 @@
+<div class="block" *ngIf="block && !skeleton">
+  <!-- headings (e.g "morgen", "heute", etc.) -->
+  <ion-label class="block__heading" *ngIf="dateString">
+    {{ dateString }}
+  </ion-label>
+
+  <ion-label class="block__heading" *ngIf="!dateString">
+    {{ block.date | date: 'fullDate' }}
+  </ion-label>
+
+  <!-- items -->
+  <div
+    class="block__item-wrapper"
+    *ngFor="let item of block.items; let i = index"
+  >
+    <app-lecture
+      *ngIf="lectureBlock"
+      [lecture]="item"
+      [isLast]="i === block.items.length - 1"
+    ></app-lecture>
+  </div>
+</div>
+
+<!-- skeleton -->
+<div *ngIf="skeleton" class="block">
+  <div class="block__heading">
+    <ion-skeleton-text animated class="skeleton__date"></ion-skeleton-text>
+  </div>
+
+  <app-lecture [skeleton]="true"></app-lecture>
+</div>

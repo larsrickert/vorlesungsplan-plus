@@ -1,0 +1,52 @@
+<app-header title="Vorlesungsplan {{ course }}"></app-header>
+
+<ion-content class="ion-padding">
+  <!-- refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-outline"
+      pullingText="zuletzt aktualisiert: {{ lastUpdated | date:'medium' }}"
+      refreshingSpinner="crescent"
+      refreshingText="Vorlesungen werden geladen..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- searchbar -->
+  <ion-searchbar
+    animated
+    showCancelButton="focus"
+    mode="ios"
+    placeholder="Suchen..."
+    cancelButtonText="Abbrechen"
+    (ionChange)="search($event)"
+    #searchBar
+  ></ion-searchbar>
+
+  <!-- Segment -->
+  <ion-segment
+    class="segment"
+    scrollable
+    (ionChange)="setDisplayedBlocksToSegment()"
+    mode="ios"
+    #segment
+    value="all"
+  >
+    <ion-segment-button value="changes" *ngIf="hasChanges">
+      <ion-label>Änderungen ({{ counts[2] }})</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="all">
+      <ion-label>Alle ({{ counts[0] }})</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="presence" *ngIf="counts[3] !== counts[0]">
+      <ion-label>Präsenz ({{ counts[3] }})</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="exams">
+      <ion-label>Klausuren ({{ counts[1] }})</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <app-block *ngFor="let block of displayedBlocks" [block]="block"></app-block>
+</ion-content>
+
+<app-lecture-status-fab></app-lecture-status-fab>

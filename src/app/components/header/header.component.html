@@ -1,0 +1,12 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button *ngIf="!back && !isModal"></ion-menu-button>
+      <ion-back-button *ngIf="back && !isModal" defaultHref="/" text="" icon="chevron-back-outline"></ion-back-button>
+      <ion-button *ngIf="isModal" shape="round" id="btn--closeModal" (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>

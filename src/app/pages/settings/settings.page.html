@@ -1,0 +1,50 @@
+<app-header title="Einstellungen"></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="warning" *ngIf="currentCourse === null">
+    <ion-icon name="alert-circle"></ion-icon>
+    <ion-label>Bitte wähle einen Kurs aus.</ion-label>
+  </div>
+
+  <div class="setting">
+    <ion-label>Design:</ion-label>
+    <ion-select
+      placeholder="Design auswählen"
+      [value]="darkMode"
+      (ionChange)="setDarkMode($event)"
+      okText="Auswählen"
+      cancelText="Abbrechen"
+      [interfaceOptions]="{header: 'Design auswählen'}"
+    >
+      <ion-select-option [value]="null">Automatisch</ion-select-option>
+      <ion-select-option [value]="false">Hell</ion-select-option>
+      <ion-select-option [value]="true">Dunkel</ion-select-option>
+    </ion-select>
+  </div>
+
+  <div class="setting setting--item">
+    <ion-item lines="none" [detail]="true" (click)="openCourseModal()">
+      <div class="flex">
+        <ion-label>Kurs:</ion-label>
+        <span class="value" *ngIf="currentCourse"> {{ currentCourse }} </span>
+        <span class="value placeholder" *ngIf="!currentCourse">
+          Kurs auswählen
+        </span>
+      </div>
+    </ion-item>
+  </div>
+
+  <div class="setting setting--item">
+    <ion-item lines="none" [detail]="true" routerLink="/bug-report">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <ion-label>Fehler melden</ion-label></ion-item
+    >
+  </div>
+
+  <div class="setting setting--item">
+    <ion-item lines="none" [detail]="true" routerLink="/info">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      <ion-label>Infos</ion-label></ion-item
+    >
+  </div>
+</ion-content>

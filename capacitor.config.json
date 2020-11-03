@@ -1,0 +1,14 @@
+{
+  "appId": "com.rickstack.capacitor",
+  "appName": "Vorlesungsplan",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3,
+      "launchAutoHide": false
+    }
+  },
+  "cordova": {}
+}

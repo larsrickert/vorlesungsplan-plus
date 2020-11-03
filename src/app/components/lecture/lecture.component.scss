@@ -1,0 +1,82 @@
+.lecture {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+
+  &__name {
+    font-weight: 600;
+    display: block;
+  }
+
+  &--last {
+    border-radius: 0 0 0 4px;
+  }
+
+  &__icon {
+    font-size: 30px;
+    margin-right: 20px;
+  }
+
+  &__content {
+    width: 100%;
+  }
+
+  &__meta {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+
+  &__progress {
+    margin-top: 10px;
+  }
+
+  &--status {
+    &-new {
+      border-left: 3px solid var(--ion-color-success);
+    }
+
+    &-removed {
+      border-left: 3px solid var(--ion-color-danger);
+    }
+  }
+}
+
+// Skeleton
+.skeleton {
+  &__content {
+    padding: 12px 20px;
+  }
+
+  &__name {
+    width: 20%;
+
+    @media only screen and (max-width: 768px) {
+      width: 40%;
+    }
+  }
+
+  &__time {
+    width: 10%;
+
+    @media only screen and (max-width: 768px) {
+      width: 25%;
+    }
+  }
+
+  &__lecturer {
+    width: 10%;
+
+    @media only screen and (max-width: 768px) {
+      width: 25%;
+    }
+  }
+
+  &__room {
+    width: 5%;
+
+    @media only screen and (max-width: 768px) {
+      width: 15%;
+    }
+  }
+}

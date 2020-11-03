@@ -1,0 +1,14 @@
+:root {
+  --app-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  --app-border-radius: 4px;
+
+  --ion-color-block: #ffffff;
+  --ion-color-lecture-accent: #f9f9f9;
+  --ion-color-border: #dddddd;
+}
+
+body.dark {
+  --ion-color-block: var(--ion-color-step-50);
+  --ion-color-lecture-accent: var(--ion-color-step-100);
+  --ion-color-border: var(--ion-color-step-150);
+}
