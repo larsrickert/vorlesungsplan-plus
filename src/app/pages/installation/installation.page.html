@@ -1,0 +1,107 @@
+<app-header title="Installation"></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <ion-segment
+    class="segment"
+    scrollable
+    mode="ios"
+    #segment
+    [(ngModel)]="device"
+  >
+    <ion-segment-button value="android">
+      <ion-label>Android</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="iOS">
+      <ion-label>iOS</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="browser">
+      <ion-label>PC</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div [ngSwitch]="device" class="content">
+    <div *ngSwitchCase="'android'">
+      <div class="screenshots">
+        <div class="screenshots__step">
+          <ion-label class="screenshots__label"
+            >Google Chrome: 1. Einstellungen öffnen</ion-label
+          >
+          <img
+            src="../../../assets/images/instruction-android-chrome-1.jpg"
+            alt="Screenshot Chrome Einstellungen"
+            title="Chrome Einstellungen"
+            class="screenshots__image"
+          />
+        </div>
+        <div class="screenshots__step">
+          <ion-label class="screenshots__label"
+            >Google Chrome: 2. App installieren</ion-label
+          >
+          <img
+            src="../../../assets/images/instruction-android-chrome-2.jpg"
+            alt="Screenshot Chrome App installieren"
+            title="Chrome App installieren"
+            class="screenshots__image"
+          />
+        </div>
+      </div>
+      <div class="screenshots">
+        <div class="screenshots__step">
+          <ion-label class="screenshots__label"
+            >Samsung Internet: Direkt installieren</ion-label
+          >
+          <img
+            src="../../../assets/images/instruction-android-si-1.jpg"
+            alt="Screenshot Samsung Internet App installieren"
+            title="Samsung Internet App installieren"
+            class="screenshots__image"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'iOS'">
+      <div class="screenshots">
+        <div class="screenshots__step">
+          <ion-label class="screenshots__label"
+            >1. Teilen Dialog in Safari öffnen</ion-label
+          >
+          <img
+            src="../../../assets/images/instruction-ios-1.jpg"
+            alt="Screenshot Teilen Dialog öffnen"
+            title="Teilen Dialog öffnen"
+            class="screenshots__image"
+          />
+        </div>
+
+        <div class="screenshots__step">
+          <ion-label class="screenshots__label"
+            >2. App zum Home-Bildschirm hinzufügen</ion-label
+          >
+          <img
+            src="../../../assets/images/instruction-ios-2.jpg"
+            alt="Screenshot App zum Home-Bildschirm hinzufügen"
+            title="App zum Home-Bildschirm hinzufügen"
+            class="screenshots__image"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'browser'">
+      <div class="screenshots">
+        <div class="screenshots__step">
+          <ion-label class="screenshots__label"
+            >1. Über das Plus Icon neben der Suchleiste installieren</ion-label
+          >
+          <img
+            src="../../../assets/images/instruction-browser-1.jpg"
+            alt="Screenshot Installation PC"
+            title="App per Browser installieren"
+            class="screenshots__image"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

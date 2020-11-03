@@ -1,0 +1,38 @@
+.content {
+  padding: 20px;
+}
+
+.screenshots {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 60px;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+  }
+
+  @media only screen and (max-width: 425px) {
+    flex-direction: column;
+  }
+
+  &__image {
+    max-height: 30em;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.15);
+  }
+
+  &__step {
+    display: flex;
+    flex-direction: column;
+
+    @media only screen and (max-width: 768px) {
+      margin-bottom: 60px;
+    }
+  }
+
+  &__label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--ion-color-primary);
+  }
+}

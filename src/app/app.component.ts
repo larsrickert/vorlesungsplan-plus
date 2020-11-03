@@ -36,6 +36,11 @@ export class AppComponent {
   ];
   public bottomNavItems = [
     {
+      title: 'Installation',
+      url: '/installation',
+      icon: 'download-outline',
+    },
+    {
       title: 'Einstellungen',
       url: '/settings',
       icon: 'cog-outline',

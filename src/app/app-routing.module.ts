@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'task-edit',
     loadChildren: () => import('./pages/task-edit/task-edit.module').then( m => m.TaskEditPageModule)
   },
+  {
+    path: 'installation',
+    loadChildren: () => import('./pages/installation/installation.module').then( m => m.InstallationPageModule)
+  },
 ];
 
 @NgModule({

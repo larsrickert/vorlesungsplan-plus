@@ -21,13 +21,8 @@ ion-menu {
     // notches
     margin-top: constant(safe-area-inset-top);
     margin-top: env(safe-area-inset-top);
-
-    @media only screen and (min-width: 768px) {
-      margin-top: calc(constant(safe-area-inset-top) + 20px);
-      margin-top: calc(env(safe-area-inset-top) + 20px);
-    }
-
     margin-bottom: 30px;
+
     display: flex;
     align-items: center;
 
