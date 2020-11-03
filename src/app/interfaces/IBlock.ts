@@ -1,3 +1,4 @@
+import { IEvent } from './IEvent';
 import { ILecture } from './ILecture';
 
 export interface IBlock {
@@ -12,4 +13,8 @@ export interface IBlockable {
 
 export interface ILectureBlock extends IBlock {
   items: ILecture[];
+}
+
+export interface IEventBlock extends IBlock {
+  items: IEvent[];
 }

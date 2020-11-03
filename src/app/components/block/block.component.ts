@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBlock, ILectureBlock } from 'src/app/interfaces/IBlock';
+import { IBlock, IEventBlock, ILectureBlock } from 'src/app/interfaces/IBlock';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 
 @Component({
@@ -13,12 +13,14 @@ export class BlockComponent implements OnInit {
 
   now = new Date(Date.now());
   lectureBlock = false;
+  eventBlock = false;
   dateString = null;
 
   constructor(public utility: UtilityService) {}
 
   ngOnInit() {
     this.lectureBlock = this.isLectureBlock(this.block);
+    this.eventBlock = this.isEventBlock(this.block);
     this.dateString = this.blockDateToString();
   }
 
@@ -46,6 +48,29 @@ export class BlockComponent implements OnInit {
     if (!hasKeys.includes('status')) {
       hasKeys.push('status');
     }
+
+    return JSON.stringify(neededKeys) === JSON.stringify(hasKeys);
+  }
+
+  // returns whether or not arg is Interface IEventBlock
+  private isEventBlock(arg: any): arg is IEventBlock {
+    const block: IEventBlock = {
+      date: null,
+      items: [
+        {
+          id: null,
+          name: null,
+          description: null,
+          start: null,
+          end: null,
+          status: null,
+          location: null,
+        },
+      ],
+    };
+
+    const neededKeys = Object.keys(block.items[0]);
+    const hasKeys = Object.keys(this.block.items[0]);
 
     return JSON.stringify(neededKeys) === JSON.stringify(hasKeys);
   }

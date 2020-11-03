@@ -16,11 +16,29 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () =>
+      import('./pages/settings/settings.module').then(
+        (m) => m.SettingsPageModule
+      ),
   },
   {
     path: 'course-select',
-    loadChildren: () => import('./pages/course-select/course-select.module').then( m => m.CourseSelectPageModule)
+    loadChildren: () =>
+      import('./pages/course-select/course-select.module').then(
+        (m) => m.CourseSelectPageModule
+      ),
+  },
+  {
+    path: 'events',
+    loadChildren: () =>
+      import('./pages/events/events.module').then((m) => m.EventsPageModule),
+  },
+  {
+    path: 'event-details/:id',
+    loadChildren: () =>
+      import('./pages/event-details/event-details.module').then(
+        (m) => m.EventDetailsPageModule
+      ),
   },
 ];
 

@@ -23,6 +23,11 @@ export class AppComponent {
       url: '/timetable',
       icon: 'school-outline',
     },
+    {
+      title: 'Veranstaltungen',
+      url: '/events',
+      icon: 'calendar-outline',
+    },
   ];
   public bottomNavItems = [
     {

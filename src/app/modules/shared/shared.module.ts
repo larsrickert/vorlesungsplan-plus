@@ -7,12 +7,14 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 import { BlockComponent } from 'src/app/components/block/block.component';
 import { LectureComponent } from 'src/app/components/lecture/lecture.component';
 import { LectureStatusFabComponent } from 'src/app/components/lecture-status-fab/lecture-status-fab.component';
+import { EventComponent } from 'src/app/components/event/event.component';
 
 const components = [
   HeaderComponent,
   BlockComponent,
   LectureComponent,
   LectureStatusFabComponent,
+  EventComponent,
 ];
 
 @NgModule({

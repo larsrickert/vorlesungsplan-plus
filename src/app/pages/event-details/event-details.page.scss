@@ -1,0 +1,27 @@
+.wrapper {
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 1px solid var(--ion-color-border);
+
+  .title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+
+    ion-icon {
+      font-size: 20px;
+    }
+  }
+
+  .description__title {
+    margin-top: 40px;
+  }
+}

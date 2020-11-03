@@ -9,8 +9,7 @@ ion-toolbar {
   box-shadow: var(--app-box-shadow);
 
   // more rounded header look:
-  // border-radius: 0 0 40px 40px;
-  border-radius: 0 0 var(--app-border-radius) var(--app-border-radius);
+  border-radius: 0 0 40px 40px;
   padding: calc(var(--ion-safe-area-top, 0) + 10px) 10px 10px 10px !important;
 
   ion-menu-button,
@@ -26,6 +25,13 @@ ion-toolbar {
 
     @media only screen and (max-width: 768px) {
       font-size: 24px;
+    }
+  }
+
+  ion-title {
+    @media only screen and (max-width: 768px) {
+      padding-left: 20px;
+      padding-right: 60px;
     }
   }
 }

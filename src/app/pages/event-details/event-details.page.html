@@ -1,0 +1,32 @@
+<app-header title="Veranstaltungsdetails" [back]="true"></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="wrapper" *ngIf="event">
+    <p class="title">{{ event.name }}</p>
+
+    <!-- location -->
+    <div class="detail">
+      <ion-icon name="location-outline"></ion-icon>
+      <ion-text>{{ event.location }}</ion-text>
+    </div>
+
+    <!-- time -->
+    <div class="detail">
+      <ion-icon name="time-outline"></ion-icon>
+      <ion-text>Von: {{ event.start | date:"d. MMMM y, HH:mm" }} Uhr</ion-text>
+    </div>
+    <div class="detail">
+      <ion-icon name="time-outline"></ion-icon>
+      <ion-text>Bis: {{ event.end | date:"d. MMMM y, HH:mm" }} Uhr</ion-text>
+    </div>
+
+    <!-- description -->
+    <p class="title description__title">Beschreibung:</p>
+    <p>{{ event.description }}</p>
+  </div>
+
+  <!-- placeholder when event is not set -->
+  <div class="warning warning--danger" *ngIf="!event">
+    <p>Beim Abruf der Eventdetails ist ein Fehler aufgetreten.</p>
+  </div>
+</ion-content>

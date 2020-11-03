@@ -18,6 +18,12 @@
       [lecture]="item"
       [isLast]="i === block.items.length - 1"
     ></app-lecture>
+
+    <app-event
+      *ngIf="eventBlock"
+      [event]="item"
+      [isLast]="i === block.items.length - 1"
+    ></app-event>
   </div>
 </div>
 

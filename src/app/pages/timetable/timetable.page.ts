@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IBlock, IBlockable, ILectureBlock } from 'src/app/interfaces/IBlock';
-import { ILecture, LectureStatus } from 'src/app/interfaces/ILecture';
+import { ILectureBlock } from 'src/app/interfaces/IBlock';
+import { LectureStatus } from 'src/app/interfaces/ILecture';
 import { SettingKey } from 'src/app/interfaces/ISetting';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
