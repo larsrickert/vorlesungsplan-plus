@@ -15,6 +15,7 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 export class BlockComponent implements OnInit {
   @Input() block: IBlock;
   @Input() skeleton: string;
+  @Input() disabled = false;
 
   now = new Date(Date.now());
   lectureBlock = false;

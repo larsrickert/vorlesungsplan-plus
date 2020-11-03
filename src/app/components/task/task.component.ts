@@ -15,6 +15,7 @@ export class TaskComponent implements OnInit {
   @Input() isLast = false;
   @Input() accent = false;
   @Input() skeleton = false;
+  @Input() disabled = false;
   @ViewChild('sliding') sliding: HTMLIonItemSlidingElement;
 
   constructor(

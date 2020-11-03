@@ -1,4 +1,4 @@
-<ion-item-sliding #sliding *ngIf="task && !skeleton">
+<ion-item-sliding #sliding *ngIf="task && !skeleton" [disabled]="disabled">
   <ion-item-options side="start">
     <ion-item-option
       [class.option--last-left]="isLast"
