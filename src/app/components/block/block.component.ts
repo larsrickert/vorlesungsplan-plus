@@ -19,9 +19,11 @@ export class BlockComponent implements OnInit {
   constructor(public utility: UtilityService) {}
 
   ngOnInit() {
-    this.lectureBlock = this.isLectureBlock(this.block);
-    this.eventBlock = this.isEventBlock(this.block);
-    this.dateString = this.blockDateToString();
+    if (this.block && this.block.items) {
+      this.lectureBlock = this.isLectureBlock(this.block);
+      this.eventBlock = this.isEventBlock(this.block);
+      this.dateString = this.blockDateToString();
+    }
   }
 
   // returns whether or not arg is Interface ILectureBlock

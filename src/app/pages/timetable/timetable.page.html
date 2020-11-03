@@ -46,6 +46,33 @@
     </ion-segment-button>
   </ion-segment>
 
+  <!-- No results for search message -->
+  <div
+    *ngIf="displayedBlocks.length === 0 && course && blocks.length > 0"
+    class="wrapper"
+  >
+    Deine Suche hat keine Treffer ergeben.
+  </div>
+
+  <!-- No lectures message -->
+  <div *ngIf="course && blocks.length === 0" class="wrapper">
+    Für den Kurs {{ course }} sind keine Vorlesungen eingetragen.
+  </div>
+
+  <div
+    class="warning warning--clickable"
+    *ngIf="!course"
+    routerLink="/settings"
+  >
+    <ion-icon name="alert-circle"></ion-icon>
+    <ion-label>Bitte wähle einen Kurs aus.</ion-label>
+  </div>
+
+  <!-- Skeleton -->
+  <div class="block" *ngIf="!course">
+    <app-block [skeleton]="true"></app-block>
+  </div>
+
   <app-block *ngFor="let block of displayedBlocks" [block]="block"></app-block>
 </ion-content>
 
