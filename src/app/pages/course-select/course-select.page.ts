@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { SettingKey } from 'src/app/interfaces/ISetting';
@@ -15,6 +15,7 @@ interface CourseGroup {
   styleUrls: ['./course-select.page.scss'],
 })
 export class CourseSelectPage implements OnInit {
+  @Input() redirect = true;
   courseGroups: CourseGroup[] = [];
   displayedGroups: CourseGroup[] = [];
   selectedCourse = null;
@@ -53,7 +54,9 @@ export class CourseSelectPage implements OnInit {
       value: course,
     });
 
-    this.router.navigate(['/timetable']);
+    if (this.redirect) {
+      this.router.navigate(['/timetable']);
+    }
 
     // close modal
     if (await this.modalController.getTop()) {

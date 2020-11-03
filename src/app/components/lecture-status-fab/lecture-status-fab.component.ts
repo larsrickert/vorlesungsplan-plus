@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
 
@@ -8,6 +8,7 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
   styleUrls: ['./lecture-status-fab.component.scss'],
 })
 export class LectureStatusFabComponent implements OnInit {
+  @Input() skeleton = false;
   hasChanges = false;
 
   constructor(
@@ -16,12 +17,16 @@ export class LectureStatusFabComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.storage.lectures.subscribe((lectures) => {
-      this.hasChanges = this.utility.hasChanges(lectures);
-    });
+    if (this.skeleton) {
+      this.storage.lectures.subscribe((lectures) => {
+        this.hasChanges = this.utility.hasChanges(lectures);
+      });
+    }
   }
 
   async clearChanges(): Promise<void> {
-    await this.storage.resetStatus();
+    if (this.skeleton) {
+      await this.storage.resetStatus();
+    }
   }
 }

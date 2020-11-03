@@ -1,0 +1,105 @@
+<app-header title="Einführung"></app-header>
+
+<ion-content class="ion-padding" [fullscreen]="true" scroll-y="false">
+  <ion-slides pager="true">
+    <!-- slide 1 -->
+    <ion-slide>
+      <div class="slide">
+        <img class="logo" src="../../../assets/images/logo.svg" />
+        <h2>Herzlich Willkommen</h2>
+        <p>
+          Gut, dass du die <b>Vorlesungsplan+</b> App verwendest. Hier hast du
+          eine kurze Übersicht über alle Funktionen der App.
+        </p>
+
+        <p class="swipe-hint">
+          (Wische mit der Maus nach links oder rechts, um durch die Slides zu
+          navigieren)
+        </p>
+      </div>
+    </ion-slide>
+
+    <!-- slide 2 -->
+    <ion-slide>
+      <h2>Vorlesungsplan</h2>
+
+      <app-block [block]="dummyLecture"></app-block>
+      <p>
+        Hier hast du eine Übersicht über alle deine Vorlesungen. Du kannst Sie
+        <b>durchsuchen</b> oder z.B. <b>nach Klausuren filtern</b>. Wische nach
+        unten, um die Vorlesungen manuell zu aktualisieren.
+      </p>
+    </ion-slide>
+
+    <!-- sldie 3 -->
+    <ion-slide>
+      <h2>Immer Up 2 Date</h2>
+
+      <app-block [block]="dummyChanges"></app-block>
+
+      <p>
+        Sobald es Änderungen an deinem Vorlesungsplan gibt, werden die
+        betroffenen Vorlesungen als <b>entfernt oder hinzugefügt markiert</b>.
+        Mit dem Button unten rechts kannst du die Markierungen wieder entfernen.
+      </p>
+
+      <app-lecture-status-fab [skeleton]="true"></app-lecture-status-fab>
+    </ion-slide>
+
+    <!-- slide 4 -->
+    <ion-slide>
+      <h2>Aufgaben</h2>
+
+      <app-block [block]="dummyTask"></app-block>
+
+      <p>
+        Ein weiteres Feature ist die <b>Erstellung von Aufgaben</b>. So hast du
+        immer im Blick, wann Projektabgeben etc. sind. Durch wischen nach links
+        bzw. rechts, kannst du Aufgaben bearbeiten oder löschen. Du kannst die
+        Aufgaben auch ganz einfach als Text kopieren und an deine Kommilitonen
+        schicken!
+      </p>
+    </ion-slide>
+
+    <!-- slide 5 -->
+    <ion-slide>
+      <h2>Fast geschafft!</h2>
+
+      <p>
+        Bitte <b>wählen deinen Kurs aus</b>, damit wir dir die richtigen
+        Vorlesungen anzeigen können. Außerdem kannst du dich für den
+        <b>Dark Mode</b>
+        entscheiden (oder du lässt ihn auf automatisch, dann passt sich das
+        Design deinen Geräteeinstellung an.)
+      </p>
+
+      <div class="selection">
+        <!-- select course -->
+        <ion-item lines="none" [detail]="true" (click)="openCourseModal()">
+          <div class="flex">
+            <span *ngIf="!course"> Kurs auswählen </span>
+            <span *ngIf="course"> Kurs: {{ course }} </span>
+          </div>
+        </ion-item>
+
+        <!-- select dark mode -->
+        <ion-select
+          [value]="darkMode"
+          placeholder="Design auswählen"
+          (ionChange)="setDarkMode($event)"
+          okText="Auswählen"
+          cancelText="Abbrechen"
+          [interfaceOptions]="{header: 'Design auswählen'}"
+        >
+          <ion-select-option [value]="null">Automatisch</ion-select-option>
+          <ion-select-option [value]="false">Hell</ion-select-option>
+          <ion-select-option [value]="true">Dunkel</ion-select-option>
+        </ion-select>
+
+        <ion-button class="complete-btn" (click)="complete()"
+          >Los geht's <ion-icon slot="end" name="arrow-forward"></ion-icon
+        ></ion-button>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

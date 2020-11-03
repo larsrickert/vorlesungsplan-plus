@@ -7,6 +7,7 @@ import {
   Plugins,
   StatusBarStyle,
 } from '@capacitor/core';
+import { Subscription } from 'rxjs';
 import { SettingKey } from './interfaces/ISetting';
 import { StorageService } from './services/storage/storage.service';
 const { SplashScreen, StatusBar, Keyboard } = Plugins;
@@ -49,12 +50,12 @@ export class AppComponent {
 
   setThemeFunction;
   darkModeUserPreference: MediaQueryList;
+  introSubscription: Subscription;
 
   constructor(public router: Router, private storage: StorageService) {
     this.initializeApp();
   }
 
-  // initialze app style and theme
   initializeApp() {
     // set theme listeners (dark / light mode)
     this.setTheme();
@@ -80,6 +81,20 @@ export class AppComponent {
         return item.url !== '/installation';
       });
     }
+
+    // redirect to intro when no course is set
+    this.introSubscription = this.storage.settings.subscribe(() => {
+      if (StorageService.INIT_SETTINGS) {
+        if (
+          !this.storage.getSetting(SettingKey.INTRO) &&
+          !this.storage.getSetting(SettingKey.COURSE)
+        ) {
+          this.router.navigate(['/intro']);
+        }
+
+        this.introSubscription.unsubscribe();
+      }
+    });
   }
 
   // call once to enable auto changing of theme (dark / light)

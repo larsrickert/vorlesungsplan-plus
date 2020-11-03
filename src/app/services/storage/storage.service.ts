@@ -12,6 +12,7 @@ const { Storage } = Plugins;
 })
 export class StorageService {
   static API_HOST = 'https://api.rickstack.de/';
+  static INIT_SETTINGS = false;
 
   // observables
   private settingsBs = new BehaviorSubject<ISetting[]>([]);
@@ -21,16 +22,17 @@ export class StorageService {
   lectures: Observable<ILecture[]> = this.lecturesBs.asObservable();
 
   constructor(private http: HttpClient) {
+    // init settings
+    this.get(StorageKey.SETTINGS).then((settings) => {
+      StorageService.INIT_SETTINGS = true;
+      this.settingsBs.next(Array.isArray(settings) ? settings : []);
+    });
+
     // init lectures
     this.get(StorageKey.LECTURES).then((lectures) => {
       this.lecturesBs.next(
         Array.isArray(lectures) ? this.validateLectures(lectures) : []
       );
-    });
-
-    // init settings
-    this.get(StorageKey.SETTINGS).then((settings) => {
-      this.settingsBs.next(Array.isArray(settings) ? settings : []);
     });
   }
 

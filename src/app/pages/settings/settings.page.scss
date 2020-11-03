@@ -8,6 +8,13 @@
   align-items: center;
   font-size: 16px;
   margin-bottom: 20px;
+  border: 1px solid var(--app-color-border);
+
+  &--link {
+    background: var(--app-color-form);
+    border: none;
+    box-shadow: none;
+  }
 
   &--item {
     padding: 0;
