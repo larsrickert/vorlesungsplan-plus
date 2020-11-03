@@ -128,8 +128,7 @@ export class TaskService {
         task.name
       }\nAbgabe bis: ${task.end.toLocaleDateString()}, ${task.end.getHours()}:${task.end.getMinutes()} Uhr\nKurs: ${
         task.course
-      }
-        `;
+      }`;
     });
 
     await Clipboard.write({
@@ -153,7 +152,7 @@ export class TaskService {
         await Share.share({
           title,
           text: title,
-          url: result.uri,
+          url: `file://${result.uri}`,
           dialogTitle: title,
         });
       }
