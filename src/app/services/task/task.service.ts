@@ -14,6 +14,7 @@ import {
   FilesystemEncoding,
   Plugins,
 } from '@capacitor/core';
+import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
 const { Clipboard, Filesystem, Share } = Plugins;
 
 @Injectable({
@@ -132,7 +133,7 @@ export class TaskService {
     });
 
     await Clipboard.write({
-      string,
+      string: string.trim(),
     });
   }
 

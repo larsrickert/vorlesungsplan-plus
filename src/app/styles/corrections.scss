@@ -22,3 +22,9 @@ p {
 ion-segment-button {
   --indicator-color: var(--app-segment-indicator);
 }
+
+// action sheet
+.sc-ion-action-sheet-ios-h {
+  --button-background-selected: var(--ion-color-step-50);
+  --background: var(--ion-color-step-50);
+}
