@@ -140,6 +140,19 @@ export class TaskService {
     const tasks = this.tasksBs.getValue();
 
     try {
+      // create exports folder if it does not exist
+      try {
+        await Filesystem.readdir({
+          path: 'exports',
+          directory: FilesystemDirectory.Cache,
+        });
+      } catch (error) {
+        await Filesystem.mkdir({
+          path: 'exports',
+          directory: FilesystemDirectory.Cache,
+        });
+      }
+
       const result = await Filesystem.writeFile({
         path: 'exports/tasks.json',
         data: JSON.stringify(this.tasksBs.getValue()),
@@ -152,11 +165,13 @@ export class TaskService {
         await Share.share({
           title,
           text: title,
-          url: `file://${result.uri}`,
+          url: `${result.uri}`,
           dialogTitle: title,
         });
       }
     } catch (e) {
+      console.error(e);
+
       // Web Share API may not be available
 
       var blob = new Blob([JSON.stringify(tasks)], {
