@@ -35,11 +35,12 @@ ion-toolbar {
   color: #ffffff;
   box-shadow: 0 0 10 rgba(0, 0, 0, 0.1);
   border-radius: 0px 0px 40px 40px;
+  padding: calc(var(--ion-safe-area-top, 0) + 30px) 30px 30px 30px;
 
-  padding: 30px;
+  // padding: 30px;
 
   @media only screen and (max-width: 768px) {
-    padding: 20px 20px 20px 20px;
+    padding: calc(var(--ion-safe-area-top, 0) + 20px) 20px 20px 20px;
   }
 }
 
