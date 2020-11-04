@@ -23,6 +23,7 @@
       *ngIf="eventBlock"
       [event]="item"
       [isLast]="i === block.items.length - 1"
+      [disabled]="disabled"
     ></app-event>
 
     <app-task

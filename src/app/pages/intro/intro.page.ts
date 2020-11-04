@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
-import { ILectureBlock, ITaskBlock } from 'src/app/interfaces/IBlock';
+import {
+  IEventBlock,
+  ILectureBlock,
+  ITaskBlock,
+} from 'src/app/interfaces/IBlock';
 import { LectureStatus } from 'src/app/interfaces/ILecture';
 import { SettingKey } from 'src/app/interfaces/ISetting';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -64,6 +68,21 @@ export class IntroPage implements OnInit {
         end: new Date(Date.now() + 1000 * 60 * 60 * 24),
         course: 'Vorlesung XY',
         notes: 'Das ist eine total wichtige Aufgabe.',
+      },
+    ],
+  };
+
+  dummyEvent: IEventBlock = {
+    date: new Date(Date.now() + 1000 * 60 * 60 * 24),
+    items: [
+      {
+        id: '1',
+        name: 'Veranstaltung XY',
+        description: 'Beschreibung',
+        start: new Date(Date.now() - 1000 * 60 * 60),
+        end: new Date(Date.now() + 1000 * 60 * 30),
+        status: null,
+        location: 'DHBW Mosbach',
       },
     ],
   };

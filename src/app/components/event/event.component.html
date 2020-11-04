@@ -1,8 +1,9 @@
 <div
   *ngIf="event"
   class="event"
-  [class.task--last]="isLast"
-  [routerLink]="['/event-details', event.id]"
+  [class.event--last]="isLast"
+  [class.event--disabled]="disabled"
+  (click)="navigate()"
 >
   <div class="event__content">
     <ion-label *ngIf="event.name" class="event__name">{{

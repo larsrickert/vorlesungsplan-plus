@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IEvent } from 'src/app/interfaces/IEvent';
 
 @Component({
@@ -9,8 +10,15 @@ import { IEvent } from 'src/app/interfaces/IEvent';
 export class EventComponent implements OnInit {
   @Input() event: IEvent;
   @Input() isLast = false;
+  @Input() disabled = false;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  navigate() {
+    if (!this.disabled) {
+      this.router.navigate(['/event-details', this.event.id]);
+    }
+  }
 }

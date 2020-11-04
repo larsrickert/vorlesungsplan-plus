@@ -8,6 +8,10 @@
     border-radius: 0 0 10px 10px;
   }
 
+  &--disabled {
+    cursor: default;
+  }
+
   &__name {
     font-weight: 600;
     display: block;

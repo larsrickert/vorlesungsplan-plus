@@ -10,6 +10,7 @@
   --app-form-field: #f9f9f9;
 
   --app-segment-indicator: #f9f9f9;
+  --app-event-details: #ffffff;
 }
 
 body.dark {
@@ -21,4 +22,5 @@ body.dark {
   --app-form-field: var(--ion-color-step-50);
 
   --app-segment-indicator: var(--ion-color-step-100);
+  --app-event-details: #171717;
 }

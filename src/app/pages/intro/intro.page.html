@@ -5,11 +5,7 @@
     <!-- slide 1 -->
     <ion-slide>
       <div class="slide">
-        <img
-          crossorigin="anonymous"
-          class="logo"
-          src="../../../assets/images/logo.svg"
-        />
+        <img class="logo" src="../../../assets/images/logo.svg" />
         <h2>Herzlich Willkommen</h2>
         <p>
           Gut, dass du die <b>Vorlesungsplan+</b> App verwendest. Hier hast du
@@ -66,6 +62,19 @@
     </ion-slide>
 
     <!-- slide 5 -->
+    <ion-slide>
+      <h2>Veranstaltungen</h2>
+
+      <app-block [block]="dummyEvent" [disabled]="true"></app-block>
+
+      <p>
+        Mit Vorlesungsplan+ hast du immer alle <b>aktuellen Events</b>. Im
+        Blick. Klicke einfach auf eine Veranstaltung, um mehr darüber zu
+        erfahren!
+      </p>
+    </ion-slide>
+
+    <!-- slide 6 -->
     <ion-slide>
       <h2>Fast geschafft!</h2>
 

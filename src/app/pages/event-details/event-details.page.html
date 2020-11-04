@@ -7,22 +7,37 @@
     <!-- location -->
     <div class="detail">
       <ion-icon name="location-outline"></ion-icon>
-      <ion-text>{{ event.location }}</ion-text>
+      <ion-text *ngIf="event.location">{{ event.location }}</ion-text>
+      <ion-text class="placeholder" *ngIf="!event.location"
+        >Nicht angegeben</ion-text
+      >
     </div>
 
     <!-- time -->
     <div class="detail">
       <ion-icon name="time-outline"></ion-icon>
-      <ion-text>Von: {{ event.start | date:"d. MMMM y, HH:mm" }} Uhr</ion-text>
+      <ion-text
+        >Von:
+        <span *ngIf="event.start">
+          {{ event.start | date:"d. MMMM y, HH:mm" }} Uhr
+        </span>
+        <span *ngIf="!event.start" class="placeholder">Nicht angegeben</span>
+      </ion-text>
     </div>
     <div class="detail">
       <ion-icon name="time-outline"></ion-icon>
-      <ion-text>Bis: {{ event.end | date:"d. MMMM y, HH:mm" }} Uhr</ion-text>
+      <ion-text
+        >Bis:
+        <span *ngIf="event.end">
+          {{ event.end | date:"d. MMMM y, HH:mm" }} Uhr
+        </span>
+        <span *ngIf="!event.end" class="placeholder">Nicht angegeben</span>
+      </ion-text>
     </div>
 
     <!-- description -->
     <p class="title description__title">Beschreibung:</p>
-    <p>{{ event.description }}</p>
+    <p class="event__description">{{ event.description }}</p>
   </div>
 
   <!-- placeholder when event is not set -->
