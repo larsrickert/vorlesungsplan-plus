@@ -1,3 +1,4 @@
+// header with toolbar (without rounded borders
 ion-toolbar {
   --background: linear-gradient(
     90deg,
@@ -11,28 +12,66 @@ ion-toolbar {
   // more rounded header look:
   border-radius: 0 0 40px 40px;
   padding: calc(var(--ion-safe-area-top, 0) + 10px) 20px 10px 20px !important;
+}
 
-  ion-menu-button,
-  ion-back-button {
-    color: #ffffff;
+// header with rounded borders
+:host {
+  display: block;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.wrapper {
+  background: var(--ion-color-primary);
+  background: linear-gradient(
+    90deg,
+    var(--ion-color-primary) 0%,
+    var(--ion-color-secondary) 50%,
+    var(--ion-color-tertiary) 100%
+  );
+
+  color: #ffffff;
+  box-shadow: 0 0 10 rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 40px 40px;
+
+  padding: 30px;
+
+  @media only screen and (max-width: 768px) {
+    padding: 20px 20px 20px 20px;
   }
+}
 
-  #btn--closeModal {
-    font-size: 20px;
-    height: 48px;
-    width: 48px;
-    --color: #ffffff;
+.header {
+  // notches
+  padding-top: constant(safe-area-inset-top);
+  padding-top: env(safe-area-inset-top);
 
-    @media only screen and (max-width: 768px) {
-      font-size: 24px;
-    }
+  display: flex;
+  align-items: center;
+}
+
+ion-menu-button,
+ion-back-button {
+  color: #ffffff;
+}
+
+#btn--closeModal {
+  font-size: 20px;
+  height: 48px;
+  width: 48px;
+  --color: #ffffff;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 24px;
   }
+}
 
-  ion-title {
-    padding: 0;
+ion-title {
+  padding: 0;
 
-    @media only screen and (min-width: 768px) {
-      font-size: 18px;
-    }
+  @media only screen and (min-width: 768px) {
+    font-size: 18px;
   }
 }

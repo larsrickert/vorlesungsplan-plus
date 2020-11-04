@@ -12,13 +12,18 @@
     #searchbar
   ></ion-searchbar>
 
-  <div class="noEvents" *ngIf="blocks.length === 0">
+  <div class="noEvents" *ngIf="loaded && blocks.length === 0">
     Aktuell gibt es keine anstehenden Veranstaltungen.
+  </div>
+
+  <div class="noEvents" *ngIf="!loaded && blocks.length === 0">
+    Veranstaltungen werden geladen...
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
   </div>
 
   <div
     class="noEvents"
-    *ngIf="blocks.length > 0 && searchbar && searchbar.value !== '' && displayedBlocks.length === 0"
+    *ngIf="loaded && blocks.length > 0 && searchbar && searchbar.value !== '' && displayedBlocks.length === 0"
   >
     Deine Suche hat keine Treffer ergeben
   </div>

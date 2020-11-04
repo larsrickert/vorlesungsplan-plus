@@ -13,6 +13,7 @@ export class EventsPage implements OnInit {
   displayedBlocks: IEventBlock[] = [];
   count = 0;
   @ViewChild('searchbar') searchbar: HTMLIonSearchbarElement;
+  loaded = false;
 
   constructor(
     private eventService: EventService,
@@ -26,7 +27,14 @@ export class EventsPage implements OnInit {
       this.count = this.countEvents();
     });
 
-    this.eventService.fetchEvents();
+    this.eventService
+      .fetchEvents()
+      .then(() => {
+        this.loaded = true;
+      })
+      .catch(() => {
+        this.loaded = true;
+      });
   }
 
   search(ev: any): void {

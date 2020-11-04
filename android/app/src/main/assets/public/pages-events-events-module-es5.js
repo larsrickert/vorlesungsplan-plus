@@ -22,7 +22,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<app-header title=\"Veranstaltungen ({{ count }})\"></app-header>\n\n<ion-content class=\"ion-padding\" [fullscreen]=\"true\">\n  <ion-searchbar\n    animated\n    showCancelButton=\"focus\"\n    mode=\"ios\"\n    placeholder=\"Suchen...\"\n    cancelButtonText=\"Abbrechen\"\n    (ionChange)=\"search($event)\"\n    class=\"event__search\"\n    #searchbar\n  ></ion-searchbar>\n\n  <div class=\"noEvents\" *ngIf=\"blocks.length === 0\">\n    Aktuell gibt es keine anstehenden Veranstaltungen.\n  </div>\n\n  <div\n    class=\"noEvents\"\n    *ngIf=\"blocks.length > 0 && searchbar && searchbar.value !== '' && displayedBlocks.length === 0\"\n  >\n    Deine Suche hat keine Treffer ergeben\n  </div>\n\n  <div *ngIf=\"blocks.length > 0\">\n    <app-block\n      *ngFor=\"let block of displayedBlocks\"\n      [block]=\"block\"\n    ></app-block>\n  </div>\n</ion-content>\n";
+      __webpack_exports__["default"] = "<app-header title=\"Veranstaltungen ({{ count }})\"></app-header>\n\n<ion-content class=\"ion-padding\" [fullscreen]=\"true\">\n  <ion-searchbar\n    animated\n    showCancelButton=\"focus\"\n    mode=\"ios\"\n    placeholder=\"Suchen...\"\n    cancelButtonText=\"Abbrechen\"\n    (ionChange)=\"search($event)\"\n    class=\"event__search\"\n    #searchbar\n  ></ion-searchbar>\n\n  <div class=\"noEvents\" *ngIf=\"loaded && blocks.length === 0\">\n    Aktuell gibt es keine anstehenden Veranstaltungen.\n  </div>\n\n  <div class=\"noEvents\" *ngIf=\"!loaded && blocks.length === 0\">\n    Veranstaltungen werden geladen...\n    <ion-progress-bar type=\"indeterminate\"></ion-progress-bar>\n  </div>\n\n  <div\n    class=\"noEvents\"\n    *ngIf=\"loaded && blocks.length > 0 && searchbar && searchbar.value !== '' && displayedBlocks.length === 0\"\n  >\n    Deine Suche hat keine Treffer ergeben\n  </div>\n\n  <div *ngIf=\"blocks.length > 0\">\n    <app-block\n      *ngFor=\"let block of displayedBlocks\"\n      [block]=\"block\"\n    ></app-block>\n  </div>\n</ion-content>\n";
       /***/
     },
 
@@ -230,6 +230,7 @@
           this.blocks = [];
           this.displayedBlocks = [];
           this.count = 0;
+          this.loaded = false;
         }
 
         _createClass(EventsPage, [{
@@ -242,7 +243,11 @@
               _this.displayedBlocks = _this.blocks;
               _this.count = _this.countEvents();
             });
-            this.eventService.fetchEvents();
+            this.eventService.fetchEvents().then(function () {
+              _this.loaded = true;
+            })["catch"](function () {
+              _this.loaded = true;
+            });
           }
         }, {
           key: "search",
@@ -336,7 +341,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".noEvents {\n  margin: 10px;\n}\n\n.event__search {\n  margin-bottom: 20px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZXZlbnRzL2V2ZW50cy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0FBQ0Y7O0FBRUE7RUFDRSxtQkFBQTtBQUNGIiwiZmlsZSI6InNyYy9hcHAvcGFnZXMvZXZlbnRzL2V2ZW50cy5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubm9FdmVudHMge1xyXG4gIG1hcmdpbjogMTBweDtcclxufVxyXG5cclxuLmV2ZW50X19zZWFyY2gge1xyXG4gIG1hcmdpbi1ib3R0b206IDIwcHg7XHJcbn1cclxuIl19 */";
+      __webpack_exports__["default"] = ".noEvents {\n  margin: 10px;\n}\n\n.event__search {\n  margin-bottom: 20px;\n}\n\nion-progress-bar {\n  margin-top: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvZXZlbnRzL2V2ZW50cy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxZQUFBO0FBQ0Y7O0FBRUE7RUFDRSxtQkFBQTtBQUNGOztBQUVBO0VBQ0UsZ0JBQUE7QUFDRiIsImZpbGUiOiJzcmMvYXBwL3BhZ2VzL2V2ZW50cy9ldmVudHMucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm5vRXZlbnRzIHtcclxuICBtYXJnaW46IDEwcHg7XHJcbn1cclxuXHJcbi5ldmVudF9fc2VhcmNoIHtcclxuICBtYXJnaW4tYm90dG9tOiAyMHB4O1xyXG59XHJcblxyXG5pb24tcHJvZ3Jlc3MtYmFyIHtcclxuICBtYXJnaW4tdG9wOiAxMHB4O1xyXG59XHJcbiJdfQ== */";
       /***/
     }
   }]);
