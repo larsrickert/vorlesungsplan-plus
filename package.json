@@ -2,11 +2,11 @@
   "name": "vorlesungsplan-dhbw-mosbach",
   "version": "1.0.0",
   "author": "Lars Rickert",
-  "homepage": "https://mosbach.dhbw.de",
+  "homepage": "https://dhbw.rickstack.de",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && ionic capacitor copy",
+    "build": "ng build --prod && ionic capacitor sync",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
