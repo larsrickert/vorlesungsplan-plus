@@ -57,7 +57,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_interfaces_ILecture__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/interfaces/ILecture */ "dP1x");
 /* harmony import */ var src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/interfaces/ISetting */ "N4YS");
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+/* harmony import */ var _utility_utility_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utility/utility.service */ "LcQX");
 var StorageService_1;
+
 
 
 
@@ -67,8 +69,9 @@ var StorageService_1;
 
 const { Storage, LocalNotifications } = _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"];
 let StorageService = StorageService_1 = class StorageService {
-    constructor(http) {
+    constructor(http, utility) {
         this.http = http;
+        this.utility = utility;
         // observables
         this.settingsBs = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
         this.settings = this.settingsBs.asObservable();
@@ -308,7 +311,7 @@ let StorageService = StorageService_1 = class StorageService {
             // lectures have changed sinced last check
             // send push notification
             if (h1 !== h2) {
-                yield this.sendNotification('Der Vorlesungsplan hat sich geändert', '');
+                yield this.utility.sendPushNotification('Der Vorlesungsplan hat sich geändert', '');
                 const settingValue = {
                     course: currentCourse,
                     lectures: JSON.stringify(lectures),
@@ -332,20 +335,58 @@ let StorageService = StorageService_1 = class StorageService {
         }
         return hash;
     }
-    sendNotification(title, message) {
+};
+StorageService.API_HOST = 'https://api.rickstack.de/';
+StorageService.INIT_SETTINGS = false;
+StorageService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
+    { type: _utility_utility_service__WEBPACK_IMPORTED_MODULE_7__["UtilityService"] }
+];
+StorageService = StorageService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root',
+    })
+], StorageService);
+
+
+
+/***/ }),
+
+/***/ "LcQX":
+/*!*****************************************************!*\
+  !*** ./src/app/services/utility/utility.service.ts ***!
+  \*****************************************************/
+/*! exports provided: UtilityService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UtilityService", function() { return UtilityService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "mrSG");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "TEn/");
+
+
+
+
+const { LocalNotifications } = _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["Plugins"];
+let UtilityService = class UtilityService {
+    constructor(toastController, loadingController) {
+        this.toastController = toastController;
+        this.loadingController = loadingController;
+    }
+    // send a push notification to the user if permission ist granted
+    sendPushNotification(title, message) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
-            if (!title && !message) {
-                return;
-            }
-            const permission = (yield LocalNotifications.areEnabled()).value;
-            if (permission) {
+            const result = yield LocalNotifications.requestPermission();
+            if (result.granted) {
                 yield LocalNotifications.schedule({
                     notifications: [
                         {
                             title,
                             body: message,
                             id: 1,
-                            schedule: { at: new Date(Date.now()) },
                             sound: null,
                             attachments: null,
                             actionTypeId: '',
@@ -353,20 +394,104 @@ let StorageService = StorageService_1 = class StorageService {
                         },
                     ],
                 });
+                return true;
+            }
+            return false;
+        });
+    }
+    // show toast message at the bottom of the screen
+    showToast(message) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alreadyDisplaying = yield this.toastController.getTop();
+            if (!alreadyDisplaying) {
+                const toast = yield this.toastController.create({
+                    message,
+                    duration: 2000,
+                });
+                yield toast.present();
             }
         });
     }
+    // show loading in the middle of the screen (blocks user input)
+    showLoading(message) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
+            const alreadyDisplaying = yield this.loadingController.getTop();
+            if (!alreadyDisplaying) {
+                const loading = yield this.loadingController.create({
+                    cssClass: 'app-loading',
+                    message,
+                });
+                yield loading.present();
+                return loading;
+            }
+            else {
+                return null;
+            }
+        });
+    }
+    createBlocks(items) {
+        const blocks = [];
+        let newBlock = { date: null, items: [] };
+        let currentDate = this.stripTimeFromDate(new Date(Date.now()));
+        // check each lectures if it is for current date and then assign it to the new block
+        for (const item of items) {
+            if (this.isSameDay(currentDate, item.start)) {
+                // lecture is for current block
+                if (!newBlock.date) {
+                    // new block
+                    newBlock.date = this.stripTimeFromDate(currentDate);
+                }
+                newBlock.items.push(item);
+            }
+            else {
+                // new day / block
+                if (newBlock.date && newBlock.items.length > 0) {
+                    blocks.push(newBlock);
+                }
+                // reset
+                currentDate = this.stripTimeFromDate(item.start);
+                newBlock = { date: currentDate, items: [] };
+                newBlock.items.push(item);
+            }
+        }
+        // add last block
+        if (newBlock.date && newBlock.items.length > 0) {
+            blocks.push(newBlock);
+        }
+        return blocks;
+    }
+    // returns true if two days are equal, only checks year, month and day
+    isSameDay(a, b) {
+        return (this.stripTimeFromDate(a).getTime() ===
+            this.stripTimeFromDate(b).getTime());
+    }
+    // unifies date to year, month, day only (for comparrison), optional days can be added to the date (a.e. 1 returns date for tomorrow)
+    stripTimeFromDate(date, addDays) {
+        const days = addDays ? date.getDate() + addDays : date.getDate();
+        return new Date(date.getFullYear(), date.getMonth(), days, 0, 0, 0, 0);
+    }
+    // returns true if lecture is an exam
+    isExam(lecture) {
+        return lecture.name.toLowerCase().includes('klausur');
+    }
+    hasChanges(lectures) {
+        for (const lecture of lectures) {
+            if (lecture.status) {
+                return true;
+            }
+        }
+        return false;
+    }
 };
-StorageService.API_HOST = 'https://api.rickstack.de/';
-StorageService.INIT_SETTINGS = false;
-StorageService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+UtilityService.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"] }
 ];
-StorageService = StorageService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
+UtilityService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root',
     })
-], StorageService);
+], UtilityService);
 
 
 
@@ -422,6 +547,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
 /* harmony import */ var _interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./interfaces/ISetting */ "N4YS");
 /* harmony import */ var _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/storage/storage.service */ "E2f4");
+/* harmony import */ var _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/utility/utility.service */ "LcQX");
+
 
 
 
@@ -432,9 +559,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const { SplashScreen, StatusBar, Keyboard, Browser, LocalNotifications, } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
 let AppComponent = class AppComponent {
-    constructor(router, storage) {
+    constructor(router, storage, utility) {
         this.router = router;
         this.storage = storage;
+        this.utility = utility;
         this.navItems = [
             {
                 title: 'Vorlesungsplan',
@@ -514,24 +642,11 @@ let AppComponent = class AppComponent {
             }
         });
         // request permissions for sending notifications
-        LocalNotifications.requestPermission();
+        this.utility.sendPushNotification('Initial message', 'Message');
         // fetch lectures every 10 minutes
         if (!this.autoFetch) {
             this.autoFetch = setInterval(() => {
-                LocalNotifications.schedule({
-                    notifications: [
-                        {
-                            title: 'Testnachricht',
-                            body: 'Test',
-                            id: 1,
-                            schedule: { at: new Date(Date.now()) },
-                            sound: null,
-                            attachments: null,
-                            actionTypeId: '',
-                            extra: null,
-                        },
-                    ],
-                });
+                this.utility.sendPushNotification('Testnachricht', '');
             }, 1000 * 60 * 1);
         }
     }
@@ -596,7 +711,8 @@ let AppComponent = class AppComponent {
 };
 AppComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"] }
+    { type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"] },
+    { type: _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__["UtilityService"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

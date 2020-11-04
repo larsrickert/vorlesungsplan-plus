@@ -1241,307 +1241,6 @@
     },
 
     /***/
-    "LcQX":
-    /*!*****************************************************!*\
-      !*** ./src/app/services/utility/utility.service.ts ***!
-      \*****************************************************/
-
-    /*! exports provided: UtilityService */
-
-    /***/
-    function LcQX(module, __webpack_exports__, __webpack_require__) {
-      "use strict";
-
-      __webpack_require__.r(__webpack_exports__);
-      /* harmony export (binding) */
-
-
-      __webpack_require__.d(__webpack_exports__, "UtilityService", function () {
-        return UtilityService;
-      });
-      /* harmony import */
-
-
-      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! tslib */
-      "mrSG");
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-      /*! @angular/core */
-      "fXoL");
-      /* harmony import */
-
-
-      var _capacitor_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-      /*! @capacitor/core */
-      "gcOT");
-      /* harmony import */
-
-
-      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-      /*! @ionic/angular */
-      "TEn/");
-
-      var LocalNotifications = _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["Plugins"].LocalNotifications;
-
-      var UtilityService = /*#__PURE__*/function () {
-        function UtilityService(toastController, loadingController) {
-          _classCallCheck(this, UtilityService);
-
-          this.toastController = toastController;
-          this.loadingController = loadingController;
-        } // send a push notification to the user if permission ist granted
-
-
-        _createClass(UtilityService, [{
-          key: "sendPushNotification",
-          value: function sendPushNotification(title, message) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-              var result;
-              return regeneratorRuntime.wrap(function _callee5$(_context5) {
-                while (1) {
-                  switch (_context5.prev = _context5.next) {
-                    case 0:
-                      _context5.next = 2;
-                      return LocalNotifications.requestPermission();
-
-                    case 2:
-                      result = _context5.sent;
-
-                      if (!result.granted) {
-                        _context5.next = 7;
-                        break;
-                      }
-
-                      _context5.next = 6;
-                      return LocalNotifications.schedule({
-                        notifications: [{
-                          title: title,
-                          body: message,
-                          id: 1,
-                          sound: null,
-                          attachments: null,
-                          actionTypeId: '',
-                          extra: null
-                        }]
-                      });
-
-                    case 6:
-                      return _context5.abrupt("return", true);
-
-                    case 7:
-                      return _context5.abrupt("return", false);
-
-                    case 8:
-                    case "end":
-                      return _context5.stop();
-                  }
-                }
-              }, _callee5);
-            }));
-          } // show toast message at the bottom of the screen
-
-        }, {
-          key: "showToast",
-          value: function showToast(message) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-              var alreadyDisplaying, toast;
-              return regeneratorRuntime.wrap(function _callee6$(_context6) {
-                while (1) {
-                  switch (_context6.prev = _context6.next) {
-                    case 0:
-                      _context6.next = 2;
-                      return this.toastController.getTop();
-
-                    case 2:
-                      alreadyDisplaying = _context6.sent;
-
-                      if (alreadyDisplaying) {
-                        _context6.next = 9;
-                        break;
-                      }
-
-                      _context6.next = 6;
-                      return this.toastController.create({
-                        message: message,
-                        duration: 2000
-                      });
-
-                    case 6:
-                      toast = _context6.sent;
-                      _context6.next = 9;
-                      return toast.present();
-
-                    case 9:
-                    case "end":
-                      return _context6.stop();
-                  }
-                }
-              }, _callee6, this);
-            }));
-          } // show loading in the middle of the screen (blocks user input)
-
-        }, {
-          key: "showLoading",
-          value: function showLoading(message) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-              var alreadyDisplaying, loading;
-              return regeneratorRuntime.wrap(function _callee7$(_context7) {
-                while (1) {
-                  switch (_context7.prev = _context7.next) {
-                    case 0:
-                      _context7.next = 2;
-                      return this.loadingController.getTop();
-
-                    case 2:
-                      alreadyDisplaying = _context7.sent;
-
-                      if (alreadyDisplaying) {
-                        _context7.next = 12;
-                        break;
-                      }
-
-                      _context7.next = 6;
-                      return this.loadingController.create({
-                        cssClass: 'app-loading',
-                        message: message
-                      });
-
-                    case 6:
-                      loading = _context7.sent;
-                      _context7.next = 9;
-                      return loading.present();
-
-                    case 9:
-                      return _context7.abrupt("return", loading);
-
-                    case 12:
-                      return _context7.abrupt("return", null);
-
-                    case 13:
-                    case "end":
-                      return _context7.stop();
-                  }
-                }
-              }, _callee7, this);
-            }));
-          }
-        }, {
-          key: "createBlocks",
-          value: function createBlocks(items) {
-            var blocks = [];
-            var newBlock = {
-              date: null,
-              items: []
-            };
-            var currentDate = this.stripTimeFromDate(new Date(Date.now())); // check each lectures if it is for current date and then assign it to the new block
-
-            var _iterator = _createForOfIteratorHelper(items),
-                _step;
-
-            try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                var item = _step.value;
-
-                if (this.isSameDay(currentDate, item.start)) {
-                  // lecture is for current block
-                  if (!newBlock.date) {
-                    // new block
-                    newBlock.date = this.stripTimeFromDate(currentDate);
-                  }
-
-                  newBlock.items.push(item);
-                } else {
-                  // new day / block
-                  if (newBlock.date && newBlock.items.length > 0) {
-                    blocks.push(newBlock);
-                  } // reset
-
-
-                  currentDate = this.stripTimeFromDate(item.start);
-                  newBlock = {
-                    date: currentDate,
-                    items: []
-                  };
-                  newBlock.items.push(item);
-                }
-              } // add last block
-
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
-            }
-
-            if (newBlock.date && newBlock.items.length > 0) {
-              blocks.push(newBlock);
-            }
-
-            return blocks;
-          } // returns true if two days are equal, only checks year, month and day
-
-        }, {
-          key: "isSameDay",
-          value: function isSameDay(a, b) {
-            return this.stripTimeFromDate(a).getTime() === this.stripTimeFromDate(b).getTime();
-          } // unifies date to year, month, day only (for comparrison), optional days can be added to the date (a.e. 1 returns date for tomorrow)
-
-        }, {
-          key: "stripTimeFromDate",
-          value: function stripTimeFromDate(date, addDays) {
-            var days = addDays ? date.getDate() + addDays : date.getDate();
-            return new Date(date.getFullYear(), date.getMonth(), days, 0, 0, 0, 0);
-          } // returns true if lecture is an exam
-
-        }, {
-          key: "isExam",
-          value: function isExam(lecture) {
-            return lecture.name.toLowerCase().includes('klausur');
-          }
-        }, {
-          key: "hasChanges",
-          value: function hasChanges(lectures) {
-            var _iterator2 = _createForOfIteratorHelper(lectures),
-                _step2;
-
-            try {
-              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-                var lecture = _step2.value;
-
-                if (lecture.status) {
-                  return true;
-                }
-              }
-            } catch (err) {
-              _iterator2.e(err);
-            } finally {
-              _iterator2.f();
-            }
-
-            return false;
-          }
-        }]);
-
-        return UtilityService;
-      }();
-
-      UtilityService.ctorParameters = function () {
-        return [{
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]
-        }, {
-          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]
-        }];
-      };
-
-      UtilityService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-      })], UtilityService);
-      /***/
-    },
-
-    /***/
     "OLVN":
     /*!*******************************************************!*\
       !*** ./src/app/components/event/event.component.scss ***!
@@ -1918,22 +1617,22 @@
         }, {
           key: "save",
           value: function save() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
-                  switch (_context8.prev = _context8.next) {
+                  switch (_context5.prev = _context5.next) {
                     case 0:
                       this.changedTask.name = this.changedTask.name.trim();
                       this.changedTask.notes = this.changedTask.notes.trim();
 
                       if (!(!this.changedTask.name || !this.changedTask.course || !this.isoDate)) {
-                        _context8.next = 5;
+                        _context5.next = 5;
                         break;
                       }
 
                       // inputs not valid
                       this.utility.showToast('Bitte fülle alle erforderlichen Felder aus.');
-                      return _context8.abrupt("return");
+                      return _context5.abrupt("return");
 
                     case 5:
                       this.changedTask.end = new Date(this.isoDate);
@@ -1942,32 +1641,32 @@
                       this.changedTask.end = new Date(this.changedTask.end);
 
                       if (!this.task) {
-                        _context8.next = 15;
+                        _context5.next = 15;
                         break;
                       }
 
-                      _context8.next = 12;
+                      _context5.next = 12;
                       return this.taskService.updateTask(this.changedTask);
 
                     case 12:
                       this.utility.showToast('Aufgabe aktualisiert.');
-                      _context8.next = 18;
+                      _context5.next = 18;
                       break;
 
                     case 15:
-                      _context8.next = 17;
+                      _context5.next = 17;
                       return this.taskService.addTask(this.changedTask);
 
                     case 17:
                       this.utility.showToast('Aufgabe hinzugefügt.');
 
                     case 18:
-                      _context8.next = 20;
+                      _context5.next = 20;
                       return this.modalController.getTop();
 
                     case 20:
-                      if (!_context8.sent) {
-                        _context8.next = 22;
+                      if (!_context5.sent) {
+                        _context5.next = 22;
                         break;
                       }
 
@@ -1975,10 +1674,10 @@
 
                     case 22:
                     case "end":
-                      return _context8.stop();
+                      return _context5.stop();
                   }
                 }
-              }, _callee8, this);
+              }, _callee5, this);
             }));
           }
         }]);
@@ -2195,20 +1894,20 @@
         _createClass(TaskService, [{
           key: "getTasks",
           value: function getTasks() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
               var tasks;
-              return regeneratorRuntime.wrap(function _callee9$(_context9) {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context9.prev = _context9.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context9.next = 2;
+                      _context6.next = 2;
                       return this.storage.get(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_3__["StorageKey"].TASKS);
 
                     case 2:
-                      tasks = _context9.sent;
+                      tasks = _context6.sent;
 
                       if (!Array.isArray(tasks)) {
-                        _context9.next = 8;
+                        _context6.next = 8;
                         break;
                       }
 
@@ -2216,52 +1915,52 @@
                         event.start = new Date(event.start);
                         event.end = new Date(event.end);
                       });
-                      return _context9.abrupt("return", this.sortTasks(tasks));
+                      return _context6.abrupt("return", this.sortTasks(tasks));
 
                     case 8:
-                      return _context9.abrupt("return", []);
+                      return _context6.abrupt("return", []);
 
                     case 9:
                     case "end":
-                      return _context9.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee9, this);
+              }, _callee6, this);
             }));
           }
         }, {
           key: "delete",
           value: function _delete(task) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
               var deleted;
-              return regeneratorRuntime.wrap(function _callee10$(_context10) {
+              return regeneratorRuntime.wrap(function _callee7$(_context7) {
                 while (1) {
-                  switch (_context10.prev = _context10.next) {
+                  switch (_context7.prev = _context7.next) {
                     case 0:
                       deleted = this.tasksBs.getValue().filter(function (stored) {
                         return stored.id !== task.id;
                       });
                       deleted = this.sortTasks(deleted);
                       this.tasksBs.next(deleted);
-                      _context10.next = 5;
+                      _context7.next = 5;
                       return this.storage.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_3__["StorageKey"].TASKS, deleted);
 
                     case 5:
                     case "end":
-                      return _context10.stop();
+                      return _context7.stop();
                   }
                 }
-              }, _callee10, this);
+              }, _callee7, this);
             }));
           }
         }, {
           key: "addTask",
           value: function addTask(task) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
               var stored;
-              return regeneratorRuntime.wrap(function _callee11$(_context11) {
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
                 while (1) {
-                  switch (_context11.prev = _context11.next) {
+                  switch (_context8.prev = _context8.next) {
                     case 0:
                       task.id = Object(uuid__WEBPACK_IMPORTED_MODULE_5__["v4"])();
                       stored = this.tasksBs.getValue();
@@ -2269,35 +1968,35 @@
                       if (!stored.find(function (i) {
                         return i.id === task.id;
                       })) {
-                        _context11.next = 4;
+                        _context8.next = 4;
                         break;
                       }
 
-                      return _context11.abrupt("return");
+                      return _context8.abrupt("return");
 
                     case 4:
                       stored.push(task);
                       stored = this.sortTasks(stored);
                       this.tasksBs.next(stored);
-                      _context11.next = 9;
+                      _context8.next = 9;
                       return this.storage.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_3__["StorageKey"].TASKS, stored);
 
                     case 9:
                     case "end":
-                      return _context11.stop();
+                      return _context8.stop();
                   }
                 }
-              }, _callee11, this);
+              }, _callee8, this);
             }));
           }
         }, {
           key: "updateTask",
           value: function updateTask(task) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
               var stored, updated;
-              return regeneratorRuntime.wrap(function _callee12$(_context12) {
+              return regeneratorRuntime.wrap(function _callee9$(_context9) {
                 while (1) {
-                  switch (_context12.prev = _context12.next) {
+                  switch (_context9.prev = _context9.next) {
                     case 0:
                       stored = this.tasksBs.getValue();
                       updated = [];
@@ -2310,33 +2009,33 @@
                       });
                       updated = this.sortTasks(updated);
                       this.tasksBs.next(updated);
-                      _context12.next = 7;
+                      _context9.next = 7;
                       return this.storage.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_3__["StorageKey"].TASKS, updated);
 
                     case 7:
                     case "end":
-                      return _context12.stop();
+                      return _context9.stop();
                   }
                 }
-              }, _callee12, this);
+              }, _callee9, this);
             }));
           }
         }, {
           key: "getUniqueCourses",
           value: function getUniqueCourses() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
               var unique, lectures;
-              return regeneratorRuntime.wrap(function _callee13$(_context13) {
+              return regeneratorRuntime.wrap(function _callee10$(_context10) {
                 while (1) {
-                  switch (_context13.prev = _context13.next) {
+                  switch (_context10.prev = _context10.next) {
                     case 0:
                       unique = [];
-                      _context13.prev = 1;
-                      _context13.next = 4;
+                      _context10.prev = 1;
+                      _context10.next = 4;
                       return this.storage.lectures.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["take"])(1)).toPromise();
 
                     case 4:
-                      lectures = _context13.sent;
+                      lectures = _context10.sent;
                       lectures.forEach(function (lecture) {
                         if (!unique.includes(lecture.name) && lecture.status !== src_app_interfaces_ILecture__WEBPACK_IMPORTED_MODULE_7__["LectureStatus"].REMOVED) {
                           unique.push(lecture.name);
@@ -2344,15 +2043,15 @@
                       });
 
                     case 6:
-                      _context13.prev = 6;
-                      return _context13.abrupt("return", unique.sort());
+                      _context10.prev = 6;
+                      return _context10.abrupt("return", unique.sort());
 
                     case 9:
                     case "end":
-                      return _context13.stop();
+                      return _context10.stop();
                   }
                 }
-              }, _callee13, this, [[1,, 6, 9]]);
+              }, _callee10, this, [[1,, 6, 9]]);
             }));
           }
         }, {
@@ -2365,11 +2064,11 @@
         }, {
           key: "copyToClipboard",
           value: function copyToClipboard() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
               var tasks, string;
-              return regeneratorRuntime.wrap(function _callee14$(_context14) {
+              return regeneratorRuntime.wrap(function _callee11$(_context11) {
                 while (1) {
-                  switch (_context14.prev = _context14.next) {
+                  switch (_context11.prev = _context11.next) {
                     case 0:
                       tasks = this.tasksBs.getValue();
                       string = '';
@@ -2380,56 +2079,56 @@
 
                         string += "Aufgabe: ".concat(task.name, "\nAbgabe bis: ").concat(task.end.toLocaleDateString(), ", ").concat(task.end.getHours(), ":").concat(task.end.getMinutes(), " Uhr\nKurs: ").concat(task.course);
                       });
-                      _context14.next = 5;
+                      _context11.next = 5;
                       return Clipboard.write({
                         string: string.trim()
                       });
 
                     case 5:
                     case "end":
-                      return _context14.stop();
+                      return _context11.stop();
                   }
                 }
-              }, _callee14, this);
+              }, _callee11, this);
             }));
           }
         }, {
           key: "exportFile",
           value: function exportFile() {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
               var tasks, result, blob;
-              return regeneratorRuntime.wrap(function _callee15$(_context15) {
+              return regeneratorRuntime.wrap(function _callee12$(_context12) {
                 while (1) {
-                  switch (_context15.prev = _context15.next) {
+                  switch (_context12.prev = _context12.next) {
                     case 0:
                       tasks = this.tasksBs.getValue(); // remove "start" attribute
 
                       tasks.forEach(function (task) {
                         delete task.start;
                       });
-                      _context15.prev = 2;
-                      _context15.prev = 3;
-                      _context15.next = 6;
+                      _context12.prev = 2;
+                      _context12.prev = 3;
+                      _context12.next = 6;
                       return Filesystem.readdir({
                         path: 'exports',
                         directory: _capacitor_core__WEBPACK_IMPORTED_MODULE_9__["FilesystemDirectory"].Cache
                       });
 
                     case 6:
-                      _context15.next = 12;
+                      _context12.next = 12;
                       break;
 
                     case 8:
-                      _context15.prev = 8;
-                      _context15.t0 = _context15["catch"](3);
-                      _context15.next = 12;
+                      _context12.prev = 8;
+                      _context12.t0 = _context12["catch"](3);
+                      _context12.next = 12;
                       return Filesystem.mkdir({
                         path: 'exports',
                         directory: _capacitor_core__WEBPACK_IMPORTED_MODULE_9__["FilesystemDirectory"].Cache
                       });
 
                     case 12:
-                      _context15.next = 14;
+                      _context12.next = 14;
                       return Filesystem.writeFile({
                         path: 'exports/tasks.json',
                         data: JSON.stringify(this.tasksBs.getValue()),
@@ -2438,25 +2137,25 @@
                       });
 
                     case 14:
-                      result = _context15.sent;
+                      result = _context12.sent;
 
                       if (!result) {
-                        _context15.next = 18;
+                        _context12.next = 18;
                         break;
                       }
 
-                      _context15.next = 18;
+                      _context12.next = 18;
                       return Share.share({
                         url: "".concat(result.uri)
                       });
 
                     case 18:
-                      _context15.next = 24;
+                      _context12.next = 24;
                       break;
 
                     case 20:
-                      _context15.prev = 20;
-                      _context15.t1 = _context15["catch"](2);
+                      _context12.prev = 20;
+                      _context12.t1 = _context12["catch"](2);
                       // Web Share API may not be available
                       blob = new Blob([JSON.stringify(tasks)], {
                         type: 'application/json;charset=utf-8'
@@ -2465,23 +2164,23 @@
 
                     case 24:
                     case "end":
-                      return _context15.stop();
+                      return _context12.stop();
                   }
                 }
-              }, _callee15, this, [[2, 20], [3, 8]]);
+              }, _callee12, this, [[2, 20], [3, 8]]);
             }));
           }
         }, {
           key: "import",
           value: function _import(file) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
               var _this6 = this;
 
-              return regeneratorRuntime.wrap(function _callee17$(_context17) {
+              return regeneratorRuntime.wrap(function _callee14$(_context14) {
                 while (1) {
-                  switch (_context17.prev = _context17.next) {
+                  switch (_context14.prev = _context14.next) {
                     case 0:
-                      return _context17.abrupt("return", new Promise(function (resolve) {
+                      return _context14.abrupt("return", new Promise(function (resolve) {
                         if (file.type !== 'application/json' || !file) {
                           console.error("Wrong file type: ".concat(file.type, " or file undefined"));
                           return resolve(false);
@@ -2491,21 +2190,21 @@
                         var validImport = true;
 
                         readFile.onload = function (e) {
-                          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
-                            var buffer, json, validTasks, _iterator3, _step3, task;
+                          return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this6, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+                            var buffer, json, validTasks, _iterator, _step, task;
 
-                            return regeneratorRuntime.wrap(function _callee16$(_context16) {
+                            return regeneratorRuntime.wrap(function _callee13$(_context13) {
                               while (1) {
-                                switch (_context16.prev = _context16.next) {
+                                switch (_context13.prev = _context13.next) {
                                   case 0:
                                     buffer = e.target.result;
                                     json = JSON.parse(buffer.toString());
                                     validTasks = [];
-                                    _iterator3 = _createForOfIteratorHelper(json);
+                                    _iterator = _createForOfIteratorHelper(json);
 
                                     try {
-                                      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-                                        task = _step3.value;
+                                      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                                        task = _step.value;
 
                                         if ('id' in task && 'end' in task && 'name' in task && 'notes' in task && 'course' in task) {
                                           task.end = new Date(task.end);
@@ -2514,38 +2213,38 @@
                                         }
                                       }
                                     } catch (err) {
-                                      _iterator3.e(err);
+                                      _iterator.e(err);
                                     } finally {
-                                      _iterator3.f();
+                                      _iterator.f();
                                     }
 
                                     if (!(validTasks.length > 0)) {
-                                      _context16.next = 13;
+                                      _context13.next = 13;
                                       break;
                                     }
 
                                     validTasks = this.sortTasks(validTasks);
                                     this.tasksBs.next(validTasks);
-                                    _context16.next = 10;
+                                    _context13.next = 10;
                                     return this.storage.store(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_3__["StorageKey"].TASKS, validTasks);
 
                                   case 10:
                                     validImport = true;
-                                    _context16.next = 14;
+                                    _context13.next = 14;
                                     break;
 
                                   case 13:
                                     validImport = false;
 
                                   case 14:
-                                    return _context16.abrupt("return", resolve(validImport));
+                                    return _context13.abrupt("return", resolve(validImport));
 
                                   case 15:
                                   case "end":
-                                    return _context16.stop();
+                                    return _context13.stop();
                                 }
                               }
-                            }, _callee16, this);
+                            }, _callee13, this);
                           }));
                         };
 
@@ -2554,10 +2253,10 @@
 
                     case 1:
                     case "end":
-                      return _context17.stop();
+                      return _context14.stop();
                   }
                 }
-              }, _callee17);
+              }, _callee14);
             }));
           }
         }]);

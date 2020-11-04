@@ -127,6 +127,12 @@
       var _capacitor_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
       /*! @capacitor/core */
       "gcOT");
+      /* harmony import */
+
+
+      var _utility_utility_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+      /*! ../utility/utility.service */
+      "LcQX");
 
       var StorageService_1;
       var _capacitor_core__WEBP = _capacitor_core__WEBPACK_IMPORTED_MODULE_6__["Plugins"],
@@ -134,12 +140,13 @@
           LocalNotifications = _capacitor_core__WEBP.LocalNotifications;
 
       var StorageService = StorageService_1 = /*#__PURE__*/function () {
-        function StorageService(http) {
+        function StorageService(http, utility) {
           var _this = this;
 
           _classCallCheck(this, StorageService);
 
-          this.http = http; // observables
+          this.http = http;
+          this.utility = utility; // observables
 
           this.settingsBs = new rxjs__WEBPACK_IMPORTED_MODULE_3__["BehaviorSubject"]([]);
           this.settings = this.settingsBs.asObservable();
@@ -577,7 +584,7 @@
                       }
 
                       _context7.next = 44;
-                      return this.sendNotification('Der Vorlesungsplan hat sich geändert', '');
+                      return this.utility.sendPushNotification('Der Vorlesungsplan hat sich geändert', '');
 
                     case 44:
                       _settingValue = {
@@ -614,58 +621,6 @@
 
             return hash;
           }
-        }, {
-          key: "sendNotification",
-          value: function sendNotification(title, message) {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-              var permission;
-              return regeneratorRuntime.wrap(function _callee8$(_context8) {
-                while (1) {
-                  switch (_context8.prev = _context8.next) {
-                    case 0:
-                      if (!(!title && !message)) {
-                        _context8.next = 2;
-                        break;
-                      }
-
-                      return _context8.abrupt("return");
-
-                    case 2:
-                      _context8.next = 4;
-                      return LocalNotifications.areEnabled();
-
-                    case 4:
-                      permission = _context8.sent.value;
-
-                      if (!permission) {
-                        _context8.next = 8;
-                        break;
-                      }
-
-                      _context8.next = 8;
-                      return LocalNotifications.schedule({
-                        notifications: [{
-                          title: title,
-                          body: message,
-                          id: 1,
-                          schedule: {
-                            at: new Date(Date.now())
-                          },
-                          sound: null,
-                          attachments: null,
-                          actionTypeId: '',
-                          extra: null
-                        }]
-                      });
-
-                    case 8:
-                    case "end":
-                      return _context8.stop();
-                  }
-                }
-              }, _callee8);
-            }));
-          }
         }]);
 
         return StorageService;
@@ -677,12 +632,315 @@
       StorageService.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+        }, {
+          type: _utility_utility_service__WEBPACK_IMPORTED_MODULE_7__["UtilityService"]
         }];
       };
 
       StorageService = StorageService_1 = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
       })], StorageService);
+      /***/
+    },
+
+    /***/
+    "LcQX":
+    /*!*****************************************************!*\
+      !*** ./src/app/services/utility/utility.service.ts ***!
+      \*****************************************************/
+
+    /*! exports provided: UtilityService */
+
+    /***/
+    function LcQX(module, __webpack_exports__, __webpack_require__) {
+      "use strict";
+
+      __webpack_require__.r(__webpack_exports__);
+      /* harmony export (binding) */
+
+
+      __webpack_require__.d(__webpack_exports__, "UtilityService", function () {
+        return UtilityService;
+      });
+      /* harmony import */
+
+
+      var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+      /*! tslib */
+      "mrSG");
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      /*! @angular/core */
+      "fXoL");
+      /* harmony import */
+
+
+      var _capacitor_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @capacitor/core */
+      "gcOT");
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      /*! @ionic/angular */
+      "TEn/");
+
+      var LocalNotifications = _capacitor_core__WEBPACK_IMPORTED_MODULE_2__["Plugins"].LocalNotifications;
+
+      var UtilityService = /*#__PURE__*/function () {
+        function UtilityService(toastController, loadingController) {
+          _classCallCheck(this, UtilityService);
+
+          this.toastController = toastController;
+          this.loadingController = loadingController;
+        } // send a push notification to the user if permission ist granted
+
+
+        _createClass(UtilityService, [{
+          key: "sendPushNotification",
+          value: function sendPushNotification(title, message) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+              var result;
+              return regeneratorRuntime.wrap(function _callee8$(_context8) {
+                while (1) {
+                  switch (_context8.prev = _context8.next) {
+                    case 0:
+                      _context8.next = 2;
+                      return LocalNotifications.requestPermission();
+
+                    case 2:
+                      result = _context8.sent;
+
+                      if (!result.granted) {
+                        _context8.next = 7;
+                        break;
+                      }
+
+                      _context8.next = 6;
+                      return LocalNotifications.schedule({
+                        notifications: [{
+                          title: title,
+                          body: message,
+                          id: 1,
+                          sound: null,
+                          attachments: null,
+                          actionTypeId: '',
+                          extra: null
+                        }]
+                      });
+
+                    case 6:
+                      return _context8.abrupt("return", true);
+
+                    case 7:
+                      return _context8.abrupt("return", false);
+
+                    case 8:
+                    case "end":
+                      return _context8.stop();
+                  }
+                }
+              }, _callee8);
+            }));
+          } // show toast message at the bottom of the screen
+
+        }, {
+          key: "showToast",
+          value: function showToast(message) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+              var alreadyDisplaying, toast;
+              return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                while (1) {
+                  switch (_context9.prev = _context9.next) {
+                    case 0:
+                      _context9.next = 2;
+                      return this.toastController.getTop();
+
+                    case 2:
+                      alreadyDisplaying = _context9.sent;
+
+                      if (alreadyDisplaying) {
+                        _context9.next = 9;
+                        break;
+                      }
+
+                      _context9.next = 6;
+                      return this.toastController.create({
+                        message: message,
+                        duration: 2000
+                      });
+
+                    case 6:
+                      toast = _context9.sent;
+                      _context9.next = 9;
+                      return toast.present();
+
+                    case 9:
+                    case "end":
+                      return _context9.stop();
+                  }
+                }
+              }, _callee9, this);
+            }));
+          } // show loading in the middle of the screen (blocks user input)
+
+        }, {
+          key: "showLoading",
+          value: function showLoading(message) {
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+              var alreadyDisplaying, loading;
+              return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                while (1) {
+                  switch (_context10.prev = _context10.next) {
+                    case 0:
+                      _context10.next = 2;
+                      return this.loadingController.getTop();
+
+                    case 2:
+                      alreadyDisplaying = _context10.sent;
+
+                      if (alreadyDisplaying) {
+                        _context10.next = 12;
+                        break;
+                      }
+
+                      _context10.next = 6;
+                      return this.loadingController.create({
+                        cssClass: 'app-loading',
+                        message: message
+                      });
+
+                    case 6:
+                      loading = _context10.sent;
+                      _context10.next = 9;
+                      return loading.present();
+
+                    case 9:
+                      return _context10.abrupt("return", loading);
+
+                    case 12:
+                      return _context10.abrupt("return", null);
+
+                    case 13:
+                    case "end":
+                      return _context10.stop();
+                  }
+                }
+              }, _callee10, this);
+            }));
+          }
+        }, {
+          key: "createBlocks",
+          value: function createBlocks(items) {
+            var blocks = [];
+            var newBlock = {
+              date: null,
+              items: []
+            };
+            var currentDate = this.stripTimeFromDate(new Date(Date.now())); // check each lectures if it is for current date and then assign it to the new block
+
+            var _iterator2 = _createForOfIteratorHelper(items),
+                _step2;
+
+            try {
+              for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                var item = _step2.value;
+
+                if (this.isSameDay(currentDate, item.start)) {
+                  // lecture is for current block
+                  if (!newBlock.date) {
+                    // new block
+                    newBlock.date = this.stripTimeFromDate(currentDate);
+                  }
+
+                  newBlock.items.push(item);
+                } else {
+                  // new day / block
+                  if (newBlock.date && newBlock.items.length > 0) {
+                    blocks.push(newBlock);
+                  } // reset
+
+
+                  currentDate = this.stripTimeFromDate(item.start);
+                  newBlock = {
+                    date: currentDate,
+                    items: []
+                  };
+                  newBlock.items.push(item);
+                }
+              } // add last block
+
+            } catch (err) {
+              _iterator2.e(err);
+            } finally {
+              _iterator2.f();
+            }
+
+            if (newBlock.date && newBlock.items.length > 0) {
+              blocks.push(newBlock);
+            }
+
+            return blocks;
+          } // returns true if two days are equal, only checks year, month and day
+
+        }, {
+          key: "isSameDay",
+          value: function isSameDay(a, b) {
+            return this.stripTimeFromDate(a).getTime() === this.stripTimeFromDate(b).getTime();
+          } // unifies date to year, month, day only (for comparrison), optional days can be added to the date (a.e. 1 returns date for tomorrow)
+
+        }, {
+          key: "stripTimeFromDate",
+          value: function stripTimeFromDate(date, addDays) {
+            var days = addDays ? date.getDate() + addDays : date.getDate();
+            return new Date(date.getFullYear(), date.getMonth(), days, 0, 0, 0, 0);
+          } // returns true if lecture is an exam
+
+        }, {
+          key: "isExam",
+          value: function isExam(lecture) {
+            return lecture.name.toLowerCase().includes('klausur');
+          }
+        }, {
+          key: "hasChanges",
+          value: function hasChanges(lectures) {
+            var _iterator3 = _createForOfIteratorHelper(lectures),
+                _step3;
+
+            try {
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var lecture = _step3.value;
+
+                if (lecture.status) {
+                  return true;
+                }
+              }
+            } catch (err) {
+              _iterator3.e(err);
+            } finally {
+              _iterator3.f();
+            }
+
+            return false;
+          }
+        }]);
+
+        return UtilityService;
+      }();
+
+      UtilityService.ctorParameters = function () {
+        return [{
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["LoadingController"]
+        }];
+      };
+
+      UtilityService = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+      })], UtilityService);
       /***/
     },
 
@@ -803,6 +1061,12 @@
       var _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ./services/storage/storage.service */
       "E2f4");
+      /* harmony import */
+
+
+      var _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! ./services/utility/utility.service */
+      "LcQX");
 
       var _capacitor_core__WEBP2 = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"],
           SplashScreen = _capacitor_core__WEBP2.SplashScreen,
@@ -812,11 +1076,12 @@
           LocalNotifications = _capacitor_core__WEBP2.LocalNotifications;
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(router, storage) {
+        function AppComponent(router, storage, utility) {
           _classCallCheck(this, AppComponent);
 
           this.router = router;
           this.storage = storage;
+          this.utility = utility;
           this.navItems = [{
             title: 'Vorlesungsplan',
             url: '/timetable',
@@ -896,24 +1161,11 @@
               }
             }); // request permissions for sending notifications
 
-            LocalNotifications.requestPermission(); // fetch lectures every 10 minutes
+            this.utility.sendPushNotification('Initial message', 'Message'); // fetch lectures every 10 minutes
 
             if (!this.autoFetch) {
               this.autoFetch = setInterval(function () {
-                LocalNotifications.schedule({
-                  notifications: [{
-                    title: 'Testnachricht',
-                    body: 'Test',
-                    id: 1,
-                    schedule: {
-                      at: new Date(Date.now())
-                    },
-                    sound: null,
-                    attachments: null,
-                    actionTypeId: '',
-                    extra: null
-                  }]
-                });
+                _this3.utility.sendPushNotification('Testnachricht', '');
               }, 1000 * 60 * 1);
             }
           } // call once to enable auto changing of theme (dark / light)
@@ -1004,6 +1256,8 @@
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
           type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"]
+        }, {
+          type: _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__["UtilityService"]
         }];
       };
 
