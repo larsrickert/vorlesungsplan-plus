@@ -313,7 +313,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div\n  *ngIf=\"event\"\n  class=\"event\"\n  [class.task--last]=\"isLast\"\n  [routerLink]=\"['/event-details', event.id]\"\n>\n  <div class=\"event__content\">\n    <ion-label *ngIf=\"event.name\" class=\"event__name\">{{\n      event.name\n    }}</ion-label>\n\n    <!-- Meta -->\n    <div class=\"event__meta\">\n      <!-- start -->\n      <ion-text *ngIf=\"event.start\"\n        >Beginn: {{ event.start | date: 'H:mm' }} Uhr</ion-text\n      >\n\n      <!-- end -->\n      <ion-text *ngIf=\"event.end\"\n        >Ende: {{ event.end | date: 'H:mm' }} Uhr</ion-text\n      >\n\n      <!-- location -->\n      <ion-text class=\"event__location\" *ngIf=\"event.location !== ''\"\n        >Ort: {{ event.location }}</ion-text\n      >\n    </div>\n  </div>\n</div>\n";
+      __webpack_exports__["default"] = "<div\n  *ngIf=\"event\"\n  class=\"event\"\n  [class.event--last]=\"isLast\"\n  [class.event--disabled]=\"disabled\"\n  (click)=\"navigate()\"\n>\n  <div class=\"event__content\">\n    <ion-label *ngIf=\"event.name\" class=\"event__name\">{{\n      event.name\n    }}</ion-label>\n\n    <!-- Meta -->\n    <div class=\"event__meta\">\n      <!-- start -->\n      <ion-text *ngIf=\"event.start\"\n        >Beginn: {{ event.start | date: 'H:mm' }} Uhr</ion-text\n      >\n\n      <!-- end -->\n      <ion-text *ngIf=\"event.end\"\n        >Ende: {{ event.end | date: 'H:mm' }} Uhr</ion-text\n      >\n\n      <!-- location -->\n      <ion-text class=\"event__location\" *ngIf=\"event.location !== ''\"\n        >Ort: {{ event.location }}</ion-text\n      >\n    </div>\n  </div>\n</div>\n";
       /***/
     },
 
@@ -1256,7 +1256,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = ".event {\n  padding: 12px 20px;\n  overflow: hidden;\n  cursor: pointer;\n  outline: 0;\n}\n.event--last {\n  border-radius: 0 0 10px 10px;\n}\n.event__name {\n  font-weight: 600;\n  display: block;\n  white-space: normal;\n}\n.event__content {\n  width: 100%;\n}\n.event__meta {\n  font-size: 14px;\n  margin-top: 5px;\n  font-weight: 500;\n  display: flex;\n  flex-direction: column;\n  color: var(--ion-color-medium);\n}\n.event__location {\n  margin-top: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ldmVudC9ldmVudC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsVUFBQTtBQUNGO0FBQ0U7RUFDRSw0QkFBQTtBQUNKO0FBRUU7RUFDRSxnQkFBQTtFQUNBLGNBQUE7RUFDQSxtQkFBQTtBQUFKO0FBR0U7RUFDRSxXQUFBO0FBREo7QUFJRTtFQUNFLGVBQUE7RUFDQSxlQUFBO0VBQ0EsZ0JBQUE7RUFDQSxhQUFBO0VBQ0Esc0JBQUE7RUFDQSw4QkFBQTtBQUZKO0FBS0U7RUFDRSxnQkFBQTtBQUhKIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9ldmVudC9ldmVudC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ldmVudCB7XHJcbiAgcGFkZGluZzogMTJweCAyMHB4O1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIG91dGxpbmU6IDA7XHJcblxyXG4gICYtLWxhc3Qge1xyXG4gICAgYm9yZGVyLXJhZGl1czogMCAwIDEwcHggMTBweDtcclxuICB9XHJcblxyXG4gICZfX25hbWUge1xyXG4gICAgZm9udC13ZWlnaHQ6IDYwMDtcclxuICAgIGRpc3BsYXk6IGJsb2NrO1xyXG4gICAgd2hpdGUtc3BhY2U6IG5vcm1hbDtcclxuICB9XHJcblxyXG4gICZfX2NvbnRlbnQge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAmX19tZXRhIHtcclxuICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgIG1hcmdpbi10b3A6IDVweDtcclxuICAgIGZvbnQtd2VpZ2h0OiA1MDA7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgIGNvbG9yOiB2YXIoLS1pb24tY29sb3ItbWVkaXVtKTtcclxuICB9XHJcblxyXG4gICZfX2xvY2F0aW9uIHtcclxuICAgIG1hcmdpbi10b3A6IDEwcHg7XHJcbiAgfVxyXG59XHJcbiJdfQ== */";
+      __webpack_exports__["default"] = ".event {\n  padding: 12px 20px;\n  overflow: hidden;\n  cursor: pointer;\n  outline: 0;\n}\n.event--last {\n  border-radius: 0 0 10px 10px;\n}\n.event--disabled {\n  cursor: default;\n}\n.event__name {\n  font-weight: 600;\n  display: block;\n  white-space: normal;\n}\n.event__content {\n  width: 100%;\n}\n.event__meta {\n  font-size: 14px;\n  margin-top: 5px;\n  font-weight: 500;\n  display: flex;\n  flex-direction: column;\n  color: var(--ion-color-medium);\n}\n.event__location {\n  margin-top: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ldmVudC9ldmVudC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0VBQ0EsZ0JBQUE7RUFDQSxlQUFBO0VBQ0EsVUFBQTtBQUNGO0FBQ0U7RUFDRSw0QkFBQTtBQUNKO0FBRUU7RUFDRSxlQUFBO0FBQUo7QUFHRTtFQUNFLGdCQUFBO0VBQ0EsY0FBQTtFQUNBLG1CQUFBO0FBREo7QUFJRTtFQUNFLFdBQUE7QUFGSjtBQUtFO0VBQ0UsZUFBQTtFQUNBLGVBQUE7RUFDQSxnQkFBQTtFQUNBLGFBQUE7RUFDQSxzQkFBQTtFQUNBLDhCQUFBO0FBSEo7QUFNRTtFQUNFLGdCQUFBO0FBSkoiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2V2ZW50L2V2ZW50LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmV2ZW50IHtcclxuICBwYWRkaW5nOiAxMnB4IDIwcHg7XHJcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgb3V0bGluZTogMDtcclxuXHJcbiAgJi0tbGFzdCB7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwIDAgMTBweCAxMHB4O1xyXG4gIH1cclxuXHJcbiAgJi0tZGlzYWJsZWQge1xyXG4gICAgY3Vyc29yOiBkZWZhdWx0O1xyXG4gIH1cclxuXHJcbiAgJl9fbmFtZSB7XHJcbiAgICBmb250LXdlaWdodDogNjAwO1xyXG4gICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICB3aGl0ZS1zcGFjZTogbm9ybWFsO1xyXG4gIH1cclxuXHJcbiAgJl9fY29udGVudCB7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICB9XHJcblxyXG4gICZfX21ldGEge1xyXG4gICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgbWFyZ2luLXRvcDogNXB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IDUwMDtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgY29sb3I6IHZhcigtLWlvbi1jb2xvci1tZWRpdW0pO1xyXG4gIH1cclxuXHJcbiAgJl9fbG9jYXRpb24ge1xyXG4gICAgbWFyZ2luLXRvcDogMTBweDtcclxuICB9XHJcbn1cclxuIl19 */";
       /***/
     },
 
@@ -1450,24 +1450,41 @@
       var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
+      /* harmony import */
+
+
+      var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      /*! @angular/router */
+      "tyNb");
 
       var EventComponent = /*#__PURE__*/function () {
-        function EventComponent() {
+        function EventComponent(router) {
           _classCallCheck(this, EventComponent);
 
+          this.router = router;
           this.isLast = false;
+          this.disabled = false;
         }
 
         _createClass(EventComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {}
+        }, {
+          key: "navigate",
+          value: function navigate() {
+            if (!this.disabled) {
+              this.router.navigate(['/event-details', this.event.id]);
+            }
+          }
         }]);
 
         return EventComponent;
       }();
 
       EventComponent.ctorParameters = function () {
-        return [];
+        return [{
+          type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
+        }];
       };
 
       EventComponent.propDecorators = {
@@ -1475,6 +1492,9 @@
           type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"]
         }],
         isLast: [{
+          type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"]
+        }],
+        disabled: [{
           type: _angular_core__WEBPACK_IMPORTED_MODULE_3__["Input"]
         }]
       };
@@ -3085,7 +3105,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<div class=\"block\" *ngIf=\"block && !skeleton\">\n  <!-- headings (e.g \"morgen\", \"heute\", etc.) -->\n  <ion-label class=\"block__heading\" *ngIf=\"dateString\">\n    {{ dateString }}\n  </ion-label>\n\n  <ion-label class=\"block__heading\" *ngIf=\"!dateString\">\n    {{ block.date | date: 'fullDate' }}\n  </ion-label>\n\n  <!-- items -->\n  <div\n    class=\"block__item-wrapper\"\n    *ngFor=\"let item of block.items; let i = index\"\n  >\n    <app-lecture\n      *ngIf=\"lectureBlock\"\n      [lecture]=\"item\"\n      [isLast]=\"i === block.items.length - 1\"\n    ></app-lecture>\n\n    <app-event\n      *ngIf=\"eventBlock\"\n      [event]=\"item\"\n      [isLast]=\"i === block.items.length - 1\"\n    ></app-event>\n\n    <app-task\n      *ngIf=\"taskBlock\"\n      [task]=\"item\"\n      [isLast]=\"i === block.items.length - 1\"\n      [accent]=\"i % 2 === 0\"\n      [disabled]=\"disabled\"\n    ></app-task>\n  </div>\n</div>\n\n<!-- skeleton -->\n<div *ngIf=\"skeleton\" class=\"block\">\n  <div class=\"block__heading\">\n    <ion-skeleton-text animated class=\"skeleton__date\"></ion-skeleton-text>\n  </div>\n\n  <app-lecture *ngIf=\"skeleton === 'lecture'\" [skeleton]=\"true\"></app-lecture>\n  <app-task *ngIf=\"skeleton === 'task'\" [skeleton]=\"true\"></app-task>\n</div>\n";
+      __webpack_exports__["default"] = "<div class=\"block\" *ngIf=\"block && !skeleton\">\n  <!-- headings (e.g \"morgen\", \"heute\", etc.) -->\n  <ion-label class=\"block__heading\" *ngIf=\"dateString\">\n    {{ dateString }}\n  </ion-label>\n\n  <ion-label class=\"block__heading\" *ngIf=\"!dateString\">\n    {{ block.date | date: 'fullDate' }}\n  </ion-label>\n\n  <!-- items -->\n  <div\n    class=\"block__item-wrapper\"\n    *ngFor=\"let item of block.items; let i = index\"\n  >\n    <app-lecture\n      *ngIf=\"lectureBlock\"\n      [lecture]=\"item\"\n      [isLast]=\"i === block.items.length - 1\"\n    ></app-lecture>\n\n    <app-event\n      *ngIf=\"eventBlock\"\n      [event]=\"item\"\n      [isLast]=\"i === block.items.length - 1\"\n      [disabled]=\"disabled\"\n    ></app-event>\n\n    <app-task\n      *ngIf=\"taskBlock\"\n      [task]=\"item\"\n      [isLast]=\"i === block.items.length - 1\"\n      [accent]=\"i % 2 === 0\"\n      [disabled]=\"disabled\"\n    ></app-task>\n  </div>\n</div>\n\n<!-- skeleton -->\n<div *ngIf=\"skeleton\" class=\"block\">\n  <div class=\"block__heading\">\n    <ion-skeleton-text animated class=\"skeleton__date\"></ion-skeleton-text>\n  </div>\n\n  <app-lecture *ngIf=\"skeleton === 'lecture'\" [skeleton]=\"true\"></app-lecture>\n  <app-task *ngIf=\"skeleton === 'task'\" [skeleton]=\"true\"></app-task>\n</div>\n";
       /***/
     },
 
