@@ -9,6 +9,7 @@ import {
 } from '@capacitor/core';
 import { SettingKey } from './interfaces/ISetting';
 import { StorageService } from './services/storage/storage.service';
+import { UtilityService } from './services/utility/utility.service';
 const {
   SplashScreen,
   StatusBar,
@@ -72,7 +73,11 @@ export class AppComponent {
   showLinks = false;
   autoFetch: any;
 
-  constructor(public router: Router, private storage: StorageService) {
+  constructor(
+    public router: Router,
+    private storage: StorageService,
+    private utility: UtilityService
+  ) {
     this.initializeApp();
   }
 
@@ -117,25 +122,12 @@ export class AppComponent {
     });
 
     // request permissions for sending notifications
-    LocalNotifications.requestPermission();
+    this.utility.sendPushNotification('Initial message', 'Message');
 
     // fetch lectures every 10 minutes
     if (!this.autoFetch) {
       this.autoFetch = setInterval(() => {
-        LocalNotifications.schedule({
-          notifications: [
-            {
-              title: 'Testnachricht',
-              body: 'Test',
-              id: 1,
-              schedule: { at: new Date(Date.now()) },
-              sound: null,
-              attachments: null,
-              actionTypeId: '',
-              extra: null,
-            },
-          ],
-        });
+        this.utility.sendPushNotification('Testnachricht', '');
       }, 1000 * 60 * 1);
     }
   }

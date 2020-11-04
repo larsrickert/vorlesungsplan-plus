@@ -10,6 +10,7 @@ import {
 } from 'src/app/interfaces/ISetting';
 
 import { Plugins } from '@capacitor/core';
+import { UtilityService } from '../utility/utility.service';
 const { Storage, LocalNotifications } = Plugins;
 
 @Injectable({
@@ -26,7 +27,7 @@ export class StorageService {
   private lecturesBs = new BehaviorSubject<ILecture[]>([]);
   lectures: Observable<ILecture[]> = this.lecturesBs.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private utility: UtilityService) {
     // init settings
     this.get(StorageKey.SETTINGS).then((settings) => {
       StorageService.INIT_SETTINGS = true;
@@ -309,7 +310,10 @@ export class StorageService {
     // lectures have changed sinced last check
     // send push notification
     if (h1 !== h2) {
-      await this.sendNotification('Der Vorlesungsplan hat sich geändert', '');
+      await this.utility.sendPushNotification(
+        'Der Vorlesungsplan hat sich geändert',
+        ''
+      );
 
       const settingValue: ILectureChangeNotification = {
         course: currentCourse,
@@ -336,33 +340,5 @@ export class StorageService {
     }
 
     return hash;
-  }
-
-  private async sendNotification(
-    title: string,
-    message: string
-  ): Promise<void> {
-    if (!title && !message) {
-      return;
-    }
-
-    const permission = (await LocalNotifications.areEnabled()).value;
-
-    if (permission) {
-      await LocalNotifications.schedule({
-        notifications: [
-          {
-            title,
-            body: message,
-            id: 1,
-            schedule: { at: new Date(Date.now()) },
-            sound: null,
-            attachments: null,
-            actionTypeId: '',
-            extra: null,
-          },
-        ],
-      });
-    }
   }
 }
