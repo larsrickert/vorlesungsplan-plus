@@ -54,13 +54,14 @@ export class CourseSelectPage implements OnInit {
       value: course,
     });
 
-    if (this.redirect) {
-      this.router.navigate(['/timetable']);
-    }
-
     // close modal
     if (await this.modalController.getTop()) {
       await this.modalController.dismiss();
+    }
+
+    // redirect
+    if (this.redirect) {
+      this.router.navigate(['/timetable']);
     }
   }
 

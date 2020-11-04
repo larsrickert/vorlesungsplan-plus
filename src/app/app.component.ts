@@ -16,6 +16,8 @@ const {
   Keyboard,
   Browser,
   LocalNotifications,
+  App,
+  BackgroundTask,
 } = Plugins;
 
 @Component({
@@ -122,14 +124,33 @@ export class AppComponent {
     });
 
     // request permissions for sending notifications
-    this.utility.sendPushNotification('Initial message', 'Message');
+    LocalNotifications.requestPermission();
 
     // fetch lectures every 10 minutes
-    if (!this.autoFetch) {
-      this.autoFetch = setInterval(() => {
-        this.utility.sendPushNotification('Testnachricht', '');
-      }, 1000 * 60 * 1);
+    if (Capacitor.isPluginAvailable('BackgroundTask')) {
+      this.test();
     }
+  }
+
+  private test() {
+    let taskId = BackgroundTask.beforeExit(async () => {
+      // In this function We might finish an upload, let a network request
+      // finish, persist some data, or perform some other task
+      // Example of long task
+      setTimeout(() => {
+        this.utility.sendPushNotification('Testnachricht', '').then(() => {
+          BackgroundTask.finish({
+            taskId,
+          });
+        });
+
+        this.test();
+      }, 1000 * 10 * 1);
+
+      // Must call in order to end our task otherwise
+      // we risk our app being terminated, and possibly
+      // being labeled as impacting battery life
+    });
   }
 
   // call once to enable auto changing of theme (dark / light)

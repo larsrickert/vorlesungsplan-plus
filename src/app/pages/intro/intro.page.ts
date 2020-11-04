@@ -110,7 +110,7 @@ export class IntroPage implements OnInit {
 
   async complete() {
     this.storage.addSetting({ key: SettingKey.INTRO, value: true });
-    this.router.navigate(['/timetable']);
     await this.menuCtrl.enable(true);
+    this.router.navigate(['/timetable']);
   }
 }
