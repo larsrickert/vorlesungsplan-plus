@@ -21,6 +21,7 @@ p {
 
 ion-segment-button {
   --indicator-color: var(--app-segment-indicator);
+  min-width: fit-content;
 }
 
 // action sheet
