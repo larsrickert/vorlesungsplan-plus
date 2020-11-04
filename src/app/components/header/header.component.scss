@@ -1,20 +1,3 @@
-// header with toolbar (without rounded borders
-ion-toolbar {
-  --background: linear-gradient(
-    90deg,
-    var(--ion-color-primary) 0%,
-    var(--ion-color-secondary) 50%,
-    var(--ion-color-tertiary) 100%
-  );
-  --color: #ffffff;
-  box-shadow: var(--app-box-shadow);
-
-  // more rounded header look:
-  border-radius: 0 0 40px 40px;
-  padding: calc(var(--ion-safe-area-top, 0) + 10px) 20px 10px 20px !important;
-}
-
-// header with rounded borders
 :host {
   display: block;
   position: -webkit-sticky;
@@ -35,12 +18,10 @@ ion-toolbar {
   color: #ffffff;
   box-shadow: 0 0 10 rgba(0, 0, 0, 0.1);
   border-radius: 0px 0px 40px 40px;
-  padding: calc(var(--ion-safe-area-top, 0) + 30px) 30px 30px 30px;
-
-  // padding: 30px;
+  padding: 30px;
 
   @media only screen and (max-width: 768px) {
-    padding: calc(var(--ion-safe-area-top, 0) + 20px) 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 }
 
@@ -53,9 +34,17 @@ ion-toolbar {
   align-items: center;
 }
 
-ion-menu-button,
+ion-menu-button {
+  color: #ffffff;
+}
+
 ion-back-button {
   color: #ffffff;
+
+  @media only screen and (min-width: 768px) {
+    margin-top: -15px;
+    margin-bottom: -15px;
+  }
 }
 
 #btn--closeModal {
