@@ -17,7 +17,7 @@ export class BlockComponent implements OnInit {
   @Input() skeleton: string;
   @Input() disabled = false;
 
-  now = new Date(Date.now());
+  now = new Date();
   lectureBlock = false;
   eventBlock = false;
   taskBlock = false;

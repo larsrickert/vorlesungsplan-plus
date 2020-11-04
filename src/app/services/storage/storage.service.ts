@@ -84,8 +84,6 @@ export class StorageService {
         key: SettingKey.LASTUPDATED,
         value: new Date(Date.now()),
       });
-
-      this.checkForChanges(lectures);
       return true;
     } catch (error) {
       console.error('Error while fetching lectures!');
@@ -234,9 +232,10 @@ export class StorageService {
     return match ? match.value : null;
   }
 
-  async checkForChanges(lectures: ILecture[]): Promise<void> {
+  // return true when lectures have changed since last check
+  async checkForChanges(lectures: ILecture[]): Promise<boolean> {
     if (lectures.length === 0) {
-      return;
+      return false;
     }
 
     // copy lectures (avoids reference problems when modifing those lectures)
@@ -273,7 +272,7 @@ export class StorageService {
 
     // new lectures does not have changes
     if (!hasChanges) {
-      return;
+      return false;
     }
 
     let lastChecked: ILectureChangeNotification | null = this.getSetting(
@@ -282,7 +281,7 @@ export class StorageService {
 
     // last checked is unset
     if (!lastChecked) {
-      return;
+      return false;
     }
 
     let lastLectures = this.validateLectures(JSON.parse(lastChecked.lectures));
@@ -290,7 +289,7 @@ export class StorageService {
 
     // last checked lectures are empty or last checked course is different from current course
     if (lastChecked.lectures.length === 0 || checkedCourse !== currentCourse) {
-      return;
+      return false;
     }
 
     // remove old lectures and status
@@ -310,11 +309,6 @@ export class StorageService {
     // lectures have changed sinced last check
     // send push notification
     if (h1 !== h2) {
-      await this.utility.sendPushNotification(
-        'Der Vorlesungsplan hat sich geändert',
-        ''
-      );
-
       const settingValue: ILectureChangeNotification = {
         course: currentCourse,
         lectures: JSON.stringify(lectures),
@@ -325,7 +319,11 @@ export class StorageService {
         key: SettingKey.LASTCHANGENOTIFICATION,
         value: settingValue,
       });
+
+      return true;
     }
+
+    return false;
   }
 
   private createHash(str: string) {

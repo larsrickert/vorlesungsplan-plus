@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\vorlesungsplan-capacitor\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! /Users/rickertl/Documents/DHBW/vorlesungsplan-capacitor/src/main.ts */"zUnb");
 
 
 /***/ }),
@@ -125,7 +125,6 @@ let StorageService = StorageService_1 = class StorageService {
                     key: src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].LASTUPDATED,
                     value: new Date(Date.now()),
                 });
-                this.checkForChanges(lectures);
                 return true;
             }
             catch (error) {
@@ -253,10 +252,11 @@ let StorageService = StorageService_1 = class StorageService {
         });
         return match ? match.value : null;
     }
+    // return true when lectures have changed since last check
     checkForChanges(lectures) {
         return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function* () {
             if (lectures.length === 0) {
-                return;
+                return false;
             }
             // copy lectures (avoids reference problems when modifing those lectures)
             const temp = [];
@@ -284,18 +284,18 @@ let StorageService = StorageService_1 = class StorageService {
             });
             // new lectures does not have changes
             if (!hasChanges) {
-                return;
+                return false;
             }
             let lastChecked = this.getSetting(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].LASTCHANGENOTIFICATION);
             // last checked is unset
             if (!lastChecked) {
-                return;
+                return false;
             }
             let lastLectures = this.validateLectures(JSON.parse(lastChecked.lectures));
             let checkedCourse = lastChecked.course;
             // last checked lectures are empty or last checked course is different from current course
             if (lastChecked.lectures.length === 0 || checkedCourse !== currentCourse) {
-                return;
+                return false;
             }
             // remove old lectures and status
             lastLectures = lastLectures.filter((lecture) => {
@@ -311,7 +311,6 @@ let StorageService = StorageService_1 = class StorageService {
             // lectures have changed sinced last check
             // send push notification
             if (h1 !== h2) {
-                yield this.utility.sendPushNotification('Der Vorlesungsplan hat sich geändert', '');
                 const settingValue = {
                     course: currentCourse,
                     lectures: JSON.stringify(lectures),
@@ -321,7 +320,9 @@ let StorageService = StorageService_1 = class StorageService {
                     key: src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].LASTCHANGENOTIFICATION,
                     value: settingValue,
                 });
+                return true;
             }
+            return false;
         });
     }
     createHash(str) {
@@ -547,7 +548,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _capacitor_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @capacitor/core */ "gcOT");
 /* harmony import */ var _interfaces_ISetting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./interfaces/ISetting */ "N4YS");
 /* harmony import */ var _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./services/storage/storage.service */ "E2f4");
-/* harmony import */ var _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/utility/utility.service */ "LcQX");
 
 
 
@@ -556,13 +556,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-const { SplashScreen, StatusBar, Keyboard, Browser, LocalNotifications, } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
+const { SplashScreen, StatusBar, Keyboard, Browser } = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"];
 let AppComponent = class AppComponent {
-    constructor(router, storage, utility) {
+    constructor(router, storage) {
         this.router = router;
         this.storage = storage;
-        this.utility = utility;
         this.navItems = [
             {
                 title: 'Vorlesungsplan',
@@ -641,13 +639,11 @@ let AppComponent = class AppComponent {
                 this.showLinks = course && course.includes('INF19');
             }
         });
-        // request permissions for sending notifications
-        this.utility.sendPushNotification('Initial message', 'Message');
         // fetch lectures every 10 minutes
         if (!this.autoFetch) {
             this.autoFetch = setInterval(() => {
-                this.utility.sendPushNotification('Testnachricht', '');
-            }, 1000 * 60 * 1);
+                this.storage.fetchLectures();
+            }, 1000 * 60 * 10);
         }
     }
     // call once to enable auto changing of theme (dark / light)
@@ -711,8 +707,7 @@ let AppComponent = class AppComponent {
 };
 AppComponent.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] },
-    { type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"] },
-    { type: _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__["UtilityService"] }
+    { type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"] }
 ];
 AppComponent = Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"])([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["Component"])({

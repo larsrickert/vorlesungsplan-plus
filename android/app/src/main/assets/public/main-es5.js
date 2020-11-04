@@ -23,7 +23,7 @@
     /***/
     function _(module, exports, __webpack_require__) {
       module.exports = __webpack_require__(
-      /*! D:\vorlesungsplan-capacitor\src\main.ts */
+      /*! /Users/rickertl/Documents/DHBW/vorlesungsplan-capacitor/src/main.ts */
       "zUnb");
       /***/
     },
@@ -256,30 +256,29 @@
                       });
 
                     case 15:
-                      this.checkForChanges(lectures);
                       return _context3.abrupt("return", true);
 
-                    case 19:
-                      _context3.prev = 19;
+                    case 18:
+                      _context3.prev = 18;
                       _context3.t0 = _context3["catch"](4);
                       console.error('Error while fetching lectures!');
                       console.error(_context3.t0); // try to load lectures from local storage
 
-                      _context3.next = 25;
+                      _context3.next = 24;
                       return this.get(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["StorageKey"].LECTURES);
 
-                    case 25:
+                    case 24:
                       local = _context3.sent;
                       this.lecturesBs.next(local ? this.validateLectures(local) : []);
                       console.log('Fetched lectures from local storage.');
                       return _context3.abrupt("return", false);
 
-                    case 29:
+                    case 28:
                     case "end":
                       return _context3.stop();
                   }
                 }
-              }, _callee3, this, [[4, 19]]);
+              }, _callee3, this, [[4, 18]]);
             }));
           } // returns array of all available courses
 
@@ -453,7 +452,8 @@
               return setting.key === identifier;
             });
             return match ? match.value : null;
-          }
+          } // return true when lectures have changed since last check
+
         }, {
           key: "checkForChanges",
           value: function checkForChanges(lectures) {
@@ -469,7 +469,7 @@
                         break;
                       }
 
-                      return _context7.abrupt("return");
+                      return _context7.abrupt("return", false);
 
                     case 2:
                       // copy lectures (avoids reference problems when modifing those lectures)
@@ -541,7 +541,7 @@
                         break;
                       }
 
-                      return _context7.abrupt("return");
+                      return _context7.abrupt("return", false);
 
                     case 30:
                       lastChecked = this.getSetting(src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].LASTCHANGENOTIFICATION); // last checked is unset
@@ -551,7 +551,7 @@
                         break;
                       }
 
-                      return _context7.abrupt("return");
+                      return _context7.abrupt("return", false);
 
                     case 33:
                       lastLectures = this.validateLectures(JSON.parse(lastChecked.lectures));
@@ -562,7 +562,7 @@
                         break;
                       }
 
-                      return _context7.abrupt("return");
+                      return _context7.abrupt("return", false);
 
                     case 37:
                       // remove old lectures and status
@@ -579,24 +579,26 @@
                       // send push notification
 
                       if (!(h1 !== h2)) {
-                        _context7.next = 47;
+                        _context7.next = 46;
                         break;
                       }
 
-                      _context7.next = 44;
-                      return this.utility.sendPushNotification('Der Vorlesungsplan hat sich geändert', '');
-
-                    case 44:
                       _settingValue = {
                         course: currentCourse,
                         lectures: JSON.stringify(lectures)
                       }; // store currently checked lectures to local storage
 
-                      _context7.next = 47;
+                      _context7.next = 45;
                       return this.addSetting({
                         key: src_app_interfaces_ISetting__WEBPACK_IMPORTED_MODULE_5__["SettingKey"].LASTCHANGENOTIFICATION,
                         value: _settingValue
                       });
+
+                    case 45:
+                      return _context7.abrupt("return", true);
+
+                    case 46:
+                      return _context7.abrupt("return", false);
 
                     case 47:
                     case "end":
@@ -1061,27 +1063,19 @@
       var _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! ./services/storage/storage.service */
       "E2f4");
-      /* harmony import */
-
-
-      var _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
-      /*! ./services/utility/utility.service */
-      "LcQX");
 
       var _capacitor_core__WEBP2 = _capacitor_core__WEBPACK_IMPORTED_MODULE_5__["Plugins"],
           SplashScreen = _capacitor_core__WEBP2.SplashScreen,
           StatusBar = _capacitor_core__WEBP2.StatusBar,
           Keyboard = _capacitor_core__WEBP2.Keyboard,
-          Browser = _capacitor_core__WEBP2.Browser,
-          LocalNotifications = _capacitor_core__WEBP2.LocalNotifications;
+          Browser = _capacitor_core__WEBP2.Browser;
 
       var AppComponent = /*#__PURE__*/function () {
-        function AppComponent(router, storage, utility) {
+        function AppComponent(router, storage) {
           _classCallCheck(this, AppComponent);
 
           this.router = router;
           this.storage = storage;
-          this.utility = utility;
           this.navItems = [{
             title: 'Vorlesungsplan',
             url: '/timetable',
@@ -1159,14 +1153,12 @@
 
                 _this3.showLinks = course && course.includes('INF19');
               }
-            }); // request permissions for sending notifications
-
-            this.utility.sendPushNotification('Initial message', 'Message'); // fetch lectures every 10 minutes
+            }); // fetch lectures every 10 minutes
 
             if (!this.autoFetch) {
               this.autoFetch = setInterval(function () {
-                _this3.utility.sendPushNotification('Testnachricht', '');
-              }, 1000 * 60 * 1);
+                _this3.storage.fetchLectures();
+              }, 1000 * 60 * 10);
             }
           } // call once to enable auto changing of theme (dark / light)
           // user preference can be added, a.e. theme depending on a setting
@@ -1256,8 +1248,6 @@
           type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]
         }, {
           type: _services_storage_storage_service__WEBPACK_IMPORTED_MODULE_7__["StorageService"]
-        }, {
-          type: _services_utility_utility_service__WEBPACK_IMPORTED_MODULE_8__["UtilityService"]
         }];
       };
 

@@ -25,7 +25,7 @@ export class LectureComponent implements OnInit, OnDestroy {
     if (!this.skeleton) {
       this.setProgress();
 
-      // update progress bar every 10 seconds and remove past lectures
+      // update progress bar every 10 seconds
       this.intervall = setInterval(() => {
         this.setProgress();
       }, 10 * 1000);

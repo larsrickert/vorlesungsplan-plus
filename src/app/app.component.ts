@@ -9,16 +9,7 @@ import {
 } from '@capacitor/core';
 import { SettingKey } from './interfaces/ISetting';
 import { StorageService } from './services/storage/storage.service';
-import { UtilityService } from './services/utility/utility.service';
-const {
-  SplashScreen,
-  StatusBar,
-  Keyboard,
-  Browser,
-  LocalNotifications,
-  App,
-  BackgroundTask,
-} = Plugins;
+const { SplashScreen, StatusBar, Keyboard, Browser } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -75,11 +66,7 @@ export class AppComponent {
   showLinks = false;
   autoFetch: any;
 
-  constructor(
-    public router: Router,
-    private storage: StorageService,
-    private utility: UtilityService
-  ) {
+  constructor(public router: Router, private storage: StorageService) {
     this.initializeApp();
   }
 
@@ -123,34 +110,12 @@ export class AppComponent {
       }
     });
 
-    // request permissions for sending notifications
-    LocalNotifications.requestPermission();
-
     // fetch lectures every 10 minutes
-    if (Capacitor.isPluginAvailable('BackgroundTask')) {
-      this.test();
+    if (!this.autoFetch) {
+      this.autoFetch = setInterval(() => {
+        this.storage.fetchLectures();
+      }, 1000 * 60 * 10);
     }
-  }
-
-  private test() {
-    let taskId = BackgroundTask.beforeExit(async () => {
-      // In this function We might finish an upload, let a network request
-      // finish, persist some data, or perform some other task
-      // Example of long task
-      setTimeout(() => {
-        this.utility.sendPushNotification('Testnachricht', '').then(() => {
-          BackgroundTask.finish({
-            taskId,
-          });
-        });
-
-        this.test();
-      }, 1000 * 10 * 1);
-
-      // Must call in order to end our task otherwise
-      // we risk our app being terminated, and possibly
-      // being labeled as impacting battery life
-    });
   }
 
   // call once to enable auto changing of theme (dark / light)

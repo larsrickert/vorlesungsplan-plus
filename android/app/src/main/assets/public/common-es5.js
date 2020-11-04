@@ -353,7 +353,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "ion-checkbox {\n  margin-right: 20px;\n}\n\nion-list {\n  padding: 0;\n}\n\nion-searchbar {\n  padding-left: 0;\n  padding-right: 0;\n}\n\nion-progress-bar {\n  margin-top: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvY291cnNlLXNlbGVjdC9jb3Vyc2Utc2VsZWN0LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxVQUFBO0FBQ0Y7O0FBRUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7QUFDRjs7QUFFQTtFQUNFLGdCQUFBO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9jb3Vyc2Utc2VsZWN0L2NvdXJzZS1zZWxlY3QucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNoZWNrYm94IHtcclxuICBtYXJnaW4tcmlnaHQ6IDIwcHg7XHJcbn1cclxuXHJcbmlvbi1saXN0IHtcclxuICBwYWRkaW5nOiAwO1xyXG59XHJcblxyXG5pb24tc2VhcmNoYmFyIHtcclxuICBwYWRkaW5nLWxlZnQ6IDA7XHJcbiAgcGFkZGluZy1yaWdodDogMDtcclxufVxyXG5cclxuaW9uLXByb2dyZXNzLWJhciB7XHJcbiAgbWFyZ2luLXRvcDogMTBweDtcclxufVxyXG4iXX0= */";
+      __webpack_exports__["default"] = "ion-checkbox {\n  margin-right: 20px;\n}\n\nion-list {\n  padding: 0;\n}\n\nion-searchbar {\n  padding-left: 0;\n  padding-right: 0;\n}\n\nion-progress-bar {\n  margin-top: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcGFnZXMvY291cnNlLXNlbGVjdC9jb3Vyc2Utc2VsZWN0LnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGtCQUFBO0FBQ0Y7O0FBRUE7RUFDRSxVQUFBO0FBQ0Y7O0FBRUE7RUFDRSxlQUFBO0VBQ0EsZ0JBQUE7QUFDRjs7QUFFQTtFQUNFLGdCQUFBO0FBQ0YiLCJmaWxlIjoic3JjL2FwcC9wYWdlcy9jb3Vyc2Utc2VsZWN0L2NvdXJzZS1zZWxlY3QucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNoZWNrYm94IHtcbiAgbWFyZ2luLXJpZ2h0OiAyMHB4O1xufVxuXG5pb24tbGlzdCB7XG4gIHBhZGRpbmc6IDA7XG59XG5cbmlvbi1zZWFyY2hiYXIge1xuICBwYWRkaW5nLWxlZnQ6IDA7XG4gIHBhZGRpbmctcmlnaHQ6IDA7XG59XG5cbmlvbi1wcm9ncmVzcy1iYXIge1xuICBtYXJnaW4tdG9wOiAxMHB4O1xufVxuIl19 */";
       /***/
     },
 
@@ -476,22 +476,23 @@
                       });
 
                     case 5:
-                      if (this.redirect) {
-                        this.router.navigate(['/timetable']);
-                      } // close modal
-
-
-                      _context.next = 8;
+                      _context.next = 7;
                       return this.modalController.getTop();
 
-                    case 8:
+                    case 7:
                       if (!_context.sent) {
-                        _context.next = 11;
+                        _context.next = 10;
                         break;
                       }
 
-                      _context.next = 11;
+                      _context.next = 10;
                       return this.modalController.dismiss();
+
+                    case 10:
+                      // redirect
+                      if (this.redirect) {
+                        this.router.navigate(['/timetable']);
+                      }
 
                     case 11:
                     case "end":
