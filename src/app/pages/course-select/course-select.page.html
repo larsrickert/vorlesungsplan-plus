@@ -9,6 +9,7 @@
       placeholder="Suchen..."
       cancelButtonText="Abbrechen"
       (ionChange)="searchCourse($event)"
+      enterkeyhint="search"
     ></ion-searchbar>
 
     <div *ngIf="courseGroups.length > 0 && displayedGroups.length === 0">
