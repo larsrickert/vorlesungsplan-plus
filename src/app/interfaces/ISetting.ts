@@ -1,5 +1,3 @@
-import { ILecture } from './ILecture';
-
 export interface ISetting {
   key: SettingKey;
   value: any;
@@ -20,6 +18,7 @@ export enum StorageKey {
   LECTURES = 'lectures',
   TASKS = 'tasks',
   EVENTS = 'events',
+  COURSES = 'courses',
 }
 
 export interface ILectureChangeNotification {

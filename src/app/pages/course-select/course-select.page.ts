@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ViewDidEnter } from '@ionic/angular';
 import { SettingKey } from 'src/app/interfaces/ISetting';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
@@ -14,7 +14,7 @@ interface CourseGroup {
   templateUrl: './course-select.page.html',
   styleUrls: ['./course-select.page.scss'],
 })
-export class CourseSelectPage implements OnInit {
+export class CourseSelectPage implements OnInit, ViewDidEnter {
   @Input() redirect = true;
   @ViewChild('searchbar') searchbar: HTMLIonSearchbarElement;
   courseGroups: CourseGroup[] = [];
@@ -28,23 +28,31 @@ export class CourseSelectPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.storage
-      .fetchCourses()
-      .then((courses) => {
-        // set focus to searchbar
-        if (this.searchbar) {
-          this.searchbar.setFocus();
-        }
+    // speed up course loading by trying to fetch courses from local storage
+    this.storage.fetchCourses(true).then((courses) => {
+      this.onFetch(courses);
 
-        this.courseGroups = this.groupCourses(courses);
-        this.displayedGroups = this.courseGroups;
-      })
-      .catch(() => {
-        this.courseGroups = [];
-        this.displayedGroups = [];
+      // fetch courses from api in case locally stored ones are not up 2 date
+      this.storage.fetchCourses().then((courses) => {
+        this.onFetch(courses);
       });
+    });
 
     this.selectedCourse = this.storage.getSetting(SettingKey.COURSE);
+  }
+
+  // set focus to searchbar when courses are being loaded
+  ionViewDidEnter() {
+    setTimeout(() => {
+      if (this.searchbar && this.courseGroups.length > 0) {
+        this.searchbar.setFocus();
+      }
+    }, 0);
+  }
+
+  private onFetch(courses: string[]) {
+    this.courseGroups = this.groupCourses(courses);
+    this.displayedGroups = this.courseGroups;
   }
 
   async select(ev: any, course: string) {

@@ -99,8 +99,25 @@ export class StorageService {
   }
 
   // returns array of all available courses
-  async fetchCourses(): Promise<string[]> {
-    return this.http.get<string[]>(`${StorageService.API_HOST}`).toPromise();
+  async fetchCourses(local?: boolean): Promise<string[]> {
+    if (local) {
+      // try to fetch courses stored in local storage
+      const storedCourses = await this.get(StorageKey.COURSES);
+      return storedCourses ? storedCourses : [];
+    } else {
+      // fetch courses from api
+      try {
+        const result = await this.http
+          .get<string[]>(`${StorageService.API_HOST}`)
+          .toPromise();
+
+        this.store(StorageKey.COURSES, result);
+
+        return result;
+      } catch (error) {
+        return [];
+      }
+    }
   }
 
   // ensures that lectures from local storage are valid
