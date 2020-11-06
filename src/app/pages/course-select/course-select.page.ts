@@ -16,6 +16,7 @@ interface CourseGroup {
 })
 export class CourseSelectPage implements OnInit {
   @Input() redirect = true;
+  @ViewChild('searchbar') searchbar: HTMLIonSearchbarElement;
   courseGroups: CourseGroup[] = [];
   displayedGroups: CourseGroup[] = [];
   selectedCourse = null;
@@ -30,6 +31,11 @@ export class CourseSelectPage implements OnInit {
     this.storage
       .fetchCourses()
       .then((courses) => {
+        // set focus to searchbar
+        if (this.searchbar) {
+          this.searchbar.setFocus();
+        }
+
         this.courseGroups = this.groupCourses(courses);
         this.displayedGroups = this.courseGroups;
       })

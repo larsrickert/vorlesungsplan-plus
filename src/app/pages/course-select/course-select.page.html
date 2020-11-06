@@ -10,6 +10,7 @@
       cancelButtonText="Abbrechen"
       (ionChange)="searchCourse($event)"
       enterkeyhint="search"
+      #searchbar
     ></ion-searchbar>
 
     <div *ngIf="courseGroups.length > 0 && displayedGroups.length === 0">
