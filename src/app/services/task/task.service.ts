@@ -8,14 +8,8 @@ import { take } from 'rxjs/operators';
 import { LectureStatus } from 'src/app/interfaces/ILecture';
 import { saveAs } from 'file-saver';
 
-import {
-  Capacitor,
-  FilesystemDirectory,
-  FilesystemEncoding,
-  Plugins,
-} from '@capacitor/core';
-import { trimTrailingNulls } from '@angular/compiler/src/render3/view/util';
-const { Clipboard, Filesystem, Share } = Plugins;
+import { Plugins } from '@capacitor/core';
+const { Clipboard, Share } = Plugins;
 
 @Injectable({
   providedIn: 'root',
@@ -146,29 +140,14 @@ export class TaskService {
     });
 
     try {
-      // create exports folder if it does not exist
-      try {
-        await Filesystem.readdir({
-          path: 'exports',
-          directory: FilesystemDirectory.Cache,
-        });
-      } catch (error) {
-        await Filesystem.mkdir({
-          path: 'exports',
-          directory: FilesystemDirectory.Cache,
-        });
-      }
-
-      const result = await Filesystem.writeFile({
-        path: 'exports/tasks.json',
-        data: JSON.stringify(this.tasksBs.getValue()),
-        directory: FilesystemDirectory.Cache,
-        encoding: FilesystemEncoding.UTF8,
-      });
+      const result = await this.storage.storeInFilesystem(
+        JSON.stringify(this.tasksBs.getValue()),
+        'tasks.json'
+      );
 
       if (result) {
         await Share.share({
-          url: `${result.uri}`,
+          url: result,
         });
       }
     } catch (e) {

@@ -14,94 +14,230 @@
     <ion-segment-button value="iOS">
       <ion-label>iOS</ion-label>
     </ion-segment-button>
+    <ion-segment-button value="iOS Widget">
+      <ion-label>iOS Widget</ion-label>
+    </ion-segment-button>
     <ion-segment-button value="browser">
       <ion-label>PC</ion-label>
     </ion-segment-button>
   </ion-segment>
 
   <div [ngSwitch]="device" class="content">
+    <!-- android -->
     <div *ngSwitchCase="'android'">
-      <div class="screenshots">
-        <div class="screenshots__step">
-          <ion-label class="screenshots__label"
-            >Google Chrome: 1. Einstellungen öffnen</ion-label
-          >
-          <img
-            src="../../../assets/images/instruction-android-chrome-1.jpg"
-            alt="Screenshot Chrome Einstellungen"
-            title="Chrome Einstellungen"
-            class="screenshots__image"
-          />
+      <details class="accordion" open>
+        <summary>Google Chrome</summary>
+
+        <div class="accordion_content">
+          <div>
+            <div class="step">
+              <span class="step--bubble">1</span>
+              <p>Einstellungen öffnen</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-android-chrome-1.jpg"
+              alt="Screenshot Chrome Einstellungen"
+              title="Chrome Einstellungen"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">2</span>
+              <p>App zum Startbildschirm hinzufügen</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-android-chrome-2.jpg"
+              alt="Screenshot Chrome App installieren"
+              title="Chrome App installieren"
+              class="accordion__screenshot"
+            />
+          </div>
         </div>
-        <div class="screenshots__step">
-          <ion-label class="screenshots__label"
-            >Google Chrome: 2. App installieren</ion-label
-          >
-          <img
-            src="../../../assets/images/instruction-android-chrome-2.jpg"
-            alt="Screenshot Chrome App installieren"
-            title="Chrome App installieren"
-            class="screenshots__image"
-          />
+      </details>
+
+      <details class="accordion">
+        <summary>Samsung Internet</summary>
+
+        <div class="accordion_content">
+          <div>
+            <div class="step">
+              <span class="step--bubble">1</span>
+              <p>App direkt über das Icon installieren</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-android-si-1.jpg"
+              alt="Screenshot Samsung Internet App installieren"
+              title="Samsung Internet App installieren"
+              class="accordion__screenshot"
+            />
+          </div>
         </div>
-      </div>
-      <div class="screenshots">
-        <div class="screenshots__step">
-          <ion-label class="screenshots__label"
-            >Samsung Internet: Direkt installieren</ion-label
-          >
-          <img
-            src="../../../assets/images/instruction-android-si-1.jpg"
-            alt="Screenshot Samsung Internet App installieren"
-            title="Samsung Internet App installieren"
-            class="screenshots__image"
-          />
-        </div>
-      </div>
+      </details>
     </div>
 
+    <!-- iOS -->
     <div *ngSwitchCase="'iOS'">
-      <div class="screenshots">
-        <div class="screenshots__step">
-          <ion-label class="screenshots__label"
-            >1. Teilen Dialog in Safari öffnen</ion-label
-          >
-          <img
-            src="../../../assets/images/instruction-ios-1.jpg"
-            alt="Screenshot Teilen Dialog öffnen"
-            title="Teilen Dialog öffnen"
-            class="screenshots__image"
-          />
-        </div>
+      <details class="accordion" open>
+        <summary>Safari</summary>
 
-        <div class="screenshots__step">
-          <ion-label class="screenshots__label"
-            >2. App zum Home-Bildschirm hinzufügen</ion-label
-          >
-          <img
-            src="../../../assets/images/instruction-ios-2.jpg"
-            alt="Screenshot App zum Home-Bildschirm hinzufügen"
-            title="App zum Home-Bildschirm hinzufügen"
-            class="screenshots__image"
-          />
+        <div class="accordion_content">
+          <div>
+            <div class="step">
+              <span class="step--bubble">1</span>
+              <p>Teilen Dialog öffnen</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-1.jpg"
+              alt="Screenshot Teilen Dialog öffnen"
+              title="Teilen Dialog öffnen"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">2</span>
+              <p>App zum Home-Bildschirm hinzufügen</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-2.jpg"
+              alt="Screenshot App zum Home-Bildschirm hinzufügen"
+              title="App zum Home-Bildschirm hinzufügen"
+              class="accordion__screenshot"
+            />
+          </div>
         </div>
-      </div>
+      </details>
     </div>
 
-    <div *ngSwitchCase="'browser'">
-      <div class="screenshots">
-        <div class="screenshots__step">
-          <ion-label class="screenshots__label"
-            >1. Über das Plus Icon neben der Suchleiste installieren</ion-label
-          >
-          <img
-            src="../../../assets/images/instruction-browser-1.jpg"
-            alt="Screenshot Installation PC"
-            title="App per Browser installieren"
-            class="screenshots__image"
-          />
+    <!-- iOS widget -->
+    <div *ngSwitchCase="'iOS Widget'">
+      <details class="accordion" open>
+        <summary>iOS 14</summary>
+
+        <div class="accordion_content">
+          <div>
+            <div class="step">
+              <span class="step--bubble">1</span>
+              <p>App "Scriptable" aus dem App Store laden</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-widget-1.jpg"
+              alt="iOS App Scriptable"
+              title="Scriptable installieren"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">2</span>
+              <p>Skript herunterladen und in Scriptable öffnen</p>
+            </div>
+
+            <ion-chip
+              color="primary"
+              class="download-script"
+              (click)="downloadWidgetScript()"
+              >Skript jetzt herunterladen</ion-chip
+            >
+
+            <img
+              src="../../../assets/images/instruction-ios-widget-2.jpg"
+              alt="Skript Import"
+              title="Skript importieren"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">3</span>
+              <p>Scriptable Widget erstellen</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-widget-3.jpg"
+              alt="Scriptable Widget"
+              title="Scriptable Widget erstellen"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">4</span>
+              <p>Widget bearbeiten</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-widget-4.jpg"
+              alt="Widget bearbeiten"
+              title="Widget bearbeiten"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">5</span>
+              <p>Skript und Kurs auswählen</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-widget-5.jpg"
+              alt="Widget konfigurieren"
+              title="Widget konfigurieren"
+              class="accordion__screenshot"
+            />
+          </div>
+
+          <div>
+            <div class="step">
+              <span class="step--bubble">6</span>
+              <p>Viel Spaß mit dem Widget</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-ios-widget-6.jpg"
+              alt="Vorlesungsplan Widget"
+              title="Vorlesungsplan Widget"
+              class="accordion__screenshot"
+            />
+          </div>
         </div>
-      </div>
+      </details>
+    </div>
+
+    <!-- pc -->
+    <div *ngSwitchCase="'browser'">
+      <details class="accordion" open>
+        <summary>Google Chrome</summary>
+
+        <div class="accordion_content">
+          <div>
+            <div class="step">
+              <span class="step--bubble">1</span>
+              <p>Über das Plus Icon neben der Suchleiste installieren</p>
+            </div>
+
+            <img
+              src="../../../assets/images/instruction-browser-1.jpg"
+              alt="Screenshot Installation PC"
+              title="App per Browser installieren"
+              class="accordion__screenshot"
+            />
+          </div>
+        </div>
+      </details>
     </div>
   </div>
 </ion-content>

@@ -89,13 +89,6 @@ export class AppComponent {
       SplashScreen.hide();
     }
 
-    // remove "installation" nav item when running native
-    if (Capacitor.isNative) {
-      this.bottomNavItems = this.bottomNavItems.filter((item) => {
-        return item.url !== '/installation';
-      });
-    }
-
     // redirect to intro when no course is set
     // watch whether to hide links or not
     this.storage.settings.subscribe(() => {

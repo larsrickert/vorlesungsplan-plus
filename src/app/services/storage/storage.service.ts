@@ -9,9 +9,14 @@ import {
   StorageKey,
 } from 'src/app/interfaces/ISetting';
 
-import { Plugins } from '@capacitor/core';
+import {
+  FilesystemDirectory,
+  FilesystemEncoding,
+  Plugins,
+} from '@capacitor/core';
 import { UtilityService } from '../utility/utility.service';
-const { Storage, LocalNotifications } = Plugins;
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+const { Storage, Filesystem } = Plugins;
 
 @Injectable({
   providedIn: 'root',
@@ -355,5 +360,21 @@ export class StorageService {
     }
 
     return hash;
+  }
+
+  async storeInFilesystem(file: any, filename: string): Promise<string | null> {
+    let result = null;
+
+    try {
+      // create exports folder if it does not exist
+      result = await Filesystem.writeFile({
+        path: filename,
+        data: JSON.stringify(file),
+        directory: FilesystemDirectory.Cache,
+        encoding: FilesystemEncoding.UTF8,
+      });
+    } catch (error) {}
+
+    return result.uri ? result.uri : null;
   }
 }

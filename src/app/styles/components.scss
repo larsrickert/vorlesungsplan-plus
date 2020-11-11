@@ -42,3 +42,23 @@
     color: var(--ion-color-danger);
   }
 }
+
+.step {
+  display: flex;
+  align-items: center;
+
+  &--bubble {
+    background: var(--ion-color-primary);
+    color: #ffffff;
+    height: 30px;
+    width: 30px;
+    min-width: 30px;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 10px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 15px 15px 15px 0px;
+  }
+}
