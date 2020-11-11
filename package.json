@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate_resources": "cordova-res ios --skip-config --copy && cordova-res android --skip-config --copy"
+    "generate_resources": "cordova-res ios --skip-config --copy"
   },
   "private": true,
   "dependencies": {
