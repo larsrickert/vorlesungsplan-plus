@@ -41,7 +41,7 @@ export class InstallationPage implements OnInit {
 
         if (result) {
           await Share.share({
-            url: `${result}`,
+            url: `file://${result}`,
           });
         }
       } catch (e) {
