@@ -40,10 +40,8 @@ export class InstallationPage implements OnInit {
         );
 
         if (result) {
-          console.log(result);
-
           await Share.share({
-            url: `file://${result}`,
+            url: `${result}`,
           });
         }
       } catch (e) {
