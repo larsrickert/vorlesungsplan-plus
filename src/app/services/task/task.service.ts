@@ -147,12 +147,11 @@ export class TaskService {
 
       if (result) {
         await Share.share({
-          url: result,
+          url: `file://${result}`,
         });
       }
     } catch (e) {
       // Web Share API may not be available
-
       var blob = new Blob([JSON.stringify(tasks)], {
         type: 'application/json;charset=utf-8',
       });
