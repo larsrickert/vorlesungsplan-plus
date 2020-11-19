@@ -35,13 +35,15 @@ export class InstallationPage implements OnInit {
 
       try {
         const result = await this.storage.storeInFilesystem(
-          JSON.stringify(await script.text()),
+          await script.text(),
           filename
         );
 
         if (result) {
+          console.log(result);
+
           await Share.share({
-            url: result,
+            url: `file://${result}`,
           });
         }
       } catch (e) {
