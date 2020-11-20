@@ -124,6 +124,10 @@ export class TaskService {
       }\nAbgabe bis: ${task.end.toLocaleDateString()}, ${task.end.getHours()}:${task.end.getMinutes()} Uhr\nKurs: ${
         task.course
       }`;
+
+      if (task.notes) {
+        string += `\nBeschreibung:${task.notes}`;
+      }
     });
 
     await Clipboard.write({
