@@ -9,6 +9,7 @@ import {
 } from '@capacitor/core';
 import { SettingKey } from './interfaces/ISetting';
 import { StorageService } from './services/storage/storage.service';
+import { UtilityService } from './services/utility/utility.service';
 const { SplashScreen, StatusBar, Keyboard, Browser } = Plugins;
 
 @Component({
@@ -66,7 +67,11 @@ export class AppComponent {
   showLinks = false;
   autoFetch: any;
 
-  constructor(public router: Router, private storage: StorageService) {
+  constructor(
+    public router: Router,
+    private storage: StorageService,
+    private utility: UtilityService
+  ) {
     this.initializeApp();
   }
 
@@ -109,6 +114,9 @@ export class AppComponent {
         this.storage.fetchLectures();
       }, 1000 * 60 * 10);
     }
+
+    // check for app updates
+    this.utility.checkForAppUpdates();
   }
 
   // call once to enable auto changing of theme (dark / light)

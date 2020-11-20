@@ -15,8 +15,8 @@ import {
   Plugins,
 } from '@capacitor/core';
 import { UtilityService } from '../utility/utility.service';
-import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
-const { Storage, Filesystem } = Plugins;
+const { Storage, Filesystem, Share } = Plugins;
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root',
@@ -362,19 +362,37 @@ export class StorageService {
     return hash;
   }
 
-  async storeInFilesystem(file: any, filename: string): Promise<string | null> {
-    let result = null;
-
+  async shareFile(
+    file: string,
+    filename: string,
+    mimeType?: string
+  ): Promise<void> {
     try {
       // create exports folder if it does not exist
-      result = await Filesystem.writeFile({
+      const result = await Filesystem.writeFile({
         path: filename,
         data: JSON.stringify(file),
         directory: FilesystemDirectory.Cache,
         encoding: FilesystemEncoding.UTF8,
       });
-    } catch (error) {}
 
-    return result.uri ? result.uri : null;
+      if (result) {
+        await Share.share({
+          url: `file://${result}`,
+        });
+      }
+    } catch (error) {
+      // Web Share API may not be available
+      try {
+        var blob = new Blob([JSON.stringify(file)], {
+          type: mimeType
+            ? `${mimeType};charset=utf-8`
+            : 'application/json;charset=utf-8',
+        });
+        saveAs(blob, filename);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   }
 }

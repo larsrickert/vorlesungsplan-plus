@@ -143,25 +143,13 @@ export class TaskService {
       delete task.start;
     });
 
-    try {
-      const result = await this.storage.storeInFilesystem(
-        JSON.stringify(this.tasksBs.getValue()),
-        'tasks.json'
-      );
-
-      if (result) {
-        await Share.share({
-          url: `file://${result}`,
-        });
-      }
-    } catch (e) {
-      // Web Share API may not be available
-      var blob = new Blob([JSON.stringify(tasks)], {
-        type: 'application/json;charset=utf-8',
-      });
-
-      saveAs(blob, 'export_tasks.json');
-    }
+    await this.storage.shareFile(
+      JSON.stringify(this.tasksBs.getValue()),
+      `tasks-${new Date()
+        .toLocaleDateString()
+        .replace('.', '-')
+        .replace('.', '-')}.json`
+    );
   }
 
   async import(file: File): Promise<boolean> {

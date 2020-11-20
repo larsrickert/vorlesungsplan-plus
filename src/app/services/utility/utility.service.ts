@@ -1,6 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Plugins } from '@capacitor/core';
+import { Plugins, Capacitor } from '@capacitor/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { IBlockable, IBlock } from 'src/app/interfaces/IBlock';
 import { ILecture } from 'src/app/interfaces/ILecture';
@@ -10,9 +11,13 @@ const { LocalNotifications } = Plugins;
   providedIn: 'root',
 })
 export class UtilityService {
+  static appVersion = '1.0.0';
+  static versionHost = 'https://api.rickstack.de/version/';
+
   constructor(
     private toastController: ToastController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private http: HttpClient
   ) {}
 
   // send a push notification to the user if permission ist granted
@@ -134,5 +139,32 @@ export class UtilityService {
     }
 
     return false;
+  }
+
+  async getLatestAppVersion(): Promise<string> {
+    const version = await this.http
+      .get<string>(UtilityService.versionHost)
+      .toPromise();
+    return version ? version : '';
+  }
+
+  async checkForAppUpdates(): Promise<void> {
+    if (!Capacitor.isNative) {
+      return;
+    }
+
+    try {
+      await LocalNotifications.requestPermission();
+      const version = await this.getLatestAppVersion();
+
+      if (version && version !== UtilityService.appVersion) {
+        this.sendPushNotification(
+          'Aktualisierung verfügbar!',
+          `Für deine Vorlesungsplan+ App ist ein Update von Version ${UtilityService.appVersion} auf ${version} verfügbar. Du kannst sie im Menü unter Installation aktualisieren`
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

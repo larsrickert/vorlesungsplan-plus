@@ -25,7 +25,34 @@
   <div [ngSwitch]="device" class="content">
     <!-- android -->
     <div *ngSwitchCase="'android'">
-      <details class="accordion" open>
+      <details class="accordion" [open]="isNative">
+        <summary>Android APK</summary>
+
+        <div class="accordion_content">
+          <div>
+            <p *ngIf="!isNative">Neueste Version: {{ latestVersion }}</p>
+            <p *ngIf="isNative && latestVersion === currentVersion">
+              Du hast bereits die aktuellste Version installiert.
+            </p>
+            <p
+              *ngIf="isNative && latestVersion && latestVersion !== currentVersion"
+            >
+              Neueste Version: {{ latestVersion }} (Du hast aktuell Version {{
+              currentVersion }} installiert)
+            </p>
+            <ion-chip
+              color="primary"
+              (click)="downloadApk()"
+              class="downloadApk"
+            >
+              APK herunterladen
+              <ion-icon name="download-outline"></ion-icon>
+            </ion-chip>
+          </div>
+        </div>
+      </details>
+
+      <details class="accordion" [open]="!isNative">
         <summary>Google Chrome</summary>
 
         <div class="accordion_content">
@@ -147,8 +174,9 @@
               color="primary"
               class="download-script"
               (click)="downloadWidgetScript()"
-              >Skript jetzt herunterladen</ion-chip
-            >
+              >Skript jetzt herunterladen
+              <ion-icon name="download-outline"></ion-icon>
+            </ion-chip>
 
             <img
               src="../../../assets/images/instruction-ios-widget-2.jpg"
