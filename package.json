@@ -6,11 +6,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && npx cap copy ios",
+    "build": "ng build --prod && npx cap copy",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate_resources": "cordova-res ios --skip-config --copy"
+    "generate_resources": "cordova-res ios --skip-config --copy && cordova-res android --skip-config --copy"
   },
   "private": true,
   "dependencies": {
