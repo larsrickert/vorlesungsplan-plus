@@ -25,7 +25,7 @@
   <div [ngSwitch]="device" class="content">
     <!-- android -->
     <div *ngSwitchCase="'android'">
-      <details class="accordion" [open]="isNative">
+      <details class="accordion" open>
         <summary>Android APK</summary>
 
         <div class="accordion_content">
@@ -52,7 +52,7 @@
         </div>
       </details>
 
-      <details class="accordion" [open]="!isNative">
+      <details class="accordion">
         <summary>Google Chrome</summary>
 
         <div class="accordion_content">
