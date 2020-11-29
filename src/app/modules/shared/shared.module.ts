@@ -9,6 +9,7 @@ import { LectureComponent } from 'src/app/components/lecture/lecture.component';
 import { LectureStatusFabComponent } from 'src/app/components/lecture-status-fab/lecture-status-fab.component';
 import { EventComponent } from 'src/app/components/event/event.component';
 import { TaskComponent } from 'src/app/components/task/task.component';
+import { ScrollBtnComponent } from 'src/app/components/scroll-btn/scroll-btn.component';
 
 const components = [
   HeaderComponent,
@@ -17,6 +18,7 @@ const components = [
   LectureStatusFabComponent,
   EventComponent,
   TaskComponent,
+  ScrollBtnComponent,
 ];
 
 @NgModule({
