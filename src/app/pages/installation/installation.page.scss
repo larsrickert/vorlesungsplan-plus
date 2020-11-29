@@ -1,17 +1,19 @@
 .content {
-  padding: 40px 20px 20px 20px;
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 24px;
+  --padding-bottom: 24px;
+}
 
-  @media only screen and (max-width: 768px) {
-    padding-left: 0;
-    padding-right: 0;
-  }
+ion-segment {
+  margin-bottom: 40px;
 }
 
 .accordion {
-  background: var(--app-color-block);
+  background: var(--app-color-grey-medium);
   border-radius: var(--app-border-radius);
   margin-bottom: 20px;
-  border: 1px solid var(--app-color-border);
+  border: 1px solid var(--app-color-grey-extralight);
 
   summary {
     outline: 0;

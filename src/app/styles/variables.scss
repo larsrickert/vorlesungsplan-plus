@@ -11,16 +11,19 @@
 
   --app-segment-indicator: #f9f9f9;
   --app-event-details: #ffffff;
+
+  // --app-color-grey-dark: red;
+  // --app-color-grey-medium: green;
+  // --app-color-grey-light: blue;
 }
 
 body.dark {
-  --app-color-block: var(--ion-color-step-50);
-  --app-color-lecture-accent: #262626;
-  --app-color-border: var(--ion-color-step-150);
+  --app-color-grey-dark: #121212;
+  --app-color-grey-medium: #1d1d1d;
+  --app-color-grey-light: #272727;
+  --app-color-grey-extralight: #373737;
 
-  --app-color-form: #171717;
-  --app-form-field: var(--ion-color-step-50);
-
-  --app-segment-indicator: var(--ion-color-step-100);
-  --app-event-details: #171717;
+  --ion-background-color: var(--app-color-grey-dark);
+  --ion-background-color-rgb: 18, 18, 18;
+  --ion-item-background: var(--app-color-grey-dark);
 }

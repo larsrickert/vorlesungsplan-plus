@@ -1,6 +1,6 @@
 <app-header title="Aufgaben ({{ count }})"></app-header>
 
-<ion-content class="ion-padding" [fullscreen]="true">
+<ion-content class="content" [fullscreen]="true">
   <div class="action-buttons">
     <ion-chip color="primary" (click)="addTask()">
       Neue Aufgabe
@@ -22,8 +22,8 @@
 
   <div *ngIf="blocks.length === 0">
     <p class="placeholder">
-      Füge Aufgaben hinzu, die du für deine Vorlesungen erledigen musst. So
-      behälst du immer den Überblick über deine Abgabefristen.
+      Füge Aufgaben hinzu, die du für deine Vorlesungen erledigen musst, damit
+      du immer den Überblick über deine Abgabefristen behälst.
     </p>
 
     <app-block skeleton="task"></app-block>

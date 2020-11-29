@@ -1,9 +1,10 @@
 .wrapper {
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  background: var(--app-color-block);
-  border: 1px solid var(--app-color-border);
+  padding: 24px;
+  margin: 24px;
+  box-shadow: var(--app-box-shadow);
+  border-radius: var(--app-border-radius);
+  background: var(--app-color-grey-medium);
+  border: 1px solid var(--app-color-grey-extralight);
 }
 
 p {

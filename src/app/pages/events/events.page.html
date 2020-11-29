@@ -1,6 +1,6 @@
 <app-header title="Veranstaltungen ({{ count }})"></app-header>
 
-<ion-content class="ion-padding" [fullscreen]="true">
+<ion-content class="content" [fullscreen]="true">
   <ion-searchbar
     animated
     showCancelButton="focus"
@@ -11,6 +11,7 @@
     class="event__search"
     enterkeyhint="search"
     #searchbar
+    *ngIf="blocks.length > 0"
   ></ion-searchbar>
 
   <div class="noEvents" *ngIf="loaded && blocks.length === 0">

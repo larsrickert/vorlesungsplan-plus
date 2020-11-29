@@ -62,3 +62,19 @@
     border-radius: 15px 15px 15px 0px;
   }
 }
+
+// segment
+ion-segment {
+  --background: var(--app-color-grey-medium);
+}
+
+ion-segment-button {
+  --indicator-color: var(--app-color-grey-light);
+  min-width: fit-content;
+}
+
+// searchbar
+ion-searchbar {
+  --background: var(--app-color-grey-medium) !important;
+  --border-radius: 50px !important;
+}

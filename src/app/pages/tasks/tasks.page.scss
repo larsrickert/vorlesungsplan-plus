@@ -1,3 +1,10 @@
+.content {
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 24px;
+  --padding-bottom: 24px;
+}
+
 .placeholder {
   margin: 0 10px 20px 10px;
 }
@@ -6,5 +13,5 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  margin: 20px 0 20px 0;
+  margin-bottom: 20px;
 }

@@ -1,9 +1,10 @@
 .form {
   padding: 30px;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background: var(--app-color-form);
-  border: 1px solid var(--app-color-border);
+  margin: 24px;
+  border-radius: var(--app-border-radius);
+  box-shadow: var(--app-box-shadow);
+  background: var(--app-color-grey-medium);
+  border: 1px solid var(--app-color-grey-extralight);
 
   fieldset {
     border: none;
@@ -25,8 +26,8 @@
   ion-input,
   textarea {
     outline: 0;
-    background: var(--app-form-field);
-    border: 1px solid var(--app-color-border);
+    background: var(--app-color-grey-dark);
+    border: none;
     border-radius: 4px;
     font-size: 15px;
     width: 100%;

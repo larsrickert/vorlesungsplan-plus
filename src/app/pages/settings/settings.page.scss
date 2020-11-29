@@ -1,19 +1,33 @@
+.content {
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 24px;
+  --padding-bottom: 24px;
+}
+
 .setting {
   padding: 0 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  cursor: pointer;
-  background: var(--app-color-block);
   display: flex;
   align-items: center;
+
+  box-shadow: var(--app-box-shadow);
+  border-radius: var(--app-border-radius);
   font-size: 16px;
   margin-bottom: 20px;
-  border: 1px solid var(--app-color-border);
+  cursor: pointer;
+
+  background: var(--app-color-grey-medium);
+  border: 1px solid var(--app-color-grey-extralight);
 
   &--link {
-    background: var(--app-color-form);
-    border: none;
-    box-shadow: none;
+    background: var(--app-color-grey-dark);
+    border-color: var(--app-color-grey-medium);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+
+    :active {
+      background: var(--app-color-grey-medium);
+      --ripple-color: var(--app-color-grey-light);
+    }
   }
 
   &--item {
@@ -44,7 +58,7 @@
 }
 
 .setting:active {
-  background: var(--app-color-lecture-accent);
+  background: var(--app-color-grey-light);
 }
 
 .selectable__item {

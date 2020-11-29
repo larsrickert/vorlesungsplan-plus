@@ -25,7 +25,7 @@
   </div>
 </app-header>
 
-<ion-content class="ion-padding" #content>
+<ion-content class="content" #content>
   <!-- refresher -->
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" *ngIf="!isArchive">
     <ion-refresher-content
@@ -53,6 +53,7 @@
     (ionChange)="search($event)"
     enterkeyhint="search"
     #searchBar
+    *ngIf="course && blocks.length > 0"
   ></ion-searchbar>
 
   <!-- improve exam recognition cta -->
@@ -76,6 +77,7 @@
     mode="ios"
     #segment
     value="all"
+    *ngIf="course && blocks.length > 0"
   >
     <ion-segment-button value="changes" *ngIf="hasChanges && !isArchive">
       <ion-label>Änderungen ({{ counts[2] }})</ion-label>
@@ -103,7 +105,10 @@
   </div>
 
   <!-- No lectures message -->
-  <div *ngIf="course && blocks.length === 0 && !isArchive" class="wrapper">
+  <div
+    *ngIf="course && blocks.length === 0 && !isArchive"
+    class="wrapper msg--noLectures"
+  >
     Für den Kurs {{ course }} sind keine Vorlesungen eingetragen. Viel Spaß in
     der Praxisphase!
   </div>

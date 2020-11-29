@@ -1,6 +1,6 @@
 <app-header title="Installation"></app-header>
 
-<ion-content class="ion-padding" [fullscreen]="true">
+<ion-content class="content" [fullscreen]="true">
   <ion-segment
     class="segment"
     scrollable
@@ -22,7 +22,7 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div [ngSwitch]="device" class="content">
+  <div [ngSwitch]="device">
     <!-- android -->
     <div *ngSwitchCase="'android'">
       <details class="accordion" open>

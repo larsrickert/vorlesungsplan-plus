@@ -1,9 +1,17 @@
+.content {
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 24px;
+  --padding-bottom: 24px;
+}
+
 .noEvents {
-  margin: 10px;
+  margin: 8px;
 }
 
 .event__search {
   margin-bottom: 20px;
+  padding: 0;
 }
 
 ion-progress-bar {

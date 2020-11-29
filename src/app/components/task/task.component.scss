@@ -56,6 +56,8 @@ ion-item {
 }
 
 .item {
+  --background: transparent;
+
   &--last {
     --border-radius: 0 0 10px 10px;
   }
@@ -65,7 +67,7 @@ ion-item {
   }
 
   &--accent {
-    --background: var(--app-color-lecture-accent);
+    --background: var(--app-color-grey-light);
   }
 }
 

@@ -9,6 +9,11 @@ p {
   @media only screen and (max-width: 768px) {
     min-width: 80%;
   }
+
+  .alert-radio-group,
+  .alert-checkbox-group {
+    border-color: var(--app-color-grey-light);
+  }
 }
 
 // fix bug that ion-textarea gets cropped
@@ -17,11 +22,6 @@ p {
 .textarea-wrapper.sc-ion-textarea-ios,
 .native-textarea.sc-ion-textarea-ios {
   min-height: 100px;
-}
-
-ion-segment-button {
-  --indicator-color: var(--app-segment-indicator);
-  min-width: fit-content;
 }
 
 // action sheet

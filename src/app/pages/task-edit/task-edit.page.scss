@@ -1,3 +1,10 @@
+.content {
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 24px;
+  --padding-bottom: 24px;
+}
+
 .field-wrapper {
   display: grid;
   grid-gap: 40px;
@@ -10,8 +17,9 @@
 }
 
 .field {
-  border-radius: 4px;
-  background: var(--app-form-field);
+  border-radius: var(--app-border-radius);
+  background: var(--app-color-grey-medium);
+  border: 1px solid var(--app-color-grey-extralight);
 
   ion-select,
   ion-input,
