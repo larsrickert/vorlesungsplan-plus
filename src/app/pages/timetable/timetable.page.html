@@ -50,6 +50,7 @@
 
   <!-- searchbar -->
   <ion-searchbar
+    *ngIf="course && blocks.length > 0"
     animated
     showCancelButton="focus"
     mode="ios"
@@ -58,7 +59,6 @@
     (ionChange)="search($event)"
     enterkeyhint="search"
     #searchBar
-    *ngIf="course && blocks.length > 0"
   ></ion-searchbar>
 
   <!-- improve exam recognition cta -->
@@ -82,7 +82,6 @@
     mode="ios"
     #segment
     value="all"
-    *ngIf="course && blocks.length > 0"
   >
     <ion-segment-button value="changes" *ngIf="hasChanges && !isArchive">
       <ion-label>Änderungen ({{ counts[2] }})</ion-label>
