@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-scroll-btn',
@@ -13,35 +14,39 @@ export class ScrollBtnComponent implements OnInit {
   hide = true;
   mode = 'top';
 
-  constructor() {}
+  constructor(private modalController: ModalController) {}
 
   ngOnInit() {
-    this.content = document.querySelector('ion-router-outlet ion-content');
-    this.mode = this.direction;
+    this.modalController.getTop().then((isModal) => {
+      this.content = isModal
+        ? document.querySelector('ion-modal ion-content')
+        : document.querySelector('ion-router-outlet ion-content');
+      this.mode = this.direction;
 
-    if (this.content) {
-      this.content.scrollEvents = true;
-      this.content.addEventListener('ionScrollEnd', (ev) => {
-        this.content.getScrollElement().then((e) => {
-          const height = e.scrollTop;
-          const end = e.scrollHeight - this.content.scrollHeight;
+      if (this.content) {
+        this.content.scrollEvents = true;
+        this.content.addEventListener('ionScrollEnd', (ev) => {
+          this.content.getScrollElement().then((e) => {
+            const height = e.scrollTop;
+            const end = e.scrollHeight - this.content.scrollHeight;
 
-          if (this.direction === 'both') {
-            // enable to top AND to bottom button depending on current scroll height
-            this.mode = height < end / 2 ? 'bottom' : 'top';
-          }
+            if (this.direction === 'both') {
+              // enable to top AND to bottom button depending on current scroll height
+              this.mode = height < end / 2 ? 'bottom' : 'top';
+            }
 
-          // hide scroll button when height is lower then the offset
-          if (this.mode === 'bottom') {
-            // to bottom
-            this.hide = end - height < this.offset;
-          } else {
-            // to top
-            this.hide = height < this.offset;
-          }
+            // hide scroll button when height is lower then the offset
+            if (this.mode === 'bottom') {
+              // to bottom
+              this.hide = end - height < this.offset;
+            } else {
+              // to top
+              this.hide = height < this.offset;
+            }
+          });
         });
-      });
-    }
+      }
+    });
   }
 
   // scrolls to top or bottom of the page depending on the set direction
