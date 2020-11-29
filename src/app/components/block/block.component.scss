@@ -2,18 +2,18 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin-bottom: 30px;
-  background: var(--app-color-grey-medium);
+  background: var(--app-color-grey-light);
 
   &__heading {
     display: block;
     color: var(--ion-color-primary);
     font-size: 18px;
     padding: 20px;
-    border-bottom: 1px solid var(--app-color-grey-dark);
+    border-bottom: 1px solid var(--app-color-border-contrast);
   }
 
-  &__item-wrapper:nth-child(odd) {
-    background: var(--app-color-grey-dark);
+  &__item-wrapper:nth-child(even) {
+    background: var(--app-color-grey-medium);
   }
 
   &__item-wrapper:last-child {

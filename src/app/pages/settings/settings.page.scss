@@ -16,17 +16,16 @@
   margin-bottom: 20px;
   cursor: pointer;
 
-  background: var(--app-color-grey-medium);
-  border: 1px solid var(--app-color-grey-extradark);
+  background: var(--app-color-grey-light);
+  border: 1px solid var(--app-color-bg-contrast);
 
   &--link {
-    background: var(--app-color-grey-light);
-    border-color: var(--app-color-grey-medium);
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    background: var(--ion-background-color);
+    box-shadow: none;
 
     :active {
-      background: var(--app-color-grey-medium);
-      --ripple-color: var(--app-color-grey-dark);
+      background: var(--app-color-grey-light);
+      --ripple-color: var(--app-color-grey-medium);
     }
   }
 
@@ -58,7 +57,7 @@
 }
 
 .setting:active {
-  background: var(--app-color-grey-dark);
+  background: var(--app-color-grey-medium);
 }
 
 .selectable__item {

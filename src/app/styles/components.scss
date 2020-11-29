@@ -65,16 +65,16 @@
 
 // segment
 ion-segment {
-  --background: var(--app-color-grey-medium);
+  --background: var(--app-color-bg-contrast);
 }
 
 ion-segment-button {
-  --indicator-color: var(--app-color-grey-dark);
+  --indicator-color: var(--app-color-grey-medium);
   min-width: fit-content;
 }
 
 // searchbar
 ion-searchbar {
-  --background: var(--app-color-grey-medium) !important;
+  --background: var(--app-color-bg-contrast) !important;
   --border-radius: 50px !important;
 }

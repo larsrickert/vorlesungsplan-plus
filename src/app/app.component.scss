@@ -1,8 +1,8 @@
 ion-menu {
-  border-color: var(--app-color-grey-medium);
+  border-color: var(--app-color-border-contrast);
 
   ion-content {
-    --background: var(--app-color-grey-medium);
+    --background: var(--app-color-grey-light);
     --padding-start: 16px;
     --padding-end: 16px;
     --padding-top: 16px;
@@ -50,7 +50,7 @@ ion-menu {
   }
 
   #mainNav {
-    border-bottom: 1px solid var(--app-color-grey-dark);
+    border-bottom: 1px solid var(--app-color-border-contrast);
     margin-bottom: 20px;
   }
 
@@ -64,9 +64,9 @@ ion-menu {
     margin: 5px 0px;
     --padding-start: 10px;
     --background: transparent;
-    --background-hover: var(--app-color-grey-dark);
+    --background-hover: var(--app-color-grey-medium);
     --background-hover-opacity: 1;
-    --ripple-color: var(--app-color-grey-extradark);
+    --ripple-color: var(--app-color-grey-dark);
 
     ion-icon {
       color: #616e7e;
@@ -120,7 +120,7 @@ ion-menu {
     }
 
     .link:hover {
-      --background: var(--app-color-grey-dark);
+      --background: var(--app-color-grey-medium);
     }
   }
 }

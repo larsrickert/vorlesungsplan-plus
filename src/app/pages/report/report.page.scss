@@ -3,8 +3,8 @@
   margin: 24px;
   border-radius: var(--app-border-radius);
   box-shadow: var(--app-box-shadow);
-  background: var(--app-color-grey-medium);
-  border: 1px solid var(--app-color-grey-extradark);
+  background: var(--app-color-bg-contrast-light);
+  border: 1px solid var(--app-color-bg-contrast);
 
   fieldset {
     border: none;
@@ -26,12 +26,12 @@
   ion-input,
   textarea {
     outline: 0;
-    background: var(--app-color-grey-light);
-    border: none;
+    background: var(--app-color-grey-medium);
+    border: 1px solid var(--app-color-border-contrast);
     border-radius: 4px;
     font-size: 15px;
     width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+
     margin-bottom: 20px;
     --padding-start: 10px;
     --padding-end: 10px;
@@ -51,7 +51,7 @@
     background: var(--ion-color-primary);
     font-size: 18px;
     width: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--app-box-shadow);
   }
 
   button:hover {

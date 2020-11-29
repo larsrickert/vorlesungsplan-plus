@@ -10,10 +10,10 @@ ion-segment {
 }
 
 .accordion {
-  background: var(--app-color-grey-medium);
+  background: var(--app-color-grey-light);
   border-radius: var(--app-border-radius);
   margin-bottom: 20px;
-  border: 1px solid var(--app-color-grey-extradark);
+  border: 1px solid var(--app-color-border-contrast);
 
   summary {
     outline: 0;
