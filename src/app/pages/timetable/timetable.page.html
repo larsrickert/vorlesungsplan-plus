@@ -25,7 +25,7 @@
   </div>
 </app-header>
 
-<ion-content class="content" #content>
+<ion-content class="app-spacing app-spacing--mobile" #content>
   <!-- refresher -->
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" *ngIf="!isArchive">
     <ion-refresher-content
