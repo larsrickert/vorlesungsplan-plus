@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { IonContent, ModalController, Platform } from '@ionic/angular';
 import { ILectureBlock } from 'src/app/interfaces/IBlock';
 import { LectureStatus } from 'src/app/interfaces/ILecture';
 import { SettingKey } from 'src/app/interfaces/ISetting';
@@ -13,6 +14,9 @@ import { UtilityService } from 'src/app/services/utility/utility.service';
 export class TimetablePage implements OnInit {
   @ViewChild('segment') segment: HTMLIonSegmentElement;
   @ViewChild('searchBar') searchBar: HTMLIonSearchbarElement;
+  @ViewChild(IonContent, { read: IonContent, static: false })
+  myContent: IonContent;
+  isArchive = false;
 
   blocks: ILectureBlock[] = [];
   displayedBlocks: ILectureBlock[] = [];
@@ -36,13 +40,51 @@ export class TimetablePage implements OnInit {
     this.course = course ? course : '';
 
     this.storage.lectures.subscribe((lectures) => {
-      this.blocks = <ILectureBlock[]>this.utility.createBlocks(lectures);
-      this.displayedBlocks = this.blocks;
-      this.lastUpdated = this.storage.getSetting(SettingKey.LASTUPDATED);
-      this.count();
+      if (!this.isArchive) {
+        this.blocks = <ILectureBlock[]>this.utility.createBlocks(lectures);
+        this.displayedBlocks = this.blocks;
+        this.lastUpdated = this.storage.getSetting(SettingKey.LASTUPDATED);
+        this.count();
+      }
     });
 
     this.storage.fetchLectures();
+  }
+
+  async triggerArchive(): Promise<void> {
+    if (this.isArchive) {
+      // disable archive
+      this.isArchive = false;
+      await this.storage.fetchLectures();
+    } else {
+      // load archive
+      const loading = await this.utility.showLoading('Archiv wird geladen...');
+      this.hasChanges = false;
+
+      const lectures = await this.storage.fetchArchivedLectures();
+      this.blocks = <ILectureBlock[]>this.utility.createBlocks(lectures);
+      this.displayedBlocks = this.blocks;
+      this.count();
+
+      this.isArchive = true;
+      await loading.dismiss();
+
+      // auto scroll to newest lecture
+      if (this.myContent) {
+        setTimeout(() => {
+          this.myContent.scrollToBottom(300);
+        }, 100);
+      }
+    }
+
+    // clear searchbar and set segment to all
+    if (this.searchBar) {
+      this.searchBar.value = '';
+    }
+
+    if (this.segment) {
+      this.segment.value = 'all';
+    }
   }
 
   async refresh(ev: any): Promise<void> {

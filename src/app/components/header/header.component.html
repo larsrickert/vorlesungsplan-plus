@@ -20,5 +20,9 @@
       </ion-button>
     </ion-buttons>
     <ion-label class="title">{{ title }}</ion-label>
+
+    <div class="customContent">
+      <ng-content select=".slot--headerActions"></ng-content>
+    </div>
   </div>
 </div>

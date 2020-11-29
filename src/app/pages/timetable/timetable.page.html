@@ -1,8 +1,33 @@
-<app-header title="Vorlesungsplan {{ course }}"></app-header>
+<app-header title="Vorlesungen {{ course }}" *ngIf="!isArchive">
+  <div class="slot--headerActions">
+    <ion-button
+      fill="clear"
+      shape="round"
+      (click)="triggerArchive()"
+      title="Archivansicht anzeigen"
+      class="archive__icon"
+    >
+      <ion-icon name="eye"></ion-icon>
+    </ion-button>
+  </div>
+</app-header>
+<app-header title="Archiv {{ course }}" *ngIf="isArchive">
+  <div class="slot--headerActions">
+    <ion-button
+      fill="clear"
+      shape="round"
+      (click)="triggerArchive()"
+      title="Archivansicht verstecken"
+      class="archive__icon"
+    >
+      <ion-icon name="eye-off"></ion-icon>
+    </ion-button>
+  </div>
+</app-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" #content>
   <!-- refresher -->
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)" *ngIf="!isArchive">
     <ion-refresher-content
       pullingIcon="chevron-down-outline"
       pullingText="zuletzt aktualisiert: {{ lastUpdated | date:'medium' }}"
@@ -11,6 +36,12 @@
     >
     </ion-refresher-content>
   </ion-refresher>
+
+  <!-- archive status warning -->
+  <div class="warning" *ngIf="isArchive">
+    <ion-icon name="alert-circle"></ion-icon>
+    <ion-label>Du befindest dich gerade in der Archivansicht.</ion-label>
+  </div>
 
   <!-- searchbar -->
   <ion-searchbar
@@ -24,6 +55,7 @@
     #searchBar
   ></ion-searchbar>
 
+  <!-- improve exam recognition cta -->
   <div
     class="examInfo__wrapper"
     *ngIf="segment && segment.value === 'exams'"
@@ -45,21 +77,24 @@
     #segment
     value="all"
   >
-    <ion-segment-button value="changes" *ngIf="hasChanges">
+    <ion-segment-button value="changes" *ngIf="hasChanges && !isArchive">
       <ion-label>Änderungen ({{ counts[2] }})</ion-label>
     </ion-segment-button>
     <ion-segment-button value="all">
       <ion-label>Alle ({{ counts[0] }})</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="presence" *ngIf="counts[3] !== counts[0]">
+    <ion-segment-button
+      value="presence"
+      *ngIf="counts[3] !== counts[0] && !isArchive"
+    >
       <ion-label>Präsenz ({{ counts[3] }})</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="exams">
+    <ion-segment-button value="exams" *ngIf="counts[0] !== 0">
       <ion-label>Klausuren ({{ counts[1] }})</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <!-- No results for search message -->
+  <!-- No search results message -->
   <div
     *ngIf="displayedBlocks.length === 0 && course && blocks.length > 0"
     class="wrapper"
@@ -68,8 +103,15 @@
   </div>
 
   <!-- No lectures message -->
-  <div *ngIf="course && blocks.length === 0" class="wrapper">
-    Für den Kurs {{ course }} sind keine Vorlesungen eingetragen.
+  <div *ngIf="course && blocks.length === 0 && !isArchive" class="wrapper">
+    Für den Kurs {{ course }} sind keine Vorlesungen eingetragen. Viel Spaß in
+    der Praxisphase!
+  </div>
+
+  <!-- No archive message -->
+  <div *ngIf="course && blocks.length === 0 && isArchive" class="wrapper">
+    Für den Kurs {{ course }} gibt es noch keine archivierten Vorlesungen oder
+    es ist ein Fehler aufgetreten.
   </div>
 
   <div
@@ -89,4 +131,4 @@
   <app-block *ngFor="let block of displayedBlocks" [block]="block"></app-block>
 </ion-content>
 
-<app-lecture-status-fab></app-lecture-status-fab>
+<app-lecture-status-fab *ngIf="!isArchive"></app-lecture-status-fab>

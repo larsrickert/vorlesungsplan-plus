@@ -38,6 +38,13 @@ ion-menu-button {
   color: #ffffff;
 }
 
+@media only screen and (max-width: 768px) {
+  .md ion-menu-button {
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+}
+
 ion-back-button {
   color: #ffffff;
 
@@ -68,4 +75,9 @@ ion-back-button {
   @media only screen and (max-width: 768px) {
     margin-left: 20px;
   }
+}
+
+.customContent:not(:empty) {
+  margin-left: auto;
+  margin-right: 10px;
 }

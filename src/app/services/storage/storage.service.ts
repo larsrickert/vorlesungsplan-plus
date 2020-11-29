@@ -59,6 +59,32 @@ export class StorageService {
     });
   }
 
+  // returns all archived lectures from api
+  // returns empty array if course is unset or api is unreachable
+  // does not store lectures locally and does not change last updated date
+  async fetchArchivedLectures(): Promise<ILecture[]> {
+    const course = this.getSetting(SettingKey.COURSE);
+
+    if (!course) {
+      return [];
+    }
+
+    try {
+      // send get request to api
+      let lectures: ILecture[] = await this.http
+        .get<ILecture[]>(
+          `${
+            StorageService.API_HOST
+          }?course=${course.toLowerCase()}&view=archive`
+        )
+        .toPromise();
+
+      return this.validateLectures(lectures);
+    } catch (error) {
+      return [];
+    }
+  }
+
   // fetch lectures for set course from api or local storage if api is not available
   async fetchLectures(): Promise<boolean> {
     const course = this.getSetting(SettingKey.COURSE);
@@ -376,9 +402,9 @@ export class StorageService {
         encoding: FilesystemEncoding.UTF8,
       });
 
-      if (result) {
+      if (result && result.uri) {
         await Share.share({
-          url: `file://${result}`,
+          url: `file://${result.uri}`,
         });
       }
     } catch (error) {
