@@ -15,7 +15,7 @@ export class TaskEditPage implements OnInit {
   max = `${new Date().getFullYear() + 1}-12-31`;
 
   changedTask: ITask;
-  availableCourses: string[] = [];
+  availableLectures: string[] = [];
   isoDate = '';
 
   constructor(
@@ -30,7 +30,7 @@ export class TaskEditPage implements OnInit {
       ? Object.assign({}, this.task)
       : {
           id: '',
-          course: '',
+          lecture: '',
           start: null,
           end: null,
           name: '',
@@ -41,8 +41,8 @@ export class TaskEditPage implements OnInit {
       ? this.changedTask.end.toISOString()
       : '';
 
-    this.taskService.getUniqueCourses().then((courses) => {
-      this.availableCourses = courses;
+    this.taskService.getUniqueLectures().then((lectures) => {
+      this.availableLectures = lectures.length > 0 ? lectures : ['<keine>'];
     });
   }
 
@@ -50,7 +50,7 @@ export class TaskEditPage implements OnInit {
     this.changedTask.name = this.changedTask.name.trim();
     this.changedTask.notes = this.changedTask.notes.trim();
 
-    if (!this.changedTask.name || !this.changedTask.course || !this.isoDate) {
+    if (!this.changedTask.name || !this.changedTask.lecture || !this.isoDate) {
       // inputs not valid
       this.utility.showToast('Bitte fülle alle erforderlichen Felder aus.');
       return;

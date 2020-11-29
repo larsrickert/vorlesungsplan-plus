@@ -397,7 +397,7 @@ export class StorageService {
       // create exports folder if it does not exist
       const result = await Filesystem.writeFile({
         path: filename,
-        data: JSON.stringify(file),
+        data: file,
         directory: FilesystemDirectory.Cache,
         encoding: FilesystemEncoding.UTF8,
       });
@@ -410,7 +410,7 @@ export class StorageService {
     } catch (error) {
       // Web Share API may not be available
       try {
-        var blob = new Blob([JSON.stringify(file)], {
+        var blob = new Blob([file], {
           type: mimeType
             ? `${mimeType};charset=utf-8`
             : 'application/json;charset=utf-8',

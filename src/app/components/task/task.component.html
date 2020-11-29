@@ -24,8 +24,8 @@
           <ion-text *ngIf="task.end" class="task__date">
             Abgabe bis: {{ task.end | date: 'H:mm' }} Uhr
           </ion-text>
-          <ion-text class="task__course" *ngIf="task.course"
-            >Kurs: {{ task.course }}</ion-text
+          <ion-text class="task__lecture" *ngIf="task.lecture"
+            >Vorlesung: {{ task.lecture }}</ion-text
           >
 
           <div *ngIf="task.notes" class="task__notes">
@@ -53,7 +53,7 @@
         <ion-skeleton-text animated class="skeleton__date"></ion-skeleton-text>
         <ion-skeleton-text
           animated
-          class="skeleton__course"
+          class="skeleton__lecture"
         ></ion-skeleton-text>
 
         <div class="flex">

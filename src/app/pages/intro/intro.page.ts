@@ -66,7 +66,7 @@ export class IntroPage implements OnInit {
         name: 'Etwas super wichtiges',
         start: new Date(Date.now() + 1000 * 60 * 60 * 24),
         end: new Date(Date.now() + 1000 * 60 * 60 * 24),
-        course: 'Vorlesung XY',
+        lecture: 'Vorlesung XY',
         notes: 'Das ist eine total wichtige Aufgabe.',
       },
     ],

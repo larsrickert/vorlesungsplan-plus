@@ -38,7 +38,12 @@
   </ion-refresher>
 
   <!-- archive status warning -->
-  <div class="warning" *ngIf="isArchive">
+  <div
+    class="warning warning--clickable"
+    *ngIf="isArchive"
+    (click)="triggerArchive()"
+    title="Zum Deaktivieren klicken"
+  >
     <ion-icon name="alert-circle"></ion-icon>
     <ion-label>Du befindest dich gerade in der Archivansicht.</ion-label>
   </div>

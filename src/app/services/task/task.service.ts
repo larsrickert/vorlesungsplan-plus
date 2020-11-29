@@ -31,6 +31,11 @@ export class TaskService {
       tasks.forEach((event) => {
         event.start = new Date(event.start);
         event.end = new Date(event.end);
+
+        if ('course' in event) {
+          event.lecture = event.course;
+          delete event.course;
+        }
       });
 
       return this.sortTasks(tasks);
@@ -85,7 +90,7 @@ export class TaskService {
     await this.storage.store(StorageKey.TASKS, updated);
   }
 
-  async getUniqueCourses(): Promise<string[]> {
+  async getUniqueLectures(): Promise<string[]> {
     const unique: string[] = [];
 
     try {
@@ -122,7 +127,7 @@ export class TaskService {
       string += `Aufgabe: ${
         task.name
       }\nAbgabe bis: ${task.end.toLocaleDateString()}, ${task.end.getHours()}:${task.end.getMinutes()} Uhr\nKurs: ${
-        task.course
+        task.lecture
       }`;
 
       if (task.notes) {
@@ -161,36 +166,49 @@ export class TaskService {
 
       const readFile = new FileReader();
       let validImport = true;
+      const backup = this.tasksBs.getValue();
 
       readFile.onload = async (e) => {
-        const buffer = e.target.result;
-        const json: any[] = JSON.parse(buffer.toString());
-        let validTasks: ITask[] = [];
+        try {
+          const buffer = e.target.result;
+          const json: any[] = JSON.parse(buffer.toString());
+          let validTasks: ITask[] = [];
 
-        for (const task of json) {
-          if (
-            'id' in task &&
-            'end' in task &&
-            'name' in task &&
-            'notes' in task &&
-            'course' in task
-          ) {
-            task.end = new Date(task.end);
-            task.start = task.end;
-            validTasks.push(task);
+          for (const task of json) {
+            if (
+              'id' in task &&
+              'end' in task &&
+              'name' in task &&
+              'notes' in task &&
+              ('lecture' in task || 'course' in task)
+            ) {
+              validTasks.push({
+                id: task.id,
+                end: new Date(task.end),
+                start: new Date(task.end),
+                name: task.name,
+                notes: task.notes,
+                lecture: 'lecture' in task ? task.lecture : task.course,
+              });
+            }
           }
-        }
 
-        if (validTasks.length > 0) {
-          validTasks = this.sortTasks(validTasks);
-          this.tasksBs.next(validTasks);
-          await this.storage.store(StorageKey.TASKS, validTasks);
-          validImport = true;
-        } else {
-          validImport = false;
-        }
+          if (validTasks.length > 0) {
+            validTasks = this.sortTasks(validTasks);
+            this.tasksBs.next(validTasks);
+            await this.storage.store(StorageKey.TASKS, validTasks);
+            validImport = true;
+          } else {
+            validImport = false;
+          }
 
-        return resolve(validImport);
+          return resolve(validImport);
+        } catch (error) {
+          // import failed
+          this.tasksBs.next(backup);
+          await this.storage.store(StorageKey.TASKS, backup);
+          return resolve(false);
+        }
       };
 
       readFile.readAsText(file);

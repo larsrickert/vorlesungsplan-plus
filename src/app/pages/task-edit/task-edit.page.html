@@ -37,14 +37,14 @@
       placeholder="Vorlesung auswählen*"
       cancelText="Schließen"
       okText="Auswählen"
-      [(ngModel)]="changedTask.course"
+      [(ngModel)]="changedTask.lecture"
       interface="alert"
       [interfaceOptions]="{header: 'Vorlesung auswählen'}"
     >
       <ion-select-option
-        *ngFor="let course of availableCourses"
-        [value]="course"
-        >{{ course }}</ion-select-option
+        *ngFor="let lecture of availableLectures"
+        [value]="lecture"
+        >{{ lecture }}</ion-select-option
       >
     </ion-select>
   </div>

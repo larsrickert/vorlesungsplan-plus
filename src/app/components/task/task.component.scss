@@ -18,7 +18,7 @@
     margin-bottom: 10px;
   }
 
-  &__course {
+  &__lecture {
     white-space: normal;
   }
 
@@ -56,7 +56,7 @@ ion-item {
 }
 
 .item {
-  --background: transparent;
+  --background: var(--app-color-grey-medium);
 
   &--last {
     --border-radius: 0 0 10px 10px;
@@ -98,7 +98,7 @@ ion-item {
     }
   }
 
-  &__course {
+  &__lecture {
     width: 10%;
 
     @media only screen and (max-width: 768px) {

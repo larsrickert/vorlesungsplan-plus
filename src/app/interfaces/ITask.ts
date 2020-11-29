@@ -5,6 +5,6 @@ export interface ITask extends IBlockable {
   name: string;
   start: Date;
   end: Date;
-  course: string;
+  lecture: string;
   notes?: string;
 }

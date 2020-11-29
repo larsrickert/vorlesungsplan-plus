@@ -96,7 +96,7 @@ export class BlockComponent implements OnInit {
           name: null,
           start: new Date(),
           end: new Date(),
-          course: null,
+          lecture: null,
           notes: null,
         },
       ],
