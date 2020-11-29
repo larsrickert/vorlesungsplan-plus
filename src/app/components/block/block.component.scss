@@ -9,11 +9,11 @@
     color: var(--ion-color-primary);
     font-size: 18px;
     padding: 20px;
-    border-bottom: 1px solid var(--app-color-grey-light);
+    border-bottom: 1px solid var(--app-color-grey-dark);
   }
 
   &__item-wrapper:nth-child(odd) {
-    background: var(--app-color-grey-light);
+    background: var(--app-color-grey-dark);
   }
 
   &__item-wrapper:last-child {

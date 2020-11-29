@@ -2,28 +2,23 @@
   --app-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   --app-border-radius: 4px;
 
-  --app-color-block: #ffffff;
-  --app-color-lecture-accent: #f9f9f9;
-  --app-color-border: #dddddd;
+  // --app-color-grey-light: #ffffff;
+  // --app-color-grey-medium: #ffffff;
+  // --app-color-grey-dark: #f9f9f9;
+  // --app-color-grey-extradark: #444;
 
-  --app-color-form: #f9f9f9;
-  --app-form-field: #f9f9f9;
-
-  --app-segment-indicator: #f9f9f9;
-  --app-event-details: #ffffff;
-
-  // --app-color-grey-dark: red;
-  // --app-color-grey-medium: green;
-  // --app-color-grey-light: blue;
+  --ion-background-color: var(--app-color-grey-light);
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-item-background: var(--app-color-grey-light);
 }
 
 body.dark {
-  --app-color-grey-dark: #121212;
+  --app-color-grey-light: #121212;
   --app-color-grey-medium: #1d1d1d;
-  --app-color-grey-light: #272727;
-  --app-color-grey-extralight: #373737;
+  --app-color-grey-dark: #272727;
+  --app-color-grey-extradark: #373737;
 
-  --ion-background-color: var(--app-color-grey-dark);
+  --ion-background-color: var(--app-color-grey-light);
   --ion-background-color-rgb: 18, 18, 18;
-  --ion-item-background: var(--app-color-grey-dark);
+  --ion-item-background: var(--app-color-grey-light);
 }
