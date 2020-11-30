@@ -11,7 +11,7 @@ const { LocalNotifications } = Plugins;
   providedIn: 'root',
 })
 export class UtilityService {
-  static appVersion = '1.0.0';
+  static appVersion = '1.1.0';
   static versionHost = 'https://api.rickstack.de/version/';
 
   constructor(

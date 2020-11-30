@@ -54,6 +54,13 @@ ion-back-button {
   }
 }
 
+ion-back-button.md {
+  @media only screen and (max-width: 768px) {
+    margin-top: -10px;
+    margin-bottom: -10px;
+  }
+}
+
 #btn--closeModal {
   font-size: 20px;
   height: 48px;

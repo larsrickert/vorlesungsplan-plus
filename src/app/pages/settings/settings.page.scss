@@ -10,11 +10,12 @@
   cursor: pointer;
 
   background: var(--app-color-grey-light);
-  border: 1px solid var(--app-color-bg-contrast);
+  border: 1px solid var(--app-color-border-contrast);
 
   &--link {
     background: var(--ion-background-color);
     box-shadow: none;
+    border-color: var(--app-color-bg-contrast);
 
     :active {
       background: var(--app-color-grey-light);
