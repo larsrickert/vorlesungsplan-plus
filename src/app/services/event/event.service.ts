@@ -4,13 +4,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { StorageKey } from 'src/app/interfaces/ISetting';
 import { IEvent } from 'src/app/interfaces/IEvent';
 import { StorageService } from '../storage/storage.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EventService {
-  static API_HOST = 'https://api.rickstack.de/events/';
-
   private eventsBs = new BehaviorSubject<IEvent[]>([]);
   events: Observable<IEvent[]> = this.eventsBs.asObservable();
 
@@ -24,12 +23,13 @@ export class EventService {
     try {
       // send get request to api
       const events: IEvent[] = await this.http
-        .get<IEvent[]>(EventService.API_HOST)
+        .get<IEvent[]>(`${environment.apiHost}events?excludePast=true`)
         .toPromise();
 
       events.forEach((event) => {
         event.start = new Date(event.start);
         event.end = new Date(event.end);
+        event.lastModified = new Date(event.lastModified);
       });
 
       this.eventsBs.next(events);
@@ -49,6 +49,11 @@ export class EventService {
     }
   }
 
+  getEventById(id: string): IEvent | null {
+    const event = this.eventsBs.getValue().find((e) => e.id === id);
+    return event ? event : null;
+  }
+
   private async getEvents(): Promise<IEvent[]> {
     const events = await this.storage.get(StorageKey.EVENTS);
 
@@ -62,13 +67,5 @@ export class EventService {
     } else {
       return [];
     }
-  }
-
-  getEventById(id: string): IEvent | null {
-    const event = this.eventsBs.getValue().find((event) => {
-      return event.id === id;
-    });
-
-    return event ? event : null;
   }
 }

@@ -81,7 +81,7 @@ export class IntroPage implements OnInit {
         description: 'Beschreibung',
         start: new Date(Date.now() - 1000 * 60 * 60),
         end: new Date(Date.now() + 1000 * 60 * 30),
-        status: null,
+        lastModified: new Date(Date.now() - 1000 * 60 * 60),
         location: 'DHBW Mosbach',
       },
     ],

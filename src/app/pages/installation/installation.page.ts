@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { saveAs } from 'file-saver';
 
-import { Plugins, Capacitor } from '@capacitor/core';
+import { Capacitor, Plugins } from '@capacitor/core';
 import { StorageService } from 'src/app/services/storage/storage.service';
 import { UtilityService } from 'src/app/services/utility/utility.service';
+import { environment } from '../../../environments/environment';
+
 const { Share } = Plugins;
 
 @Component({
@@ -17,6 +18,7 @@ export class InstallationPage implements OnInit {
   isNative = Capacitor.isNative;
   latestVersion = '';
   currentVersion = UtilityService.appVersion;
+
   constructor(
     private http: HttpClient,
     private storage: StorageService,
@@ -32,12 +34,9 @@ export class InstallationPage implements OnInit {
   async downloadWidgetScript(): Promise<void> {
     try {
       const script = await this.http
-        .get(
-          `https://api.rickstack.de/files/mosbach-vorlesungsplan-widget.scriptable?${new Date().getTime()}`,
-          {
-            responseType: 'blob',
-          }
-        )
+        .get(`${environment.apiHost}ios/widget?${new Date().getTime()}`, {
+          responseType: 'blob',
+        })
         .toPromise();
 
       await this.storage.shareFile(
@@ -57,12 +56,9 @@ export class InstallationPage implements OnInit {
 
     try {
       const apk = await this.http
-        .get(
-          `https://api.rickstack.de/files/app-release.apk?${new Date().getTime()}`,
-          {
-            responseType: 'blob',
-          }
-        )
+        .get(`${environment.apiHost}android?${new Date().getTime()}`, {
+          responseType: 'blob',
+        })
         .toPromise();
 
       await this.storage.shareFile(

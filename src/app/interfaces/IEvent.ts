@@ -4,6 +4,6 @@ export interface IEvent {
   description: string;
   start: Date;
   end: Date;
-  status: string;
+  lastModified: Date;
   location: string;
 }

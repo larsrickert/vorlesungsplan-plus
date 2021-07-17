@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Plugins, Capacitor } from '@capacitor/core';
+import { Capacitor, Plugins } from '@capacitor/core';
 import { LoadingController, ToastController } from '@ionic/angular';
-import { IBlockable, IBlock } from 'src/app/interfaces/IBlock';
+import { IBlock, IBlockable } from 'src/app/interfaces/IBlock';
 import { ILecture } from 'src/app/interfaces/ILecture';
+import { environment } from '../../../environments/environment';
+
 const { LocalNotifications } = Plugins;
 
 @Injectable({
@@ -12,7 +14,6 @@ const { LocalNotifications } = Plugins;
 })
 export class UtilityService {
   static appVersion = '1.1.0';
-  static versionHost = 'https://api.rickstack.de/version/';
 
   constructor(
     private toastController: ToastController,
@@ -142,10 +143,16 @@ export class UtilityService {
   }
 
   async getLatestAppVersion(): Promise<string> {
-    const version = await this.http
-      .get<string>(UtilityService.versionHost)
-      .toPromise();
-    return version ? version : '';
+    try {
+      const response = await this.http
+        .get<{ version: string }>(`${environment.apiHost}android/version`)
+        .toPromise();
+
+      return response.version;
+    } catch (e) {
+      console.error(e);
+      return '';
+    }
   }
 
   async checkForAppUpdates(): Promise<void> {

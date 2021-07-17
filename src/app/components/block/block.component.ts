@@ -74,7 +74,7 @@ export class BlockComponent implements OnInit {
           description: null,
           start: null,
           end: null,
-          status: null,
+          lastModified: null,
           location: null,
         },
       ],

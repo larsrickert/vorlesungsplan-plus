@@ -15,14 +15,15 @@ import {
   Plugins,
 } from '@capacitor/core';
 import { UtilityService } from '../utility/utility.service';
-const { Storage, Filesystem, Share } = Plugins;
 import { saveAs } from 'file-saver';
+import { environment } from '../../../environments/environment';
+
+const { Storage, Filesystem, Share } = Plugins;
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  static API_HOST = 'https://api.rickstack.de/';
   static INIT_SETTINGS = false;
 
   // observables
@@ -71,11 +72,9 @@ export class StorageService {
 
     try {
       // send get request to api
-      let lectures: ILecture[] = await this.http
+      const lectures: ILecture[] = await this.http
         .get<ILecture[]>(
-          `${
-            StorageService.API_HOST
-          }?course=${course.toLowerCase()}&view=archive`
+          `${environment.apiHost}lectures/${course.toLowerCase()}`
         )
         .toPromise();
 
@@ -99,7 +98,9 @@ export class StorageService {
       // send get request to api
       let lectures: ILecture[] = await this.http
         .get<ILecture[]>(
-          `${StorageService.API_HOST}?course=${course.toLowerCase()}`
+          `${
+            environment.apiHost
+          }lectures/${course.toLowerCase()}/?excludePast=true`
         )
         .toPromise();
 
@@ -139,7 +140,7 @@ export class StorageService {
       // fetch courses from api
       try {
         const result = await this.http
-          .get<string[]>(`${StorageService.API_HOST}`)
+          .get<string[]>(`${environment.apiHost}courses`)
           .toPromise();
 
         this.store(StorageKey.COURSES, result);
@@ -147,6 +148,175 @@ export class StorageService {
         return result;
       } catch (error) {
         return [];
+      }
+    }
+  }
+
+  // resets status of all lectures and removes lecture with status "removed"
+  async resetStatus(): Promise<void> {
+    const lectures = this.lecturesBs.getValue();
+    const reset: ILecture[] = [];
+
+    lectures.forEach((lecture) => {
+      if (lecture.status === LectureStatus.ADDED || !lecture.status) {
+        lecture.status = null;
+        reset.push(lecture);
+      }
+    });
+
+    this.lecturesBs.next(reset);
+    await this.store(StorageKey.LECTURES, reset);
+  }
+
+  // update or add setting to local storage if its no duplicate
+  async addSetting(setting: ISetting) {
+    const settings: ISetting[] = this.settingsBs.getValue();
+    const storedSetting = settings.find((s) => s.key === setting.key);
+
+    if (storedSetting) {
+      storedSetting.value = setting.value;
+    } else {
+      settings.push(setting);
+    }
+
+    this.settingsBs.next(settings);
+    await this.store(StorageKey.SETTINGS, settings);
+  }
+
+  getSetting(identifier: SettingKey): any {
+    const settings = this.settingsBs.getValue();
+
+    const match = settings.find((setting) => {
+      return setting.key === identifier;
+    });
+
+    return match ? match.value : null;
+  }
+
+  // return true when lectures have changed since last check
+  async checkForChanges(lectures: ILecture[]): Promise<boolean> {
+    if (lectures.length === 0) {
+      return false;
+    }
+
+    // copy lectures (avoids reference problems when modifing those lectures)
+    const temp: ILecture[] = [];
+
+    lectures.forEach((lec) => {
+      temp.push(Object.assign({}, lec));
+    });
+
+    lectures = temp;
+
+    let hasChanges = false;
+
+    // check if new fetched lectures have changes
+    for (const lecture of lectures) {
+      if (lecture.status) {
+        hasChanges = true;
+        break;
+      }
+    }
+
+    const currentCourse = this.getSetting(SettingKey.COURSE);
+
+    const settingValue: ILectureChangeNotification = {
+      course: currentCourse,
+      lectures: JSON.stringify(lectures),
+    };
+
+    // store currently checked lectures to local storage
+    await this.addSetting({
+      key: SettingKey.LASTCHANGENOTIFICATION,
+      value: settingValue,
+    });
+
+    // new lectures does not have changes
+    if (!hasChanges) {
+      return false;
+    }
+
+    const lastChecked: ILectureChangeNotification | null = this.getSetting(
+      SettingKey.LASTCHANGENOTIFICATION
+    );
+
+    // last checked is unset
+    if (!lastChecked) {
+      return false;
+    }
+
+    let lastLectures = this.validateLectures(JSON.parse(lastChecked.lectures));
+    const checkedCourse = lastChecked.course;
+
+    // last checked lectures are empty or last checked course is different from current course
+    if (lastChecked.lectures.length === 0 || checkedCourse !== currentCourse) {
+      return false;
+    }
+
+    // remove old lectures and status
+    lastLectures = lastLectures.filter((lecture) => {
+      lecture.status = null;
+      return lecture.end.getTime() > Date.now();
+    });
+
+    lectures = lectures.filter((lecture) => {
+      lecture.status = null;
+      return lecture.end.getTime() > Date.now();
+    });
+
+    const h1 = this.createHash(JSON.stringify(lectures));
+    const h2 = this.createHash(JSON.stringify(lastLectures));
+
+    // lectures have changed sinced last check
+    // send push notification
+    if (h1 !== h2) {
+      const settingValue: ILectureChangeNotification = {
+        course: currentCourse,
+        lectures: JSON.stringify(lectures),
+      };
+
+      // store currently checked lectures to local storage
+      await this.addSetting({
+        key: SettingKey.LASTCHANGENOTIFICATION,
+        value: settingValue,
+      });
+
+      return true;
+    }
+
+    return false;
+  }
+
+  async shareFile(
+    file: string,
+    filename: string,
+    mimeType?: string
+  ): Promise<void> {
+    try {
+      // create exports folder if it does not exist
+      const result = await Filesystem.writeFile({
+        path: filename,
+        data: file,
+        directory: FilesystemDirectory.Cache,
+        encoding: FilesystemEncoding.UTF8,
+      });
+
+      if (result && result.uri) {
+        await Share.share({
+          url: `file://${result.uri}`,
+        });
+      }
+    } catch (error) {
+      // Web Share API may not be available
+      try {
+        const blob = new Blob([file], {
+          type: mimeType
+            ? `${mimeType};charset=utf-8`
+            : 'application/json;charset=utf-8',
+        });
+        saveAs(blob, filename);
+      } catch (error) {
+        console.error(error);
       }
     }
   }
@@ -213,22 +383,6 @@ export class StorageService {
     });
   }
 
-  // resets status of all lectures and removes lecture with status "removed"
-  async resetStatus(): Promise<void> {
-    const lectures = this.lecturesBs.getValue();
-    const reset: ILecture[] = [];
-
-    lectures.forEach((lecture) => {
-      if (lecture.status === LectureStatus.ADDED || !lecture.status) {
-        lecture.status = null;
-        reset.push(lecture);
-      }
-    });
-
-    this.lecturesBs.next(reset);
-    await this.store(StorageKey.LECTURES, reset);
-  }
-
   // returns true when both lectures are equal
   private compareLectures(a: ILecture, b: ILecture): boolean {
     for (const attr in a) {
@@ -252,128 +406,6 @@ export class StorageService {
     return true;
   }
 
-  // update or add setting to local storage if its no duplicate
-  async addSetting(setting: ISetting) {
-    const settings: ISetting[] = this.settingsBs.getValue();
-
-    const storedSetting = settings.find((storedSetting) => {
-      return storedSetting.key === setting.key;
-    });
-
-    if (storedSetting) {
-      storedSetting.value = setting.value;
-    } else {
-      settings.push(setting);
-    }
-
-    this.settingsBs.next(settings);
-    await this.store(StorageKey.SETTINGS, settings);
-  }
-
-  getSetting(identifier: SettingKey): any {
-    const settings = this.settingsBs.getValue();
-
-    const match = settings.find((setting) => {
-      return setting.key === identifier;
-    });
-
-    return match ? match.value : null;
-  }
-
-  // return true when lectures have changed since last check
-  async checkForChanges(lectures: ILecture[]): Promise<boolean> {
-    if (lectures.length === 0) {
-      return false;
-    }
-
-    // copy lectures (avoids reference problems when modifing those lectures)
-    const temp: ILecture[] = [];
-
-    lectures.forEach((lec) => {
-      temp.push(Object.assign({}, lec));
-    });
-
-    lectures = temp;
-
-    let hasChanges = false;
-
-    // check if new fetched lectures have changes
-    for (const lecture of lectures) {
-      if (lecture.status) {
-        hasChanges = true;
-        break;
-      }
-    }
-
-    const currentCourse = this.getSetting(SettingKey.COURSE);
-
-    const settingValue: ILectureChangeNotification = {
-      course: currentCourse,
-      lectures: JSON.stringify(lectures),
-    };
-
-    // store currently checked lectures to local storage
-    await this.addSetting({
-      key: SettingKey.LASTCHANGENOTIFICATION,
-      value: settingValue,
-    });
-
-    // new lectures does not have changes
-    if (!hasChanges) {
-      return false;
-    }
-
-    let lastChecked: ILectureChangeNotification | null = this.getSetting(
-      SettingKey.LASTCHANGENOTIFICATION
-    );
-
-    // last checked is unset
-    if (!lastChecked) {
-      return false;
-    }
-
-    let lastLectures = this.validateLectures(JSON.parse(lastChecked.lectures));
-    let checkedCourse = lastChecked.course;
-
-    // last checked lectures are empty or last checked course is different from current course
-    if (lastChecked.lectures.length === 0 || checkedCourse !== currentCourse) {
-      return false;
-    }
-
-    // remove old lectures and status
-    lastLectures = lastLectures.filter((lecture) => {
-      lecture.status = null;
-      return lecture.end.getTime() > Date.now();
-    });
-
-    lectures = lectures.filter((lecture) => {
-      lecture.status = null;
-      return lecture.end.getTime() > Date.now();
-    });
-
-    const h1 = this.createHash(JSON.stringify(lectures));
-    const h2 = this.createHash(JSON.stringify(lastLectures));
-
-    // lectures have changed sinced last check
-    // send push notification
-    if (h1 !== h2) {
-      const settingValue: ILectureChangeNotification = {
-        course: currentCourse,
-        lectures: JSON.stringify(lectures),
-      };
-
-      // store currently checked lectures to local storage
-      await this.addSetting({
-        key: SettingKey.LASTCHANGENOTIFICATION,
-        value: settingValue,
-      });
-
-      return true;
-    }
-
-    return false;
-  }
-
   private createHash(str: string) {
     let hash = 0;
     let i;
@@ -386,39 +418,5 @@ export class StorageService {
     }
 
     return hash;
-  }
-
-  async shareFile(
-    file: string,
-    filename: string,
-    mimeType?: string
-  ): Promise<void> {
-    try {
-      // create exports folder if it does not exist
-      const result = await Filesystem.writeFile({
-        path: filename,
-        data: file,
-        directory: FilesystemDirectory.Cache,
-        encoding: FilesystemEncoding.UTF8,
-      });
-
-      if (result && result.uri) {
-        await Share.share({
-          url: `file://${result.uri}`,
-        });
-      }
-    } catch (error) {
-      // Web Share API may not be available
-      try {
-        var blob = new Blob([file], {
-          type: mimeType
-            ? `${mimeType};charset=utf-8`
-            : 'application/json;charset=utf-8',
-        });
-        saveAs(blob, filename);
-      } catch (error) {
-        console.error(error);
-      }
-    }
   }
 }

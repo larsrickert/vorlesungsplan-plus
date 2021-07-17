@@ -22,7 +22,7 @@ export class EventsPage implements OnInit {
 
   ngOnInit() {
     this.eventService.events.subscribe((events) => {
-      this.blocks = <IEventBlock[]>this.utility.createBlocks(events);
+      this.blocks = this.utility.createBlocks(events) as IEventBlock[];
       this.displayedBlocks = this.blocks;
       this.count = this.countEvents();
     });
