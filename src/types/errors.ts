@@ -2,7 +2,8 @@ import { i18n } from '@/i18n';
 
 export enum ErrorCode {
   UNKNOWN = 'A1',
-  ROUTER_NOT_AUTHENTICATED = 'A2',
+  UNABLE_TO_FETCH_COURSES = 'B1',
+  COURSE_NOT_AVAILABLE = 'A2',
 }
 
 export class CustomError extends Error {

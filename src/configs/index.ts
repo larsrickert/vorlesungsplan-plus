@@ -11,9 +11,8 @@ const config: Config = {
     defaultLocale: process.env.VUE_APP_I18N_LOCALE || 'en',
     fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
   },
-  auth: {
-    disabled: process.env.VUE_APP_AUTH_DISABLED === 'true',
-    debug: process.env.VUE_APP_AUTH_DEBUG === 'true',
+  api: {
+    host: process.env.VUE_APP_API_HOST || '',
   },
 };
 

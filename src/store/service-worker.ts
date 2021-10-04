@@ -2,11 +2,12 @@ import { defineStore } from 'pinia';
 
 export const SW_UPDATE_EVENT_NAME = 'swUpdated';
 
+let registration: ServiceWorkerRegistration | null = null;
+let listener: ((ev: Event) => void) | null = null;
+
 export const useSwStore = defineStore('serviceWorker', {
   state() {
     return {
-      registration: null as ServiceWorkerRegistration | null,
-      listener: null as ((ev: Event) => void) | null,
       hasUpdate: false,
       isRefreshing: false,
     };
@@ -19,23 +20,23 @@ export const useSwStore = defineStore('serviceWorker', {
       this.hasUpdate = false;
 
       // Make sure we only send a 'skip waiting' message if the SW is waiting
-      if (!this.registration?.waiting) return;
+      if (!registration?.waiting) return;
       // Send message to SW to skip the waiting and activate the new SW
-      this.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
     },
     /**
      * Inits the service worker updater if not already initialized. Has to be called before update().
      */
     init() {
-      if (this.listener) return;
+      if (listener) return;
 
-      this.listener = (ev: Event) => {
+      listener = (ev: Event) => {
         const customEvent = ev as CustomEvent<ServiceWorkerRegistration>;
-        this.registration = customEvent.detail;
+        registration = customEvent.detail;
         this.hasUpdate = true;
       };
 
-      document.addEventListener(SW_UPDATE_EVENT_NAME, this.listener, {
+      document.addEventListener(SW_UPDATE_EVENT_NAME, listener, {
         once: true,
       });
 
@@ -51,8 +52,9 @@ export const useSwStore = defineStore('serviceWorker', {
      * Removes the current service worker update event listener.
      */
     removeListener() {
-      if (!this.listener) return;
-      document.removeEventListener(SW_UPDATE_EVENT_NAME, this.listener);
+      if (!listener) return;
+      document.removeEventListener(SW_UPDATE_EVENT_NAME, listener);
+      listener = null;
     },
   },
 });

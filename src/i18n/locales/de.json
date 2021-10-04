@@ -4,7 +4,8 @@
     "update": "Aktualisieren",
     "swUpdateAvailable": "Es sind neue Inhalte verfügbar.",
     "close": "Schließen",
-    "errorCode": "Fehlercode"
+    "errorCode": "Fehlercode",
+    "dateRange": "{start} bis {end} Uhr"
   },
   "auth": {
     "login": "Anmelden",
@@ -17,7 +18,11 @@
   },
   "pages": {
     "timetable": {
-      "name": "Vorlesungsplan"
+      "name": "Vorlesungsplan",
+      "lectures": "Vorlesungen",
+      "all": " Alle ({count})",
+      "presence": " Präsenz ({count})",
+      "exams": " Klausuren ({count})"
     }
   }
 }

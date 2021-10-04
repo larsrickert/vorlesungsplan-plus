@@ -15,6 +15,10 @@ const formats: Record<string, LocaleFormat> = {
     hour: '2-digit',
     minute: '2-digit',
   },
+  time: {
+    hour: 'numeric',
+    minute: '2-digit',
+  },
 };
 
 const dateTimeFormats: Record<string, Record<string, LocaleFormat>> = {

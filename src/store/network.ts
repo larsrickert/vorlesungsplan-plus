@@ -2,6 +2,8 @@ import { PluginListenerHandle } from '@capacitor/core';
 import { ConnectionStatus, Network } from '@capacitor/network';
 import { defineStore } from 'pinia';
 
+let listener: null | PluginListenerHandle = null;
+
 export const useNetworkStore = defineStore('network', {
   state() {
     return {
@@ -9,7 +11,6 @@ export const useNetworkStore = defineStore('network', {
         connected: false,
         connectionType: 'none',
       } as ConnectionStatus,
-      listener: null as null | PluginListenerHandle,
     };
   },
   actions: {
@@ -17,10 +18,10 @@ export const useNetworkStore = defineStore('network', {
      * Updates network status and adds listener that updates network status if not still listening.
      */
     async initListener(): Promise<void> {
-      if (this.listener) return;
+      if (listener) return;
       this.status = await Network.getStatus();
 
-      this.listener = await Network.addListener('networkStatusChange', (status) => {
+      listener = await Network.addListener('networkStatusChange', (status) => {
         this.status = status;
       });
     },
@@ -28,10 +29,10 @@ export const useNetworkStore = defineStore('network', {
      * Removes the network status listener if it exists.
      */
     async removeListener(): Promise<void> {
-      if (!this.listener) return;
+      if (!listener) return;
 
-      await this.listener.remove();
-      this.listener = null;
+      await listener.remove();
+      listener = null;
     },
   },
 });

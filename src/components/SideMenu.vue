@@ -44,8 +44,6 @@
             class="menu-item"
           />
         </IonList>
-
-        <AppLogoutBtn class="logout" />
       </IonContent>
     </IonMenu>
     <IonRouterOutlet :id="contentId" />
@@ -67,7 +65,6 @@ import {
   IonSplitPane,
 } from '@ionic/vue';
 import { computed, defineProps } from 'vue';
-import AppLogoutBtn from './AppLogoutBtn.vue';
 
 const props = defineProps({
   navItems: {
@@ -196,11 +193,5 @@ ion-note,
     color: #757575;
     min-height: 26px;
   }
-}
-
-.logout {
-  padding-left: 16px;
-  position: absolute;
-  bottom: 20px;
 }
 </style>

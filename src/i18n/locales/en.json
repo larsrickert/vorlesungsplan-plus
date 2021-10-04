@@ -4,7 +4,8 @@
     "update": "Update",
     "swUpdateAvailable": "There is new content available.",
     "close": "Close",
-    "errorCode": "Error code"
+    "errorCode": "Error code",
+    "dateRange": "{start} to {end}"
   },
   "auth": {
     "login": "Login",
@@ -17,7 +18,11 @@
   },
   "pages": {
     "timetable": {
-      "name": "Timetable"
+      "name": "Timetable",
+      "lectures": "Lectures",
+      "all": " All ({count})",
+      "presence": " Presence ({count})",
+      "exams": " Exams ({count})"
     }
   }
 }

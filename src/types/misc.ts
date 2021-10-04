@@ -4,3 +4,8 @@ export interface MenuItem {
   icon?: string;
   badge?: number;
 }
+
+export interface SelectOption {
+  value: string;
+  name: string;
+}
