@@ -1,0 +1,18 @@
+{
+  "global": {
+    "placeholder": "This is a placeholder text.",
+    "update": "Update",
+    "swUpdateAvailable": "There is new content available.",
+    "close": "Close",
+    "errorCode": "Error code"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "isLoggingOut": "Logging out..."
+  },
+  "locales": {
+    "de": "Deutsch",
+    "en": "English"
+  }
+}

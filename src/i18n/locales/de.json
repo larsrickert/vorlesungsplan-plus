@@ -1,0 +1,18 @@
+{
+  "global": {
+    "placeholder": "Dies ist ein Platzhalter-Text.",
+    "update": "Aktualisieren",
+    "swUpdateAvailable": "Es sind neue Inhalte verfügbar.",
+    "close": "Schließen",
+    "errorCode": "Fehlercode"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "isLoggingOut": "Abmelden..."
+  },
+  "locales": {
+    "de": "Deutsch",
+    "en": "English"
+  }
+}

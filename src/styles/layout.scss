@@ -1,0 +1,11 @@
+@import 'mixin';
+
+.page {
+  &__content {
+    padding: 40px;
+
+    @include breakpoint(s) {
+      padding: 20px;
+    }
+  }
+}

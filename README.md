@@ -1,29 +1,74 @@
-# Vorlesungsplan+ for the DHBW Mosbach
+# RickStack App Template Vue Ionic
 
-The Vorlesungsplan+ app is intended to be an alternative to the official stuv survival/stuv companion app of the DHBW
-Mosbach. In contrast to the official app, this app offers a cross-platform unified look and feel. This app is a PWA (
-Progressive Web App) that allows you to "install" the app to your native device. Alternatively this app is also
-available as android app. The APK can be downloaded on https://dhbw.rickstack.de/installation.
+## Project setup
 
-This app is live on: https://dhbw.rickstack.de
+```
+npm install
+```
 
-## Features
+### Compiles and hot-reloads for development
 
-1. Show all lectures for selected course at the DHBW Mosbach
-2. Show upcoming events
-3. Create and manage tasks that you need to do for your lectures
-4. Cross-platform
+```
+npm run serve
+```
 
-## API
+### Compiles and minifies for production
 
-A custom API is used for receiving lectures, courses and events. For more details see: https://api.rickstack.de/docs.
+```
+npm run build
+```
 
-## Technologies
+### Lints and fixes files
 
-Vorlesungsplan+ is built with Angular (JavaScript Framework), Ionic Framework and Capacitor (tool for using native
-features on web applications & wraps web app into native android and ios app)
+```
+npm run lint
+```
 
-## Contribution
+### Customize configuration
 
-If you want to contribute to this app you can create a pull request, contact me on Discord
-or [email me](mailto:lar.rickert.19@lehre.mosbach.dhbw.de).
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Vite
+
+Vite is currently not supported by Ionic 5. Check if Ionic 6 is released to use vite.
+
+# Pursue following guidelines
+
+1. Use BEM for CSS class names. You can find more information about BEM [here](http://getbem.com/).
+
+2. Components
+
+- Name components according to:
+  - Prefix basic app components with app specific styles etc. such as a button component with "App", e.g. AppButton
+  - Prefix single use components (that only exist once) with "The", e.g. TheHeader
+- use `<script setup lang="ts">` for components if possible, if not use composition API only
+- only use one root element in components, e.g.
+  - good:
+  ```html
+  <template>
+    <div>Some content</div>
+  </template>
+  ```
+  - bad:
+  ```html
+  <template>
+    <div>Some content</div>
+    <div>Some other content</div>
+  </template>
+  ```
+
+## Folder structure inside src
+
+| Folder     | Description                                                            |
+| ---------- | ---------------------------------------------------------------------- |
+| assets     | Images/assets that are not favicons/icons                              |
+| axios      | Axios client for REST requests                                         |
+| components | Vue components                                                         |
+| configs    | Static configuration/environments                                      |
+| helpers    | Helper functions/utilities that don't rely an reactive state           |
+| i18n       | Multilanguage / locales                                                |
+| router     | Router / routes                                                        |
+| store      | Reactive stores (similar to angular services that need reactive state) |
+| styles     | Global reusable CSS                                                    |
+| types      | Global TypeScript types, interfaces, classes etc.                      |
+| views      | Vue components for the routes                                          |
