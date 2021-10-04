@@ -86,7 +86,7 @@ $flagSize: 18px;
       position: absolute;
       top: 12px;
       left: -16px;
-      width: 115px;
+      width: 125px;
       background: var(--ion-background-color);
       z-index: 1;
       border-radius: $border-radius;
