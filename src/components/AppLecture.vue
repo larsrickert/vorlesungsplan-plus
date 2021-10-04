@@ -21,14 +21,13 @@
     ></ion-icon> -->
 
     <div class="lecture__content">
-      <div class="flex">
-        <IonLabel class="lecture__name">{{ lecture.name }}</IonLabel>
-        <template v-if="settingsStore.courses.length > 1">
-          <IonBadge :key="course" v-for="course of lecture.courses" mode="ios" class="badge">
-            {{ course.replace('MOS-', '').replace('MGH-', '') }}
-          </IonBadge>
-        </template>
+      <div v-if="settingsStore.courses.length > 1" class="flex">
+        <IonBadge :key="course" v-for="course of lecture.courses" mode="ios" class="badge">
+          {{ course.replace('MOS-', '').replace('MGH-', '') }}
+        </IonBadge>
       </div>
+
+      <IonLabel class="lecture__name">{{ lecture.name }}</IonLabel>
       <IonProgressBar v-if="progress" class="lecture__progress" :value="progress" buffer="0" />
 
       <!-- Meta -->
@@ -135,7 +134,11 @@ onBeforeUnmount(() => {
   }
 
   .badge {
-    margin-left: 10px;
+    margin-bottom: 6px;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 }
 </style>
