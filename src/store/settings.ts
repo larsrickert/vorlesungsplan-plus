@@ -1,6 +1,7 @@
 import config from '@/configs';
 import { getInitLocale, isLocaleAvailable } from '@/helpers/i18n';
-import { getValue, initValue, setValue, StorageKey } from '@/helpers/storage';
+import { initValue, setValue, StorageKey } from '@/helpers/storage';
+import { i18n } from '@/i18n';
 import { defineStore } from 'pinia';
 
 export const useSettingsStore = defineStore('settings', {
@@ -17,51 +18,40 @@ export const useSettingsStore = defineStore('settings', {
      * Locale default: Currently stored or device language or default locale (from config).
      */
     async loadAndInitDefaults() {
-      const locale = await getInitLocale();
-      const defaultTheme = this.theme;
+      const localeSetting = await initValue(StorageKey.LOCALE, await getInitLocale());
+      const themeSetting = await initValue(StorageKey.THEME, this.theme);
 
-      await initValue(StorageKey.LOCALE, locale);
-      await initValue(StorageKey.THEME, defaultTheme);
-
-      const currentTheme = (await getValue<string>(StorageKey.THEME)) ?? defaultTheme;
-
-      this.$patch((state) => {
-        state.locale = locale;
-        state.theme = currentTheme;
-      });
-
-      document.documentElement.setAttribute('theme', currentTheme);
+      this.changeLocale(localeSetting);
+      this.changeTheme(themeSetting);
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
-     * stores it in the storage. Does not change if same value as current.
+     * stores it in the storage.
      */
     async changeLocale(value: string) {
-      if (this.locale === value) {
-        console.warn(`Not changing to locale "${value}" because its equal to current locale.`);
-        return;
-      }
-
       if (!isLocaleAvailable(value)) {
         console.warn(`Unable to change to locale "${value}" because it is not available.`);
         return;
       }
 
+      const { locale } = i18n.global;
+      locale.value = value;
+      document.documentElement.lang = value;
+
+      if (this.locale === value) return;
+
       this.locale = value;
       await setValue(StorageKey.LOCALE, value);
     },
     /**
-     * Sets the current theme and stores it in the storage. Does not change if same value
-     * as current.
+     * Sets the current theme and stores it in the storage.
      */
     async changeTheme(value: string) {
-      if (this.theme === value) {
-        console.warn(`Not changing to theme "${value}" because its equal to current theme.`);
-        return;
-      }
+      document.documentElement.setAttribute('theme', value);
+
+      if (this.theme === value) return;
 
       this.theme = value;
-      document.documentElement.setAttribute('theme', value);
       await setValue(StorageKey.THEME, value);
     },
   },

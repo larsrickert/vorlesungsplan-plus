@@ -3,48 +3,43 @@
     <SideMenu
       :nav-items="navItems"
       :sub-items="subItems"
-      sub-items-heading="Sub item heading"
-      description="Vue & Ionic"
-      heading="Template App"
-      :img="require('@/assets/logo-icon.svg')"
+      sub-items-heading="App"
+      description="DHBW Mosbach"
+      heading="Vorlesungsplan+"
+      :img="require('@/assets/logo.svg')"
     />
   </IonApp>
 </template>
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { link, person } from 'ionicons/icons';
-import { computed, onBeforeUnmount, watch, watchEffect } from 'vue';
+import { link, school } from 'ionicons/icons';
+import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import SideMenu from './components/SideMenu.vue';
-import config, { isProduction } from './configs';
+import { isProduction } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
-import { useAuthStore } from './store/auth';
 import { useErrorStore } from './store/error-handler';
 import { useNetworkStore } from './store/network';
 import { useSwStore } from './store/service-worker';
 import { useSettingsStore } from './store/settings';
 import { MenuItem } from './types/misc';
 
+let { t } = useI18n();
+
 const navItems = computed<MenuItem[]>(() => {
   return [
     {
-      title: 'Home',
+      title: t('pages.timetable.name'),
       href: '/',
-      icon: person,
+      icon: school,
     },
   ];
 });
 
 const subItems = computed<MenuItem[]>(() => {
-  const items: MenuItem[] = [
-    {
-      title: 'Google',
-      href: 'https://google.de',
-      icon: link,
-    },
-  ];
+  const items: MenuItem[] = [];
 
   if (!isProduction) {
     items.push({
@@ -62,19 +57,6 @@ networkStore.initListener();
 
 const settingsStore = useSettingsStore();
 settingsStore.loadAndInitDefaults();
-
-// login user
-const authStore = useAuthStore();
-if (!config.auth.disabled) authStore.login();
-
-let { locale, t } = useI18n();
-
-watchEffect(() => {
-  // update application locale when locale setting changes
-  // app locale should not be changed in other ways
-  locale.value = settingsStore.locale;
-  document.documentElement.lang = locale.value;
-});
 
 const swStore = useSwStore();
 swStore.init();

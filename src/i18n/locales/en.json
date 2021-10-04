@@ -14,5 +14,10 @@
   "locales": {
     "de": "Deutsch",
     "en": "English"
+  },
+  "pages": {
+    "timetable": {
+      "name": "Timetable"
+    }
   }
 }

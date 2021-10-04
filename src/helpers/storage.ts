@@ -41,10 +41,12 @@ export const setValue = async (key: StorageKey, value: unknown): Promise<void> =
  *
  * @param key Key to initialize.
  * @param value The value to set in storage with the associated key if value is not initialized yet.
+ * @returns Current value if available, set init value otherwise.
  */
-export const initValue = async (key: StorageKey, value: unknown): Promise<void> => {
-  const currentValue = await getValue(key);
+export const initValue = async <T>(key: StorageKey, value: T): Promise<T> => {
+  const currentValue = await getValue<T>(key);
   if (currentValue == null) await setValue(key, value);
+  return currentValue ?? value;
 };
 
 /**
