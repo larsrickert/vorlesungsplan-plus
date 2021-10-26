@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { cog, link, person } from 'ionicons/icons';
+import { cog, link, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
@@ -36,7 +36,7 @@ const navItems = computed<MenuItem[]>(() => {
     {
       title: t('timetable.pageName'),
       href: '/',
-      icon: person,
+      icon: school,
     },
   ];
 });
