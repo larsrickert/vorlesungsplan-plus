@@ -3,10 +3,10 @@
     <SideMenu
       :nav-items="navItems"
       :sub-items="subItems"
-      sub-items-heading="Sub item heading"
-      description="Vue & Ionic"
-      heading="Template App"
-      img="/favicon.svg"
+      heading="Vorlesungsplan+"
+      description="DHBW Mosbach & Mergentheim"
+      sub-items-heading="App"
+      :img="LogoUrl"
     />
 
     <ThePwaReloadPrompt />
@@ -18,6 +18,7 @@ import { IonApp } from '@ionic/vue';
 import { link, person } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import LogoUrl from './assets/logo.svg';
 import SideMenu from './components/SideMenu.vue';
 import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
 import { isProduction } from './configs';
