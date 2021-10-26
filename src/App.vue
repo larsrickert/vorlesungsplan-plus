@@ -21,7 +21,7 @@ import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
 import SideMenu from './components/SideMenu.vue';
 import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
-import { isProduction } from './configs';
+import config, { isProduction } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
 import { useStore } from './store';
@@ -96,9 +96,17 @@ watch(
   { immediate: true }
 );
 
+// update lectures periodically
+const lectureFetchIntervall = setInterval(
+  () => store.fetchLectures(),
+  config.intervalls.fetchLectures
+);
+onBeforeUnmount(() => clearInterval(lectureFetchIntervall));
+
 onBeforeUnmount(() => {
   networkStore.removeListener();
   removeErrorHandlerListeners();
+  clearInterval(lectureFetchIntervall);
 });
 </script>
 

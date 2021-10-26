@@ -32,11 +32,9 @@
 <script lang="ts" setup>
 import { IonContent, IonPage, IonRefresher, IonRefresherContent } from '@ionic/vue';
 import { chevronDown } from 'ionicons/icons';
-import { onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
 import AppLectureBlock from '../components/AppLectureBlock.vue';
-import config from '../configs';
 import { showToast } from '../helpers/io';
 import { useStore } from '../store';
 
@@ -50,10 +48,6 @@ const refreshLectures = async (ev?: any) => {
   ev?.target.complete?.();
   await showToast({ message: t('toasts.fetchedLectures'), duration: 2000 });
 };
-
-// update lectures periodically
-const intervall = setInterval(() => refreshLectures(), config.intervalls.fetchLectures);
-onBeforeUnmount(() => clearInterval(intervall));
 </script>
 
 <style lang="scss" scoped></style>
