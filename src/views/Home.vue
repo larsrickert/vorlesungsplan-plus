@@ -115,10 +115,9 @@ const headerTitle = computed((): string => {
 
 const store = useStore();
 
-const refreshLectures = async (ev?: any) => {
+const refreshLectures = async (ev?: CustomEvent) => {
   await store.fetchLectures();
-
-  ev?.target.complete?.();
+  if (ev) await (ev.target as HTMLIonRefresherElement).complete();
   await showToast({ message: t('toasts.fetchedLectures'), duration: 2000 });
 };
 
