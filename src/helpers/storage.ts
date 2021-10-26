@@ -4,6 +4,7 @@ export enum StorageKey {
   LOCALE = 'locale',
   THEME = 'theme',
   COURSES = 'courses',
+  LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
 }
 
 /**

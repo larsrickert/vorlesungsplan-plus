@@ -21,7 +21,8 @@
     "reload": "Reload"
   },
   "timetable": {
-    "pageName": "Timetable"
+    "pageName": "Timetable",
+    "lastUpdated": "Last updated: {date}"
   },
   "settings": {
     "pageName": "Settings",

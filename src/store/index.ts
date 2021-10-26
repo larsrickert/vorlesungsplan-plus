@@ -24,6 +24,7 @@ export const useStore = defineStore('main', {
       }
 
       const lectures: Lecture[] = [];
+      settingsStore.changeLecturesLastUpdated(new Date());
 
       for (const course of settingsStore.courses) {
         const { data } = await axiosInstance.get<ApiLecture[]>(`lectures/${course}`);

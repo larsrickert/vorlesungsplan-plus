@@ -21,7 +21,8 @@
     "reload": "Aktualisieren"
   },
   "timetable": {
-    "pageName": "Vorlesungsplan"
+    "pageName": "Vorlesungsplan",
+    "lastUpdated": "Zuletzt aktualisiert: {date}"
   },
   "settings": {
     "pageName": "Einstellungen",

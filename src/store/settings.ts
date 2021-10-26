@@ -10,6 +10,7 @@ export const useSettingsStore = defineStore('settings', {
       locale: config.i18n.defaultLocale,
       theme: 'light',
       courses: [] as string[],
+      lecturesLastUpdated: null as Date | null,
     };
   },
   actions: {
@@ -22,10 +23,15 @@ export const useSettingsStore = defineStore('settings', {
       const localeSetting = await initValue(StorageKey.LOCALE, await getInitLocale());
       const themeSetting = await initValue(StorageKey.THEME, this.theme);
       const coursesSetting = await initValue(StorageKey.COURSES, this.courses);
+      const lastUpdatedSetting = await initValue(
+        StorageKey.LECTURES_LAST_UPDATED,
+        this.lecturesLastUpdated
+      );
 
       this.changeLocale(localeSetting);
       this.changeTheme(themeSetting);
       this.changeCourses(coursesSetting);
+      if (lastUpdatedSetting) this.changeLecturesLastUpdated(new Date(lastUpdatedSetting));
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
@@ -65,6 +71,11 @@ export const useSettingsStore = defineStore('settings', {
 
       this.courses = value;
       await setValue(StorageKey.COURSES, value);
+    },
+    async changeLecturesLastUpdated(date: Date) {
+      if (this.lecturesLastUpdated?.getTime() === date.getTime()) return;
+      this.lecturesLastUpdated = date;
+      await setValue(StorageKey.LECTURES_LAST_UPDATED, date);
     },
   },
 });
