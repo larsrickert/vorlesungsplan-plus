@@ -11,5 +11,11 @@
   "pwa": {
     "newContentAvailable": "New content available, click on reload button to update.",
     "reload": "Reload"
+  },
+  "timetable": {
+    "pageName": "Timetable"
+  },
+  "settings": {
+    "pageName": "Settings"
   }
 }

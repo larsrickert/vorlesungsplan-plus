@@ -11,5 +11,11 @@
   "pwa": {
     "newContentAvailable": "Neue Inhalte verfügbar. Klicke auf die Schaltfläche, um die App zu aktualisieren.",
     "reload": "Aktualisieren"
+  },
+  "timetable": {
+    "pageName": "Vorlesungsplan"
+  },
+  "settings": {
+    "pageName": "Einstellungen"
   }
 }

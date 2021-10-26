@@ -1,10 +1,10 @@
 <template>
   <IonPage>
-    <AppHeader :title="t('timetable.pageName')" />
+    <AppHeader show-back :title="t('settings.pageName')" />
 
     <IonContent :fullscreen="true">
       <div class="page__content">
-        <h1>{{ t('timetable.pageName') }}</h1>
+        <h1>{{ t('settings.pageName') }}</h1>
         <p>{{ t('global.placeholder') }}</p>
       </div>
     </IonContent>

@@ -3,19 +3,14 @@ import { RouteRecordRaw } from 'vue-router';
 import { baseUrl, isProduction } from '../configs';
 import Home from '../views/Home.vue';
 
-// provide typings for route meta attribute
-declare module 'vue-router' {
-  interface RouteMeta {
-    /** Whether the route needs the user to be authenticated. */
-    requiresAuth?: boolean;
-  }
-}
-
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Home',
     component: Home,
+  },
+  {
+    path: '/settings',
+    component: () => import('../views/Settings.vue'),
   },
   // catch-all 404 route
   {
@@ -27,10 +22,6 @@ const routes: RouteRecordRaw[] = [
 if (!isProduction) {
   routes.push({
     path: '/test',
-    name: 'Test',
-    meta: {
-      requiresAuth: true,
-    },
     component: () => import('../views/Test.vue'),
   });
 }

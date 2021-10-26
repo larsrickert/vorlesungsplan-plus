@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { link, person } from 'ionicons/icons';
+import { cog, link, person } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
@@ -29,10 +29,12 @@ import { useNetworkStore } from './store/network';
 import { useSettingsStore } from './store/settings';
 import { MenuItem } from './types/misc';
 
+const { t } = useI18n();
+
 const navItems = computed<MenuItem[]>(() => {
   return [
     {
-      title: 'Home',
+      title: t('timetable.pageName'),
       href: '/',
       icon: person,
     },
@@ -40,7 +42,13 @@ const navItems = computed<MenuItem[]>(() => {
 });
 
 const subItems = computed<MenuItem[]>(() => {
-  const items: MenuItem[] = [];
+  const items: MenuItem[] = [
+    {
+      title: t('settings.pageName'),
+      href: '/settings',
+      icon: cog,
+    },
+  ];
 
   if (!isProduction) {
     items.push({
@@ -58,8 +66,6 @@ networkStore.initListener();
 
 const settingsStore = useSettingsStore();
 settingsStore.loadAndInitDefaults();
-
-const { t } = useI18n();
 
 const errorStore = useErrorStore();
 const error = computed(() => errorStore.error);
