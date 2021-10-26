@@ -3,7 +3,7 @@ import axiosInstance from '../axios';
 import { isProduction } from '../configs';
 import { createLectureBlocks, mergeAndSortSameLectures } from '../helpers/lectures';
 import { loggerPlugin } from '../store/plugins/logger';
-import { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
+import { ApiLecture, DayLectureBlock, Lecture } from '../types/lectures';
 import { useSettingsStore } from './settings';
 
 export const pinia = createPinia();
@@ -12,14 +12,14 @@ if (!isProduction) pinia.use(loggerPlugin);
 export const useStore = defineStore('main', {
   state() {
     return {
-      lectures: [] as MergedLecture[],
+      lectureDayBlocks: [] as DayLectureBlock[],
     };
   },
   actions: {
     async fetchLectures() {
       const settingsStore = useSettingsStore();
       if (!settingsStore.courses.length) {
-        this.lectures = [];
+        this.lectureDayBlocks = [];
         return;
       }
 
@@ -32,25 +32,52 @@ export const useStore = defineStore('main', {
             ...lecture,
             start: new Date(lecture.start),
             end: new Date(lecture.end),
+            course,
           });
         });
       }
 
-      this.lectures = mergeAndSortSameLectures(lectures);
+      const sorted = mergeAndSortSameLectures(lectures);
+      this.lectureDayBlocks = createLectureBlocks(sorted);
     },
   },
   getters: {
-    lectureDayBlocks(): DayLectureBlock[] {
-      return createLectureBlocks(this.lectures);
+    upcomingLectureDayBlocks(): DayLectureBlock[] {
+      const blocks: DayLectureBlock[] = [];
+
+      this.lectureDayBlocks.forEach((block) => {
+        const lectures = block.lectures.filter((lecture) => {
+          return lecture.end.getTime() > Date.now();
+        });
+        if (!lectures.length) return;
+        blocks.push({ date: block.date, lectures });
+      });
+
+      return blocks;
     },
-    upcomingLectures(): MergedLecture[] {
-      return this.lectures.filter((lecture) => lecture.end.getTime() > Date.now());
+    presenceLectureDayBlocks(): DayLectureBlock[] {
+      const blocks: DayLectureBlock[] = [];
+
+      this.lectureDayBlocks.forEach((block) => {
+        const lectures = block.lectures.filter((lecture) => lecture.room);
+        if (!lectures.length) return;
+        blocks.push({ date: block.date, lectures });
+      });
+
+      return blocks;
     },
-    presenceLectures(): MergedLecture[] {
-      return this.lectures.filter((lecture) => lecture.room);
-    },
-    exams(): MergedLecture[] {
-      return this.lectures.filter((lecture) => lecture.name.toLowerCase().includes('klausur'));
+    exams(): DayLectureBlock[] {
+      const blocks: DayLectureBlock[] = [];
+
+      this.lectureDayBlocks.forEach((block) => {
+        const lectures = block.lectures.filter((lecture) => {
+          return lecture.name.toLowerCase().includes('klausur');
+        });
+        if (!lectures.length) return;
+        blocks.push({ date: block.date, lectures });
+      });
+
+      return blocks;
     },
   },
 });

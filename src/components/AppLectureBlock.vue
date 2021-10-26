@@ -28,7 +28,7 @@ const { d } = useI18n();
 
 <style lang="scss" scoped>
 .block {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--app-box-shadow);
   border-radius: 10px;
   margin-bottom: 30px;
   background: var(--app-color-grey-light);
@@ -43,7 +43,7 @@ const { d } = useI18n();
 
   .lecture {
     &:nth-child(even) {
-      background: var(--app-color-grey-medium);
+      --background: var(--app-color-grey-medium);
     }
   }
 }

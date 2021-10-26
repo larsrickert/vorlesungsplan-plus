@@ -8,7 +8,7 @@ export interface Lecture {
   course: string;
 }
 
-export type ApiLecture = Omit<Lecture, 'start' | 'end'> & { start: string; end: string };
+export type ApiLecture = Omit<Lecture, 'start' | 'end' | 'course'> & { start: string; end: string };
 export type MergedLecture = Omit<Lecture, 'course' | 'uid'> & { courses: string[]; uids: string[] };
 
 export interface DayLectureBlock {

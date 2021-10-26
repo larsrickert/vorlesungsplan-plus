@@ -18,10 +18,8 @@
       </IonRefresher>
 
       <div class="page__content">
-        <h1>{{ t('timetable.pageName') }}</h1>
-
         <AppLectureBlock
-          v-for="block of store.lectureDayBlocks"
+          v-for="block of store.upcomingLectureDayBlocks"
           :key="block.date.toISOString()"
           :date="block.date"
           :lectures="block.lectures"
@@ -52,8 +50,4 @@ const refreshLectures = async (ev: any) => {
 };
 </script>
 
-<style lang="scss" scoped>
-h1 {
-  margin: 0;
-}
-</style>
+<style lang="scss" scoped></style>

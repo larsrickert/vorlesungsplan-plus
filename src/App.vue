@@ -72,6 +72,12 @@ settingsStore.loadAndInitDefaults().then(() => {
   store.fetchLectures();
 });
 
+// fetch lectures when courses change
+const courseSetting = computed(() => settingsStore.courses);
+watch(courseSetting, async () => {
+  await store.fetchLectures();
+});
+
 const errorStore = useErrorStore();
 const error = computed(() => errorStore.error);
 

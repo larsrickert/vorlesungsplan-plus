@@ -2,6 +2,16 @@
   --app-border-radius: 4px;
   --app-border-radius-l: 8px;
   --app-box-shadow: 0 0 10px var(--ion-box-shadow-color);
+
+  --app-color-grey-light: #ffffff;
+  --app-color-grey-medium: #f9f9f9;
+  --app-color-grey-dark: #f2f2f2;
+}
+
+html[theme='dark'] {
+  --app-color-grey-light: #1d1d1d;
+  --app-color-grey-medium: #272727;
+  --app-color-grey-dark: #373737;
 }
 
 /* Ionic Variables and Theming. For more info, please see:

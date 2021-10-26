@@ -1,28 +1,12 @@
 <template>
-  <div class="lecture" :class="{ 'lecture--new': false, 'lecture--removed': false }">
-    <!-- <ion-icon
-      *ngIf="utility.isExam(lecture) && !lecture.status"
-      class="lecture__icon"
-      name="document-text-outline"
-    ></ion-icon>
-    <ion-icon
-      *ngIf="lecture.status === statusAdded"
-      name="add-circle-outline"
-      color="success"
-      class="lecture__icon"
-      title="Vorlesung wurde neu hinzugefügt"
-    ></ion-icon>
-    <ion-icon
-      *ngIf="lecture.status === statusRemoved"
-      name="close-circle-outline"
-      color="danger"
-      class="lecture__icon"
-      title="Vorlesung wurde gelöscht"
-    ></ion-icon> -->
+  <IonItem lines="none" class="lecture">
+    <div v-if="false" slot="start">
+      <IonIcon :icon="add" />
+    </div>
 
     <div class="lecture__content">
-      <div v-if="settingsStore.courses.length > 1" class="flex">
-        <IonBadge :key="course" v-for="course of lecture.courses" mode="ios" class="badge">
+      <div v-if="settingsStore.courses.length > 1" class="flex flex--wrap lecture__badges">
+        <IonBadge v-for="course of lecture.courses" :key="course" mode="ios" class="badge">
           {{ course.replace('MOS-', '').replace('MGH-', '') }}
         </IonBadge>
       </div>
@@ -47,11 +31,12 @@
         <IonText>{{ lecture.room }}</IonText>
       </div>
     </div>
-  </div>
+  </IonItem>
 </template>
 
 <script lang="ts" setup>
-import { IonBadge, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
+import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
+import { add } from 'ionicons/icons';
 import { onBeforeUnmount, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useSettingsStore } from '../store/settings';
@@ -92,26 +77,21 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .lecture {
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
+  --background: transparent;
+  --inner-padding-top: 12px;
+  --inner-padding-bottom: 12px;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+  --padding-start: 20px;
+  --padding-end: 20px;
+
+  &__content {
+    width: 100%;
+  }
 
   &__name {
     font-weight: 600;
     display: block;
-  }
-
-  &--last {
-    border-radius: 0 0 0 4px;
-  }
-
-  &__icon {
-    font-size: 30px;
-    margin-right: 20px;
-  }
-
-  &__content {
-    width: 100%;
   }
 
   &__meta {
@@ -124,19 +104,18 @@ onBeforeUnmount(() => {
     margin-top: 10px;
   }
 
-  &-new {
-    border-left: 3px solid var(--ion-color-success);
-  }
-
-  &-removed {
-    border-left: 3px solid var(--ion-color-danger);
-  }
-
-  .badge {
+  &__badges {
     margin-bottom: 6px;
+    flex-wrap: wrap;
 
-    &:not(:last-child) {
-      margin-right: 10px;
+    .badge {
+      margin-bottom: 6px;
+      min-width: auto;
+      --background: rgba(var(--ion-color-tertiary-rgb), 0.8);
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
     }
   }
 }

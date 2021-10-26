@@ -64,6 +64,7 @@ export function mergeAndSortSameLectures(lectures: Lecture[]): MergedLecture[] {
     }
   }
 
+  merged.forEach((lecture) => lecture.courses.sort());
   return merged;
 }
 

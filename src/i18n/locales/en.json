@@ -7,7 +7,8 @@
     "cancel": "Cancel",
     "searchPlaceholder": "Search...",
     "refresh": "Refresh",
-    "isRefreshing": "Is refreshing..."
+    "isRefreshing": "Is refreshing...",
+    "dateRange": "From {start} until {end}"
   },
   "locales": {
     "de": "Deutsch",
