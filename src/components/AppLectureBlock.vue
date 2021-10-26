@@ -6,10 +6,10 @@
 </template>
 
 <script lang="ts" setup>
-import AppLecture from '@/components/AppLecture.vue';
 import { IonLabel } from '@ionic/vue';
-import { PropType } from '@vue/runtime-core';
+import { PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
+import AppLecture from '../components/AppLecture.vue';
 import { MergedLecture } from '../types/lectures';
 
 defineProps({
