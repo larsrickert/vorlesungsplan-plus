@@ -1,9 +1,21 @@
 @import 'variables';
+@import 'mixin';
 
 .app-popover {
   --box-shadow: var(--app-box-shadow);
 
   &--small {
     --width: 125px;
+  }
+}
+
+.app-modal {
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.6) !important;
+
+  @include breakpoint(m, min) {
+    --border-radius: var(--app-border-radius-l);
+    --width: 70%;
+    --height: 70%;
+    --max-width: 1000px;
   }
 }

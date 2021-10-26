@@ -5,9 +5,9 @@
     <IonContent :fullscreen="true">
       <div class="page__content">
         <div class="grid">
-          <IonItem detail lines="none" class="setting" button router-link="/settings/backups">
-            <IonIcon slot="start" :icon="fileTrayFull" />
-            <span>Test</span>
+          <IonItem detail lines="none" class="setting" button @click="openCourseSelect">
+            <IonIcon slot="start" :icon="list" />
+            <span>{{ t('settings.selectCourses') }}</span>
           </IonItem>
 
           <IonItem lines="none" class="setting">
@@ -35,10 +35,12 @@
 
 <script lang="ts" setup>
 import { IonContent, IonIcon, IonItem, IonPage, IonSelect, IonSelectOption } from '@ionic/vue';
-import { contrast, fileTrayFull } from 'ionicons/icons';
+import { contrast, list } from 'ionicons/icons';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
+import TheCourseSelectModal from '../components/TheCourseSelectModal.vue';
+import { showModal } from '../helpers/io';
 import { useSettingsStore } from '../store/settings';
 
 const { t } = useI18n();
@@ -49,6 +51,12 @@ const theme = computed({
   get: (): string => settingsStore.theme,
   set: (value: string) => settingsStore.changeTheme(value),
 });
+
+const openCourseSelect = async () => {
+  await showModal({
+    component: TheCourseSelectModal,
+  });
+};
 </script>
 
 <style lang="scss" scoped></style>

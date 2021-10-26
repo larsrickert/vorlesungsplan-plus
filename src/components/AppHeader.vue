@@ -73,7 +73,8 @@ const emit = defineEmits<{
     --background: transparent;
   }
 
-  ion-buttons {
+  ion-buttons,
+  ion-button {
     --color: #ffffff;
   }
 
