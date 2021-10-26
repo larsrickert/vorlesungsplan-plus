@@ -2,6 +2,8 @@ import { createPinia, defineStore } from 'pinia';
 import axiosInstance from '../axios';
 import { isProduction } from '../configs';
 import { loggerPlugin } from '../store/plugins/logger';
+import { ApiLecture, Lecture, MergedLecture } from '../types/lectures';
+import { useSettingsStore } from './settings';
 
 export const pinia = createPinia();
 if (!isProduction) pinia.use(loggerPlugin);
@@ -13,10 +15,16 @@ export const useStore = defineStore('main', {
     };
   },
   actions: {
-    async fetchLectures(courses: string[]) {
+    async fetchLectures() {
+      const settingsStore = useSettingsStore();
+      if (!settingsStore.courses.length) {
+        this.lectures = [];
+        return;
+      }
+
       const lectures: Lecture[] = [];
 
-      for (const course of courses) {
+      for (const course of settingsStore.courses) {
         const { data } = await axiosInstance.get<ApiLecture[]>(`lectures/${course}`);
         data.forEach((lecture) => {
           lectures.push({
@@ -28,9 +36,6 @@ export const useStore = defineStore('main', {
       }
 
       this.lectures = mergeAndSortSameLectures(lectures);
-    },
-    removeLectures() {
-      if (this.lectures.length > 0) this.lectures = [];
     },
   },
   getters: {
