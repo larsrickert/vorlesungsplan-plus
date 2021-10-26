@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { cog, link, school } from 'ionicons/icons';
+import { calendar, cog, link, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
@@ -39,6 +39,11 @@ const navItems = computed<MenuItem[]>(() => {
       title: t('timetable.pageName', settingsStore.courses.length),
       href: '/',
       icon: school,
+    },
+    {
+      title: t('events.pageName'),
+      href: '/events',
+      icon: calendar,
     },
   ];
 });

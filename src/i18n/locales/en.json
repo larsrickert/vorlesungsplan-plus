@@ -43,6 +43,9 @@
     "availableCourses": "Available courses",
     "noCoursesAvailable": "There are no courses available."
   },
+  "events": {
+    "pageName": "Events"
+  },
   "toasts": {
     "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses.",
     "fetchedLectures": "Lectures loaded."

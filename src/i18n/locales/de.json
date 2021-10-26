@@ -43,6 +43,9 @@
     "availableCourses": "Verfügbare Kurse",
     "noCoursesAvailable": "Es sind keine Kurse verfügbar."
   },
+  "events": {
+    "pageName": "Veranstaltungen"
+  },
   "toasts": {
     "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert.",
     "fetchedLectures": "Vorlesungen aktualisiert."
