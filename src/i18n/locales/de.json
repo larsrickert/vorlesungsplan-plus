@@ -2,7 +2,8 @@
   "global": {
     "placeholder": "Dies ist ein Platzhalter-Text.",
     "close": "Schließen",
-    "errorCode": "Fehlercode"
+    "errorCode": "Fehlercode",
+    "select": "Auswählen"
   },
   "locales": {
     "de": "Deutsch",
@@ -16,6 +17,11 @@
     "pageName": "Vorlesungsplan"
   },
   "settings": {
-    "pageName": "Einstellungen"
+    "pageName": "Einstellungen",
+    "selectTheme": "Design auswählen",
+    "themes": {
+      "light": "Hell",
+      "dark": "Dunkel"
+    }
   }
 }

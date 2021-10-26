@@ -9,3 +9,28 @@
     }
   }
 }
+
+.grid {
+  $gap: 30px;
+
+  display: grid;
+  gap: $gap;
+
+  &--2 {
+    grid-template-columns: 1fr 1fr;
+
+    @include breakpoint(m) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &-spacing {
+    &--top {
+      margin-top: $gap;
+    }
+
+    &--bottom {
+      margin-bottom: $gap;
+    }
+  }
+}

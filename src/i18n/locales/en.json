@@ -2,7 +2,8 @@
   "global": {
     "placeholder": "This is a placeholder text.",
     "close": "Close",
-    "errorCode": "Error code"
+    "errorCode": "Error code",
+    "select": "Select"
   },
   "locales": {
     "de": "Deutsch",
@@ -16,6 +17,11 @@
     "pageName": "Timetable"
   },
   "settings": {
-    "pageName": "Settings"
+    "pageName": "Settings",
+    "selectTheme": "Select design",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark"
+    }
   }
 }

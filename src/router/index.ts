@@ -11,6 +11,12 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/settings',
     component: () => import('../views/Settings.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('../views/SettingsMain.vue'),
+      },
+    ],
   },
   // catch-all 404 route
   {
