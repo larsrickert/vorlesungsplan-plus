@@ -122,6 +122,9 @@ const toggleCourse = (course: string) => {
 };
 
 const save = async () => {
+  // filter out not available courses
+  selectedCourses.value = selectedCourses.value.filter((c) => courses.value.includes(c));
+
   await settingsStore.changeCourses(selectedCourses.value);
   modalController.dismiss();
   await showToast({
