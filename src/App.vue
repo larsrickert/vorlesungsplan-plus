@@ -24,6 +24,7 @@ import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
 import { isProduction } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
+import { useStore } from './store';
 import { useErrorStore } from './store/error-handler';
 import { useNetworkStore } from './store/network';
 import { useSettingsStore } from './store/settings';
@@ -65,7 +66,11 @@ const networkStore = useNetworkStore();
 networkStore.initListener();
 
 const settingsStore = useSettingsStore();
-settingsStore.loadAndInitDefaults();
+const store = useStore();
+
+settingsStore.loadAndInitDefaults().then(() => {
+  store.fetchLectures();
+});
 
 const errorStore = useErrorStore();
 const error = computed(() => errorStore.error);

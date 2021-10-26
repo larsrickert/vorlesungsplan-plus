@@ -1,6 +1,7 @@
 import { createPinia, defineStore } from 'pinia';
 import axiosInstance from '../axios';
 import { isProduction } from '../configs';
+import { mergeAndSortSameLectures } from '../helpers/lectures';
 import { loggerPlugin } from '../store/plugins/logger';
 import { ApiLecture, Lecture, MergedLecture } from '../types/lectures';
 import { useSettingsStore } from './settings';

@@ -5,7 +5,9 @@
     "errorCode": "Error code",
     "select": "Select",
     "cancel": "Cancel",
-    "searchPlaceholder": "Search..."
+    "searchPlaceholder": "Search...",
+    "refresh": "Refresh",
+    "isRefreshing": "Is refreshing..."
   },
   "locales": {
     "de": "Deutsch",
@@ -30,6 +32,7 @@
     "noCoursesAvailable": "There are no courses available."
   },
   "toasts": {
-    "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses."
+    "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses.",
+    "fetchedLectures": "Lectures loaded."
   }
 }

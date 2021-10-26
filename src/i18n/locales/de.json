@@ -5,7 +5,9 @@
     "errorCode": "Fehlercode",
     "select": "Auswählen",
     "cancel": "Abbrechen",
-    "searchPlaceholder": "Suchen..."
+    "searchPlaceholder": "Suchen...",
+    "refresh": "Aktualisieren",
+    "isRefreshing": "Wird aktualisiert..."
   },
   "locales": {
     "de": "Deutsch",
@@ -30,6 +32,7 @@
     "noCoursesAvailable": "Es sind keine Kurse verfügbar."
   },
   "toasts": {
-    "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert."
+    "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert.",
+    "fetchedLectures": "Vorlesungen aktualisiert."
   }
 }
