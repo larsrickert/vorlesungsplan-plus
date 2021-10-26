@@ -22,7 +22,12 @@
   },
   "timetable": {
     "pageName": "Timetable",
-    "lastUpdated": "Last updated: {date}"
+    "lastUpdated": "Last updated: {date}",
+    "segments": {
+      "all": "All ({count})",
+      "presence": "Presence ({count})",
+      "exams": "Exams ({count})"
+    }
   },
   "settings": {
     "pageName": "Settings",

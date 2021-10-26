@@ -18,12 +18,34 @@
       </IonRefresher>
 
       <div class="page__content">
-        <AppLectureBlock
-          v-for="block of store.upcomingLectureDayBlocks"
-          :key="block.date.toISOString()"
-          :date="block.date"
-          :lectures="block.lectures"
-        />
+        <AppSegment v-model="selectedSegment" :options="segments" />
+
+        <div v-show="selectedSegment === 'all'">
+          <AppLectureBlock
+            v-for="block of store.upcomingLectureDayBlocks"
+            :key="block.date.toISOString()"
+            :date="block.date"
+            :lectures="block.lectures"
+          />
+        </div>
+
+        <div v-show="selectedSegment === 'presence'">
+          <AppLectureBlock
+            v-for="block of store.presenceLectureDayBlocks"
+            :key="block.date.toISOString()"
+            :date="block.date"
+            :lectures="block.lectures"
+          />
+        </div>
+
+        <div v-show="selectedSegment === 'exams'">
+          <AppLectureBlock
+            v-for="block of store.examLectureDayBlocks"
+            :key="block.date.toISOString()"
+            :date="block.date"
+            :lectures="block.lectures"
+          />
+        </div>
       </div>
     </IonContent>
   </IonPage>
@@ -31,14 +53,16 @@
 
 <script lang="ts" setup>
 import { IonContent, IonPage, IonRefresher, IonRefresherContent } from '@ionic/vue';
-import { computed } from '@vue/reactivity';
 import { chevronDown } from 'ionicons/icons';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
 import AppLectureBlock from '../components/AppLectureBlock.vue';
+import AppSegment from '../components/AppSegment.vue';
 import { showToast } from '../helpers/io';
 import { useStore } from '../store';
 import { useSettingsStore } from '../store/settings';
+import { SelectOption } from '../types/misc';
 
 const { t, d } = useI18n();
 
@@ -58,6 +82,24 @@ const refresherText = computed((): string => {
         date: d(settingsStore.lecturesLastUpdated, 'dateTime'),
       })
     : t('global.refresh');
+});
+
+const selectedSegment = ref('all');
+const segments = computed((): SelectOption[] => {
+  return [
+    {
+      name: t('timetable.segments.all', { count: store.countUpcomingLectures }),
+      value: 'all',
+    },
+    {
+      name: t('timetable.segments.presence', { count: store.countPresenceLectures }),
+      value: 'presence',
+    },
+    {
+      name: t('timetable.segments.exams', { count: store.countExaxmLectures }),
+      value: 'exams',
+    },
+  ];
 });
 </script>
 

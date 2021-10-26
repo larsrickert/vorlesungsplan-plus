@@ -22,7 +22,12 @@
   },
   "timetable": {
     "pageName": "Vorlesungsplan",
-    "lastUpdated": "Zuletzt aktualisiert: {date}"
+    "lastUpdated": "Zuletzt aktualisiert: {date}",
+    "segments": {
+      "all": "Alle ({count})",
+      "presence": "Präsenz ({count})",
+      "exams": "Klausuren ({count})"
+    }
   },
   "settings": {
     "pageName": "Einstellungen",

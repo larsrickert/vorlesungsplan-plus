@@ -67,7 +67,7 @@ export const useStore = defineStore('main', {
 
       return blocks;
     },
-    exams(): DayLectureBlock[] {
+    examLectureDayBlocks(): DayLectureBlock[] {
       const blocks: DayLectureBlock[] = [];
 
       this.lectureDayBlocks.forEach((block) => {
@@ -79,6 +79,15 @@ export const useStore = defineStore('main', {
       });
 
       return blocks;
+    },
+    countUpcomingLectures(): number {
+      return this.upcomingLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
+    },
+    countPresenceLectures(): number {
+      return this.presenceLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
+    },
+    countExaxmLectures(): number {
+      return this.examLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
   },
 });
