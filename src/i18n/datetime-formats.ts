@@ -6,6 +6,12 @@ const formats: DateTimeFormat = {
     month: '2-digit',
     day: '2-digit',
   },
+  dateFullWeekday: {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  },
   dateTime: {
     year: 'numeric',
     month: '2-digit',

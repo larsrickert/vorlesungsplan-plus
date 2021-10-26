@@ -1,6 +1,6 @@
 <template>
   <div class="block">
-    <IonLabel class="block__heading"> {{ d(date, 'date') }} </IonLabel>
+    <IonLabel class="block__heading"> {{ d(date, 'dateFullWeekday') }} </IonLabel>
     <AppLecture v-for="lecture of lectures" :key="lecture.uids.join(',')" :lecture="lecture" />
   </div>
 </template>
