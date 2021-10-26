@@ -1,8 +1,6 @@
-import { DateTimeDigital } from '@intlify/core-base';
+import { DateTimeFormat, DateTimeFormats } from '@intlify/core-base';
 
-type LocaleFormat = Record<string, DateTimeDigital | undefined>;
-
-const formats: Record<string, LocaleFormat> = {
+const formats: DateTimeFormat = {
   date: {
     year: 'numeric',
     month: '2-digit',
@@ -15,15 +13,23 @@ const formats: Record<string, LocaleFormat> = {
     hour: '2-digit',
     minute: '2-digit',
   },
-  time: {
-    hour: 'numeric',
-    minute: '2-digit',
-  },
 };
 
-const dateTimeFormats: Record<string, Record<string, LocaleFormat>> = {
-  en: formats,
-  de: formats,
+const dateTimeFormats: DateTimeFormats = {
+  de: {
+    ...formats,
+    time: {
+      hour: '2-digit',
+      minute: '2-digit',
+    },
+  },
+  en: {
+    ...formats,
+    time: {
+      hour: 'numeric',
+      minute: '2-digit',
+    },
+  },
 };
 
 export default dateTimeFormats;

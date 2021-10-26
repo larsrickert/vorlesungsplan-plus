@@ -23,7 +23,7 @@
           </div>
 
           <SideMenuItem
-            v-for="(item, index) in _navItems"
+            v-for="(item, index) in navItems"
             :key="index"
             :href="item.href"
             :icon="item.icon"
@@ -32,11 +32,11 @@
           />
         </IonList>
 
-        <IonList id="labels-list">
+        <IonList v-if="subItems.length > 0" id="labels-list">
           <IonListHeader v-if="subItemsHeading">{{ subItemsHeading }}</IonListHeader>
 
           <SideMenuItem
-            v-for="(item, index) in _subItems"
+            v-for="(item, index) in subItems"
             :key="index"
             :href="item.href"
             :icon="item.icon"
@@ -44,6 +44,8 @@
             class="menu-item"
           />
         </IonList>
+
+        <AppLogoutBtn class="logout" />
       </IonContent>
     </IonMenu>
     <IonRouterOutlet :id="contentId" />
@@ -51,10 +53,6 @@
 </template>
 
 <script lang="ts" setup>
-import AppLanguageSwitch from '@/components/AppLanguageSwitch.vue';
-import SideMenuItem from '@/components/SideMenuItem.vue';
-import { validateNavItems } from '@/helpers/validators';
-import { MenuItem } from '@/types/misc';
 import {
   IonContent,
   IonList,
@@ -64,16 +62,21 @@ import {
   IonRouterOutlet,
   IonSplitPane,
 } from '@ionic/vue';
-import { computed, defineProps } from 'vue';
+import { defineProps, PropType } from 'vue';
+import AppLanguageSwitch from '../components/AppLanguageSwitch.vue';
+import SideMenuItem from '../components/SideMenuItem.vue';
+import { validateNavItems } from '../helpers/validators';
+import { MenuItem } from '../types/misc';
+import AppLogoutBtn from './AppLogoutBtn.vue';
 
-const props = defineProps({
+defineProps({
   navItems: {
-    type: Array,
+    type: Array as PropType<MenuItem[]>,
     default: () => [],
     validator: validateNavItems,
   },
   subItems: {
-    type: Array,
+    type: Array as PropType<MenuItem[]>,
     default: () => [],
     validator: validateNavItems,
   },
@@ -82,28 +85,25 @@ const props = defineProps({
     default: 'main-content',
   },
   disabled: Boolean,
-  subItemsHeading: String,
-  heading: String,
-  description: String,
-  img: String,
+  subItemsHeading: { type: String, default: '' },
+  heading: { type: String, default: '' },
+  description: { type: String, default: '' },
+  img: { type: String, default: '' },
   swipeGesture: {
     type: Boolean,
     default: true,
   },
   side: {
-    type: String,
+    type: String as PropType<'start' | 'end'>,
     default: 'start',
     validator: (prop) => typeof prop === 'string' && ['start', 'end'].includes(prop),
   },
   animation: {
-    type: String,
+    type: String as PropType<'overlay' | 'reveal' | 'push'>,
     default: 'overlay',
     validator: (prop) => typeof prop === 'string' && ['overlay', 'reveal', 'push'].includes(prop),
   },
 });
-
-const _navItems = computed(() => props.navItems as MenuItem[]);
-const _subItems = computed(() => props.subItems as MenuItem[]);
 </script>
 
 <style lang="scss" scoped>
@@ -129,7 +129,7 @@ ion-content {
 }
 
 .logo {
-  height: 100px;
+  width: 100px;
   display: block;
   padding-bottom: 10px;
 }
@@ -193,5 +193,11 @@ ion-note,
     color: #757575;
     min-height: 26px;
   }
+}
+
+.logout {
+  padding-left: 16px;
+  position: absolute;
+  bottom: 20px;
 }
 </style>

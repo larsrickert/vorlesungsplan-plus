@@ -3,37 +3,38 @@
     <SideMenu
       :nav-items="navItems"
       :sub-items="subItems"
-      sub-items-heading="App"
-      description="DHBW Mosbach"
-      heading="Vorlesungsplan+"
-      :img="require('@/assets/logo.svg')"
+      sub-items-heading="Sub item heading"
+      description="Vue & Ionic"
+      heading="Template App"
+      img="/favicon.svg"
     />
+
+    <ThePwaReloadPrompt />
   </IonApp>
 </template>
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { link, school } from 'ionicons/icons';
+import { link, person } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import SideMenu from './components/SideMenu.vue';
-import { isProduction } from './configs';
+import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
+import config, { isProduction } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
+import { useAuthStore } from './store/auth';
 import { useErrorStore } from './store/error-handler';
 import { useNetworkStore } from './store/network';
-import { useSwStore } from './store/service-worker';
 import { useSettingsStore } from './store/settings';
 import { MenuItem } from './types/misc';
-
-let { t } = useI18n();
 
 const navItems = computed<MenuItem[]>(() => {
   return [
     {
-      title: t('pages.timetable.name'),
+      title: 'Home',
       href: '/',
-      icon: school,
+      icon: person,
     },
   ];
 });
@@ -58,27 +59,11 @@ networkStore.initListener();
 const settingsStore = useSettingsStore();
 settingsStore.loadAndInitDefaults();
 
-const swStore = useSwStore();
-swStore.init();
+// login user
+const authStore = useAuthStore();
+if (!config.auth.disabled) authStore.login();
 
-// needed in combination with watch to prevent multiple toasts when locale changes.
-// that would happend if watchEffect is used
-const hasUpdate = computed(() => swStore.hasUpdate);
-
-watch(
-  hasUpdate,
-  async () => {
-    if (swStore.hasUpdate)
-      await showToast({
-        message: t('global.swUpdateAvailable'),
-        btn: {
-          text: t('global.update'),
-          onClick: () => swStore.update(),
-        },
-      });
-  },
-  { immediate: true }
-);
+let { t } = useI18n();
 
 const errorStore = useErrorStore();
 const error = computed(() => errorStore.error);
@@ -100,11 +85,22 @@ watch(
 
 onBeforeUnmount(() => {
   networkStore.removeListener();
-  swStore.removeListener();
   removeErrorHandlerListeners();
 });
 </script>
 
 <style lang="scss">
+@import '@ionic/vue/css/core.css';
+@import '@ionic/vue/css/normalize.css';
+@import '@ionic/vue/css/structure.css';
+@import '@ionic/vue/css/typography.css';
+/* Optional CSS utils that can be commented out */
+// import '@ionic/vue/css/padding.css';
+// import '@ionic/vue/css/float-elements.css';
+// import '@ionic/vue/css/text-alignment.css';
+// import '@ionic/vue/css/text-transformation.css';
+// import '@ionic/vue/css/flex-utils.css';
+// import '@ionic/vue/css/display.css';
+
 @import './styles';
 </style>

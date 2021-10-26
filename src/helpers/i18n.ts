@@ -1,7 +1,7 @@
-import config from '@/configs';
-import { getValue, StorageKey } from '@/helpers/storage';
-import { i18n } from '@/i18n';
 import { Device } from '@capacitor/device';
+import config from '../configs';
+import { getValue, StorageKey } from '../helpers/storage';
+import { i18n } from '../i18n';
 
 /**
  * Checks whether the given locale is available for this application.

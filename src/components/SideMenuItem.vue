@@ -25,8 +25,8 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  href: String,
-  icon: String,
+  href: { type: String, default: '' },
+  icon: { type: String, default: '' },
 });
 
 const router = useRouter();

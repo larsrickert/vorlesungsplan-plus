@@ -1,5 +1,5 @@
 <template>
-  <IonHeader class="header" mode="md">
+  <IonHeader mode="md">
     <IonToolbar>
       <IonButtons slot="start">
         <IonMenuButton v-if="!showBack" color="primary" />
@@ -9,13 +9,13 @@
       <IonTitle>{{ title }}</IonTitle>
 
       <IonButton
-        @click="emit('close')"
         v-if="showClose"
-        class="close"
         slot="end"
+        class="close"
         fill="clear"
         shape="round"
         size="large"
+        @click="emit('close')"
       >
         <IonIcon :icon="closeIcon" />
       </IonButton>
@@ -39,7 +39,7 @@ import { defineEmits, defineProps } from 'vue';
 
 defineProps({
   /** Header title. */
-  title: String,
+  title: { type: String, default: '' },
   /** If true, back button will be displayed instead of menu button. */
   showBack: Boolean,
   /** If true, close ("x") button will be displayed at the end of the header. */
@@ -54,26 +54,9 @@ const emit = defineEmits<{
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
 
-.header {
-  box-shadow: 0 0 10px rgb(0, 0, 0, 0.25);
-  background: var(--ion-color-primary);
-  background: linear-gradient(
-    90deg,
-    var(--ion-color-primary) 0%,
-    var(--ion-color-secondary) 50%,
-    var(--ion-color-tertiary) 100%
-  );
-  border-radius: 0 0 40px 40px;
-  padding: 10px;
-
-  ion-toolbar {
-    color: #ffffff;
-    --background: transparent;
-  }
-
-  ion-butons {
-    --color: #ffffff;
-  }
+ion-header {
+  box-shadow: $box-shadow;
+  border-bottom: 1px solid var(--ion-border-color);
 
   &::after {
     display: none;

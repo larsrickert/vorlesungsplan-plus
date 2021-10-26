@@ -1,18 +1,23 @@
-import { Config } from '@/types/configs';
+import { Config } from '../types/configs';
 
-export const isProduction = process.env.NODE_ENV === 'production';
-export const baseUrl = process.env.BASE_URL as string;
+export const isProduction: boolean = import.meta.env.PROD;
+export const baseUrl: string = import.meta.env.BASE_URL;
 
-/** see https://cli.vuejs.org/guide/mode-and-env.html for more information */
-export const mode: 'production' | 'development' | 'test' = process.env.NODE_ENV;
+/** see https://vitejs.dev/guide/env-and-mode.html for more information */
+export const mode: 'production' | 'development' = import.meta.env.MODE as
+  | 'production'
+  | 'development';
 
 const config: Config = {
   i18n: {
-    defaultLocale: process.env.VUE_APP_I18N_LOCALE || 'en',
-    fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
+    defaultLocale: import.meta.env.VITE_APP_I18N_LOCALE || 'en',
+    fallbackLocale: import.meta.env.VITE_APP_I18N_FALLBACK_LOCALE || 'en',
+  },
+  auth: {
+    disabled: import.meta.env.VITE_APP_AUTH_DISABLED === 'true',
   },
   api: {
-    host: process.env.VUE_APP_API_HOST || '',
+    host: import.meta.env.VITE_APP_API_HOST || '',
   },
 };
 

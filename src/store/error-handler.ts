@@ -1,5 +1,5 @@
-import { CustomError, ErrorCode } from '@/types/errors';
 import { defineStore } from 'pinia';
+import { CustomError, ErrorCode } from '../types/errors';
 
 export const useErrorStore = defineStore('errorHandler', {
   state() {

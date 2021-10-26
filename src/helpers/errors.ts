@@ -1,5 +1,5 @@
-import { useErrorStore } from '@/store/error-handler';
-import { CustomError } from '@/types/errors';
+import { useErrorStore } from '../store/error-handler';
+import { CustomError } from '../types/errors';
 
 export function isSameCustomError(a: CustomError | null, b: CustomError | null): boolean {
   if (!a || !b) return false;

@@ -1,11 +1,6 @@
 <template>
   <div :class="{ open: isOpen }" class="wrapper" @mouseenter="open(true)" @mouseleave="open(false)">
-    <img
-      class="flag"
-      :src="require(`../assets/flags/${locale}.svg`)"
-      :alt="`flag-${locale}`"
-      @click="open(true)"
-    />
+    <img class="flag" :src="getFlag(locale)" :alt="`flag-${locale}`" @click="open(true)" />
     <div class="triangle"></div>
 
     <ul>
@@ -15,7 +10,7 @@
         :class="{ active: lang === locale }"
         @click="change(lang)"
       >
-        <img class="flag" :src="require(`../assets/flags/${lang}.svg`)" :alt="`flag-${lang}`" />
+        <img class="flag" :src="getFlag(lang)" :alt="`flag-${lang}`" />
         <span class="active">{{ t(`locales.${lang}`) }}</span>
       </li>
     </ul>
@@ -23,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useSettingsStore } from '@/store/settings';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useSettingsStore } from '../store/settings';
 
 const { locale, availableLocales, t } = useI18n();
 const isOpen = ref<boolean>(false);
@@ -41,6 +36,9 @@ const change = async (lang: string) => {
   if (lang === locale.value) return;
   await settingsStore.changeLocale(lang);
 };
+
+const getFlag = (locale: string): string =>
+  new URL(`../assets/flags/${locale}.svg`, import.meta.url).href;
 </script>
 
 <style lang="scss" scoped>
@@ -89,7 +87,7 @@ $flagSize: 18px;
       width: 125px;
       background: var(--ion-background-color);
       z-index: 1;
-      border-radius: $border-radius;
+      border-radius: var(--app-border-radius);
       box-shadow: $box-shadow;
       display: block;
 
@@ -112,7 +110,7 @@ $flagSize: 18px;
 
         span {
           font-size: 15px;
-          color: var(--app-font-color);
+          color: var(--ion-text-color);
           margin-left: 10px;
         }
       }

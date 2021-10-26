@@ -1,17 +1,14 @@
-import axiosInstance from '@/axios';
-import config from '@/configs';
-import { getInitLocale, isLocaleAvailable } from '@/helpers/i18n';
-import { initValue, removeValue, setValue, StorageKey } from '@/helpers/storage';
-import { i18n } from '@/i18n';
-import { CustomError, ErrorCode } from '@/types/errors';
 import { defineStore } from 'pinia';
+import config from '../configs';
+import { getInitLocale, isLocaleAvailable } from '../helpers/i18n';
+import { initValue, setValue, StorageKey } from '../helpers/storage';
+import { i18n } from '../i18n';
 
 export const useSettingsStore = defineStore('settings', {
   state() {
     return {
       locale: config.i18n.defaultLocale,
       theme: 'light',
-      courses: [] as string[],
     };
   },
   actions: {
@@ -23,11 +20,9 @@ export const useSettingsStore = defineStore('settings', {
     async loadAndInitDefaults() {
       const localeSetting = await initValue(StorageKey.LOCALE, await getInitLocale());
       const themeSetting = await initValue(StorageKey.THEME, this.theme);
-      const courseSetting = await initValue<string[]>(StorageKey.COURSE, []);
 
       this.changeLocale(localeSetting);
       this.changeTheme(themeSetting);
-      this.changeCourses(courseSetting);
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
@@ -58,35 +53,6 @@ export const useSettingsStore = defineStore('settings', {
 
       this.theme = value;
       await setValue(StorageKey.THEME, value);
-    },
-    async changeCourses(value: string[]) {
-      if (!value.length) return;
-
-      // check if course is available
-      let availableCourses: string[] = [];
-
-      try {
-        const { data } = await axiosInstance.get<string[]>('courses');
-        availableCourses = data;
-      } catch (e) {
-        throw new CustomError(
-          ErrorCode.UNABLE_TO_FETCH_COURSES,
-          'Unable to fetch available courses.',
-          e as Error
-        );
-      }
-
-      const validCourses: string[] = [];
-
-      value.forEach((course) => {
-        if (availableCourses.includes(course)) validCourses.push(course);
-      });
-
-      this.courses = validCourses;
-
-      value
-        ? await setValue(StorageKey.COURSE, this.courses)
-        : await removeValue(StorageKey.COURSE);
     },
   },
 });

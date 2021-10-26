@@ -1,9 +1,8 @@
-import { i18n } from '@/i18n';
+import { i18n } from '../i18n';
 
 export enum ErrorCode {
   UNKNOWN = 'A1',
-  UNABLE_TO_FETCH_COURSES = 'B1',
-  COURSE_NOT_AVAILABLE = 'A2',
+  ROUTER_NOT_AUTHENTICATED = 'A2',
 }
 
 export class CustomError extends Error {

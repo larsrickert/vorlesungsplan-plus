@@ -1,7 +1,8 @@
-import { baseUrl, isProduction } from '@/configs';
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Timetable from '../views/Timetable.vue';
+import { baseUrl, isProduction } from '../configs';
+import Home from '../views/Home.vue';
+import authGuard from './auth-guard';
 
 // provide typings for route meta attribute
 declare module 'vue-router' {
@@ -14,8 +15,8 @@ declare module 'vue-router' {
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'Timetable',
-    component: Timetable,
+    name: 'Home',
+    component: Home,
   },
   // catch-all 404 route
   {
@@ -31,7 +32,7 @@ if (!isProduction) {
     meta: {
       requiresAuth: true,
     },
-    component: () => import(/* webpackChunkName: "test" */ '@/views/Test.vue'),
+    component: () => import('../views/Test.vue'),
   });
 }
 
@@ -41,3 +42,5 @@ const router = createRouter({
 });
 
 export default router;
+
+router.beforeEach(authGuard);

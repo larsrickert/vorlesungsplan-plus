@@ -6,10 +6,10 @@
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run with hot-reload for development
 
 ```
-npm run serve
+npm run dev
 ```
 
 ### Compiles and minifies for production
@@ -18,19 +18,17 @@ npm run serve
 npm run build
 ```
 
+### Serves production build in local webserver
+
+```
+npm run serve
+```
+
 ### Lints and fixes files
 
 ```
 npm run lint
 ```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## Vite
-
-Vite is currently not supported by Ionic 5. Check if Ionic 6 is released to use vite.
 
 # Pursue following guidelines
 
