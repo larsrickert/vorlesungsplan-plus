@@ -10,7 +10,8 @@
     "isRefreshing": "Wird aktualisiert...",
     "dateRange": "Von {start} bis {end} Uhr",
     "today": "Heute",
-    "tomorrow": "Morgen"
+    "tomorrow": "Morgen",
+    "emptySeach": "Keine Ergebnisse für die Suche gefunden."
   },
   "locales": {
     "de": "Deutsch",

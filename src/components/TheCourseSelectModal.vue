@@ -21,6 +21,10 @@
               mode="ios"
             />
 
+            <p v-if="searchValue && !coursesFilteredBySearch.length">
+              {{ t('global.emptySeach') }}
+            </p>
+
             <IonItemGroup v-for="group of getGroups(coursesFilteredBySearch)" :key="group.name">
               <IonItemDivider>
                 <IonLabel>{{ group.name }}</IonLabel>

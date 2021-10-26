@@ -92,5 +92,25 @@ export const useStore = defineStore('main', {
     countExaxmLectures(): number {
       return this.examLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
+    filteredLectureDayBlocks(): (seachvalue: string) => DayLectureBlock[] {
+      return (searchValue: string) => {
+        const blocks: DayLectureBlock[] = [];
+        const searchLc = searchValue.toLowerCase();
+
+        this.lectureDayBlocks.forEach((block) => {
+          const lectures = block.lectures.filter((lecture) => {
+            return (
+              lecture.name.toLowerCase().includes(searchLc) ||
+              lecture.lecturer.toLowerCase().includes(searchLc) ||
+              lecture.room.includes(searchLc)
+            );
+          });
+          if (!lectures.length) return;
+          blocks.push({ date: block.date, lectures });
+        });
+
+        return blocks;
+      };
+    },
   },
 });

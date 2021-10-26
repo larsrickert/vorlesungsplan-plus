@@ -26,33 +26,55 @@
           </template>
 
           <template v-else>
-            <AppSegment v-model="selectedSegment" :options="segments" />
+            <IonSearchbar
+              v-model="searchValue"
+              animated
+              show-cancel-button="focus"
+              :cancel-button-text="t('global.cancel')"
+              :placeholder="t('global.searchPlaceholder')"
+              mode="ios"
+            />
 
-            <div v-show="selectedSegment === 'all'">
+            <AppSegment v-if="!searchValue" v-model="selectedSegment" :options="segments" />
+
+            <div v-show="searchValue">
               <AppLectureBlock
-                v-for="block of store.upcomingLectureDayBlocks"
+                v-for="block of searchBlocks"
                 :key="block.date.toISOString()"
                 :date="block.date"
                 :lectures="block.lectures"
               />
+
+              <p v-if="!searchBlocks.length">{{ t('global.emptySeach') }}</p>
             </div>
 
-            <div v-show="selectedSegment === 'presence'">
-              <AppLectureBlock
-                v-for="block of store.presenceLectureDayBlocks"
-                :key="block.date.toISOString()"
-                :date="block.date"
-                :lectures="block.lectures"
-              />
-            </div>
+            <div v-show="!searchValue">
+              <div v-show="selectedSegment === 'all'">
+                <AppLectureBlock
+                  v-for="block of store.upcomingLectureDayBlocks"
+                  :key="block.date.toISOString()"
+                  :date="block.date"
+                  :lectures="block.lectures"
+                />
+              </div>
 
-            <div v-show="selectedSegment === 'exams'">
-              <AppLectureBlock
-                v-for="block of store.examLectureDayBlocks"
-                :key="block.date.toISOString()"
-                :date="block.date"
-                :lectures="block.lectures"
-              />
+              <div v-show="selectedSegment === 'presence'">
+                <AppLectureBlock
+                  v-for="block of store.presenceLectureDayBlocks"
+                  :key="block.date.toISOString()"
+                  :date="block.date"
+                  :lectures="block.lectures"
+                />
+              </div>
+
+              <div v-show="selectedSegment === 'exams'">
+                <AppLectureBlock
+                  v-for="block of store.examLectureDayBlocks"
+                  :key="block.date.toISOString()"
+                  :date="block.date"
+                  :lectures="block.lectures"
+                />
+              </div>
             </div>
           </template>
         </template>
@@ -62,7 +84,14 @@
 </template>
 
 <script lang="ts" setup>
-import { IonContent, IonPage, IonProgressBar, IonRefresher, IonRefresherContent } from '@ionic/vue';
+import {
+  IonContent,
+  IonPage,
+  IonProgressBar,
+  IonRefresher,
+  IonRefresherContent,
+  IonSearchbar,
+} from '@ionic/vue';
 import { chevronDown } from 'ionicons/icons';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -72,6 +101,7 @@ import AppSegment from '../components/AppSegment.vue';
 import { showToast } from '../helpers/io';
 import { useStore } from '../store';
 import { useSettingsStore } from '../store/settings';
+import { DayLectureBlock } from '../types/lectures';
 import { SelectOption } from '../types/misc';
 
 const { t, d } = useI18n();
@@ -117,6 +147,15 @@ const segments = computed((): SelectOption[] => {
     },
   ];
 });
+
+const searchValue = ref('');
+const searchBlocks = computed((): DayLectureBlock[] => {
+  return store.filteredLectureDayBlocks(searchValue.value);
+});
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+ion-searchbar {
+  margin-bottom: 20px;
+}
+</style>
