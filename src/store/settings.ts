@@ -9,6 +9,7 @@ export const useSettingsStore = defineStore('settings', {
     return {
       locale: config.i18n.defaultLocale,
       theme: 'light',
+      courses: [] as string[],
     };
   },
   actions: {
@@ -20,9 +21,11 @@ export const useSettingsStore = defineStore('settings', {
     async loadAndInitDefaults() {
       const localeSetting = await initValue(StorageKey.LOCALE, await getInitLocale());
       const themeSetting = await initValue(StorageKey.THEME, this.theme);
+      const coursesSetting = await initValue(StorageKey.COURSES, this.courses);
 
       this.changeLocale(localeSetting);
       this.changeTheme(themeSetting);
+      this.changeCourses(coursesSetting);
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
@@ -53,6 +56,15 @@ export const useSettingsStore = defineStore('settings', {
 
       this.theme = value;
       await setValue(StorageKey.THEME, value);
+    },
+    /**
+     * Sets the current selected courses and stores it in the storage.
+     */
+    async changeCourses(value: string[]) {
+      if (JSON.stringify(value) === JSON.stringify(this.courses)) return;
+
+      this.courses = value;
+      await setValue(StorageKey.COURSES, value);
     },
   },
 });

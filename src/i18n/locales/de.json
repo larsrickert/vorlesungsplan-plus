@@ -3,7 +3,9 @@
     "placeholder": "Dies ist ein Platzhalter-Text.",
     "close": "Schließen",
     "errorCode": "Fehlercode",
-    "select": "Auswählen"
+    "select": "Auswählen",
+    "cancel": "Abbrechen",
+    "searchPlaceholder": "Suchen..."
   },
   "locales": {
     "de": "Deutsch",
@@ -23,6 +25,11 @@
       "light": "Hell",
       "dark": "Dunkel"
     },
-    "selectCourses": "Kurse auswählen"
+    "selectCourses": "Kurse auswählen",
+    "availableCourses": "Verfügbare Kurse",
+    "noCoursesAvailable": "Es sind keine Kurse verfügbar."
+  },
+  "toasts": {
+    "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert."
   }
 }

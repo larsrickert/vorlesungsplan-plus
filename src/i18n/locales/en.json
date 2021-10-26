@@ -3,7 +3,9 @@
     "placeholder": "This is a placeholder text.",
     "close": "Close",
     "errorCode": "Error code",
-    "select": "Select"
+    "select": "Select",
+    "cancel": "Cancel",
+    "searchPlaceholder": "Search..."
   },
   "locales": {
     "de": "Deutsch",
@@ -23,6 +25,11 @@
       "light": "Light",
       "dark": "Dark"
     },
-    "selectCourses": "Select courses"
+    "selectCourses": "Select courses",
+    "availableCourses": "Available courses",
+    "noCoursesAvailable": "There are no courses available."
+  },
+  "toasts": {
+    "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses."
   }
 }

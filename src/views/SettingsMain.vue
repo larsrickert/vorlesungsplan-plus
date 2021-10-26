@@ -7,7 +7,7 @@
         <div class="grid">
           <IonItem detail lines="none" class="setting" button @click="openCourseSelect">
             <IonIcon slot="start" :icon="list" />
-            <span>{{ t('settings.selectCourses') }}</span>
+            <span>{{ t('settings.selectCourses') }} ({{ settingsStore.courses.length }})</span>
           </IonItem>
 
           <IonItem lines="none" class="setting">
