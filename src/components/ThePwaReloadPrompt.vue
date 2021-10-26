@@ -36,7 +36,7 @@ const { t } = useI18n();
   border-radius: var(--app-border-radius);
   z-index: 1;
   text-align: left;
-  box-shadow: $box-shadow;
+  box-shadow: var(--app-box-shadow);
   background-color: var(--ion-background-color);
   color: var(--ion-text-color);
 

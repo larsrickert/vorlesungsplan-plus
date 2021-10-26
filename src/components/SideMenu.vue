@@ -60,7 +60,7 @@ import {
   IonRouterOutlet,
   IonSplitPane,
 } from '@ionic/vue';
-import { defineProps, PropType } from 'vue';
+import { PropType } from 'vue';
 import AppLanguageSwitch from '../components/AppLanguageSwitch.vue';
 import SideMenuItem from '../components/SideMenuItem.vue';
 import { validateNavItems } from '../helpers/validators';

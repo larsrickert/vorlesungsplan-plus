@@ -35,7 +35,6 @@ import {
   IonToolbar,
 } from '@ionic/vue';
 import { chevronBack, close as closeIcon } from 'ionicons/icons';
-import { defineEmits, defineProps } from 'vue';
 
 defineProps({
   /** Header title. */
@@ -55,7 +54,7 @@ const emit = defineEmits<{
 @import '../styles/variables.scss';
 
 ion-header {
-  box-shadow: $box-shadow;
+  box-shadow: var(--app-box-shadow);
   border-bottom: 1px solid var(--ion-border-color);
 
   &::after {

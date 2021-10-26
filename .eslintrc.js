@@ -35,6 +35,7 @@ module.exports = {
           },
         ],
         'vue/no-deprecated-slot-attribute': 'off',
+        'no-undef': 'off',
       },
     },
   ],

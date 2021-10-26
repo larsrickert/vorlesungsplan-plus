@@ -1,0 +1,9 @@
+@import 'variables';
+
+.app-popover {
+  --box-shadow: var(--app-box-shadow);
+
+  &--small {
+    --width: 125px;
+  }
+}

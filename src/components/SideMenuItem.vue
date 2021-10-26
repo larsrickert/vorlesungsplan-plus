@@ -17,7 +17,6 @@
 <script lang="ts" setup>
 import { Browser } from '@capacitor/browser';
 import { IonIcon, IonItem, IonLabel, IonMenuToggle } from '@ionic/vue';
-import { defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 
 const props = defineProps({
