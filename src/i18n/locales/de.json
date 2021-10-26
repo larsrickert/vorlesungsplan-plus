@@ -29,7 +29,8 @@
       "presence": "Präsenz ({count})",
       "exams": "Klausuren ({count})"
     },
-    "noLecturesText": "Viel Spaß in der Praxisphase!"
+    "noLecturesText": "Viel Spaß in der Praxisphase!",
+    "searchPlaceholder": "Nach Vorlesung, Raum oder Dozent suchen..."
   },
   "settings": {
     "pageName": "Einstellungen",

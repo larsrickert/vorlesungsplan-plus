@@ -31,7 +31,7 @@
               animated
               show-cancel-button="focus"
               :cancel-button-text="t('global.cancel')"
-              :placeholder="t('global.searchPlaceholder')"
+              :placeholder="t('timetable.searchPlaceholder')"
               mode="ios"
             />
 
