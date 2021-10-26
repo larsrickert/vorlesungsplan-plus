@@ -27,7 +27,8 @@
       "all": "All ({count})",
       "presence": "Presence ({count})",
       "exams": "Exams ({count})"
-    }
+    },
+    "noLecturesText": "Have fun in the practical phase!"
   },
   "settings": {
     "pageName": "Settings",

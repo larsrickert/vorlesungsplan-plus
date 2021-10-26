@@ -27,7 +27,8 @@
       "all": "Alle ({count})",
       "presence": "Präsenz ({count})",
       "exams": "Klausuren ({count})"
-    }
+    },
+    "noLecturesText": "Viel Spaß in der Praxisphase!"
   },
   "settings": {
     "pageName": "Einstellungen",

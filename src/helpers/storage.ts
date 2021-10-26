@@ -7,6 +7,16 @@ export enum StorageKey {
   LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
 }
 
+let isConfigured = false;
+async function configureStorage() {
+  if (isConfigured) return;
+
+  await Storage.configure({
+    group: 'VorlesungsplanPlusV2',
+  });
+  isConfigured = true;
+}
+
 /**
  * Gets the value for the given key from the storage. Value will be transformed with JSON.parse().
  *
@@ -14,6 +24,7 @@ export enum StorageKey {
  * @returns The stored data or null if key does not exist or an error occurred.
  */
 export const getValue = async <T>(key: StorageKey): Promise<T | null> => {
+  await configureStorage();
   const { value } = await Storage.get({ key });
 
   try {
@@ -31,6 +42,7 @@ export const getValue = async <T>(key: StorageKey): Promise<T | null> => {
  * @param value The value to set in storage with the associated key.
  */
 export const setValue = async (key: StorageKey, value: unknown): Promise<void> => {
+  await configureStorage();
   try {
     await Storage.set({ key, value: JSON.stringify(value) });
   } catch (e) {
@@ -46,6 +58,7 @@ export const setValue = async (key: StorageKey, value: unknown): Promise<void> =
  * @returns Current value if available, set init value otherwise.
  */
 export const initValue = async <T>(key: StorageKey, value: T): Promise<T> => {
+  await configureStorage();
   const currentValue = await getValue<T>(key);
   if (currentValue == null) await setValue(key, value);
   return currentValue ?? value;
@@ -54,7 +67,10 @@ export const initValue = async <T>(key: StorageKey, value: T): Promise<T> => {
 /**
  * Clears keys and values from storage.
  */
-export const clearStorage = Storage.clear;
+export const clearStorage = async () => {
+  await configureStorage();
+  await Storage.clear();
+};
 
 /**
  * Remove the value from storage for a given key, if any.
@@ -62,6 +78,7 @@ export const clearStorage = Storage.clear;
  * @param key Key to remove value for.
  */
 export const removeValue = async (key: StorageKey): Promise<void> => {
+  await configureStorage();
   try {
     await Storage.remove({ key });
   } catch (e) {
@@ -75,6 +92,7 @@ export const removeValue = async (key: StorageKey): Promise<void> => {
  * @returns Known storage keys or empty array if an error occurred.
  */
 export const getKeys = async (): Promise<string[]> => {
+  await configureStorage();
   try {
     const { keys } = await Storage.keys();
     return keys;

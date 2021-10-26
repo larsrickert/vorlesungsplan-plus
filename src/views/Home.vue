@@ -18,41 +18,51 @@
       </IonRefresher>
 
       <div class="page__content">
-        <AppSegment v-model="selectedSegment" :options="segments" />
+        <IonProgressBar v-if="!store.lecturesLoaded" type="indeterminate" />
 
-        <div v-show="selectedSegment === 'all'">
-          <AppLectureBlock
-            v-for="block of store.upcomingLectureDayBlocks"
-            :key="block.date.toISOString()"
-            :date="block.date"
-            :lectures="block.lectures"
-          />
-        </div>
+        <template v-else>
+          <template v-if="!store.countUpcomingLectures">
+            <p>{{ t('timetable.noLecturesText') }}</p>
+          </template>
 
-        <div v-show="selectedSegment === 'presence'">
-          <AppLectureBlock
-            v-for="block of store.presenceLectureDayBlocks"
-            :key="block.date.toISOString()"
-            :date="block.date"
-            :lectures="block.lectures"
-          />
-        </div>
+          <template v-else>
+            <AppSegment v-model="selectedSegment" :options="segments" />
 
-        <div v-show="selectedSegment === 'exams'">
-          <AppLectureBlock
-            v-for="block of store.examLectureDayBlocks"
-            :key="block.date.toISOString()"
-            :date="block.date"
-            :lectures="block.lectures"
-          />
-        </div>
+            <div v-show="selectedSegment === 'all'">
+              <AppLectureBlock
+                v-for="block of store.upcomingLectureDayBlocks"
+                :key="block.date.toISOString()"
+                :date="block.date"
+                :lectures="block.lectures"
+              />
+            </div>
+
+            <div v-show="selectedSegment === 'presence'">
+              <AppLectureBlock
+                v-for="block of store.presenceLectureDayBlocks"
+                :key="block.date.toISOString()"
+                :date="block.date"
+                :lectures="block.lectures"
+              />
+            </div>
+
+            <div v-show="selectedSegment === 'exams'">
+              <AppLectureBlock
+                v-for="block of store.examLectureDayBlocks"
+                :key="block.date.toISOString()"
+                :date="block.date"
+                :lectures="block.lectures"
+              />
+            </div>
+          </template>
+        </template>
       </div>
     </IonContent>
   </IonPage>
 </template>
 
 <script lang="ts" setup>
-import { IonContent, IonPage, IonRefresher, IonRefresherContent } from '@ionic/vue';
+import { IonContent, IonPage, IonProgressBar, IonRefresher, IonRefresherContent } from '@ionic/vue';
 import { chevronDown } from 'ionicons/icons';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';

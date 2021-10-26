@@ -13,6 +13,7 @@ export const useStore = defineStore('main', {
   state() {
     return {
       lectureDayBlocks: [] as DayLectureBlock[],
+      lecturesLoaded: false,
     };
   },
   actions: {
@@ -20,6 +21,7 @@ export const useStore = defineStore('main', {
       const settingsStore = useSettingsStore();
       if (!settingsStore.courses.length) {
         this.lectureDayBlocks = [];
+        this.lecturesLoaded = true;
         return;
       }
 
@@ -40,6 +42,7 @@ export const useStore = defineStore('main', {
 
       const sorted = mergeAndSortSameLectures(lectures);
       this.lectureDayBlocks = createLectureBlocks(sorted);
+      this.lecturesLoaded = true;
     },
   },
   getters: {
