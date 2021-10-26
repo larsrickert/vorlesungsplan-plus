@@ -26,7 +26,12 @@
                 <IonLabel>{{ group.name }}</IonLabel>
               </IonItemDivider>
 
-              <IonItem v-for="course of group.courses" :key="course" lines="none">
+              <IonItem
+                v-for="course of group.courses"
+                :key="course"
+                lines="none"
+                :class="{ selected: selectedCourses.includes(course) }"
+              >
                 <IonCheckbox
                   slot="start"
                   :checked="selectedCourses.includes(course)"
@@ -142,5 +147,13 @@ h2 {
 
 ion-searchbar {
   margin-bottom: 16px;
+}
+
+ion-item {
+  --background: transparent;
+
+  &.selected {
+    --background: var(--ion-color-step-50);
+  }
 }
 </style>
