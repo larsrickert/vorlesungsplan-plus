@@ -20,10 +20,9 @@ import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import SideMenu from './components/SideMenu.vue';
 import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
-import config, { isProduction } from './configs';
+import { isProduction } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
-import { useAuthStore } from './store/auth';
 import { useErrorStore } from './store/error-handler';
 import { useNetworkStore } from './store/network';
 import { useSettingsStore } from './store/settings';
@@ -59,11 +58,7 @@ networkStore.initListener();
 const settingsStore = useSettingsStore();
 settingsStore.loadAndInitDefaults();
 
-// login user
-const authStore = useAuthStore();
-if (!config.auth.disabled) authStore.login();
-
-let { t } = useI18n();
+const { t } = useI18n();
 
 const errorStore = useErrorStore();
 const error = computed(() => errorStore.error);

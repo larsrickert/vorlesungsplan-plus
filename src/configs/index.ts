@@ -13,9 +13,6 @@ const config: Config = {
     defaultLocale: import.meta.env.VITE_APP_I18N_LOCALE || 'en',
     fallbackLocale: import.meta.env.VITE_APP_I18N_FALLBACK_LOCALE || 'en',
   },
-  auth: {
-    disabled: import.meta.env.VITE_APP_AUTH_DISABLED === 'true',
-  },
   api: {
     host: import.meta.env.VITE_APP_API_HOST || '',
   },

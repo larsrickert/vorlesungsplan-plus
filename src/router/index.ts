@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import { baseUrl, isProduction } from '../configs';
 import Home from '../views/Home.vue';
-import authGuard from './auth-guard';
 
 // provide typings for route meta attribute
 declare module 'vue-router' {
@@ -42,5 +41,3 @@ const router = createRouter({
 });
 
 export default router;
-
-router.beforeEach(authGuard);

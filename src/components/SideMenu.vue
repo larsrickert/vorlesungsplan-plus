@@ -44,8 +44,6 @@
             class="menu-item"
           />
         </IonList>
-
-        <AppLogoutBtn class="logout" />
       </IonContent>
     </IonMenu>
     <IonRouterOutlet :id="contentId" />
@@ -67,7 +65,6 @@ import AppLanguageSwitch from '../components/AppLanguageSwitch.vue';
 import SideMenuItem from '../components/SideMenuItem.vue';
 import { validateNavItems } from '../helpers/validators';
 import { MenuItem } from '../types/misc';
-import AppLogoutBtn from './AppLogoutBtn.vue';
 
 defineProps({
   navItems: {
@@ -193,11 +190,5 @@ ion-note,
     color: #757575;
     min-height: 26px;
   }
-}
-
-.logout {
-  padding-left: 16px;
-  position: absolute;
-  bottom: 20px;
 }
 </style>
