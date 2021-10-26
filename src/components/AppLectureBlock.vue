@@ -45,6 +45,7 @@ const dateString = computed((): string => {
     color: var(--ion-color-primary);
     font-size: 18px;
     padding: 20px;
+    font-weight: 500;
     border-bottom: 1px solid var(--ion-border-color);
   }
 
