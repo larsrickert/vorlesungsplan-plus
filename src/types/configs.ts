@@ -8,4 +8,8 @@ export interface Config {
   api: {
     host: string;
   };
+  intervalls: {
+    fetchLectures: number;
+    updateLectureProgressBar: number;
+  };
 }

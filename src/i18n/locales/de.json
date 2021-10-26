@@ -8,7 +8,9 @@
     "searchPlaceholder": "Suchen...",
     "refresh": "Aktualisieren",
     "isRefreshing": "Wird aktualisiert...",
-    "dateRange": "Von {start} bis {end} Uhr"
+    "dateRange": "Von {start} bis {end} Uhr",
+    "today": "Heute",
+    "tomorrow": "Morgen"
   },
   "locales": {
     "de": "Deutsch",

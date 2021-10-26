@@ -16,6 +16,10 @@ const config: Config = {
   api: {
     host: import.meta.env.VITE_APP_API_HOST || '',
   },
+  intervalls: {
+    fetchLectures: 1000 * 60 * 10,
+    updateLectureProgressBar: 1000 * 60,
+  },
 };
 
 export default config;

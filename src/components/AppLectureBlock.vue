@@ -1,18 +1,19 @@
 <template>
   <div class="block">
-    <IonLabel class="block__heading"> {{ d(date, 'dateFullWeekday') }} </IonLabel>
+    <IonLabel class="block__heading"> {{ dateString }} </IonLabel>
     <AppLecture v-for="lecture of lectures" :key="lecture.uids.join(',')" :lecture="lecture" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { IonLabel } from '@ionic/vue';
-import { PropType } from 'vue';
+import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppLecture from '../components/AppLecture.vue';
+import { isToday } from '../helpers/misc';
 import { MergedLecture } from '../types/lectures';
 
-defineProps({
+const props = defineProps({
   date: {
     type: Date,
     required: true,
@@ -23,7 +24,13 @@ defineProps({
   },
 });
 
-const { d } = useI18n();
+const { d, t } = useI18n();
+
+const dateString = computed((): string => {
+  if (isToday(props.date)) return t('global.today');
+  if (isToday(props.date, 1)) return t('global.tomorrow');
+  return d(props.date, 'dateFullWeekday');
+});
 </script>
 
 <style lang="scss" scoped>

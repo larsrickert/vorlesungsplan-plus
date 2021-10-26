@@ -39,6 +39,7 @@ import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@
 import { add } from 'ionicons/icons';
 import { onBeforeUnmount, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import config from '../configs';
 import { useSettingsStore } from '../store/settings';
 import { MergedLecture } from '../types/lectures';
 
@@ -68,11 +69,11 @@ const calculateProgress = () => {
 
 // update progress bar every 60 seconds
 calculateProgress();
-const intervall = setInterval(() => calculateProgress(), 60 * 1000);
-
-onBeforeUnmount(() => {
-  clearInterval(intervall);
-});
+const intervall = setInterval(
+  () => calculateProgress(),
+  config.intervalls.updateLectureProgressBar
+);
+onBeforeUnmount(() => clearInterval(intervall));
 </script>
 
 <style lang="scss" scoped>
