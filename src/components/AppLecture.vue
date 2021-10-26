@@ -112,7 +112,7 @@ onBeforeUnmount(() => clearInterval(intervall));
     .badge {
       margin-bottom: 6px;
       min-width: auto;
-      --background: rgba(var(--ion-color-tertiary-rgb), 0.8);
+      --background: rgba(var(--ion-color-success-rgb), 0.8);
 
       &:not(:last-child) {
         margin-right: 10px;
