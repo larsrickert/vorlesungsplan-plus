@@ -91,7 +91,7 @@ onBeforeUnmount(() => clearInterval(intervall));
   }
 
   &__name {
-    font-weight: 600;
+    font-weight: bold;
     display: block;
   }
 
