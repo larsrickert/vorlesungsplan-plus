@@ -1,6 +1,6 @@
 <template>
   <IonPage>
-    <AppHeader :title="t('timetable.pageName')" />
+    <AppHeader :title="headerTitle" />
 
     <IonContent :fullscreen="true">
       <IonRefresher
@@ -75,6 +75,13 @@ import { useSettingsStore } from '../store/settings';
 import { SelectOption } from '../types/misc';
 
 const { t, d } = useI18n();
+const settingsStore = useSettingsStore();
+
+const headerTitle = computed((): string => {
+  const count = settingsStore.courses.length;
+  if (count === 1) return `${t('timetable.pageName')} ${settingsStore.courses[0]}`;
+  return t('timetable.pageName', settingsStore.courses.length);
+});
 
 const store = useStore();
 
@@ -85,7 +92,6 @@ const refreshLectures = async (ev?: any) => {
   await showToast({ message: t('toasts.fetchedLectures'), duration: 2000 });
 };
 
-const settingsStore = useSettingsStore();
 const refresherText = computed((): string => {
   return settingsStore.lecturesLastUpdated
     ? t('timetable.lastUpdated', {

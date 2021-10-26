@@ -152,8 +152,13 @@ ion-searchbar {
   margin-bottom: 16px;
 }
 
+ion-item-group {
+  font-weight: 500;
+}
+
 ion-item {
   --background: transparent;
+  font-weight: 500;
 
   &.selected {
     --background: var(--ion-color-step-50);

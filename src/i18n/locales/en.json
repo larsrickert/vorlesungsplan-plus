@@ -21,7 +21,7 @@
     "reload": "Reload"
   },
   "timetable": {
-    "pageName": "Timetable",
+    "pageName": "Timetable | Timetable | Timetables ({count})",
     "lastUpdated": "Last updated: {date}",
     "segments": {
       "all": "All ({count})",

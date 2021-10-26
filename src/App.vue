@@ -31,11 +31,12 @@ import { useSettingsStore } from './store/settings';
 import { MenuItem } from './types/misc';
 
 const { t } = useI18n();
+const settingsStore = useSettingsStore();
 
 const navItems = computed<MenuItem[]>(() => {
   return [
     {
-      title: t('timetable.pageName'),
+      title: t('timetable.pageName', settingsStore.courses.length),
       href: '/',
       icon: school,
     },
@@ -65,7 +66,6 @@ const subItems = computed<MenuItem[]>(() => {
 const networkStore = useNetworkStore();
 networkStore.initListener();
 
-const settingsStore = useSettingsStore();
 const store = useStore();
 
 settingsStore.loadAndInitDefaults().then(() => {

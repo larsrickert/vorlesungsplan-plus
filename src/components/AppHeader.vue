@@ -55,6 +55,7 @@ const emit = defineEmits<{
 
 <style lang="scss" scoped>
 @import '../styles/variables.scss';
+@import '../styles/mixin.scss';
 
 .header {
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.25);
@@ -71,6 +72,14 @@ const emit = defineEmits<{
   ion-toolbar {
     color: #ffffff;
     --background: transparent;
+  }
+
+  ion-title {
+    font-size: 18px;
+
+    @include breakpoint(s) {
+      font-size: 16px;
+    }
   }
 
   ion-buttons,
