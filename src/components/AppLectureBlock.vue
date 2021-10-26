@@ -53,6 +53,10 @@ const dateString = computed((): string => {
     &:nth-child(even) {
       --background: var(--app-color-grey-medium);
     }
+
+    &:last-child {
+      --border-radius: 0 0 10px 10px;
+    }
   }
 }
 </style>
