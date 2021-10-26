@@ -37,6 +37,7 @@ module.exports = {
         'vue/no-deprecated-slot-attribute': 'off',
         // needed to not mark defineProps, defineEmits etc. as undefined because they are compiler macros
         'no-undef': 'off',
+        'vue/require-default-prop': 'off',
       },
     },
   ],
