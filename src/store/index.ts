@@ -1,9 +1,9 @@
 import { createPinia, defineStore } from 'pinia';
 import axiosInstance from '../axios';
 import { isProduction } from '../configs';
-import { mergeAndSortSameLectures } from '../helpers/lectures';
+import { createLectureBlocks, mergeAndSortSameLectures } from '../helpers/lectures';
 import { loggerPlugin } from '../store/plugins/logger';
-import { ApiLecture, Lecture, MergedLecture } from '../types/lectures';
+import { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
 import { useSettingsStore } from './settings';
 
 export const pinia = createPinia();
@@ -40,6 +40,9 @@ export const useStore = defineStore('main', {
     },
   },
   getters: {
+    lectureDayBlocks(): DayLectureBlock[] {
+      return createLectureBlocks(this.lectures);
+    },
     upcomingLectures(): MergedLecture[] {
       return this.lectures.filter((lecture) => lecture.end.getTime() > Date.now());
     },

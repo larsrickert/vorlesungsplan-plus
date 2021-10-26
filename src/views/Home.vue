@@ -19,7 +19,13 @@
 
       <div class="page__content">
         <h1>{{ t('timetable.pageName') }}</h1>
-        <p>{{ t('global.placeholder') }}</p>
+
+        <AppLectureBlock
+          v-for="block of store.lectureDayBlocks"
+          :key="block.date.toISOString()"
+          :date="block.date"
+          :lectures="block.lectures"
+        />
       </div>
     </IonContent>
   </IonPage>
@@ -30,6 +36,7 @@ import { IonContent, IonPage, IonRefresher, IonRefresherContent } from '@ionic/v
 import { chevronDown } from 'ionicons/icons';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
+import AppLectureBlock from '../components/AppLectureBlock.vue';
 import { showToast } from '../helpers/io';
 import { useStore } from '../store';
 
