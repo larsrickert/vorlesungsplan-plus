@@ -35,7 +35,6 @@ import {
   IonToolbar,
 } from '@ionic/vue';
 import { chevronBack, close as closeIcon } from 'ionicons/icons';
-import { defineEmits, defineProps } from 'vue';
 
 defineProps({
   /** Header title. */
