@@ -4,11 +4,6 @@
     "close": "Schließen",
     "errorCode": "Fehlercode"
   },
-  "auth": {
-    "login": "Anmelden",
-    "logout": "Abmelden",
-    "isLoggingOut": "Abmelden..."
-  },
   "locales": {
     "de": "Deutsch",
     "en": "English"
