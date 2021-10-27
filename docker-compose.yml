@@ -4,6 +4,7 @@ services:
   vorlesungsplan-plus-vue:
     build: .
     image: larsrickert/vorlesungsplan-plus-vue
+    restart: always
     expose:
       - 80
     environment:
