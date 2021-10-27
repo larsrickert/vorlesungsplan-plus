@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  vorlesungsplan-plus-vue:
+    build: .
+    image: larsrickert/vorlesungsplan-plus-vue
+    expose:
+      - 80
+    environment:
+      VIRTUAL_HOST: dhbw-beta.rickstack.de
+      LETSENCRYPT_HOST: dhbw-beta.rickstack.de
+      LETSENCRYPT_EMAIL: bonus_isotop_0a@icloud.com
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
