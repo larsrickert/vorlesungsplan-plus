@@ -11,7 +11,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate_resources": "cordova-res ios --skip-config --copy && cordova-res android --skip-config --copy"
+    "generate_resources": "cordova-res ios --skip-config --copy && cordova-res android --skip-config --copy",
+    "docker:build": "docker build -t larsrickert/vorlesungsplan-plus .",
+    "docker:run": "docker run -it -p 8080:80 -d --name vorlesungsplan-plus larsrickert/vorlesungsplan-plus"
   },
   "private": true,
   "dependencies": {
