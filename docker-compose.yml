@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  vorlesungsplan-plus:
+    build: .
+    image: larsrickert/vorlesungsplan-plus
+    expose:
+      - 80
+    environment:
+      VIRTUAL_HOST: dhbw.rickstack.de
+      LETSENCRYPT_HOST: dhbw.rickstack.de
+      LETSENCRYPT_EMAIL: lars.rickert@web.de
+
+networks:
+  default:
+    external:
+      name: nginx-proxy

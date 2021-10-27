@@ -6,7 +6,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod && npx cap copy",
+    "build": "ng build --prod",
+    "build:cap": "ng build --prod && npx cap copy",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
