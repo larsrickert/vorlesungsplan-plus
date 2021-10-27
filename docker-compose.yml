@@ -9,7 +9,7 @@ services:
     environment:
       VIRTUAL_HOST: dhbw.rickstack.de
       LETSENCRYPT_HOST: dhbw.rickstack.de
-      LETSENCRYPT_EMAIL: lars.rickert@web.de
+      LETSENCRYPT_EMAIL: bonus_isotop_0a@icloud.com
 
 networks:
   default:
