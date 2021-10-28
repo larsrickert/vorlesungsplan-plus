@@ -1,4 +1,3 @@
-import { Capacitor } from '@capacitor/core';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { defineStore } from 'pinia';
 import { useStore } from '.';
@@ -9,19 +8,10 @@ export const useNotificationStore = defineStore('notifications', {
   state() {
     return {
       hasPermissions: false,
-      /** Whether the device supports pwa notifications */
-      isSupported:
-        Capacitor.isPluginAvailable('LocalNotifications') &&
-        (Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'ios'),
     };
   },
   actions: {
     async requestPermissions() {
-      if (!this.isSupported) {
-        this.hasPermissions = false;
-        return;
-      }
-
       try {
         const { display } = await LocalNotifications.requestPermissions();
         this.hasPermissions = display === 'granted';

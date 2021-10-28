@@ -14,7 +14,8 @@
     "emptySeach": "Keine Ergebnisse für die Suche gefunden.",
     "appVersion": "v{version}",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "notAvailableOnPlatform": "Nicht verfügbar für {platform}"
   },
   "locales": {
     "de": "Deutsch",

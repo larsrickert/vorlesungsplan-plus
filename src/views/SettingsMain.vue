@@ -31,7 +31,7 @@
             </IonSelect>
           </IonItem>
 
-          <div v-if="notificationStore.isSupported">
+          <div>
             <IonItem lines="none" class="setting">
               <IonIcon slot="start" :icon="alarm" />
 
@@ -51,6 +51,7 @@
             </IonItem>
 
             <p>* {{ t('settings.notificationTimeDescription', notificationTime) }}</p>
+            <p>{{ t('global.notAvailableOnPlatform', { platform: 'iOS' }) }}</p>
 
             <div class="flex">
               <span>{{ t('settings.permissionGranted') }}:</span>
