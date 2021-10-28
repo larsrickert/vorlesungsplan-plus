@@ -78,7 +78,7 @@ const emit = defineEmits<{
     font-size: 18px;
 
     @include breakpoint(s) {
-      font-size: 16px;
+      font-size: 17px;
     }
   }
 
