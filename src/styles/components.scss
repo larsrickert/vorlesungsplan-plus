@@ -16,4 +16,10 @@
     width: 100%;
     font-weight: 500;
   }
+
+  &__name {
+    margin-right: 10px;
+    color: var(--ion-color-step-500);
+    white-space: pre;
+  }
 }

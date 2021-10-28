@@ -12,7 +12,9 @@
     "today": "Heute",
     "tomorrow": "Morgen",
     "emptySeach": "Keine Ergebnisse für die Suche gefunden.",
-    "appVersion": "v{version}"
+    "appVersion": "v{version}",
+    "yes": "Ja",
+    "no": "Nein"
   },
   "locales": {
     "de": "Deutsch",
@@ -35,13 +37,20 @@
   "settings": {
     "pageName": "Einstellungen",
     "selectTheme": "Design auswählen",
+    "theme": "Design",
     "themes": {
       "light": "Hell",
       "dark": "Dunkel"
     },
     "selectCourses": "Kurse auswählen",
     "availableCourses": "Verfügbare Kurse",
-    "noCoursesAvailable": "Es sind keine Kurse verfügbar."
+    "noCoursesAvailable": "Es sind keine Kurse verfügbar.",
+    "lectureNotificationTime": "Erinnerungen",
+    "selectNotificationTime": "Zeit auswählen",
+    "xMinutes": "0 Minuten | 1 Minute | {count} Minuten",
+    "notificationTimeDescription": "Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtung. Dafür musst du dieser App die Berechtigung dafür erteilen.",
+    "permissionGranted": "Berechtigung erteilt",
+    "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung"
   },
   "events": {
     "pageName": "Veranstaltungen"

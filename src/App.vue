@@ -78,18 +78,24 @@ const networkStore = useNetworkStore();
 networkStore.initListener();
 
 const store = useStore();
+const notificationStore = useNotificationStore();
 
 settingsStore.loadAndInitDefaults().then(() => {
   store.fetchLectures();
 
   // init notifications
-  const notificationStore = useNotificationStore();
   const lectures = computed(() => store.lectures);
   notificationStore.requestPermissions().then(() => {
     watch(lectures, async () => {
       await notificationStore.scheduleLectureNotifications();
     });
   });
+});
+
+// re-schedule notifications when notification time changes
+const notificationSetting = computed(() => settingsStore.lectureNotificationTime);
+watch(notificationSetting, async () => {
+  await notificationStore.scheduleLectureNotifications();
 });
 
 // fetch lectures when courses change

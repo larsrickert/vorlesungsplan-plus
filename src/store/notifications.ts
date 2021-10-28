@@ -13,7 +13,7 @@ export const useNotificationStore = defineStore('notifications', {
   actions: {
     async requestPermissions() {
       const { display } = await LocalNotifications.requestPermissions();
-      this.hasPermissions = display !== 'denied';
+      this.hasPermissions = display === 'granted';
     },
     async scheduleLectureNotifications() {
       // cancel all currently scheduled notifications

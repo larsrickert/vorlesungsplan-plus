@@ -4,6 +4,8 @@ import { getInitLocale, isLocaleAvailable } from '../helpers/i18n';
 import { initValue, setValue, StorageKey } from '../helpers/storage';
 import { i18n } from '../i18n';
 
+export const allowedNotificationTimes: readonly number[] = Object.freeze([15, 30, 45, 60]);
+
 export const useSettingsStore = defineStore('settings', {
   state() {
     return {
@@ -85,7 +87,7 @@ export const useSettingsStore = defineStore('settings', {
     },
     async changeLectureNotificationTime(value: number) {
       if (value < 0 || this.lectureNotificationTime === value) return;
-      if (![15, 30, 45, 60].includes(value)) return;
+      if (!allowedNotificationTimes.includes(value)) return;
 
       this.lectureNotificationTime = value;
       await setValue(StorageKey.LECTURES_NOTIFICATION_TIME, value);
