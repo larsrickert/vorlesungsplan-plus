@@ -45,20 +45,15 @@ export interface ModalOptions {
   component: ComponentRef;
   /** Custom data that can be passed to the modal. */
   data?: ComponentProps;
-  /** Used for card style on ios. Only needed if multiple modals are open.
-   * Default to: "document.getElementById('ion-router-outlet-content')"
-   */
-  presentingElement?: HTMLElement;
 }
 
-export async function showModal({ component, data, presentingElement }: ModalOptions) {
+export async function showModal({ component, data }: ModalOptions) {
   const modal = await modalController.create({
     component,
     cssClass: 'app-modal',
     componentProps: data,
-    presentingElement:
-      presentingElement ?? document.getElementsByTagName('ion-router-outlet').item(0) ?? undefined,
     swipeToClose: true,
+    presentingElement: null,
   });
 
   await modal.present();
