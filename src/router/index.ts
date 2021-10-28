@@ -32,6 +32,10 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/beta',
+    component: () => import('../views/BetaNotes.vue'),
+  },
   // catch-all 404 route
   {
     path: '/:pathMatch(.*)*',

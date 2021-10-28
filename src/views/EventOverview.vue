@@ -7,6 +7,7 @@
         <IonProgressBar v-if="!isLoaded" type="indeterminate" />
 
         <template v-else>
+          <p>Events are still in construction...</p>
           <IonButton router-link="/events/213">Route to test event</IonButton>
         </template>
       </div>

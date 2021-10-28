@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { calendar, cog, link, school } from 'ionicons/icons';
+import { calendar, cog, documentText, link, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
@@ -54,6 +54,11 @@ const subItems = computed<MenuItem[]>(() => {
       title: t('settings.pageName'),
       href: '/settings',
       icon: cog,
+    },
+    {
+      title: 'Beta Notes',
+      href: '/beta',
+      icon: documentText,
     },
   ];
 

@@ -1,6 +1,6 @@
 <template>
   <IonPage>
-    <AppHeader :show-back="true" :show-close="true" title="Test page" @close="onClose" />
+    <AppHeader show-back show-close title="Test page" @close="onClose" />
 
     <IonContent :fullscreen="true">
       <div class="page__content">
