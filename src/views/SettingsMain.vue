@@ -31,7 +31,7 @@
             </IonSelect>
           </IonItem>
 
-          <div>
+          <div v-if="notificationStore.isSupported">
             <IonItem lines="none" class="setting">
               <IonIcon slot="start" :icon="alarm" />
 
