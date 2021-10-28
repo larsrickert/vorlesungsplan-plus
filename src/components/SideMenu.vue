@@ -167,8 +167,7 @@ ion-note,
   align-content: center;
 
   .lang-switch {
-    margin-left: 20px;
-    margin-top: 2px;
+    margin: 2px 20px 0 20px;
   }
 }
 

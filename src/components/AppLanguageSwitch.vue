@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <img
       class="flag toggle"
       :src="getFlag(locale)"
@@ -58,6 +58,12 @@ const getFlag = (locale: string): string =>
 <style scoped lang="scss">
 @import '../styles/variables';
 
+$flagSize: 18px;
+
+.wrapper {
+  min-width: $flagSize;
+}
+
 .toggle {
   cursor: pointer;
   display: block;
@@ -82,8 +88,6 @@ ul {
     }
   }
 }
-
-$flagSize: 18px;
 
 .flag {
   display: inline-block;
