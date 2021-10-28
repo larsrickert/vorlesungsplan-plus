@@ -16,11 +16,11 @@ export default defineConfig({
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
-        name: 'RickStack Template Vue',
-        short_name: 'Short name of your app',
-        description: 'RickStack Template App with Vue and Ionic 6.',
-        theme_color: '#ffffff',
-        display: 'fullscreen',
+        name: 'Vorlesungsplan+',
+        short_name: 'Vorlesungsplan+',
+        description: 'App for viewing lectures and events at the DHBW Mosbach and Bad Mergentheim.',
+        theme_color: '#3880ff',
+        display: 'standalone',
         icons: [
           {
             src: 'pwa-192x192.png',
