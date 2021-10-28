@@ -3,7 +3,7 @@ import axiosInstance from '../axios';
 import { isProduction } from '../configs';
 import { createLectureBlocks, isExam, mergeAndSortSameLectures } from '../helpers/lectures';
 import { loggerPlugin } from '../store/plugins/logger';
-import { ApiLecture, DayLectureBlock, Lecture } from '../types/lectures';
+import { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
 import { useSettingsStore } from './settings';
 
 export const pinia = createPinia();
@@ -46,6 +46,11 @@ export const useStore = defineStore('main', {
     },
   },
   getters: {
+    lectures(): MergedLecture[] {
+      const lectures: MergedLecture[] = [];
+      this.upcomingLectureDayBlocks.forEach((block) => lectures.push(...block.lectures));
+      return lectures;
+    },
     upcomingLectureDayBlocks(): DayLectureBlock[] {
       const blocks: DayLectureBlock[] = [];
 

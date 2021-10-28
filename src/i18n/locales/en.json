@@ -49,5 +49,9 @@
   "toasts": {
     "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses.",
     "fetchedLectures": "Lectures loaded."
+  },
+  "notifications": {
+    "upcomingLecture": "Upcoming lecture ({courses})",
+    "lectureStartsInXMinutes": "\"{name}\" starts in {minutes} minutes."
   }
 }

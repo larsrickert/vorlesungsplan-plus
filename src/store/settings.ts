@@ -11,6 +11,7 @@ export const useSettingsStore = defineStore('settings', {
       theme: 'light',
       courses: [] as string[],
       lecturesLastUpdated: null as Date | null,
+      lectureNotificationTime: 15,
     };
   },
   actions: {
@@ -27,11 +28,16 @@ export const useSettingsStore = defineStore('settings', {
         StorageKey.LECTURES_LAST_UPDATED,
         this.lecturesLastUpdated
       );
+      const lectureNotificationTime = await initValue(
+        StorageKey.LECTURES_NOTIFICATION_TIME,
+        this.lectureNotificationTime
+      );
 
       this.changeLocale(localeSetting);
       this.changeTheme(themeSetting);
       this.changeCourses(coursesSetting);
       if (lastUpdatedSetting) this.changeLecturesLastUpdated(new Date(lastUpdatedSetting));
+      this.changeLectureNotificationTime(lectureNotificationTime);
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
@@ -76,6 +82,13 @@ export const useSettingsStore = defineStore('settings', {
       if (this.lecturesLastUpdated?.getTime() === date.getTime()) return;
       this.lecturesLastUpdated = date;
       await setValue(StorageKey.LECTURES_LAST_UPDATED, date);
+    },
+    async changeLectureNotificationTime(value: number) {
+      if (value < 0 || this.lectureNotificationTime === value) return;
+      if (![15, 30, 45, 60].includes(value)) return;
+
+      this.lectureNotificationTime = value;
+      await setValue(StorageKey.LECTURES_NOTIFICATION_TIME, value);
     },
   },
 });

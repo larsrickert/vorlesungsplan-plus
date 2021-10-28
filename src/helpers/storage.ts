@@ -5,6 +5,7 @@ export enum StorageKey {
   THEME = 'theme',
   COURSES = 'courses',
   LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
+  LECTURES_NOTIFICATION_TIME = 'lecturesNotificationTime',
 }
 
 let isConfigured = false;

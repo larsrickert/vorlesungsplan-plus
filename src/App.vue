@@ -27,6 +27,7 @@ import { showToast } from './helpers/io';
 import { useStore } from './store';
 import { useErrorStore } from './store/error-handler';
 import { useNetworkStore } from './store/network';
+import { useNotificationStore } from './store/notifications';
 import { useSettingsStore } from './store/settings';
 import { MenuItem } from './types/misc';
 
@@ -80,6 +81,15 @@ const store = useStore();
 
 settingsStore.loadAndInitDefaults().then(() => {
   store.fetchLectures();
+
+  // init notifications
+  const notificationStore = useNotificationStore();
+  const lectures = computed(() => store.lectures);
+  notificationStore.requestPermissions().then(() => {
+    watch(lectures, async () => {
+      await notificationStore.scheduleLectureNotifications();
+    });
+  });
 });
 
 // fetch lectures when courses change

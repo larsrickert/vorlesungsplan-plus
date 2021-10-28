@@ -49,5 +49,9 @@
   "toasts": {
     "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert.",
     "fetchedLectures": "Vorlesungen aktualisiert."
+  },
+  "notifications": {
+    "upcomingLecture": "Anstehende Vorlesung ({courses})",
+    "lectureStartsInXMinutes": "\"{name}\" startet in {minutes} Minuten."
   }
 }
