@@ -165,6 +165,7 @@ ion-note,
 .note__wrapper {
   display: flex;
   align-content: center;
+  font-weight: 500;
 
   .lang-switch {
     margin: 2px 20px 0 20px;
@@ -188,6 +189,7 @@ ion-note,
     margin-bottom: 10px;
     color: #757575;
     min-height: 26px;
+    font-weight: 500;
   }
 }
 </style>
