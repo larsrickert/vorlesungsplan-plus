@@ -5,7 +5,7 @@
       :sub-items="subItems"
       heading="Vorlesungsplan+"
       description="DHBW Mosbach & Mergentheim"
-      sub-items-heading="App"
+      :sub-items-heading="`App (${t('global.appVersion', { version: appVersion })})`"
       :img="LogoUrl"
     />
 
@@ -21,7 +21,7 @@ import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
 import SideMenu from './components/SideMenu.vue';
 import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
-import config, { isProduction } from './configs';
+import config, { appVersion, isProduction } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
 import { useStore } from './store';

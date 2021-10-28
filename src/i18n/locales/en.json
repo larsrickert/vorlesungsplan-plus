@@ -11,7 +11,8 @@
     "dateRange": "From {start} until {end}",
     "today": "Today",
     "tomorrow": "Tomorrow",
-    "emptySeach": "No results found for the search."
+    "emptySeach": "No results found for the search.",
+    "appVersion": "v{version}"
   },
   "locales": {
     "de": "Deutsch",

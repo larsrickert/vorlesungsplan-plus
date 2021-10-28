@@ -11,7 +11,8 @@
     "dateRange": "Von {start} bis {end} Uhr",
     "today": "Heute",
     "tomorrow": "Morgen",
-    "emptySeach": "Keine Ergebnisse für die Suche gefunden."
+    "emptySeach": "Keine Ergebnisse für die Suche gefunden.",
+    "appVersion": "v{version}"
   },
   "locales": {
     "de": "Deutsch",
