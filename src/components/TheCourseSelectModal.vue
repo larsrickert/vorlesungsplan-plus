@@ -147,6 +147,8 @@ const coursesFilteredBySearch = computed((): string[] => {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/mixin.scss';
+
 h2 {
   margin-top: 0;
   margin-bottom: 16px;
@@ -158,6 +160,10 @@ ion-searchbar {
 
 ion-item-group {
   font-weight: 500;
+
+  @include breakpoint(s) {
+    margin: 0 -20px;
+  }
 }
 
 ion-item {
