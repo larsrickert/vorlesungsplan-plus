@@ -1,4 +1,4 @@
-import { IonicVue } from '@ionic/vue';
+import { IonBackdrop, IonicVue } from '@ionic/vue';
 import { createApp } from 'vue';
 import App from './App.vue';
 import { registerJavaScriptErrorHandler, registerPromiseErrorHandler } from './helpers/errors';
@@ -9,6 +9,9 @@ import { useErrorStore } from './store/error-handler';
 import { CustomError } from './types/errors';
 
 const app = createApp(App).use(i18n).use(router).use(pinia).use(IonicVue);
+
+// needed to fix issue that side menu, modal etc. dont have backdrop when running production build
+app.component('IonBackdrop', IonBackdrop);
 
 const errorStore = useErrorStore();
 

@@ -14,13 +14,10 @@
 <script lang="ts" setup>
 import { IonContent, IonPage } from '@ionic/vue';
 import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import AppHeader from '../components/AppHeader.vue';
 
-const { t } = useI18n();
 const route = useRoute();
-
 const eventId = computed((): string => (route.params.id as string) ?? '');
 </script>
 
