@@ -10,7 +10,9 @@ export const useNotificationStore = defineStore('notifications', {
     return {
       hasPermissions: false,
       /** Whether the device supports pwa notifications */
-      isSupported: Capacitor.isPluginAvailable('LocalNotifications'),
+      isSupported:
+        Capacitor.isPluginAvailable('LocalNotifications') &&
+        (Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'ios'),
     };
   },
   actions: {
