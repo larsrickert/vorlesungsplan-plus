@@ -1,6 +1,11 @@
 <template>
   <IonPage>
-    <AppHeader show-close :title="t('settings.selectCourses')" @close="modalController.dismiss()" />
+    <AppHeader
+      hide-menu
+      show-close
+      :title="t('settings.selectCourses')"
+      @close="modalController.dismiss()"
+    />
 
     <IonContent :fullscreen="true">
       <div class="page__content">

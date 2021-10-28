@@ -2,8 +2,8 @@
   <IonHeader class="header" mode="md">
     <IonToolbar>
       <IonButtons slot="start">
-        <IonMenuButton v-if="!showBack" />
-        <IonBackButton v-else default-href="/" :icon="chevronBack" />
+        <IonMenuButton v-if="!showBack && !showClose" />
+        <IonBackButton v-if="showBack" default-href="/" :icon="chevronBack" />
       </IonButtons>
 
       <IonTitle>{{ title }}</IonTitle>
