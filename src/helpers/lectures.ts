@@ -79,3 +79,7 @@ function isSameLectureContent(a: Lecture, b: Lecture): boolean {
     a.room === b.room
   );
 }
+
+export function isExam(lecture: MergedLecture): boolean {
+  return lecture.name.toLowerCase().includes('klausur');
+}

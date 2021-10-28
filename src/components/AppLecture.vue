@@ -1,7 +1,7 @@
 <template>
   <IonItem lines="none" class="lecture">
-    <div v-if="false" slot="start">
-      <IonIcon :icon="add" />
+    <div v-if="isExam(lecture)" slot="start" class="icon">
+      <IonIcon :icon="documentTextOutline" />
     </div>
 
     <div class="lecture__content">
@@ -36,10 +36,11 @@
 
 <script lang="ts" setup>
 import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
-import { add } from 'ionicons/icons';
+import { documentTextOutline } from 'ionicons/icons';
 import { onBeforeUnmount, PropType, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import config from '../configs';
+import { isExam } from '../helpers/lectures';
 import { useSettingsStore } from '../store/settings';
 import { MergedLecture } from '../types/lectures';
 
@@ -77,6 +78,10 @@ onBeforeUnmount(() => clearInterval(intervall));
 </script>
 
 <style lang="scss" scoped>
+.icon {
+  font-size: 30px;
+}
+
 .lecture {
   --background: transparent;
   --inner-padding-top: 12px;
