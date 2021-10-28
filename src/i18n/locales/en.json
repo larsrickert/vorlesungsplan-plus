@@ -30,8 +30,7 @@
       "presence": "Presence ({count})",
       "exams": "Exams ({count})"
     },
-    "noLecturesText": "Have fun in the practical phase!",
-    "searchPlaceholder": "Search by lecture, room or lecturer..."
+    "noLecturesText": "Have fun in the practical phase!"
   },
   "settings": {
     "pageName": "Settings",
