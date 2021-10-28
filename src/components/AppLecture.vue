@@ -25,7 +25,7 @@
               })
             }}
           </IonText>
-          <IonText>{{ lecture.lecturer }}</IonText>
+          <IonText class="lecture__lecturer">{{ lecture.lecturer }}</IonText>
         </div>
 
         <IonText>{{ lecture.room }}</IonText>
@@ -93,12 +93,17 @@ onBeforeUnmount(() => clearInterval(intervall));
   &__name {
     font-weight: bold;
     display: block;
+    white-space: normal;
   }
 
   &__meta {
     font-size: 14px;
     margin-top: 10px;
     font-weight: 500;
+  }
+
+  &__lecturer {
+    text-align: right;
   }
 
   &__progress {
