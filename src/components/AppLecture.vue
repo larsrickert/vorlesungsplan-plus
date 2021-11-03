@@ -37,19 +37,18 @@
 <script lang="ts" setup>
 import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
 import { documentTextOutline } from 'ionicons/icons';
-import { onBeforeUnmount, PropType, ref } from 'vue';
+import { onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import config from '../configs';
 import { isExam } from '../helpers/lectures';
 import { useSettingsStore } from '../store/settings';
 import { MergedLecture } from '../types/lectures';
 
-const props = defineProps({
-  lecture: {
-    type: Object as PropType<MergedLecture>,
-    required: true,
-  },
-});
+interface LectureProps {
+  lecture: MergedLecture;
+}
+
+const props = defineProps<LectureProps>();
 
 const { d, t } = useI18n();
 const settingsStore = useSettingsStore();

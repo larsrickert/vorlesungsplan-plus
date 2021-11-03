@@ -60,46 +60,32 @@ import {
   IonRouterOutlet,
   IonSplitPane,
 } from '@ionic/vue';
-import { PropType } from 'vue';
 import AppLanguageSwitch from '../components/AppLanguageSwitch.vue';
 import SideMenuItem from '../components/SideMenuItem.vue';
-import { validateNavItems } from '../helpers/validators';
 import { MenuItem } from '../types/misc';
 
-defineProps({
-  navItems: {
-    type: Array as PropType<MenuItem[]>,
-    default: () => [],
-    validator: validateNavItems,
-  },
-  subItems: {
-    type: Array as PropType<MenuItem[]>,
-    default: () => [],
-    validator: validateNavItems,
-  },
-  contentId: {
-    type: String,
-    default: 'main-content',
-  },
-  disabled: Boolean,
-  subItemsHeading: { type: String, default: '' },
-  heading: { type: String, default: '' },
-  description: { type: String, default: '' },
-  img: { type: String, default: '' },
-  swipeGesture: {
-    type: Boolean,
-    default: true,
-  },
-  side: {
-    type: String as PropType<'start' | 'end'>,
-    default: 'start',
-    validator: (prop) => typeof prop === 'string' && ['start', 'end'].includes(prop),
-  },
-  animation: {
-    type: String as PropType<'overlay' | 'reveal' | 'push'>,
-    default: 'overlay',
-    validator: (prop) => typeof prop === 'string' && ['overlay', 'reveal', 'push'].includes(prop),
-  },
+interface SideMenuProps {
+  navItems: MenuItem[];
+  subItems?: MenuItem[];
+  contentId?: string;
+  disabled?: boolean;
+  subItemsHeading?: string;
+  heading: string;
+  description: string;
+  img?: string;
+  swipeGesture?: boolean;
+  side?: 'start' | 'end';
+  animation?: 'overlay' | 'reveal' | 'push';
+}
+
+withDefaults(defineProps<SideMenuProps>(), {
+  subItems: () => [],
+  contentId: 'main-content',
+  subItemsHeading: '',
+  img: '',
+  swipeGesture: true,
+  side: 'start',
+  animation: 'overlay',
 });
 </script>
 
