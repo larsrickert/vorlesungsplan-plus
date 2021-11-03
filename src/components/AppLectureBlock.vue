@@ -7,18 +7,22 @@
 
 <script lang="ts" setup>
 import { IonLabel } from '@ionic/vue';
-import { computed } from 'vue';
+import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppLecture from '../components/AppLecture.vue';
 import { isToday } from '../helpers/misc';
 import { MergedLecture } from '../types/lectures';
 
-interface LectureBlockProps {
-  date: Date;
-  lectures: MergedLecture[];
-}
-
-const props = defineProps<LectureBlockProps>();
+const props = defineProps({
+  date: {
+    type: Date,
+    required: true,
+  },
+  lectures: {
+    type: Array as PropType<MergedLecture[]>,
+    required: true,
+  },
+});
 
 const { d, t } = useI18n();
 

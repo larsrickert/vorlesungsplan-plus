@@ -19,12 +19,14 @@ import { Browser } from '@capacitor/browser';
 import { IonIcon, IonItem, IonLabel, IonMenuToggle } from '@ionic/vue';
 import { useRouter } from 'vue-router';
 
-interface SideMenuItemProps {
-  title: string;
-  href?: string;
-  icon?: string;
-}
-const props = defineProps<SideMenuItemProps>();
+const props = defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  href: { type: String, default: '' },
+  icon: { type: String, default: '' },
+});
 
 const router = useRouter();
 

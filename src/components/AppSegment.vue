@@ -8,15 +8,16 @@
 
 <script lang="ts" setup>
 import { IonSegment, IonSegmentButton } from '@ionic/vue';
-import { computed } from 'vue';
+import { computed, PropType } from 'vue';
 import { SelectOption } from '../types/misc';
 
-interface SegmentProps {
-  options: SelectOption[];
-  modelValue?: string;
-}
-
-const props = defineProps<SegmentProps>();
+const props = defineProps({
+  options: {
+    type: Array as PropType<SelectOption[]>,
+    required: true,
+  },
+  modelValue: String,
+});
 
 const emit = defineEmits<{
   (event: 'update:modelValue', value: string): void;

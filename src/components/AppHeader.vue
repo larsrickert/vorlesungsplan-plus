@@ -36,16 +36,17 @@ import {
 } from '@ionic/vue';
 import { chevronBack, close as closeIcon } from 'ionicons/icons';
 
-interface HeaderProps {
+defineProps({
   /** Header title. */
-  title: string;
+  title: {
+    type: String,
+    default: '',
+  },
   /** If true, back button will be displayed instead of menu button. */
-  showBack?: boolean;
+  showBack: Boolean,
   /** If true, close ("x") button will be displayed at the end of the header. */
-  showClose?: boolean;
-}
-
-defineProps<HeaderProps>();
+  showClose: Boolean,
+});
 
 const emit = defineEmits<{
   (event: 'close'): void;

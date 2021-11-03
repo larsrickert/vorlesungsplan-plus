@@ -9,13 +9,14 @@
 <script setup lang="ts">
 import { IonFab, IonFabButton, IonIcon } from '@ionic/vue';
 
-interface FabProps {
-  icon: string;
-  disabled?: boolean;
-  title?: string;
-}
-
-const props = defineProps<FabProps>();
+const props = defineProps({
+  icon: {
+    type: String,
+    required: true,
+  },
+  disabled: Boolean,
+  title: String,
+});
 
 const emit = defineEmits<{
   (event: 'click', ev: MouseEvent): void;
