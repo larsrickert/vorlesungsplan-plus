@@ -12,8 +12,16 @@
       <div class="day">
         <span class="day__label">{{ day.day }}</span>
         <div class="event">
-          <p v-for="attr in attributes" :key="attr.customData.id" class="event__name">
-            {{ attr.customData.name }}
+          <p
+            v-for="attr in attributes"
+            :key="attr.key"
+            class="event__name"
+            :class="{ today: attr.key === 'today' }"
+          >
+            <span v-if="attr.key !== 'today'">
+              {{ attr.customData ? attr.customData.name : 'N/A' }}</span
+            >
+            <span v-else>{{ t('global.today') }}</span>
           </p>
         </div>
       </div>
@@ -24,7 +32,11 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 import { Calendar } from 'v-calendar';
+import { useI18n } from 'vue-i18n';
 import { useEventStore } from '../store/events';
+
+const { t } = useI18n();
+
 const masks = {
   weekdays: 'WWW',
 };
@@ -32,12 +44,15 @@ const masks = {
 const eventStore = useEventStore();
 
 const calendarAttributes = computed(() => {
-  return eventStore.events.map((event) => {
+  const eventAttributes = eventStore.events.map((event) => {
     return {
+      key: event.id,
       customData: event,
       dates: event.start,
     };
   });
+
+  return [{ key: 'today', customData: null, dates: Date.now() }, ...eventAttributes];
 });
 
 const minDate = computed((): Date | undefined =>
@@ -91,6 +106,16 @@ const maxDate = computed((): Date | undefined => {
     margin-top: 0;
     line-height: 1.25;
     font-size: 0.75rem;
+
+    @include breakpoint(m) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &.today {
+      background-color: var(--ion-color-primary);
+    }
   }
 }
 
@@ -108,6 +133,10 @@ $day-padding-x: 5px;
   border-color: var(--ion-border-color);
   color: var(--ion-text-color);
   background-color: var(--ion-background-color);
+
+  @include breakpoint(m) {
+    --day-height: 60px;
+  }
 
   & .vc-header {
     background-color: var(--app-color-grey-medium);
@@ -165,8 +194,9 @@ $day-padding-x: 5px;
     padding: 0 $day-padding-x 3px $day-padding-x;
     text-align: left;
     height: var(--day-height);
-    min-width: var(--day-width);
+    width: var(--day-width);
     background-color: var(--app-color-grey-light);
+    overflow-y: hidden;
 
     &.weekday-1,
     &.weekday-7 {

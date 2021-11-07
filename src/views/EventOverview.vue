@@ -7,7 +7,12 @@
         <IonProgressBar v-if="!isLoaded" type="indeterminate" />
 
         <template v-else>
-          <AppCalendar />
+          <p v-if="!eventStore.events.length">{{ t('events.noEventsAvailable') }}</p>
+
+          <template v-else>
+            <p>{{ t('events.upcomingEvents', eventStore.upcomingEvents.length) }}</p>
+            <AppCalendar />
+          </template>
         </template>
       </div>
     </IonContent>

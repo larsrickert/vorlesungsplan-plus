@@ -54,7 +54,9 @@
     "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung"
   },
   "events": {
-    "pageName": "Veranstaltungen"
+    "pageName": "Veranstaltungen",
+    "noEventsAvailable": "Es sind noch keine Veranstaltungen eingetragen.",
+    "upcomingEvents": "Bevorstehende Veranstaltungen: { count }"
   },
   "toasts": {
     "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert.",
