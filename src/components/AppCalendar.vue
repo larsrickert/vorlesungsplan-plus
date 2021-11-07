@@ -1,167 +1,201 @@
 <template>
-  <div class="text-center section">
-    <h2 class="h2">Custom Calendars</h2>
-    <p class="text-lg font-medium text-gray-600 mb-6">Roll your own calendars using scoped slots</p>
-    <Calendar
-      class="custom-calendar max-w-full"
-      :masks="masks"
-      :attributes="calendarAttributes"
-      disable-page-swipe
-      is-expanded
-    >
-      <template #day-content="{ day, attributes }">
-        <div class="flex flex-col h-full z-10 overflow-hidden">
-          <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
-          <div class="flex-grow overflow-y-auto overflow-x-auto">
-            <p
-              v-for="attr in attributes"
-              :key="attr.key"
-              class="text-xs leading-tight rounded-sm p-1 mt-0 mb-1"
-              :class="attr.customData.class"
-            >
-              {{ attr.customData.title }}
-            </p>
-          </div>
+  <Calendar
+    class="custom-calendar"
+    :masks="masks"
+    :attributes="calendarAttributes"
+    disable-page-swipe
+    is-expanded
+    :min-date="minDate"
+    :max-date="maxDate"
+  >
+    <template #day-content="{ day, attributes }">
+      <div class="day">
+        <span class="day__label">{{ day.day }}</span>
+        <div class="event">
+          <p v-for="attr in attributes" :key="attr.customData.id" class="event__name">
+            {{ attr.customData.name }}
+          </p>
         </div>
-      </template>
-    </Calendar>
-  </div>
+      </div>
+    </template>
+  </Calendar>
 </template>
 
 <script lang="ts" setup>
+import { computed } from '@vue/reactivity';
 import { Calendar } from 'v-calendar';
-const month = new Date().getMonth();
-const year = new Date().getFullYear();
-
+import { useEventStore } from '../store/events';
 const masks = {
   weekdays: 'WWW',
 };
 
-const calendarAttributes = [
-  {
-    key: 1,
-    customData: {
-      title: 'Lunch with mom.',
-      class: 'bg-red-600 text-white',
-    },
-    dates: new Date(year, month, 1),
-  },
-  {
-    key: 2,
-    customData: {
-      title: 'Take Noah to basketball practice',
-      class: 'bg-blue-500 text-white',
-    },
-    dates: new Date(year, month, 2),
-  },
-  {
-    key: 3,
-    customData: {
-      title: "Noah's basketball game.",
-      class: 'bg-blue-500 text-white',
-    },
-    dates: new Date(year, month, 5),
-  },
-  {
-    key: 4,
-    customData: {
-      title: 'Take car to the shop',
-      class: 'bg-indigo-500 text-white',
-    },
-    dates: new Date(year, month, 5),
-  },
-  {
-    key: 4,
-    customData: {
-      title: 'Meeting with new client.',
-      class: 'bg-teal-500 text-white',
-    },
-    dates: new Date(year, month, 7),
-  },
-  {
-    key: 5,
-    customData: {
-      title: "Mia's gymnastics practice.",
-      class: 'bg-pink-500 text-white',
-    },
-    dates: new Date(year, month, 11),
-  },
-  {
-    key: 6,
-    customData: {
-      title: 'Cookout with friends.',
-      class: 'bg-orange-500 text-white',
-    },
-    dates: { months: 5, ordinalWeekdays: { 2: 1 } },
-  },
-  {
-    key: 7,
-    customData: {
-      title: "Mia's gymnastics recital.",
-      class: 'bg-pink-500 text-white',
-    },
-    dates: new Date(year, month, 22),
-  },
-  {
-    key: 8,
-    customData: {
-      title: 'Visit great grandma.',
-      class: 'bg-red-600 text-white',
-    },
-    dates: new Date(year, month, 25),
-  },
-];
+const eventStore = useEventStore();
+
+const calendarAttributes = computed(() => {
+  return eventStore.events.map((event) => {
+    return {
+      customData: event,
+      dates: event.start,
+    };
+  });
+});
+
+const minDate = computed((): Date | undefined =>
+  eventStore.events.length ? eventStore.events[0].start : undefined
+);
+
+const maxDate = computed((): Date | undefined => {
+  const length = eventStore.events.length;
+  return length ? eventStore.events[length - 1].end : undefined;
+});
 </script>
 
 <style lang="scss">
+@import '../styles/mixin.scss';
+
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 0;
 }
 ::-webkit-scrollbar-track {
   display: none;
 }
-.custom-calendar.vc-container {
-  --day-border: 1px solid #b8c2cc;
-  --day-border-highlight: 1px solid #b8c2cc;
-  --day-width: 90px;
-  --day-height: 90px;
-  --weekday-bg: #f8fafc;
-  --weekday-border: 1px solid #eaeaea;
-  border-radius: 0;
-  width: 100%;
-  & .vc-header {
-    background-color: #f1f5f8;
-    padding: 10px 0;
+
+.custom-calendar {
+  max-width: 100%;
+}
+
+.day {
+  z-index: 10;
+  overflow: hidden;
+  height: 100%;
+  flex-direction: column;
+  display: flex;
+
+  &__label {
+    font-size: 0.875rem;
   }
+}
+
+.event {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+
+  &__name {
+    background-color: var(--ion-color-danger);
+    color: #ffffff;
+    border-radius: var(--app-border-radius);
+
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0;
+    line-height: 1.25;
+    font-size: 0.75rem;
+  }
+}
+
+$day-padding-x: 5px;
+
+.custom-calendar.vc-container {
+  --day-border: 1px solid var(--ion-border-color);
+  --day-border-highlight: 1px solid var(--ion-border-color);
+  --day-width: 100vw / 7 - 14 * $day-padding-x;
+  --day-height: 90px;
+  --weekday-bg: var(--app-color-grey-dark);
+  --weekday-border: 1px solid var(--ion-border-color);
+  border-radius: var(--app-border-radius-l);
+  width: 100%;
+  border-color: var(--ion-border-color);
+  color: var(--ion-text-color);
+  background-color: var(--ion-background-color);
+
+  & .vc-header {
+    background-color: var(--app-color-grey-medium);
+    padding: 10px 0;
+    border-radius: var(--app-border-radius-l) var(--app-border-radius-l) 0 0;
+
+    & .vc-title {
+      color: var(--ion-text-color);
+    }
+  }
+
+  & .vc-arrow {
+    color: var(--ion-text-color);
+
+    &:hover {
+      background: rgba(var(--ion-text-color-rgb), 0.1);
+    }
+  }
+
+  & .vc-nav-popover-container {
+    background-color: var(--app-color-grey-medium);
+    border-color: var(--ion-border-color);
+    color: var(--ion-text-color);
+
+    .vc-nav-item {
+      &.is-active {
+        background: rgba(var(--ion-text-color-rgb), 0.05);
+      }
+    }
+
+    .vc-nav-item,
+    .vc-nav-title,
+    .vc-nav-arrow {
+      color: var(--ion-text-color);
+
+      &:hover {
+        background: rgba(var(--ion-text-color-rgb), 0.05);
+      }
+    }
+  }
+
   & .vc-weeks {
     padding: 0;
   }
+
   & .vc-weekday {
     background-color: var(--weekday-bg);
     border-bottom: var(--weekday-border);
     border-top: var(--weekday-border);
     padding: 5px 0;
+    color: var(--ion-text-color);
   }
+
   & .vc-day {
-    padding: 0 5px 3px 5px;
+    padding: 0 $day-padding-x 3px $day-padding-x;
     text-align: left;
     height: var(--day-height);
     min-width: var(--day-width);
-    background-color: white;
+    background-color: var(--app-color-grey-light);
+
     &.weekday-1,
     &.weekday-7 {
-      background-color: #eff8ff;
+      background-color: var(--app-color-grey-medium);
     }
+
     &:not(.on-bottom) {
       border-bottom: var(--day-border);
+
       &.weekday-1 {
         border-bottom: var(--day-border-highlight);
       }
     }
+
     &:not(.on-right) {
       border-right: var(--day-border);
     }
+
+    &.on-bottom {
+      &.on-left {
+        border-bottom-left-radius: var(--app-border-radius-l);
+      }
+
+      &.on-right {
+        border-bottom-right-radius: var(--app-border-radius-l);
+      }
+    }
   }
+
   & .vc-day-dots {
     margin-bottom: 5px;
   }
