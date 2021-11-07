@@ -9,6 +9,8 @@
         <template v-else>
           <p>Events are still in construction...</p>
           <IonButton router-link="/events/213">Route to test event</IonButton>
+
+          <AppCalendar />
         </template>
       </div>
     </IonContent>
@@ -19,6 +21,7 @@
 import { IonButton, IonContent, IonPage, IonProgressBar } from '@ionic/vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import AppCalendar from '../components/AppCalendar.vue';
 import AppHeader from '../components/AppHeader.vue';
 import { useEventStore } from '../store/events';
 
