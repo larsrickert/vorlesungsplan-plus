@@ -3,21 +3,8 @@
     <AppHeader :title="headerTitle" />
 
     <IonContent :fullscreen="true">
-      <IonRefresher
-        slot="fixed"
-        pull-min="150"
-        pull-max="200"
-        @ionRefresh="refreshLectures($event)"
-      >
-        <IonRefresherContent
-          :pulling-icon="chevronDown"
-          :pulling-text="refresherText"
-          refreshing-spinner="circles"
-          :refreshing-text="t('global.isRefreshing')"
-        />
-      </IonRefresher>
-
       <div class="page__content">
+        <AppRefresher :pulling-text="refresherText" :refresh-func="refreshLectures" />
         <IonProgressBar v-if="!store.lecturesLoaded" type="indeterminate" />
 
         <template v-else>
@@ -84,19 +71,12 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  IonContent,
-  IonPage,
-  IonProgressBar,
-  IonRefresher,
-  IonRefresherContent,
-  IonSearchbar,
-} from '@ionic/vue';
-import { chevronDown } from 'ionicons/icons';
+import { IonContent, IonPage, IonProgressBar, IonSearchbar } from '@ionic/vue';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
 import AppLectureBlock from '../components/AppLectureBlock.vue';
+import AppRefresher from '../components/AppRefresher.vue';
 import AppSegment from '../components/AppSegment.vue';
 import { showToast } from '../helpers/io';
 import { useStore } from '../store';
@@ -115,9 +95,8 @@ const headerTitle = computed((): string => {
 
 const store = useStore();
 
-const refreshLectures = async (ev?: CustomEvent) => {
+const refreshLectures = async () => {
   await store.fetchLectures();
-  if (ev) await (ev.target as HTMLIonRefresherElement).complete();
   await showToast({ message: t('toasts.fetchedLectures'), duration: 2000 });
 };
 

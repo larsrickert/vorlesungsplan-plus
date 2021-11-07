@@ -60,7 +60,8 @@
   },
   "toasts": {
     "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert.",
-    "fetchedLectures": "Vorlesungen aktualisiert."
+    "fetchedLectures": "Vorlesungen aktualisiert.",
+    "fetchedEvents": "Veranstaltungen aktualisiert."
   },
   "notifications": {
     "upcomingLecture": "Anstehende Vorlesung ({courses})",
