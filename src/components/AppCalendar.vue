@@ -30,11 +30,8 @@
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
 import { Calendar } from 'v-calendar';
-import { useI18n } from 'vue-i18n';
 import { useEventStore } from '../store/events';
 import AppCalendarEntry from './AppCalendarEntry.vue';
-
-const { t } = useI18n();
 
 const masks = {
   weekdays: 'WWW',
