@@ -32,6 +32,11 @@ export const useNotificationStore = defineStore('notifications', {
       await this.requestPermissions();
       if (!this.hasPermissions) return;
 
+      // minutes before the lecture start when the notification should be scheduled
+      const settingsStore = useSettingsStore();
+      const scheduleOffsetMinutes = settingsStore.lectureNotificationTime;
+      if (!scheduleOffsetMinutes) return;
+
       // schedule notifications for all current lectures
       const store = useStore();
       const lectures = store.lectures;
@@ -40,10 +45,6 @@ export const useNotificationStore = defineStore('notifications', {
       const promises: Promise<unknown>[] = [];
 
       const { t } = i18n.global;
-
-      // minutes before the lecture start when the notification should be scheduled
-      const settingsStore = useSettingsStore();
-      const scheduleOffsetMinutes = settingsStore.lectureNotificationTime;
 
       for (let i = 0; i < lectures.length; i++) {
         const lecture = lectures[i];

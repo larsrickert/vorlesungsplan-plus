@@ -15,7 +15,8 @@
     "appVersion": "v{version}",
     "yes": "Yes",
     "no": "No",
-    "notAvailableOnPlatform": "Not available for {platform}"
+    "notAvailableOnPlatform": "Not available for {platform}",
+    "deactivated": "Deactivated"
   },
   "locales": {
     "de": "Deutsch",
@@ -49,7 +50,7 @@
     "lectureNotificationTime": "Notifications",
     "selectNotificationTime": "Select time",
     "xMinutes": "0 minutes | 1 minute | {count} minutes",
-    "notificationTimeDescription": "You will get a notification {count} minutes before each lecture. You have to grant the notification permission for this feature.",
+    "notificationTimeDescription": "You won't get a notification before each lecture. | You will get a notification 1 minute before each lecture. You have to grant the notification permission for this feature. | You will get a notification {count} minutes before each lecture. You have to grant the notification permission for this feature.",
     "permissionGranted": "Permission granted",
     "grantPermissionsLinkText": "See how to grant permissions"
   },

@@ -4,7 +4,7 @@ import { getInitLocale, isLocaleAvailable } from '../helpers/i18n';
 import { initValue, setValue, StorageKey } from '../helpers/storage';
 import { i18n } from '../i18n';
 
-export const allowedNotificationTimes: readonly number[] = Object.freeze([15, 30, 45, 60]);
+export const allowedNotificationTimes: readonly number[] = Object.freeze([0, 15, 30, 45, 60]);
 
 export const useSettingsStore = defineStore('settings', {
   state() {

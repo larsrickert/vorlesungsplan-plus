@@ -45,7 +45,7 @@
                 :placeholder="`${t('global.select')}...`"
               >
                 <IonSelectOption v-for="time of allowedNotificationTimes" :key="time" :value="time">
-                  {{ t('settings.xMinutes', time) }}
+                  {{ time !== 0 ? t('settings.xMinutes', time) : t('global.deactivated') }}
                 </IonSelectOption>
               </IonSelect>
             </IonItem>

@@ -15,7 +15,8 @@
     "appVersion": "v{version}",
     "yes": "Ja",
     "no": "Nein",
-    "notAvailableOnPlatform": "Nicht verfügbar für {platform}"
+    "notAvailableOnPlatform": "Nicht verfügbar für {platform}",
+    "deactivated": "Deaktiviert"
   },
   "locales": {
     "de": "Deutsch",
@@ -49,7 +50,7 @@
     "lectureNotificationTime": "Erinnerungen",
     "selectNotificationTime": "Zeit auswählen",
     "xMinutes": "0 Minuten | 1 Minute | {count} Minuten",
-    "notificationTimeDescription": "Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtung. Dafür musst du dieser App die Berechtigung dafür erteilen.",
+    "notificationTimeDescription": "Du bekommst keine Benachrichtigung vor jeder Vorlesung. | Du bekommst 1 Minute vor jeder Vorlesung eine Benachrichtung. Dafür musst du dieser App die Berechtigung dafür erteilen. | Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtung. Dafür musst du dieser App die Berechtigung dafür erteilen.",
     "permissionGranted": "Berechtigung erteilt",
     "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung"
   },
