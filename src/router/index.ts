@@ -21,16 +21,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/events',
     component: () => import('../views/Events.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('../views/EventOverview.vue'),
-      },
-      {
-        path: ':id',
-        component: () => import('../views/Event.vue'),
-      },
-    ],
   },
   {
     path: '/beta',

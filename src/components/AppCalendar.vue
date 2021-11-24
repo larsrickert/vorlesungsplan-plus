@@ -11,18 +11,16 @@
     <template #day-content="{ day, attributes }">
       <div class="day">
         <span class="day__label">{{ day.day }}</span>
-        <div class="event">
-          <p
+        <div class="day__events">
+          <AppCalendarEntry
             v-for="attr in attributes"
             :key="attr.key"
-            class="event__name"
-            :class="{ today: attr.key === 'today' }"
-          >
-            <span v-if="attr.key !== 'today'">
-              {{ attr.customData ? attr.customData.name : 'N/A' }}</span
-            >
-            <span v-else>{{ t('global.today') }}</span>
-          </p>
+            :title="attr.customData ? attr.customData.name : 'N/A'"
+            :is-today="attr.key === 'today'"
+            :start="attr.customData ? attr.customData.start : undefined"
+            :end="attr.customData ? attr.customData.end : undefined"
+            :description="attr.customData ? attr.customData.description : ''"
+          />
         </div>
       </div>
     </template>
@@ -34,6 +32,7 @@ import { computed } from '@vue/reactivity';
 import { Calendar } from 'v-calendar';
 import { useI18n } from 'vue-i18n';
 import { useEventStore } from '../store/events';
+import AppCalendarEntry from './AppCalendarEntry.vue';
 
 const { t } = useI18n();
 
@@ -89,33 +88,11 @@ const maxDate = computed((): Date | undefined => {
   &__label {
     font-size: 0.875rem;
   }
-}
 
-.event {
-  flex-grow: 1;
-  overflow-y: auto;
-  overflow-x: auto;
-
-  &__name {
-    background-color: var(--ion-color-danger);
-    color: #ffffff;
-    border-radius: var(--app-border-radius);
-
-    padding: 0.25rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0;
-    line-height: 1.25;
-    font-size: 0.75rem;
-
-    @include breakpoint(m) {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    &.today {
-      background-color: var(--ion-color-primary);
-    }
+  &__events {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: auto;
   }
 }
 
