@@ -7,6 +7,11 @@
   &--small {
     --width: 125px;
   }
+
+  &--large {
+    --width: 400px;
+    --max-width: 90%;
+  }
 }
 
 .app-modal {

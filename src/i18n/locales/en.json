@@ -54,11 +54,14 @@
     "grantPermissionsLinkText": "See how to grant permissions"
   },
   "events": {
-    "pageName": "Events"
+    "pageName": "Events",
+    "noEventsAvailable": "There are not events available yet.",
+    "upcomingEvents": "Upcoming events: { count }"
   },
   "toasts": {
     "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses.",
-    "fetchedLectures": "Lectures loaded."
+    "fetchedLectures": "Lectures loaded.",
+    "fetchedEvents": "Events loaded."
   },
   "notifications": {
     "upcomingLecture": "Upcoming lecture ({courses})",
