@@ -20,6 +20,7 @@ export async function showToast({
   const toast = await toastController.create({
     message,
     duration,
+    cssClass: 'app-toast',
     buttons: btn
       ? [
           {

@@ -8,13 +8,14 @@
         <p>{{ t('global.placeholder') }}</p>
 
         <IonButton @click="test">Send notification</IonButton>
+        <IonDatetime mode="ios" />
       </div>
     </IonContent>
   </IonPage>
 </template>
 
 <script lang="ts" setup>
-import { IonButton, IonContent, IonPage } from '@ionic/vue';
+import { IonButton, IonContent, IonPage, IonDatetime } from '@ionic/vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
 
