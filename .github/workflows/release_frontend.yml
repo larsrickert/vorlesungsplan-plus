@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: npm run build
       - name: Compress build files
-        run: zip -r dist.zip $working_directory/dist
+        run: zip -r dist.zip frontend/dist
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
