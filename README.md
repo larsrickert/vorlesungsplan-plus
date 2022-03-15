@@ -1,72 +1,53 @@
-# RickStack App Template Vue Ionic
+# Vorlesungsplan+ for the DHBW Mosbach
 
-## Project setup
+The app is live on: https://dhbw.rickstack.de
 
-```
-npm install
-```
+The api is live on: https://api.rickstack.de
 
-### Run with hot-reload for development
+<br />
 
-```
-npm run dev
-```
+# App
 
-### Compiles and minifies for production
+The Vorlesungsplan+ app is intended to be an alternative to the official stuv survival/stuv companion app of the DHBW
+Mosbach. In contrast to the official app, this app offers a cross-platform unified look and feel. This app is a PWA (
+Progressive Web App) that allows you to "install" the app to your native device. Alternatively this app is also
+available as android app. The APK can be downloaded on https://dhbw.rickstack.de/installation.
 
-```
-npm run build
-```
+## Features
 
-### Serves production build in local webserver
+1. Show all lectures for selected course at the DHBW Mosbach
+2. Show upcoming events
+3. Create and manage tasks that you need to do for your lectures
+4. Cross-platform
 
-```
-npm run serve
-```
+## Technologies
 
-### Lints and fixes files
+Vorlesungsplan+ is built with Angular (JavaScript Framework), Ionic Framework and Capacitor (tool for using native
+features on web applications & wraps web app into native android and ios app).
 
-```
-npm run lint
-```
+<br />
 
-# Pursue following guidelines
+# API
 
-1. Use BEM for CSS class names. You can find more information about BEM [here](http://getbem.com/).
+The Vorlesungsplan+ API is an Open Source Node.js API to request courses, lectures, events and more for the DHBW
+Mosbach. This API is not an official API, but it uses the official StuV API for its data. You can use
+this API in your own projects without annoying CORS errors.
 
-2. Components
+For available endpoints and documentation, see https://api.rickstack.de/docs.
 
-- Name components according to:
-  - Prefix basic app components with app specific styles etc. such as a button component with "App", e.g. AppButton
-  - Prefix single use components (that only exist once) with "The", e.g. TheHeader
-- use `<script setup lang="ts">` for components if possible, if not use composition API only
-- only use one root element in components, e.g.
-  - good:
-  ```html
-  <template>
-    <div>Some content</div>
-  </template>
-  ```
-  - bad:
-  ```html
-  <template>
-    <div>Some content</div>
-    <div>Some other content</div>
-  </template>
-  ```
+## Features
 
-## Folder structure inside src
+1. Request courses, lectures and event at the DHBW Mosbach.
+2. Caching layer that speeds up API calls up to 4 times in comparison to the official StuV API.
+3. Open Source
 
-| Folder     | Description                                                            |
-| ---------- | ---------------------------------------------------------------------- |
-| assets     | Images/assets that are not favicons/icons                              |
-| axios      | Axios client for REST requests                                         |
-| components | Vue components                                                         |
-| configs    | Static configuration/environments                                      |
-| helpers    | Helper functions/utilities that don't rely an reactive state           |
-| i18n       | Multilanguage / locales                                                |
-| router     | Router / routes                                                        |
-| store      | Reactive stores (similar to angular services that need reactive state) |
-| styles     | Global reusable CSS                                                    |
-| types      | Global TypeScript types, interfaces, classes etc.                      |
-| views      | Vue components for the routes                                          |
+## Technologies
+
+Vorlesungsplan+ API is build with Node.js, express and TypeScript.
+
+<br />
+
+# Contribution
+
+If you want to contribute to this app you can create a pull request, contact me on Discord
+or [email me](mailto:dev@lars-rickert.de).
