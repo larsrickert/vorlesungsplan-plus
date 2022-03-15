@@ -1,4 +1,4 @@
-# RickStack App Template Vue Ionic
+# Vorlesungsplan+ App
 
 ## Project setup
 
@@ -21,7 +21,7 @@ npm run build
 ### Serves production build in local webserver
 
 ```
-npm run serve
+npm run preview
 ```
 
 ### Lints and fixes files
