@@ -6,9 +6,6 @@ on:
       - next
       - beta
       - alpha
-    paths:
-      - 'backend/**'
-      - '.github/workflows/release_backend.yml'
   # manual trigger
   workflow_dispatch:
 
