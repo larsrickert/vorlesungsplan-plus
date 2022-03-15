@@ -15,8 +15,9 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    env:
-      working_directory: frontend
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v2
@@ -29,14 +30,11 @@ jobs:
           cache: 'npm'
       - name: Install node modules
         run: npm ci
-        working-directory: ${{ env.working_directory }}
       - name: Build
         run: npm run build
-        working-directory: ${{ env.working_directory }}
       - name: Compress build files
         run: zip -r dist.zip $working_directory/dist
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-        working-directory: ${{ env.working_directory }}
