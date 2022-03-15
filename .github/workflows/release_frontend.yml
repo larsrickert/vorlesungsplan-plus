@@ -1,0 +1,40 @@
+name: Semantic release (frontend)
+on:
+  push:
+    branches:
+      - main
+      - next
+      - beta
+      - alpha
+    paths:
+      - 'frontend/**'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+     env:
+      working_directory: frontend
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+      - name: Install node modules
+        run: npm ci
+        working_directory: ${{ env.working_directory }}
+      - name: Build
+        run: npm run build
+        working_directory: ${{ env.working_directory }}
+      - name: Compress build files
+        run: zip -r dist.zip $working_directory/dist
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+        working_directory: ${{ env.working_directory }}

@@ -1,0 +1,85 @@
+{
+  "name": "@larsrickert/vorlesungsplan-plus",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier --write \"./{src,tests}/**/*.{js,json,ts,html,scss,vue}\"",
+    "update": "npx npm-check-updates -i"
+  },
+  "dependencies": {
+    "@capacitor/browser": "^1.0.7",
+    "@capacitor/core": "^3.4.1",
+    "@capacitor/device": "^1.1.2",
+    "@capacitor/local-notifications": "^1.1.0",
+    "@capacitor/network": "^1.0.7",
+    "@capacitor/storage": "^1.2.4",
+    "@ionic/vue": "^6.0.8",
+    "@ionic/vue-router": "^6.0.8",
+    "axios": "^0.26.0",
+    "pinia": "^2.0.11",
+    "sanitize-html": "^2.7.0",
+    "v-calendar": "^3.0.0-alpha.6",
+    "vue": "^3.2.31",
+    "vue-i18n": "^9.1.9",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^3.4.1",
+    "@intlify/vite-plugin-vue-i18n": "^3.3.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^16.11.10",
+    "@types/sanitize-html": "^2.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "@vitejs/plugin-vue": "^2.2.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^8.4.1",
+    "prettier": "^2.5.1",
+    "sass": "^1.49.8",
+    "semantic-release-monorepo": "^7.0.5",
+    "typescript": "^4.5.5",
+    "vite": "^2.8.4",
+    "vite-plugin-eslint": "^1.3.0",
+    "vite-plugin-pwa": "^0.11.13",
+    "vue-tsc": "^0.31.4"
+  },
+  "release": {
+    "extends": "semantic-release-monorepo",
+    "branches": [
+      "main",
+      "next",
+      {
+        "name": "beta",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            {
+              "path": "dist.zip",
+              "name": "vorlesungsplan-plus-${nextRelease.gitTag}.zip"
+            }
+          ]
+        }
+      ],
+      "@semantic-release/git"
+    ]
+  }
+}

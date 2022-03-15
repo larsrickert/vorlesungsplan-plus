@@ -1,0 +1,33 @@
+<template>
+  <IonPage>
+    <AppHeader show-back show-close title="Test page" @close="onClose" />
+
+    <IonContent :fullscreen="true">
+      <div class="page__content">
+        <h1>Test page</h1>
+        <p>{{ t('global.placeholder') }}</p>
+
+        <IonButton @click="test">Send notification</IonButton>
+        <IonDatetime mode="ios" />
+      </div>
+    </IonContent>
+  </IonPage>
+</template>
+
+<script lang="ts" setup>
+import { IonButton, IonContent, IonPage, IonDatetime } from '@ionic/vue';
+import { useI18n } from 'vue-i18n';
+import AppHeader from '../components/AppHeader.vue';
+
+const { t } = useI18n();
+
+const onClose = () => {
+  console.log('Closed.');
+};
+
+const test = async () => {
+  console.log('Test clicked');
+};
+</script>
+
+<style lang="scss" scoped></style>

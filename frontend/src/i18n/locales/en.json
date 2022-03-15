@@ -1,0 +1,71 @@
+{
+  "global": {
+    "placeholder": "This is a placeholder text.",
+    "close": "Close",
+    "errorCode": "Error code",
+    "select": "Select",
+    "cancel": "Cancel",
+    "searchPlaceholder": "Search...",
+    "refresh": "Refresh",
+    "isRefreshing": "Is refreshing...",
+    "dateRange": "{start} until {end}",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "emptySeach": "No results found for the search.",
+    "appVersion": "v{version}",
+    "yes": "Yes",
+    "no": "No",
+    "notAvailableOnPlatform": "Not available for {platform}",
+    "deactivated": "Deactivated"
+  },
+  "locales": {
+    "de": "Deutsch",
+    "en": "English"
+  },
+  "pwa": {
+    "newContentAvailable": "New content available, click on reload button to update.",
+    "reload": "Reload"
+  },
+  "timetable": {
+    "pageName": "Timetable | Timetable | Timetables ({count})",
+    "lastUpdated": "Last updated: {date}",
+    "segments": {
+      "all": "All ({count})",
+      "presence": "Presence ({count})",
+      "exams": "Exams ({count})"
+    },
+    "noLecturesText": "Have fun in the practical phase!"
+  },
+  "settings": {
+    "pageName": "Settings",
+    "selectTheme": "Select design",
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "selectCourses": "Select courses",
+    "availableCourses": "Available courses",
+    "noCoursesAvailable": "There are no courses available.",
+    "lectureNotificationTime": "Notifications",
+    "selectNotificationTime": "Select time",
+    "xMinutes": "0 minutes | 1 minute | {count} minutes",
+    "notificationTimeDescription": "You won't get a notification before each lecture. | You will get a notification 1 minute before each lecture. You have to grant the notification permission for this feature. | You will get a notification {count} minutes before each lecture. You have to grant the notification permission for this feature.",
+    "permissionGranted": "Permission granted",
+    "grantPermissionsLinkText": "See how to grant permissions"
+  },
+  "events": {
+    "pageName": "Events",
+    "noEventsAvailable": "There are not events available yet.",
+    "upcomingEvents": "Upcoming events: { count }"
+  },
+  "toasts": {
+    "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses.",
+    "fetchedLectures": "Lectures loaded.",
+    "fetchedEvents": "Events loaded."
+  },
+  "notifications": {
+    "upcomingLecture": "Upcoming lecture ({courses})",
+    "lectureStartsInXMinutes": "\"{name}\" starts in {minutes} minutes."
+  }
+}
