@@ -27,12 +27,12 @@ jobs:
           cache: 'npm'
       - name: Install node modules
         run: npm ci
-        working_directory: ${{ env.working_directory }}
+        working-directory: ${{ env.working_directory }}
       - name: Build
         run: npm run build
-        working_directory: ${{ env.working_directory }}
+        working-directory: ${{ env.working_directory }}
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
-        working_directory: ${{ env.working_directory }}
+        working-directory: ${{ env.working_directory }}
