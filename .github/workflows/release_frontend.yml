@@ -8,6 +8,8 @@ on:
       - alpha
     paths:
       - 'frontend/**'
+  # manual trigger
+  workflow_dispatch:
 
 jobs:
   release:

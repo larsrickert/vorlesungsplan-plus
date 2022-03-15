@@ -8,6 +8,8 @@ on:
       - alpha
     paths:
       - 'backend/**'
+  # manual trigger
+  workflow_dispatch:
 
 jobs:
   release:
