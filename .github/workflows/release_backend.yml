@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 'lts/*'
           cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
       - name: Install node modules
         run: npm ci
       - name: Build
