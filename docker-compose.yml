@@ -3,7 +3,7 @@ version: '3'
 services:
   vorlesungsplan-plus:
     build: ./frontend
-    image: larsrickert/vorlesungsplan-plus
+    image: larsrickert/vorlesungsplan-plus-beta
     restart: always
     expose:
       - 80
@@ -13,7 +13,7 @@ services:
 
   vorlesungsplan-plus-api:
     build: ./backend
-    image: larsrickert/vorlesungsplan-plus-api
+    image: larsrickert/vorlesungsplan-plus-api-beta
     restart: always
     expose:
       - 3000
