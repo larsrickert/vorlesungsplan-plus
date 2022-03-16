@@ -47,7 +47,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Pull latest changes
+      # needed because backend release would fail if frontend release pushed new changes (e.g. CHANGELOG.md)
+      - name: Pull latest changes from frontend semantic-release
         run: git pull
       - name: Setup Node
         uses: actions/setup-node@v2
