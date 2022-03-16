@@ -6,9 +6,15 @@ export interface Lecture {
   start: Date;
   end: Date;
   course: string;
+  status: LectureStatus;
 }
 
-export type ApiLecture = Omit<Lecture, 'start' | 'end' | 'course'> & { start: string; end: string };
+export type LectureStatus = 'added' | 'removed' | '';
+
+export type ApiLecture = Omit<Lecture, 'start' | 'end' | 'course' | 'status'> & {
+  start: string;
+  end: string;
+};
 export type MergedLecture = Omit<Lecture, 'course' | 'uid'> & { courses: string[]; uids: string[] };
 
 export interface DayLectureBlock {

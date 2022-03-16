@@ -29,7 +29,7 @@ const onClick = (ev: MouseEvent) => {
 
 <style lang="scss" scoped>
 ion-fab {
-  margin: 4px;
+  margin: 4px 16px 4px 4px;
 
   .disabled {
     opacity: 1;

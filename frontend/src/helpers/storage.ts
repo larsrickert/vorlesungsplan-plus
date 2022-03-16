@@ -24,7 +24,7 @@ async function configureStorage() {
  * @param key Key to get value for.
  * @returns The stored data or null if key does not exist or an error occurred.
  */
-export const getValue = async <T>(key: StorageKey): Promise<T | null> => {
+export const getValue = async <T>(key: StorageKey | string): Promise<T | null> => {
   await configureStorage();
   const { value } = await Storage.get({ key });
 
@@ -42,7 +42,7 @@ export const getValue = async <T>(key: StorageKey): Promise<T | null> => {
  * @param key Key to set.
  * @param value The value to set in storage with the associated key.
  */
-export const setValue = async (key: StorageKey, value: unknown): Promise<void> => {
+export const setValue = async (key: StorageKey | string, value: unknown): Promise<void> => {
   await configureStorage();
   try {
     await Storage.set({ key, value: JSON.stringify(value) });
@@ -58,7 +58,7 @@ export const setValue = async (key: StorageKey, value: unknown): Promise<void> =
  * @param value The value to set in storage with the associated key if value is not initialized yet.
  * @returns Current value if available, set init value otherwise.
  */
-export const initValue = async <T>(key: StorageKey, value: T): Promise<T> => {
+export const initValue = async <T>(key: StorageKey | string, value: T): Promise<T> => {
   await configureStorage();
   const currentValue = await getValue<T>(key);
   if (currentValue == null) await setValue(key, value);
@@ -78,7 +78,7 @@ export const clearStorage = async () => {
  *
  * @param key Key to remove value for.
  */
-export const removeValue = async (key: StorageKey): Promise<void> => {
+export const removeValue = async (key: StorageKey | string): Promise<void> => {
   await configureStorage();
   try {
     await Storage.remove({ key });

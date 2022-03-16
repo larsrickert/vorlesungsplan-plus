@@ -1,4 +1,10 @@
-import { DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
+import {
+  ApiLecture,
+  DayLectureBlock,
+  Lecture,
+  LectureStatus,
+  MergedLecture,
+} from '../types/lectures';
 
 export function createLectureBlocks(lectures: MergedLecture[]): DayLectureBlock[] {
   const map = new Map<number, MergedLecture[]>();
@@ -43,6 +49,7 @@ export function mergeAndSortSameLectures(lectures: Lecture[]): MergedLecture[] {
           lecturer: a.lecturer,
           name: a.name,
           room: a.room,
+          status: a.status,
         });
       } else {
         // 2: first was already added to merged
@@ -61,6 +68,7 @@ export function mergeAndSortSameLectures(lectures: Lecture[]): MergedLecture[] {
         lecturer: sorted[i].lecturer,
         name: sorted[i].name,
         room: sorted[i].room,
+        status: sorted[i].status,
       });
     }
   }
@@ -83,4 +91,17 @@ function isSameLectureContent(a: Lecture, b: Lecture): boolean {
 
 export function isExam(lecture: MergedLecture): boolean {
   return lecture.name.toLowerCase().includes('klausur');
+}
+
+export function getLectureStatus(
+  lecture: ApiLecture,
+  previous: ApiLecture[],
+  current: ApiLecture[]
+): LectureStatus {
+  const inPrevious = !!previous.find((i) => i.uid === lecture.uid);
+  const inCurrent = !!current.find((i) => i.uid === lecture.uid);
+
+  if (inPrevious && !inCurrent) return 'removed';
+  if (!inPrevious && inCurrent) return 'added';
+  return '';
 }

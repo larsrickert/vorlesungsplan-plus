@@ -3,6 +3,7 @@ import { i18n } from '../i18n';
 export enum ErrorCode {
   UNKNOWN = 'A1',
   ROUTER_NOT_AUTHENTICATED = 'A2',
+  LECTURE_FETCH_FAILED = 'B1',
 }
 
 export class CustomError extends Error {

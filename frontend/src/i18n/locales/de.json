@@ -33,9 +33,11 @@
     "segments": {
       "all": "Alle ({count})",
       "presence": "Präsenz ({count})",
-      "exams": "Klausuren ({count})"
+      "exams": "Klausuren ({count})",
+      "changes": "Änderungen ({count})"
     },
-    "noLecturesText": "Viel Spaß in der Praxisphase!"
+    "noLecturesText": "Viel Spaß in der Praxisphase!",
+    "clearChanges": "Änderungen als gelesen markieren"
   },
   "settings": {
     "pageName": "Einstellungen",

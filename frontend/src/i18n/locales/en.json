@@ -33,9 +33,11 @@
     "segments": {
       "all": "All ({count})",
       "presence": "Presence ({count})",
-      "exams": "Exams ({count})"
+      "exams": "Exams ({count})",
+      "changes": "Changes ({count})"
     },
-    "noLecturesText": "Have fun in the practical phase!"
+    "noLecturesText": "Have fun in the practical phase!",
+    "clearChanges": "Mark changes as read"
   },
   "settings": {
     "pageName": "Settings",

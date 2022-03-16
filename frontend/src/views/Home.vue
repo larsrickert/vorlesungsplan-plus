@@ -36,6 +36,15 @@
             </div>
 
             <div v-show="!searchValue">
+              <div v-show="selectedSegment === 'changes'">
+                <AppLectureBlock
+                  v-for="block of store.changedLectureDayBlocks"
+                  :key="block.date.toISOString()"
+                  :date="block.date"
+                  :lectures="block.lectures"
+                />
+              </div>
+
               <div v-show="selectedSegment === 'all'">
                 <AppLectureBlock
                   v-for="block of store.upcomingLectureDayBlocks"
@@ -66,14 +75,23 @@
           </template>
         </template>
       </div>
+
+      <AppFab
+        v-if="store.countChangedLectures"
+        :icon="checkmarkDone"
+        :title="t('timetable.clearChanges')"
+        @click="store.clearChanges"
+      />
     </IonContent>
   </IonPage>
 </template>
 
 <script lang="ts" setup>
 import { IonContent, IonPage, IonProgressBar, IonSearchbar } from '@ionic/vue';
+import { checkmarkDone } from 'ionicons/icons';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import AppFab from '../components/AppFab.vue';
 import AppHeader from '../components/AppHeader.vue';
 import AppLectureBlock from '../components/AppLectureBlock.vue';
 import AppRefresher from '../components/AppRefresher.vue';
@@ -110,7 +128,7 @@ const refresherText = computed((): string => {
 
 const selectedSegment = ref('all');
 const segments = computed((): SelectOption[] => {
-  return [
+  const options: SelectOption[] = [
     {
       name: t('timetable.segments.all', { count: store.countUpcomingLectures }),
       value: 'all',
@@ -120,10 +138,19 @@ const segments = computed((): SelectOption[] => {
       value: 'presence',
     },
     {
-      name: t('timetable.segments.exams', { count: store.countExaxmLectures }),
+      name: t('timetable.segments.exams', { count: store.countExamLectures }),
       value: 'exams',
     },
   ];
+
+  if (store.countChangedLectures) {
+    options.unshift({
+      name: t('timetable.segments.changes', { count: store.countChangedLectures }),
+      value: 'changes',
+    });
+  }
+
+  return options;
 });
 
 const searchValue = ref('');

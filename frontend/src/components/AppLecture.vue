@@ -1,6 +1,18 @@
 <template>
-  <IonItem lines="none" class="lecture">
-    <div v-if="isExam(lecture)" slot="start" class="icon">
+  <IonItem
+    lines="none"
+    class="lecture"
+    :class="{
+      'lecture--added': lecture.status === 'added',
+      'lecture--removed': lecture.status === 'removed',
+    }"
+  >
+    <div v-if="lecture.status" slot="start" class="icon">
+      <IonIcon v-if="lecture.status === 'added'" :icon="addCircleOutline" color="success" />
+      <IonIcon v-else :icon="closeCircleOutline" color="danger" />
+    </div>
+
+    <div v-else-if="isExam(lecture)" slot="start" class="icon">
       <IonIcon :icon="documentTextOutline" />
     </div>
 
@@ -36,7 +48,7 @@
 
 <script lang="ts" setup>
 import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
-import { documentTextOutline } from 'ionicons/icons';
+import { addCircleOutline, closeCircleOutline, documentTextOutline } from 'ionicons/icons';
 import { onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import config from '../configs';
@@ -89,6 +101,18 @@ onBeforeUnmount(() => clearInterval(intervall));
   --inner-padding-end: 0;
   --padding-start: 20px;
   --padding-end: 20px;
+
+  &--added {
+    --border-width: 0 0 0 2px;
+    --border-style: solid;
+    --border-color: var(--ion-color-success);
+  }
+
+  &--removed {
+    --border-width: 0 0 0 2px;
+    --border-style: solid;
+    --border-color: var(--ion-color-danger);
+  }
 
   &__content {
     width: 100%;
