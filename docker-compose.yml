@@ -23,6 +23,8 @@ services:
     environment:
       VIRTUAL_HOST: '${BACKEND_DOMAIN}'
       LETSENCRYPT_HOST: '${BACKEND_DOMAIN}'
+    volumes:
+      - ./logs:/usr/src/app/logs
 
 networks:
   default:
