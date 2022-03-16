@@ -2,11 +2,8 @@ version: '3'
 
 services:
   vorlesungsplan-plus:
-    build:
-      context: ./frontend
-      args:
-        VITE_APP_API_HOST: 'https://${BACKEND_DOMAIN}'
-    image: larsrickert/vorlesungsplan-plus-beta
+    build: ./frontend
+    image: larsrickert/vorlesungsplan-plus
     restart: always
     expose:
       - 80
@@ -16,7 +13,7 @@ services:
 
   vorlesungsplan-plus-api:
     build: ./backend
-    image: larsrickert/vorlesungsplan-plus-api-beta
+    image: larsrickert/vorlesungsplan-plus-api
     restart: always
     expose:
       - 3000

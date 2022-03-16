@@ -1,15 +1,23 @@
 node_modules
 .DS_Store
+www
 dist
-dist-ssr
 *.local
+
+*~
+*.sw[mnpcod]
+.tmp
+*.tmp
+*.tmp.*
+*.sublime-project
+*.sublime-workspace
+Thumbs.db
+UserInterfaceState.xcuserstate
+$RECYCLE.BIN/
 
 # Log files
 logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+*.log
 
 # Editor directories and files
 .idea

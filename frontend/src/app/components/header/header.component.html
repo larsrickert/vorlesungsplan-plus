@@ -1,0 +1,28 @@
+<!-- header with rounded borders -->
+<div class="wrapper">
+  <div class="header">
+    <ion-buttons>
+      <ion-menu-button *ngIf="!back && !isModal"></ion-menu-button>
+      <ion-back-button
+        *ngIf="back && !isModal"
+        defaultHref="/"
+        text=""
+        icon="chevron-back-outline"
+      ></ion-back-button>
+
+      <ion-button
+        *ngIf="isModal"
+        shape="round"
+        id="btn--closeModal"
+        (click)="closeModal()"
+      >
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-label class="title">{{ title }}</ion-label>
+
+    <div class="customContent">
+      <ng-content select=".slot--headerActions"></ng-content>
+    </div>
+  </div>
+</div>

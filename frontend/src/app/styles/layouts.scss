@@ -1,0 +1,26 @@
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (min-width: 1024px) {
+  ion-menu {
+    max-width: 25%;
+  }
+}
+
+.app-spacing {
+  --padding-start: 24px;
+  --padding-end: 24px;
+  --padding-top: 24px;
+  --padding-bottom: 24px;
+
+  &--mobile {
+    @media only screen and (max-width: 768px) {
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 16px;
+      --padding-bottom: 16px;
+    }
+  }
+}

@@ -5,5 +5,9 @@ npm-debug.log
 .vscode
 .idea
 dist
+www
 .resources
 .husky
+android
+ios
+e2e

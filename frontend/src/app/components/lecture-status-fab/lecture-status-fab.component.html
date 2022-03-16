@@ -1,0 +1,12 @@
+<ion-fab
+  *ngIf="hasChanges || skeleton"
+  vertical="bottom"
+  horizontal="end"
+  slot="fixed"
+  (click)="clearChanges()"
+  title="Änderungen als gelesen markieren"
+>
+  <ion-fab-button>
+    <ion-icon name="checkmark-done"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

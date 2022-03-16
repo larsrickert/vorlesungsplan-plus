@@ -1,0 +1,36 @@
+:root {
+  --app-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  --app-border-radius: 4px;
+
+  --app-color-grey-light: #ffffff;
+  --app-color-grey-medium: #f9f9f9;
+  --app-color-grey-dark: #f2f2f2;
+
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+  --ion-item-background: var(--ion-background-color);
+
+  // used for seachbar, segment bg etc.
+  --app-color-bg-contrast: #ededed;
+  --app-color-bg-contrast-light: #fefefe;
+
+  --app-color-border-contrast: #d7d8da;
+}
+
+body.dark {
+  --app-box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+
+  --app-color-grey-light: #1d1d1d;
+  --app-color-grey-medium: #272727;
+  --app-color-grey-dark: #373737;
+
+  --ion-background-color: #121212;
+  --ion-background-color-rgb: 18, 18, 18;
+  --ion-item-background: var(--ion-background-color);
+
+  // used for seachbar, segment bg etc.
+  --app-color-bg-contrast: var(--app-color-grey-light);
+
+  --app-color-border-contrast: var(--app-color-grey-dark);
+  --app-color-bg-contrast-light: #171717;
+}
