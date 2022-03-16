@@ -16,7 +16,8 @@
     "yes": "Ja",
     "no": "Nein",
     "notAvailableOnPlatform": "Nicht verfügbar für {platform}",
-    "deactivated": "Deaktiviert"
+    "deactivated": "Deaktiviert",
+    "changelog": "Änderungsprotokoll"
   },
   "locales": {
     "de": "Deutsch",

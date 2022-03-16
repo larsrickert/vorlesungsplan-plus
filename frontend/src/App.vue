@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { calendar, cog, documentText, link, school } from 'ionicons/icons';
+import { calendar, cog, documentText, link, openOutline, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
@@ -55,6 +55,11 @@ const subItems = computed<MenuItem[]>(() => {
       title: t('settings.pageName'),
       href: '/settings',
       icon: cog,
+    },
+    {
+      title: t('global.changelog'),
+      href: 'https://github.com/larsrickert/vorlesungsplan-plus/blob/main/frontend/CHANGELOG.md',
+      icon: openOutline,
     },
     {
       title: 'Beta Notes',
