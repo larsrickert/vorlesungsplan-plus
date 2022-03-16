@@ -3,6 +3,10 @@ FROM node:17-alpine3.12 as build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
+
+ARG VITE_APP_API_HOST
+ENV VITE_APP_API_HOST $VITE_APP_API_HOST
+
 COPY . ./
 RUN npm run build
 
