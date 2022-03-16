@@ -1,0 +1,20 @@
+.wrapper {
+  padding: 24px;
+  margin: 24px;
+  box-shadow: var(--app-box-shadow);
+  border-radius: var(--app-border-radius);
+  background: var(--app-color-grey-light);
+  border: 1px solid var(--app-color-border-contrast);
+}
+
+p {
+  line-height: 1.4em;
+}
+
+ol {
+  font-size: 15px;
+
+  li {
+    margin-bottom: 5px;
+  }
+}

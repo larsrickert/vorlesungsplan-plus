@@ -2,16 +2,31 @@ version: '3'
 
 services:
   vorlesungsplan-plus:
-    build: .
+    build: ./frontend
     image: larsrickert/vorlesungsplan-plus
     restart: always
     expose:
       - 80
+    ports:
+      - 80:80
     environment:
-      VIRTUAL_HOST: dhbw.rickstack.de
-      LETSENCRYPT_HOST: dhbw.rickstack.de
+      VIRTUAL_HOST: '${FRONTEND_DOMAIN}'
+      LETSENCRYPT_HOST: '${FRONTEND_DOMAIN}'
 
-networks:
-  default:
-    external:
-      name: nginx-proxy
+  vorlesungsplan-plus-api:
+    build: ./backend
+    image: larsrickert/vorlesungsplan-plus-api
+    restart: always
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    environment:
+      VIRTUAL_HOST: '${BACKEND_DOMAIN}'
+      LETSENCRYPT_HOST: '${BACKEND_DOMAIN}'
+    volumes:
+      - ./logs:/usr/src/app/logs
+# networks:
+#   default:
+#     name: nginx-proxy
+#     external: true

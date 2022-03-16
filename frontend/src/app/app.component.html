@@ -1,0 +1,84 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content>
+        <!-- main navigation -->
+        <ion-list id="mainNav">
+          <!-- app details -->
+          <div class="app-details">
+            <img class="logo" src="../assets/images/logo.svg" alt="Logo" />
+            <div>
+              <ion-label class="app-details__title">Vorlesungsplan+</ion-label>
+              <ion-note>DHBW Mosbach</ion-note>
+            </div>
+          </div>
+
+          <!-- navigation -->
+          <ion-menu-toggle auto-hide="false" *ngFor="let page of navItems">
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[page.url]"
+              lines="none"
+              detail="false"
+              [class.item--selected]="page.url === router.url"
+            >
+              <ion-icon slot="start" [name]="page.icon"></ion-icon>
+              <ion-label>{{ page.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <!-- bottom navigation -->
+        <ion-list>
+          <ion-note>App</ion-note>
+
+          <ion-menu-toggle
+            auto-hide="false"
+            *ngFor="let page of bottomNavItems"
+          >
+            <ion-item
+              routerDirection="root"
+              [routerLink]="[page.url]"
+              lines="none"
+              detail="false"
+              [class.item--selected]="page.url === router.url"
+            >
+              <ion-icon slot="start" [name]="page.icon"></ion-icon>
+              <ion-label>{{ page.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <!-- links -->
+        <details class="showLinks" *ngIf="showLinks">
+          <summary>Verknüpfungen anzeigen</summary>
+
+          <ng-container *ngFor="let link of links">
+            <ion-item
+              class="link"
+              lines="none"
+              detail="false"
+              (click)="navigate(link.href)"
+            >
+              <img
+                class="link__image"
+                [src]="link.image"
+                [alt]="link.title"
+                [title]="link.title"
+              />
+              <ion-label>{{ link.title }}</ion-label>
+            </ion-item>
+            <div *ngIf="link.desc" class="link__desc">
+              <ion-icon
+                class="link__desc__icon"
+                name="information-circle-outline"
+              ></ion-icon>
+              <ion-text>{{ link.desc }}</ion-text>
+            </div>
+          </ng-container>
+        </details>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

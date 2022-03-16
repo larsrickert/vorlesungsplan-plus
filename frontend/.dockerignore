@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.vscode
+.idea
+dist
+www
+.resources
+.husky
+android
+ios
+e2e

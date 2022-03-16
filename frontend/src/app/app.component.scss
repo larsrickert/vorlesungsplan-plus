@@ -1,0 +1,126 @@
+ion-menu {
+  border-color: var(--app-color-border-contrast);
+
+  ion-content {
+    --background: var(--app-color-grey-light);
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    --overflow: hidden;
+  }
+
+  .logo {
+    max-height: 60px;
+    max-width: 50px;
+    width: fit-content;
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  // wrapper with logo, app title and subtitle
+  .app-details {
+    // notches
+    margin-top: constant(safe-area-inset-top);
+    margin-top: env(safe-area-inset-top);
+    margin-bottom: 30px;
+
+    display: flex;
+    align-items: center;
+
+    &__title {
+      display: block;
+      padding-left: 10px;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 5px;
+
+      @media only screen and (max-width: 768px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  // app subtitle and bottom nav title
+  ion-note {
+    padding-left: 10px;
+    font-size: 16px;
+    color: var(--ion-color-medium-shade);
+  }
+
+  #mainNav {
+    border-bottom: 1px solid var(--app-color-border-contrast);
+    margin-bottom: 20px;
+  }
+
+  ion-list {
+    background: transparent;
+  }
+
+  // nav items
+  ion-item {
+    border-radius: var(--app-border-radius);
+    margin: 5px 0px;
+    --padding-start: 10px;
+    --background: transparent;
+    --background-hover: var(--app-color-grey-medium);
+    --background-hover-opacity: 1;
+    --ripple-color: var(--app-color-grey-dark);
+
+    ion-icon {
+      color: #616e7e;
+    }
+  }
+
+  .item--selected {
+    --color: var(--ion-color-primary);
+    --background: rgba(var(--ion-color-primary-rgb), 0.15);
+    --background-hover: rgba(var(--ion-color-primary-rgb), 0.1);
+    --ripple-color: rgba(var(--ion-color-primary-rgb), 0.5);
+
+    ion-icon {
+      color: var(--ion-color-primary);
+    }
+  }
+
+  .showLinks {
+    margin-top: 20px;
+    margin-left: 10px;
+
+    summary {
+      outline: 0;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .link {
+      cursor: pointer;
+
+      &__image {
+        max-height: 30px;
+        max-width: 30px;
+        margin-right: 10px;
+      }
+
+      &__desc {
+        margin-left: 12px;
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        color: var(--ion-color-dark);
+
+        &__icon {
+          font-size: 18px;
+          min-width: 18px;
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .link:hover {
+      --background: var(--app-color-grey-medium);
+    }
+  }
+}

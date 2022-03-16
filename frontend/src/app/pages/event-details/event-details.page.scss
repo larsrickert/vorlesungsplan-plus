@@ -1,0 +1,37 @@
+.wrapper {
+  padding: 24px;
+  box-shadow: var(--app-box-shadow);
+  border-radius: var(--app-border-radius);
+  background: var(--app-color-grey-light);
+  border: 1px solid var(--app-color-border-contrast);
+
+  .title {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px;
+
+    ion-icon {
+      font-size: 20px;
+    }
+
+    .placeholder {
+      color: var(--ion-color-medium);
+    }
+  }
+
+  .description__title {
+    margin-top: 40px;
+  }
+
+  .event__description {
+    font-size: 15px;
+    line-height: 1.4em;
+  }
+}
