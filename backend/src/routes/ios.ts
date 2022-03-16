@@ -1,7 +1,7 @@
-import router from "./index";
-import logger from "../services/logger";
-import environment from "../config/environment";
 import { readFile } from "fs/promises";
+import environment from "../config/environment";
+import logger from "../services/logger";
+import router from "./index";
 
 /**
  * @swagger
@@ -28,7 +28,7 @@ router.get("/ios/widget", async (req, res) => {
     const widget = await readFile(environment.apps.ios.widget.filePath);
     res.send(JSON.parse(widget.toString()));
   } catch (e) {
-    logger.error(e);
+    logger.error(e as Error);
     res.status(500).send("Error while serving iOS Widget.");
   }
 });
