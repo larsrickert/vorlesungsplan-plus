@@ -40,20 +40,10 @@ export class CustomError extends Error {
   /** Generates a string representing the error */
   public toString(): string {
     const { code, message, originalError } = this;
-    let original = '';
-    try {
-      if (originalError && Object.keys(originalError).length) {
-        original = JSON.stringify(originalError);
-      }
-    } catch (e) {
-      /* we don't want to cause an additional error when the original error object can not be stringified */
-      console.warn(e);
-    } finally {
-      if (originalError?.message && !original.length) original = originalError.message;
-    }
-
     const { t } = i18n.global;
 
-    return `${t('global.errorCode')} ${code}: ${message}${original ? ' (' + original + ')' : ''}`;
+    return `${t('global.errorCode')} ${code}: ${message}${
+      originalError ? ' (' + originalError.message + ')' : ''
+    }`;
   }
 }
