@@ -34,6 +34,7 @@ export const useStore = defineStore('main', {
 
       const lectures: Lecture[] = [];
       settingsStore.changeLecturesLastUpdated(new Date());
+      let error: Error | null = null;
 
       for (const course of settingsStore.courses) {
         let _data: ApiLecture[] | null = null;
@@ -45,6 +46,7 @@ export const useStore = defineStore('main', {
           _data = data;
         } catch (e) {
           _data = storedFallbacks;
+          error = error || (e as Error);
 
           if (!_data) {
             throw new CustomError(
@@ -71,6 +73,14 @@ export const useStore = defineStore('main', {
       const sorted = mergeAndSortSameLectures(lectures);
       this.lectureDayBlocks = createLectureBlocks(sorted);
       this.lecturesLoaded = true;
+
+      if (error) {
+        throw new CustomError(
+          ErrorCode.LECTURE_FETCH_FAILED,
+          `Error while fetching lectures. Using cached data if available.`,
+          error
+        );
+      }
     },
     clearChanges() {
       const blocks: DayLectureBlock[] = this.lectureDayBlocks.slice(0);

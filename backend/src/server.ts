@@ -13,7 +13,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerJSDoc(swaggerOptions)))
 app.use(router);
 
 app.listen(environment.port, () => {
-  console.log(`The application is listening on port ${environment.port}!`);
+  console.log(`The application is listening on http://localhost:${environment.port} !`);
 });
 
 require("./routes");

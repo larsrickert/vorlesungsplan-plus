@@ -23,8 +23,15 @@ const props = defineProps<{
 const { t } = useI18n();
 
 const refresh = async (ev: CustomEvent) => {
-  await props.refreshFunc();
-  await (ev.target as HTMLIonRefresherElement).complete();
+  const refresher = ev.target as HTMLIonRefresherElement;
+
+  try {
+    await props.refreshFunc();
+    await refresher.complete();
+  } catch (e) {
+    await refresher.complete();
+    throw e;
+  }
 };
 </script>
 
