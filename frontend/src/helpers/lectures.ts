@@ -105,3 +105,27 @@ export function getLectureStatus(
   if (!inPrevious && inCurrent) return 'added';
   return '';
 }
+
+export function mapLectures(
+  lectures: ApiLecture[],
+  course: string,
+  cachedLectures?: ApiLecture[]
+): Lecture[] {
+  const removedLectures: ApiLecture[] =
+    cachedLectures?.filter((lecture) => {
+      return !lectures.find((l) => l.uid === lecture.uid);
+    }) ?? [];
+
+  const mapped = lectures.concat(removedLectures).map((lecture) => {
+    return {
+      ...lecture,
+      start: new Date(lecture.start),
+      end: new Date(lecture.end),
+      course,
+      status: cachedLectures ? getLectureStatus(lecture, cachedLectures, lectures) : '',
+    };
+  });
+
+  mapped.sort((a, b) => a.start.getTime() - b.start.getTime());
+  return mapped;
+}

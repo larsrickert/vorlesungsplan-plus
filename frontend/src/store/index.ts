@@ -3,8 +3,8 @@ import axiosInstance from '../axios';
 import { isProduction } from '../configs';
 import {
   createLectureBlocks,
-  getLectureStatus,
   isExam,
+  mapLectures,
   mergeAndSortSameLectures,
 } from '../helpers/lectures';
 import { getValue, setValue } from '../helpers/storage';
@@ -32,7 +32,7 @@ export const useStore = defineStore('main', {
         return;
       }
 
-      const lectures: Lecture[] = [];
+      let lectures: Lecture[] = [];
       settingsStore.changeLecturesLastUpdated(new Date());
       let error: Error | null = null;
 
@@ -58,16 +58,7 @@ export const useStore = defineStore('main', {
         }
 
         // mark lectures that are being removed or added
-        _data.forEach((lecture) => {
-          lectures.push({
-            ...lecture,
-            start: new Date(lecture.start),
-            end: new Date(lecture.end),
-            course,
-            status:
-              storedFallbacks && _data ? getLectureStatus(lecture, storedFallbacks, _data) : '',
-          });
-        });
+        lectures = lectures.concat(mapLectures(_data, course, storedFallbacks ?? undefined));
       }
 
       const sorted = mergeAndSortSameLectures(lectures);
@@ -83,11 +74,14 @@ export const useStore = defineStore('main', {
       }
     },
     clearChanges() {
-      const blocks: DayLectureBlock[] = this.lectureDayBlocks.slice(0);
-      blocks.forEach((block) => {
+      const blocks: DayLectureBlock[] = [];
+      this.lectureDayBlocks.slice(0).forEach((block) => {
+        block.lectures = block.lectures.filter((lecture) => lecture.status !== 'removed');
         block.lectures.forEach((lecture) => {
           lecture.status = '';
         });
+
+        if (block.lectures.length) blocks.push(block);
       });
       this.lectureDayBlocks = blocks;
     },
