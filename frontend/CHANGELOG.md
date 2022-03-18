@@ -1,3 +1,13 @@
+# [vorlesungsplan-plus-v1.0.0-beta.3](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.2...vorlesungsplan-plus-v1.0.0-beta.3) (2022-03-18)
+
+
+### Bug Fixes
+
+* Added dynamic branch name to changelog url ([ab50dc4](https://github.com/larsrickert/vorlesungsplan-plus/commit/ab50dc485ee67fb17e2d69a026367c9fbc11c22f))
+* Fixed changed lecture status ([1f38a63](https://github.com/larsrickert/vorlesungsplan-plus/commit/1f38a63eb7ed4d486d2c128017560c1756ee6d32))
+* Made lecture changes/status persistant ([dff4706](https://github.com/larsrickert/vorlesungsplan-plus/commit/dff4706500c54df90d6ce50ba90e6a04b6ebc083))
+* Showing error when using cached lectures ([2952699](https://github.com/larsrickert/vorlesungsplan-plus/commit/2952699d7ef368e758315c9dd46c100ca76611c0))
+
 # [vorlesungsplan-plus-v1.0.0-beta.2](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.1...vorlesungsplan-plus-v1.0.0-beta.2) (2022-03-16)
 
 
