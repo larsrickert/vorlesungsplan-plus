@@ -58,7 +58,9 @@ const subItems = computed<MenuItem[]>(() => {
     },
     {
       title: t('global.changelog'),
-      href: 'https://github.com/larsrickert/vorlesungsplan-plus/blob/main/frontend/CHANGELOG.md',
+      href: `https://github.com/larsrickert/vorlesungsplan-plus/blob/${
+        appVersion.includes('beta') ? 'beta' : 'main'
+      }/frontend/CHANGELOG.md`,
       icon: openOutline,
     },
     {
