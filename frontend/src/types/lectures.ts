@@ -11,10 +11,12 @@ export interface Lecture {
 
 export type LectureStatus = 'added' | 'removed' | '';
 
-export type ApiLecture = Omit<Lecture, 'start' | 'end' | 'course' | 'status'> & {
+export type LectureWithStringDate = Omit<Lecture, 'start' | 'end'> & {
   start: string;
   end: string;
 };
+
+export type ApiLecture = Omit<LectureWithStringDate, 'course' | 'status'>;
 export type MergedLecture = Omit<Lecture, 'course' | 'uid'> & { courses: string[]; uids: string[] };
 
 export interface DayLectureBlock {

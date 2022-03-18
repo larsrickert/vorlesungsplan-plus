@@ -13,7 +13,7 @@ async function configureStorage() {
   if (isConfigured) return;
 
   await Storage.configure({
-    group: 'VorlesungsplanPlusV2',
+    group: 'VorlesungsplanPlus',
   });
   isConfigured = true;
 }

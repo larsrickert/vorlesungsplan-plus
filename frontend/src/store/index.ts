@@ -10,7 +10,13 @@ import {
 import { getValue, setValue } from '../helpers/storage';
 import { loggerPlugin } from '../store/plugins/logger';
 import { CustomError, ErrorCode } from '../types/errors';
-import { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
+import {
+  ApiLecture,
+  DayLectureBlock,
+  Lecture,
+  LectureWithStringDate,
+  MergedLecture,
+} from '../types/lectures';
 import { useSettingsStore } from './settings';
 
 export const pinia = createPinia();
@@ -38,27 +44,31 @@ export const useStore = defineStore('main', {
 
       for (const course of settingsStore.courses) {
         let _data: ApiLecture[] | null = null;
-        const storedFallbacks = await getValue<ApiLecture[]>(`lectures-${course}`);
+        const storedFallbacks = await getValue<LectureWithStringDate[]>(`lectures-${course}`);
+        const cachedLectures: Lecture[] | undefined = storedFallbacks?.map((lecture) => {
+          return {
+            ...lecture,
+            start: new Date(lecture.start),
+            end: new Date(lecture.end),
+          };
+        });
 
         try {
           const { data } = await axiosInstance.get<ApiLecture[]>(`lectures/${course}`);
-          await setValue(`lectures-${course}`, data);
           _data = data;
         } catch (e) {
-          _data = storedFallbacks;
           error = error || (e as Error);
-
-          if (!_data) {
-            throw new CustomError(
-              ErrorCode.LECTURE_FETCH_FAILED,
-              `Error while fetching lectures for course ${course}`,
-              e as Error
-            );
-          }
         }
 
         // mark lectures that are being removed or added
-        lectures = lectures.concat(mapLectures(_data, course, storedFallbacks ?? undefined));
+        const mappedLectures: Lecture[] | undefined = _data
+          ? mapLectures(_data, course, cachedLectures)
+          : cachedLectures;
+
+        if (mappedLectures) {
+          await setValue(`lectures-${course}`, mappedLectures);
+          lectures = lectures.concat(mappedLectures);
+        }
       }
 
       const sorted = mergeAndSortSameLectures(lectures);
@@ -73,7 +83,7 @@ export const useStore = defineStore('main', {
         );
       }
     },
-    clearChanges() {
+    async clearChanges() {
       const blocks: DayLectureBlock[] = [];
       this.lectureDayBlocks.slice(0).forEach((block) => {
         block.lectures = block.lectures.filter((lecture) => lecture.status !== 'removed');
@@ -84,6 +94,23 @@ export const useStore = defineStore('main', {
         if (block.lectures.length) blocks.push(block);
       });
       this.lectureDayBlocks = blocks;
+
+      // clear status of stored/cached lectures
+      for (const course of useSettingsStore().courses) {
+        const storedFallbacks = await getValue<LectureWithStringDate[]>(`lectures-${course}`);
+        if (storedFallbacks) {
+          const lectures: LectureWithStringDate[] = storedFallbacks
+            .filter((lecture) => {
+              return this.lectures.find((l) => l.uids.includes(lecture.uid));
+            })
+            .map((lecture) => {
+              lecture.status = '';
+              return lecture;
+            });
+
+          await setValue(`lectures-${course}`, lectures);
+        }
+      }
     },
   },
   getters: {

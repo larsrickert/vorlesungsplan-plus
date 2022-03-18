@@ -95,28 +95,33 @@ export function isExam(lecture: MergedLecture): boolean {
 
 export function getLectureStatus(
   lecture: ApiLecture,
-  previous: ApiLecture[],
+  previous: Lecture[],
   current: ApiLecture[]
 ): LectureStatus {
-  const inPrevious = !!previous.find((i) => i.uid === lecture.uid);
-  const inCurrent = !!current.find((i) => i.uid === lecture.uid);
+  const inPrevious = previous.find((i) => i.uid === lecture.uid);
+  const inCurrent = current.find((i) => i.uid === lecture.uid);
 
   if (inPrevious && !inCurrent) return 'removed';
   if (!inPrevious && inCurrent) return 'added';
+  if (inPrevious && inCurrent) return inPrevious.status === 'removed' ? 'added' : inPrevious.status;
   return '';
 }
 
 export function mapLectures(
   lectures: ApiLecture[],
   course: string,
-  cachedLectures?: ApiLecture[]
+  cachedLectures?: Lecture[]
 ): Lecture[] {
-  const removedLectures: ApiLecture[] =
-    cachedLectures?.filter((lecture) => {
-      return !lectures.find((l) => l.uid === lecture.uid);
-    }) ?? [];
+  const removedLectures: Lecture[] =
+    cachedLectures
+      ?.filter((lecture) => {
+        return !lectures.find((l) => l.uid === lecture.uid);
+      })
+      .map((lecture) => {
+        return { ...lecture, status: 'removed' };
+      }) ?? [];
 
-  const mapped = lectures.concat(removedLectures).map((lecture) => {
+  let mapped: Lecture[] = lectures.map((lecture) => {
     return {
       ...lecture,
       start: new Date(lecture.start),
@@ -126,6 +131,7 @@ export function mapLectures(
     };
   });
 
+  mapped = mapped.concat(removedLectures);
   mapped.sort((a, b) => a.start.getTime() - b.start.getTime());
   return mapped;
 }
