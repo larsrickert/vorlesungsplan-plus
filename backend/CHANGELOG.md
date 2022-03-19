@@ -15,8 +15,8 @@
 - Removed deprecated property `lastModified`
 - Added property `type` which is either `PRESENCE` or `ONLINE` and indicates whether the lecture is online or presence
 - Added property `isExam` which indicates whether the lecture is an exam (will be false for exam reviews (Klausureinsicht))
-* Removed deprecated course name mappings for `INF19A`, `INF19B` and `MGH-INF19`
-* Returning all lectures by default instead of only upcomig ones
+* Removed deprecated course name mappings for `INF19A`, `INF19B` and `MGH-INF19`. Please use the updated course names `MOS-TINF19A`, `MOS-TINF19B` and `MGH-TINF19`.
+* Returning all lectures by default instead of only upcoming ones
 
 All lectures (including past ones) will now be returned by the API by default instead of only upcoming
 ones. You can use the query parameter `excludePast=true` to filter out past lectures.
