@@ -1,3 +1,32 @@
+# [vorlesungsplan-plus-api-v1.0.0-beta.4](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.3...vorlesungsplan-plus-api-v1.0.0-beta.4) (2022-03-19)
+
+
+### Bug Fixes
+
+* Fixed swagger docs in prod ([de431fe](https://github.com/larsrickert/vorlesungsplan-plus/commit/de431fef38308ee7c3dc2c619f2a196f01fe035c))
+* Logger middleware not called ([9343238](https://github.com/larsrickert/vorlesungsplan-plus/commit/9343238a2ae9a84c08236aee15ec3df8feaa4653))
+
+
+### Code Refactoring
+
+* Refactored config and logger ([5ccf815](https://github.com/larsrickert/vorlesungsplan-plus/commit/5ccf81575bbc4885b7f48d50d609deec12b4ab8d))
+* Removed deprecated route "/" ([037d1f5](https://github.com/larsrickert/vorlesungsplan-plus/commit/037d1f55a6a1a9a7c2fe67a6819b5c6b1341483e))
+
+
+### Features
+
+* Removed android APK ([8e14167](https://github.com/larsrickert/vorlesungsplan-plus/commit/8e1416700fc926d2048e79dbca812e39e739b84e))
+
+
+### BREAKING CHANGES
+
+* Removed deprecated route "/"
+
+The deprecated route `/` is removed.
+Please use `/courses` and `/lectures/{course}` instead.
+* Removed deprecated route `/help`, use `/docs` instead.
+* Removed Android APK
+
 # [vorlesungsplan-plus-api-v1.0.0-beta.3](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.2...vorlesungsplan-plus-api-v1.0.0-beta.3) (2022-03-19)
 
 
