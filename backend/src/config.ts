@@ -15,7 +15,7 @@ const config: IConfig = {
       origin: '*',
     },
     swagger: {
-      apis: ['./src/routes/*.ts'],
+      apis: [path.join(__dirname, '/routes/*.{js,ts}')],
       definition: {
         openapi: '3.0.0',
         info: {
