@@ -22,10 +22,10 @@ const config: IConfig = {
           title: 'Vorlesungsplan+ API',
           version,
           description:
-            'JavaScript API for the courses, lectures and events of the DHBW Mosbach. For more information, visit https://github.com/larsrickert/vorlesungsplan-plus',
+            'Node.js API for fetching courses, lectures and events of the DHBW Mosbach and Bad Mergentheim. For more information, visit https://github.com/larsrickert/vorlesungsplan-plus',
           contact: {
             name: 'Lars Rickert',
-            url: 'https://github.com/larsrickert/vorlesungsplan-plus',
+            url: 'https://lars-rickert.de',
             email: 'dev@lars-rickert.de',
           },
         },
@@ -35,8 +35,12 @@ const config: IConfig = {
             description: 'Production server',
           },
           {
+            url: 'https://api-beta.rickstack.de',
+            description: 'Beta server',
+          },
+          {
             url: `http://localhost:${appPort}`,
-            description: 'Development server',
+            description: 'Local development server',
           },
         ],
       },
