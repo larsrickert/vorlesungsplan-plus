@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.4](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.3...vorlesungsplan-plus-v1.0.0-beta.4) (2022-03-19)
+
+
+### Features
+
+* refactored lecture data structure ([8ee83ac](https://github.com/larsrickert/vorlesungsplan-plus/commit/8ee83ac10d4c3b0621c24eb4598bff5763d78527))
+
 # [vorlesungsplan-plus-v1.0.0-beta.3](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.2...vorlesungsplan-plus-v1.0.0-beta.3) (2022-03-18)
 
 
