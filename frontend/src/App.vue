@@ -15,9 +15,10 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { calendar, cog, mail, openOutline, school } from 'ionicons/icons';
+import { calendar, cog, openOutline, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import LogoUrl from './assets/logo.svg';
 import SideMenu from './components/SideMenu.vue';
 import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
@@ -57,15 +58,17 @@ const subItems = computed<MenuItem[]>(() => {
       icon: cog,
     },
     {
-      title: t('global.contact'),
-      href: 'mailto:dev@lars-rickert.de',
-      icon: mail,
-    },
-    {
       title: t('global.changelog'),
       href: `https://github.com/larsrickert/vorlesungsplan-plus/blob/${
         appVersion.includes('beta') ? 'beta' : 'main'
       }/frontend/CHANGELOG.md`,
+      icon: openOutline,
+    },
+    {
+      title: t('global.aboutTheApp'),
+      href: `https://github.com/larsrickert/vorlesungsplan-plus/blob/${
+        appVersion.includes('beta') ? 'beta' : 'main'
+      }/README.md`,
       icon: openOutline,
     },
   ];
@@ -78,6 +81,7 @@ networkStore.initListener();
 
 const store = useStore();
 const notificationStore = useNotificationStore();
+const router = useRouter();
 
 settingsStore.loadAndInitDefaults().then(() => {
   store.fetchLectures();
@@ -89,6 +93,16 @@ settingsStore.loadAndInitDefaults().then(() => {
       await notificationStore.scheduleLectureNotifications();
     });
   });
+
+  // redirect to settings page if no courses are set
+  if (!settingsStore.courses.length) {
+    router.push('/settings');
+    showToast({
+      message: t('settings.selectCoursesToast'),
+      color: 'warning',
+      duration: 7500,
+    });
+  }
 });
 
 // re-schedule notifications when notification time changes
