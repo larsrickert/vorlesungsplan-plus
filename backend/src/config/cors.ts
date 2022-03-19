@@ -1,8 +1,8 @@
-import { CorsOptions } from "cors";
+import { CorsOptions } from 'cors';
 
 const corsOptions: CorsOptions = {
-  methods: ["GET"],
-  origin: "*",
+  methods: ['GET'],
+  origin: '*',
 };
 
 export default corsOptions;

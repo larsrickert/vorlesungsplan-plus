@@ -1,5 +1,5 @@
-import loggerConfig from "../config/logger";
-import { appendFile, mkdir, stat, unlink } from "fs/promises";
+import loggerConfig from '../config/logger';
+import { appendFile, mkdir, stat, unlink } from 'fs/promises';
 
 class Logger {
   /**
@@ -9,7 +9,10 @@ class Logger {
    * @param message Message to append.
    * @param fileName Filename inside logger directory to append the message to.
    */
-  private static async appendToFile(message: string, fileName: string): Promise<void> {
+  private static async appendToFile(
+    message: string,
+    fileName: string
+  ): Promise<void> {
     try {
       await mkdir(loggerConfig.dir, { recursive: true });
       const path = `${loggerConfig.dir}${fileName}`;

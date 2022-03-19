@@ -1,5 +1,5 @@
-import express from "express";
-import logger from "../helpers/logger";
+import express from 'express';
+import logger from '../helpers/logger';
 
 const router = express.Router();
 export default router;
@@ -127,21 +127,21 @@ export default router;
  *                  items:
  *                    $ref: "#/components/schemas/Lecture"
  */
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   logger.log(`Request to route "/"`);
 
-  if (req.query.course && typeof req.query.course === "string") {
-    const isArchiveView = req.query.view && req.query.view === "archive";
-    const queryParams = !isArchiveView ? "?excludePast=true" : "";
+  if (req.query.course && typeof req.query.course === 'string') {
+    const isArchiveView = req.query.view && req.query.view === 'archive';
+    const queryParams = !isArchiveView ? '?excludePast=true' : '';
 
     res.redirect(301, `/lectures/${req.query.course}${queryParams}`);
-  } else res.redirect(301, "/courses");
+  } else res.redirect(301, '/courses');
 });
 
-require("./android");
-require("./courses");
-require("./events");
-require("./ios");
-require("./lectures");
-require("./mail");
-require("./redirects");
+require('./android');
+require('./courses');
+require('./events');
+require('./ios');
+require('./lectures');
+require('./mail');
+require('./redirects');

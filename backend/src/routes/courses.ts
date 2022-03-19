@@ -1,6 +1,6 @@
-import logger from "../helpers/logger";
-import { fetchCourses } from "../services/courses";
-import router from "./index";
+import logger from '../helpers/logger';
+import { fetchCourses } from '../services/courses';
+import router from './index';
 
 /**
  * @swagger
@@ -18,7 +18,7 @@ import router from "./index";
  *              items:
  *                type: string
  */
-router.get("/courses", async (req, res) => {
-  logger.log("Request to /courses");
+router.get('/courses', async (req, res) => {
+  logger.log('Request to /courses');
   res.send(await fetchCourses());
 });

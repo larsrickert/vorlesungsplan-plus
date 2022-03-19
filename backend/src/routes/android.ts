@@ -1,6 +1,6 @@
-import environment from "../config/environment";
-import logger from "../helpers/logger";
-import router from "./index";
+import environment from '../config/environment';
+import logger from '../helpers/logger';
+import router from './index';
 
 /**
  * @swagger
@@ -22,13 +22,13 @@ import router from "./index";
  *            schema:
  *              type: string
  */
-router.get("/android", (req, res) => {
-  logger.log("Request to /android");
+router.get('/android', (req, res) => {
+  logger.log('Request to /android');
 
   res.sendFile(environment.apps.android.filePath, (err) => {
     if (err) {
       logger.error(err);
-      res.status(500).send("Error while serving Android APK.");
+      res.status(500).send('Error while serving Android APK.');
     }
   });
 });
@@ -45,7 +45,7 @@ router.get("/android", (req, res) => {
  *            schema:
  *              $ref: "#/components/schemas/AppVersion"
  */
-router.get("/android/version", (req, res) => {
-  logger.log("Request to /android/version");
+router.get('/android/version', (req, res) => {
+  logger.log('Request to /android/version');
   res.send({ version: environment.apps.android.version });
 });

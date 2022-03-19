@@ -1,4 +1,4 @@
-export type LectureType = "PRESENCE" | "ONLINE";
+export type LectureType = 'PRESENCE' | 'ONLINE';
 
 export interface IStuVLecture {
   id: number;

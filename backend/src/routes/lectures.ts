@@ -1,6 +1,6 @@
-import logger from "../helpers/logger";
-import { fetchLectures } from "../services/lectures";
-import router from "./index";
+import logger from '../helpers/logger';
+import { fetchLectures } from '../services/lectures';
+import router from './index';
 
 /**
  * @swagger
@@ -25,12 +25,12 @@ import router from "./index";
  *              items:
  *                $ref: "#/components/schemas/Lecture"
  */
-router.get("/lectures/:id", async (req, res) => {
+router.get('/lectures/:id', async (req, res) => {
   logger.log(`Request to /lectures/${req.params.id}`);
 
   const lectures = await fetchLectures(req.params.id);
 
-  if (req.query.excludePast === "true") {
+  if (req.query.excludePast === 'true') {
     res.send(lectures.filter((l) => new Date(l.end).getTime() > Date.now()));
   } else res.send(lectures);
 });

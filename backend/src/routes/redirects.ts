@@ -1,5 +1,5 @@
-import router from "./index";
+import router from './index';
 
-router.get("/help", (req, res) => {
-  res.redirect(301, "/docs");
+router.get('/help', (req, res) => {
+  res.redirect(301, '/docs');
 });
