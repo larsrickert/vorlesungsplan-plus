@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.5](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.4...vorlesungsplan-plus-v1.0.0-beta.5) (2022-03-19)
+
+
+### Features
+
+* added contact link to menu ([37c2a50](https://github.com/larsrickert/vorlesungsplan-plus/commit/37c2a50a89a5dd70cf999c836f9b83cfda1f7f1f))
+
 # [vorlesungsplan-plus-v1.0.0-beta.4](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.3...vorlesungsplan-plus-v1.0.0-beta.4) (2022-03-19)
 
 
