@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.6](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.5...vorlesungsplan-plus-v1.0.0-beta.6) (2022-03-19)
+
+
+### Features
+
+* redirect to settings on initial app launch ([b597cd2](https://github.com/larsrickert/vorlesungsplan-plus/commit/b597cd239caea7c972693296f8669d54817f3a56))
+
 # [vorlesungsplan-plus-v1.0.0-beta.5](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.4...vorlesungsplan-plus-v1.0.0-beta.5) (2022-03-19)
 
 
