@@ -39,7 +39,11 @@
       "changes": "Änderungen ({count})"
     },
     "noLecturesText": "Viel Spaß in der Praxisphase!",
-    "clearChanges": "Änderungen als gelesen markieren"
+    "clearChanges": "Änderungen als gelesen markieren",
+    "showPastLectures": "Vergangene Vorlesungen anzeigen",
+    "showingPastLecturesToast": "Vergangene Vorlesungen werden jetzt angezeigt.",
+    "hidePastLectures": "Vergangene Vorlesungen ausblenden",
+    "hidingPastLecturesToast": "Vergangene Vorlesungen sind jetzt ausgeblendet."
   },
   "settings": {
     "pageName": "Einstellungen",

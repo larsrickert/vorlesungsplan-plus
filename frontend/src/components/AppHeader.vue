@@ -8,6 +8,10 @@
 
       <IonTitle>{{ title }}</IonTitle>
 
+      <div slot="end">
+        <slot></slot>
+      </div>
+
       <IonButton
         v-if="showClose"
         slot="end"

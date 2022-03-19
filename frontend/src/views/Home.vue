@@ -1,6 +1,22 @@
 <template>
   <IonPage>
-    <AppHeader :title="headerTitle" />
+    <AppHeader :title="headerTitle">
+      <IonButton
+        class="archived-btn"
+        :class="{ 'archived-btn--active': store.showArchivedLectures }"
+        fill="clear"
+        shape="round"
+        size="large"
+        :title="
+          store.showArchivedLectures
+            ? t('timetable.hidePastLectures')
+            : t('timetable.showPastLectures')
+        "
+        @click="toggleArchiveView"
+      >
+        <IonIcon :icon="timeOutline" />
+      </IonButton>
+    </AppHeader>
 
     <IonContent :fullscreen="true">
       <div class="page__content">
@@ -47,7 +63,7 @@
 
               <div v-show="selectedSegment === 'all'">
                 <AppLectureBlock
-                  v-for="block of store.upcomingLectureDayBlocks"
+                  v-for="block of store.shownLectureDayBlocks"
                   :key="block.date.toISOString()"
                   :date="block.date"
                   :lectures="block.lectures"
@@ -87,8 +103,8 @@
 </template>
 
 <script lang="ts" setup>
-import { IonContent, IonPage, IonProgressBar, IonSearchbar } from '@ionic/vue';
-import { checkmarkDone } from 'ionicons/icons';
+import { IonButton, IonContent, IonIcon, IonPage, IonProgressBar, IonSearchbar } from '@ionic/vue';
+import { checkmarkDone, timeOutline } from 'ionicons/icons';
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppFab from '../components/AppFab.vue';
@@ -157,10 +173,35 @@ const searchValue = ref('');
 const searchBlocks = computed((): DayLectureBlock[] => {
   return store.filteredLectureDayBlocks(searchValue.value);
 });
+
+const toggleArchiveView = async () => {
+  store.showArchivedLectures = !store.showArchivedLectures;
+
+  await showToast({
+    message: store.showArchivedLectures
+      ? t('timetable.showingPastLecturesToast')
+      : t('timetable.hidingPastLecturesToast'),
+    duration: 2500,
+  });
+};
 </script>
 
 <style lang="scss" scoped>
 ion-searchbar {
   margin-bottom: 20px;
+}
+
+.archived-btn {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-bottom: 10px;
+  --padding-top: 10px;
+  width: 48px;
+  height: 48px;
+  --color: #ffffff;
+
+  &--active {
+    --background: rgba(255, 255, 255, 0.15);
+  }
 }
 </style>

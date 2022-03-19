@@ -16,6 +16,7 @@ export const useStore = defineStore('main', {
     return {
       lectureDayBlocks: [] as DayLectureBlock[],
       lecturesLoaded: false,
+      showArchivedLectures: false,
     };
   },
   actions: {
@@ -98,10 +99,12 @@ export const useStore = defineStore('main', {
   getters: {
     lectures(): MergedLecture[] {
       const lectures: MergedLecture[] = [];
-      this.upcomingLectureDayBlocks.forEach((block) => lectures.push(...block.lectures));
+      this.shownLectureDayBlocks.forEach((block) => lectures.push(...block.lectures));
       return lectures;
     },
-    upcomingLectureDayBlocks(): DayLectureBlock[] {
+    shownLectureDayBlocks(): DayLectureBlock[] {
+      if (this.showArchivedLectures) return this.lectureDayBlocks;
+
       const blocks: DayLectureBlock[] = [];
 
       this.lectureDayBlocks.forEach((block) => {
@@ -117,7 +120,7 @@ export const useStore = defineStore('main', {
     presenceLectureDayBlocks(): DayLectureBlock[] {
       const blocks: DayLectureBlock[] = [];
 
-      this.lectureDayBlocks.forEach((block) => {
+      this.shownLectureDayBlocks.forEach((block) => {
         const lectures = block.lectures.filter((lecture) => lecture.type === 'PRESENCE');
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
@@ -128,7 +131,7 @@ export const useStore = defineStore('main', {
     changedLectureDayBlocks(): DayLectureBlock[] {
       const blocks: DayLectureBlock[] = [];
 
-      this.lectureDayBlocks.forEach((block) => {
+      this.shownLectureDayBlocks.forEach((block) => {
         const lectures = block.lectures.filter((lecture) => lecture.status);
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
@@ -139,7 +142,7 @@ export const useStore = defineStore('main', {
     examLectureDayBlocks(): DayLectureBlock[] {
       const blocks: DayLectureBlock[] = [];
 
-      this.lectureDayBlocks.forEach((block) => {
+      this.shownLectureDayBlocks.forEach((block) => {
         const lectures = block.lectures.filter((lecture) => lecture.isExam);
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
@@ -148,7 +151,7 @@ export const useStore = defineStore('main', {
       return blocks;
     },
     countUpcomingLectures(): number {
-      return this.upcomingLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
+      return this.shownLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
     countPresenceLectures(): number {
       return this.presenceLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
@@ -164,7 +167,7 @@ export const useStore = defineStore('main', {
         const blocks: DayLectureBlock[] = [];
         const searchLc = searchValue.toLowerCase();
 
-        this.lectureDayBlocks.forEach((block) => {
+        this.shownLectureDayBlocks.forEach((block) => {
           const lectures = block.lectures.filter((lecture) => {
             return (
               lecture.name.toLowerCase().includes(searchLc) ||
