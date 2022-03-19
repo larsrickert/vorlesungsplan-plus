@@ -1,6 +1,6 @@
 import axios from "axios";
 import environment from "../config/environment";
-import { cache, CacheKey } from "./cache";
+import { cache, CacheKey } from "../helpers/cache";
 
 /**
  * Fetches all available courses at the DHBW. Uses cached data if possible.

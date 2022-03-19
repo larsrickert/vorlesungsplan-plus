@@ -12,7 +12,7 @@
       <IonIcon v-else :icon="closeCircleOutline" color="danger" />
     </div>
 
-    <div v-else-if="isExam(lecture)" slot="start" class="icon">
+    <div v-else-if="lecture.isExam" slot="start" class="icon">
       <IonIcon :icon="documentTextOutline" />
     </div>
 
@@ -40,7 +40,7 @@
           <IonText class="lecture__lecturer">{{ lecture.lecturer }}</IonText>
         </div>
 
-        <IonText>{{ lecture.room }}</IonText>
+        <IonText>{{ lecture.rooms.join(', ') }}</IonText>
       </div>
     </div>
   </IonItem>
@@ -52,7 +52,6 @@ import { addCircleOutline, closeCircleOutline, documentTextOutline } from 'ionic
 import { onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import config from '../configs';
-import { isExam } from '../helpers/lectures';
 import { useSettingsStore } from '../store/settings';
 import { MergedLecture } from '../types/lectures';
 
@@ -69,8 +68,8 @@ const progress = ref<number | null>(null);
 
 const calculateProgress = () => {
   const now = Date.now();
-  const startTime = props.lecture.start.getTime();
-  const endTime = props.lecture.end.getTime();
+  const startTime = new Date(props.lecture.start).getTime();
+  const endTime = new Date(props.lecture.end).getTime();
 
   if (now > startTime && now < endTime) {
     progress.value = (now - startTime) / (endTime - startTime);

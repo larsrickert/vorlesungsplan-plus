@@ -1,6 +1,6 @@
-import router from "./index";
-import logger from "../services/logger";
 import environment from "../config/environment";
+import logger from "../helpers/logger";
+import router from "./index";
 
 /**
  * @swagger

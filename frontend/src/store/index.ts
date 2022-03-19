@@ -1,22 +1,11 @@
 import { createPinia, defineStore } from 'pinia';
 import axiosInstance from '../axios';
 import { isProduction } from '../configs';
-import {
-  createLectureBlocks,
-  isExam,
-  mapLectures,
-  mergeAndSortSameLectures,
-} from '../helpers/lectures';
+import { createLectureBlocks, mapLectures, mergeAndSortSameLectures } from '../helpers/lectures';
 import { getValue, setValue } from '../helpers/storage';
 import { loggerPlugin } from '../store/plugins/logger';
 import { CustomError, ErrorCode } from '../types/errors';
-import {
-  ApiLecture,
-  DayLectureBlock,
-  Lecture,
-  LectureWithStringDate,
-  MergedLecture,
-} from '../types/lectures';
+import { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
 import { useSettingsStore } from './settings';
 
 export const pinia = createPinia();
@@ -44,14 +33,7 @@ export const useStore = defineStore('main', {
 
       for (const course of settingsStore.courses) {
         let _data: ApiLecture[] | null = null;
-        const storedFallbacks = await getValue<LectureWithStringDate[]>(`lectures-${course}`);
-        const cachedLectures: Lecture[] | undefined = storedFallbacks?.map((lecture) => {
-          return {
-            ...lecture,
-            start: new Date(lecture.start),
-            end: new Date(lecture.end),
-          };
-        });
+        const storedFallbacks = await getValue<Lecture[]>(`lectures-${course}`);
 
         try {
           const { data } = await axiosInstance.get<ApiLecture[]>(`lectures/${course}`);
@@ -61,9 +43,9 @@ export const useStore = defineStore('main', {
         }
 
         // mark lectures that are being removed or added
-        const mappedLectures: Lecture[] | undefined = _data
-          ? mapLectures(_data, course, cachedLectures)
-          : cachedLectures;
+        const mappedLectures: Lecture[] | null = _data
+          ? mapLectures(_data, storedFallbacks ?? undefined)
+          : storedFallbacks;
 
         if (mappedLectures) {
           await setValue(`lectures-${course}`, mappedLectures);
@@ -97,11 +79,11 @@ export const useStore = defineStore('main', {
 
       // clear status of stored/cached lectures
       for (const course of useSettingsStore().courses) {
-        const storedFallbacks = await getValue<LectureWithStringDate[]>(`lectures-${course}`);
+        const storedFallbacks = await getValue<Lecture[]>(`lectures-${course}`);
         if (storedFallbacks) {
-          const lectures: LectureWithStringDate[] = storedFallbacks
+          const lectures: Lecture[] = storedFallbacks
             .filter((lecture) => {
-              return this.lectures.find((l) => l.uids.includes(lecture.uid));
+              return this.lectures.find((l) => l.ids.includes(lecture.id));
             })
             .map((lecture) => {
               lecture.status = '';
@@ -124,7 +106,7 @@ export const useStore = defineStore('main', {
 
       this.lectureDayBlocks.forEach((block) => {
         const lectures = block.lectures.filter((lecture) => {
-          return lecture.end.getTime() > Date.now();
+          return new Date(lecture.end).getTime() > Date.now();
         });
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
@@ -136,7 +118,7 @@ export const useStore = defineStore('main', {
       const blocks: DayLectureBlock[] = [];
 
       this.lectureDayBlocks.forEach((block) => {
-        const lectures = block.lectures.filter((lecture) => lecture.room);
+        const lectures = block.lectures.filter((lecture) => lecture.type === 'PRESENCE');
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
       });
@@ -158,7 +140,7 @@ export const useStore = defineStore('main', {
       const blocks: DayLectureBlock[] = [];
 
       this.lectureDayBlocks.forEach((block) => {
-        const lectures = block.lectures.filter((lecture) => isExam(lecture));
+        const lectures = block.lectures.filter((lecture) => lecture.isExam);
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
       });
@@ -177,8 +159,8 @@ export const useStore = defineStore('main', {
     countChangedLectures(): number {
       return this.changedLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
-    filteredLectureDayBlocks(): (seachvalue: string) => DayLectureBlock[] {
-      return (searchValue: string) => {
+    filteredLectureDayBlocks(): (searchvalue: string) => DayLectureBlock[] {
+      return (searchValue) => {
         const blocks: DayLectureBlock[] = [];
         const searchLc = searchValue.toLowerCase();
 
@@ -187,7 +169,7 @@ export const useStore = defineStore('main', {
             return (
               lecture.name.toLowerCase().includes(searchLc) ||
               lecture.lecturer.toLowerCase().includes(searchLc) ||
-              lecture.room.includes(searchLc)
+              lecture.rooms.includes(searchLc)
             );
           });
           if (!lectures.length) return;

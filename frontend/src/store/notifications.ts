@@ -51,7 +51,7 @@ export const useNotificationStore = defineStore('notifications', {
         const now = new Date();
 
         // lecture is currently active/started, so dont send notification
-        if (lecture.start.getTime() < now.getTime()) continue;
+        if (new Date(lecture.start).getTime() < now.getTime()) continue;
 
         const scheduleDate = new Date(lecture.start);
         scheduleDate.setMinutes(scheduleDate.getMinutes() - scheduleOffsetMinutes);

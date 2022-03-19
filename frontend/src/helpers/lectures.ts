@@ -28,7 +28,9 @@ export function createLectureBlocks(lectures: MergedLecture[]): DayLectureBlock[
 }
 
 export function mergeAndSortSameLectures(lectures: Lecture[]): MergedLecture[] {
-  const sorted = lectures.slice().sort((a, b) => a.start.getTime() - b.start.getTime());
+  const sorted = lectures
+    .slice()
+    .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
 
   const merged: MergedLecture[] = [];
 
@@ -39,41 +41,50 @@ export function mergeAndSortSameLectures(lectures: Lecture[]): MergedLecture[] {
       const a = sorted[i];
       const b = sorted[i + 1];
 
-      if (!lastMerged?.uids.includes(a.uid)) {
+      if (!lastMerged?.ids.includes(a.id)) {
         // 1: first was not already added to merged
         merged.push({
-          uids: [a.uid, b.uid],
+          ids: [a.id, b.id],
           courses: a.course === b.course ? [a.course] : [a.course, b.course],
           start: a.start,
           end: a.end,
           lecturer: a.lecturer,
           name: a.name,
-          room: a.room,
+          rooms: a.rooms,
           status: a.status,
+          type: a.type,
+          isExam: a.isExam || b.isExam,
         });
       } else {
         // 2: first was already added to merged
-        if (!lastMerged.uids.includes(b.uid)) lastMerged.uids.push(b.uid);
-        if (!lastMerged.courses.includes(b.course)) lastMerged.uids.push(b.course);
+        if (!lastMerged.ids.includes(b.id)) lastMerged.ids.push(b.id);
+        if (!lastMerged.courses.includes(b.course)) lastMerged.courses.push(b.course);
       }
 
       i++;
     } else {
       // current (i) and next (i+1) lecture dont have the same content
+      const lecture = sorted[i];
+
       merged.push({
-        uids: [sorted[i].uid],
-        courses: [sorted[i].course],
-        start: sorted[i].start,
-        end: sorted[i].end,
-        lecturer: sorted[i].lecturer,
-        name: sorted[i].name,
-        room: sorted[i].room,
-        status: sorted[i].status,
+        ids: [lecture.id],
+        courses: [lecture.course],
+        start: lecture.start,
+        end: lecture.end,
+        lecturer: lecture.lecturer,
+        name: lecture.name,
+        rooms: lecture.rooms,
+        status: lecture.status,
+        type: lecture.type,
+        isExam: lecture.isExam,
       });
     }
   }
 
-  merged.forEach((lecture) => lecture.courses.sort());
+  merged.forEach((lecture) => {
+    lecture.ids.sort();
+    lecture.courses.sort();
+  });
   return merged;
 }
 
@@ -81,16 +92,14 @@ function isSameLectureContent(a: Lecture, b: Lecture): boolean {
   if (a === b) return true;
 
   return (
-    a.start.getTime() === b.start.getTime() &&
-    a.end.getTime() === b.end.getTime() &&
+    a.start === b.start &&
+    a.end === b.end &&
     a.lecturer === b.lecturer &&
     a.name === b.name &&
-    a.room === b.room
+    a.rooms.join(',') === b.rooms.join(',') &&
+    a.type === b.type &&
+    a.isExam === b.isExam
   );
-}
-
-export function isExam(lecture: MergedLecture): boolean {
-  return lecture.name.toLowerCase().includes('klausur');
 }
 
 export function getLectureStatus(
@@ -98,8 +107,8 @@ export function getLectureStatus(
   previous: Lecture[],
   current: ApiLecture[]
 ): LectureStatus {
-  const inPrevious = previous.find((i) => i.uid === lecture.uid);
-  const inCurrent = current.find((i) => i.uid === lecture.uid);
+  const inPrevious = previous.find((i) => i.id === lecture.id);
+  const inCurrent = current.find((i) => i.id === lecture.id);
 
   if (inPrevious && !inCurrent) return 'removed';
   if (!inPrevious && inCurrent) return 'added';
@@ -107,15 +116,11 @@ export function getLectureStatus(
   return '';
 }
 
-export function mapLectures(
-  lectures: ApiLecture[],
-  course: string,
-  cachedLectures?: Lecture[]
-): Lecture[] {
+export function mapLectures(lectures: ApiLecture[], cachedLectures?: Lecture[]): Lecture[] {
   const removedLectures: Lecture[] =
     cachedLectures
       ?.filter((lecture) => {
-        return !lectures.find((l) => l.uid === lecture.uid);
+        return !lectures.find((l) => l.id === lecture.id);
       })
       .map((lecture) => {
         return { ...lecture, status: 'removed' };
@@ -124,14 +129,11 @@ export function mapLectures(
   let mapped: Lecture[] = lectures.map((lecture) => {
     return {
       ...lecture,
-      start: new Date(lecture.start),
-      end: new Date(lecture.end),
-      course,
       status: cachedLectures ? getLectureStatus(lecture, cachedLectures, lectures) : '',
     };
   });
 
   mapped = mapped.concat(removedLectures);
-  mapped.sort((a, b) => a.start.getTime() - b.start.getTime());
+  mapped.sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime());
   return mapped;
 }

@@ -1,6 +1,6 @@
-import router from "./index";
+import logger from "../helpers/logger";
 import { fetchEvents } from "../services/events";
-import logger from "../services/logger";
+import router from "./index";
 
 /**
  * @swagger
