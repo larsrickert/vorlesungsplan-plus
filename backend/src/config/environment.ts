@@ -13,10 +13,6 @@ const environment: IEnvironment = {
   stuvApiHost: 'https://api.stuv.app/rapla',
   calendarListHost: 'http://ics.mosbach.dhbw.de/ics/calendars.list',
   apps: {
-    android: {
-      version: '1.1.0',
-      filePath: `${publicPath}vorlesungsplan-plus-1-1-0.apk`,
-    },
     ios: {
       widget: {
         version: '3.0.0',

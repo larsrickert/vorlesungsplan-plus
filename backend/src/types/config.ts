@@ -14,10 +14,6 @@ export interface ICacheConfig {
 }
 
 export interface IAppConfig {
-  android: {
-    version: string;
-    filePath: string;
-  };
   ios: {
     widget: {
       version: string;

@@ -138,7 +138,6 @@ router.get('/', async (req, res) => {
   } else res.redirect(301, '/courses');
 });
 
-require('./android');
 require('./courses');
 require('./events');
 require('./ios');
