@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import { baseUrl, isProduction } from '../configs';
+import { baseUrl } from '../configs';
 import Home from '../views/Home.vue';
 
 const routes: RouteRecordRaw[] = [
@@ -22,23 +22,12 @@ const routes: RouteRecordRaw[] = [
     path: '/events',
     component: () => import('../views/Events.vue'),
   },
-  {
-    path: '/beta',
-    component: () => import('../views/BetaNotes.vue'),
-  },
   // catch-all 404 route
   {
     path: '/:pathMatch(.*)*',
     redirect: '/',
   },
 ];
-
-if (!isProduction) {
-  routes.push({
-    path: '/test',
-    component: () => import('../views/Test.vue'),
-  });
-}
 
 const router = createRouter({
   history: createWebHistory(baseUrl),

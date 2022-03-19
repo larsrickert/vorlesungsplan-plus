@@ -17,7 +17,8 @@
     "no": "No",
     "notAvailableOnPlatform": "Not available for {platform}",
     "deactivated": "Deactivated",
-    "changelog": "Changelog"
+    "changelog": "Changelog",
+    "contact": "Contact"
   },
   "locales": {
     "de": "Deutsch",

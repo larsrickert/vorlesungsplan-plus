@@ -15,13 +15,13 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { calendar, cog, documentText, link, openOutline, school } from 'ionicons/icons';
+import { calendar, cog, mail, openOutline, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import LogoUrl from './assets/logo.svg';
 import SideMenu from './components/SideMenu.vue';
 import ThePwaReloadPrompt from './components/ThePwaReloadPrompt.vue';
-import config, { appVersion, isProduction } from './configs';
+import config, { appVersion } from './configs';
 import { removeErrorHandlerListeners } from './helpers/errors';
 import { showToast } from './helpers/io';
 import { useStore } from './store';
@@ -57,26 +57,18 @@ const subItems = computed<MenuItem[]>(() => {
       icon: cog,
     },
     {
+      title: t('global.contact'),
+      href: 'mailto:dev@lars-rickert.de',
+      icon: mail,
+    },
+    {
       title: t('global.changelog'),
       href: `https://github.com/larsrickert/vorlesungsplan-plus/blob/${
         appVersion.includes('beta') ? 'beta' : 'main'
       }/frontend/CHANGELOG.md`,
       icon: openOutline,
     },
-    {
-      title: 'Beta Notes',
-      href: '/beta',
-      icon: documentText,
-    },
   ];
-
-  if (!isProduction) {
-    items.push({
-      title: 'Test',
-      href: '/test',
-      icon: link,
-    });
-  }
 
   return items;
 });

@@ -6,7 +6,7 @@
       class="hydrated"
       detail="false"
       lines="none"
-      @click="navigate"
+      @click="openLink"
     >
       <IonIcon v-if="icon" slot="start" :icon="icon" />
       <IonLabel>{{ title }}</IonLabel>
@@ -15,9 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Browser } from '@capacitor/browser';
 import { IonIcon, IonItem, IonLabel, IonMenuToggle } from '@ionic/vue';
-import { useRouter } from 'vue-router';
+import { navigate } from '../helpers/misc';
 
 interface SideMenuItemProps {
   title: string;
@@ -26,18 +25,15 @@ interface SideMenuItemProps {
 }
 const props = defineProps<SideMenuItemProps>();
 
-const router = useRouter();
-
-const navigate = async (ev: Event) => {
+const openLink = async (ev: Event) => {
   if (!props.href) {
-    // dont close menu
+    // do not close menu
     ev.preventDefault();
     ev.stopPropagation();
     return;
   }
 
-  if (props.href.startsWith('http')) await Browser.open({ url: props.href });
-  else await router.push(props.href);
+  await navigate(props.href);
 };
 </script>
 

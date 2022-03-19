@@ -1,3 +1,5 @@
+import router from '../router';
+
 /**
  * Creates a timeout / delay.
  * @param ms Time in milliseconds before the promise should be resolved.
@@ -18,4 +20,10 @@ export function isToday(date: Date, offsetDays = 0): boolean {
   end.setDate(end.getDate() + offsetDays);
 
   return date.getTime() >= start.getTime() && date.getTime() <= end.getTime();
+}
+
+export async function navigate(href: string) {
+  if (href.startsWith('mailto')) window.open(href, '_self');
+  else if (href.startsWith('http')) window.open(href, '_blank');
+  else await router.push(href);
 }
