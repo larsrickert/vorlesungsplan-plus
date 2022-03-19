@@ -78,6 +78,7 @@ import axiosInstance from '../axios';
 import AppHeader from '../components/AppHeader.vue';
 import { showToast } from '../helpers/io';
 import { useSettingsStore } from '../store/settings';
+import { CustomError, ErrorCode } from '../types/errors';
 import AppFab from './AppFab.vue';
 
 const { t } = useI18n();
@@ -89,6 +90,13 @@ axiosInstance
   .get<string[]>('courses')
   .then((response) => {
     courses.value = response.data;
+  })
+  .catch((e) => {
+    throw new CustomError(
+      ErrorCode.COURSE_FETCH_FAILED,
+      'Error while fetching courses',
+      e as Error
+    );
   })
   .finally(() => {
     isLoaded.value = true;
