@@ -3,3 +3,4 @@ npm-debug.log
 logs
 dist
 .git
+*.local
