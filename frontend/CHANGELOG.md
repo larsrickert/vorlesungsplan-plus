@@ -1,3 +1,29 @@
+# [vorlesungsplan-plus-v1.0.0-beta.4](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.3...vorlesungsplan-plus-v1.0.0-beta.4) (2022-03-19)
+
+
+* fixed semantic-release with breaking changes ([3fe996a](https://github.com/larsrickert/vorlesungsplan-plus/commit/3fe996a5bae564a741427f797ee448d540ca2560)), closes [M#TINF19](https://github.com/M/issues/TINF19)
+
+
+### Features
+
+* refactored lecture data structure ([8ee83ac](https://github.com/larsrickert/vorlesungsplan-plus/commit/8ee83ac10d4c3b0621c24eb4598bff5763d78527))
+
+
+### BREAKING CHANGES
+
+* Changed lecture data structure
+
+- Renamed property `uid` to `id`
+- Renamed property `room` to `rooms` which now contains an array of rooms instead of a single string with seperated rooms
+- Removed deprecated property `lastModified`
+- Added property `type` which is either `PRESENCE` or `ONLINE` and indicates whether the lecture is online or presence
+- Added property `isExam` which indicates whether the lecture is an exam (will be false for exam reviews (Klausureinsicht))
+* Removed deprecated course name mappings for `INF19A`, `INF19B` and `MGH-INF19`
+* Returning all lectures by default instead of only upcomig ones
+
+All lectures (including past ones) will now be returned by the API by default instead of only upcoming
+ones. You can use the query parameter `excludePast=true` to filter out past lectures.
+
 # [vorlesungsplan-plus-v1.0.0-beta.3](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.2...vorlesungsplan-plus-v1.0.0-beta.3) (2022-03-18)
 
 
