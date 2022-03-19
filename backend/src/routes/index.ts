@@ -59,12 +59,6 @@
  *         end:
  *           type: string
  *           description: End end date as date string.
- *     AppVersion:
- *       type: object
- *       properties:
- *         version:
- *           type: string
- *           description: App version number.
  *     ScriptableWidget:
  *       type: object
  *       properties:
