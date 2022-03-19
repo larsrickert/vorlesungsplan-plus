@@ -5,6 +5,7 @@ export enum ErrorCode {
   ROUTER_NOT_AUTHENTICATED = 'A2',
   LECTURE_FETCH_FAILED = 'B1',
   COURSE_FETCH_FAILED = 'B2',
+  EVENT_FETCH_FAILED = 'B3',
 }
 
 export class CustomError extends Error {
