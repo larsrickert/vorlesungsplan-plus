@@ -34,6 +34,10 @@ import { MenuItem } from './types/misc';
 
 const { t } = useI18n();
 const settingsStore = useSettingsStore();
+const store = useStore();
+const networkStore = useNetworkStore();
+const notificationStore = useNotificationStore();
+const errorStore = useErrorStore();
 
 const navItems = computed<MenuItem[]>(() => {
   return [
@@ -76,16 +80,18 @@ const subItems = computed<MenuItem[]>(() => {
   return items;
 });
 
-const networkStore = useNetworkStore();
-networkStore.initListener();
+// fetch lectures when courses change
+watch(
+  () => settingsStore.courses,
+  async () => {
+    await store.fetchLectures();
+  }
+);
 
-const store = useStore();
-const notificationStore = useNotificationStore();
+networkStore.initListener();
 const router = useRouter();
 
 settingsStore.loadAndInitDefaults().then(() => {
-  store.fetchLectures();
-
   // init notifications
   const lectures = computed(() => store.lectures);
   notificationStore.requestPermissions().then(() => {
@@ -106,28 +112,20 @@ settingsStore.loadAndInitDefaults().then(() => {
 });
 
 // re-schedule notifications when notification time changes
-const notificationSetting = computed(() => settingsStore.lectureNotificationTime);
-watch(notificationSetting, async () => {
-  await notificationStore.scheduleLectureNotifications();
-});
-
-// fetch lectures when courses change
-const courseSetting = computed(() => settingsStore.courses);
-watch(courseSetting, async () => {
-  await store.fetchLectures();
-});
-
-const errorStore = useErrorStore();
-const error = computed(() => errorStore.error);
+watch(
+  () => settingsStore.lectureNotificationTime,
+  async () => {
+    await notificationStore.scheduleLectureNotifications();
+  }
+);
 
 watch(
-  error,
+  () => errorStore.error,
   async () => {
-    const e = error.value;
-    if (!e?.expose) return;
+    if (!errorStore.error?.expose) return;
 
     await showToast({
-      message: e.toString(),
+      message: errorStore.error.toString(),
       color: 'danger',
       btn: { text: t('global.close'), onClick: () => errorStore.dismiss() },
     });
