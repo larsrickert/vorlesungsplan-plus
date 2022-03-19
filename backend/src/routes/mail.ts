@@ -1,5 +1,5 @@
+import logger from "../helpers/logger";
 import router from "./index";
-import logger from "../services/logger";
 
 router.post("/mail", async (req, res) => {
   logger.log("Request to /mail");

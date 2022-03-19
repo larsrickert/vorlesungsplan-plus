@@ -1,7 +1,7 @@
 <template>
   <div class="block">
     <IonLabel class="block__heading"> {{ dateString }} </IonLabel>
-    <AppLecture v-for="lecture of lectures" :key="lecture.uids.join(',')" :lecture="lecture" />
+    <AppLecture v-for="lecture of lectures" :key="lecture.ids.join(',')" :lecture="lecture" />
   </div>
 </template>
 

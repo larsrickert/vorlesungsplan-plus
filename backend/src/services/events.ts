@@ -1,6 +1,6 @@
-import { async as ical, CalendarComponent } from "node-ical";
-import { cache, CacheKey } from "./cache";
+import { async as ical, CalendarComponent, VEvent } from "node-ical";
 import environment from "../config/environment";
+import { cache, CacheKey } from "../helpers/cache";
 
 interface IEvent {
   id: string;
@@ -13,16 +13,16 @@ interface IEvent {
 }
 
 function mapEvents(events: CalendarComponent[]): IEvent[] {
-  const filtered = events.filter((e) => e.type === "VEVENT");
+  const filtered = events.filter((e) => e.type === "VEVENT") as VEvent[];
 
   return filtered.map((e) => {
     return {
       id: (e.uid as string) ?? "",
       name: (e.summary as string) ?? "",
       description: (e.description as string) ?? "",
-      start: new Date(e.start as string),
-      end: new Date(e.end as string),
-      lastModified: new Date(e.lastmodified as string),
+      start: new Date(e.start),
+      end: new Date(e.end),
+      lastModified: new Date(e.lastmodified),
       location: (e.location as string) ?? "",
     };
   });

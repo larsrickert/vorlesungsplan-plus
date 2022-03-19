@@ -1,23 +1,21 @@
 export interface Lecture {
-  uid: string;
-  lecturer: string;
-  name: string;
-  room: string;
-  start: Date;
-  end: Date;
-  course: string;
-  status: LectureStatus;
-}
-
-export type LectureStatus = 'added' | 'removed' | '';
-
-export type LectureWithStringDate = Omit<Lecture, 'start' | 'end'> & {
+  id: number;
   start: string;
   end: string;
-};
+  name: string;
+  type: LectureType;
+  lecturer: string;
+  rooms: string[];
+  course: string;
+  status: LectureStatus;
+  isExam: boolean;
+}
 
-export type ApiLecture = Omit<LectureWithStringDate, 'course' | 'status'>;
-export type MergedLecture = Omit<Lecture, 'course' | 'uid'> & { courses: string[]; uids: string[] };
+export type LectureType = 'PRESENCE' | 'ONLINE';
+export type LectureStatus = 'added' | 'removed' | '';
+
+export type ApiLecture = Omit<Lecture, 'status'>;
+export type MergedLecture = Omit<Lecture, 'course' | 'id'> & { courses: string[]; ids: number[] };
 
 export interface DayLectureBlock {
   date: Date;

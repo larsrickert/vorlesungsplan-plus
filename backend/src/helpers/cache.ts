@@ -7,5 +7,4 @@ export enum CacheKey {
   COURSES = "courses",
   EVENTS = "events",
 }
-
 /* eslint-enable */

@@ -1,5 +1,5 @@
+import logger from "../helpers/logger";
 import { fetchCourses } from "../services/courses";
-import logger from "../services/logger";
 import router from "./index";
 
 /**

@@ -1,5 +1,5 @@
 import express from "express";
-import logger from "../services/logger";
+import logger from "../helpers/logger";
 
 const router = express.Router();
 export default router;
@@ -11,28 +11,36 @@ export default router;
  *     Lecture:
  *       type: object
  *       properties:
- *         uid:
- *           type: string
+ *         id:
+ *           type: number
  *           description: Unique lecture ID.
- *         name:
- *           type: string
- *           description: Lecture name.
- *         lecturer:
- *           type: string
- *           description: Name of the lecturer.
- *         room:
- *           type: string
- *           description: Name of rooms or locations
  *         start:
  *           type: string
  *           description: Lecture start date as date string.
  *         end:
  *           type: string
  *           description: Lecture end date as date string.
- *         lastModified:
+ *         rooms:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: Room or location names.
+ *         name:
  *           type: string
- *           deprecated: true
- *           description: Date string of last modified, not supported any longer
+ *           description: Lecture name.
+ *         lecturer:
+ *           type: string
+ *           description: Name of the lecturer.
+ *         course:
+ *           type: string
+ *           description: Course name this lecture belongs to.
+ *         type:
+ *           type: string
+ *           enum: [PRESENCE, ONLINE]
+ *           description: Type of the lecture (online or presence).
+ *         isExam:
+ *           type: boolean
+ *           description: Whether this lecture is an exam. Will be false for exam reviews.
  *     Event:
  *       type: object
  *       properties:
