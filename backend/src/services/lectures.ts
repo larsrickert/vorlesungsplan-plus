@@ -1,7 +1,8 @@
 import axios from 'axios';
-import environment from '../config/environment';
-import { cache } from '../helpers/cache';
+import config from '../config';
+import { logger } from '../server';
 import { ILecture, IStuVLecture } from '../types/lectures';
+import { cache } from '../utils/cache';
 
 function isExam(lecture: IStuVLecture): boolean {
   const name = lecture.name.toLowerCase();
@@ -39,15 +40,18 @@ export const fetchLectures = async (course: string): Promise<ILecture[]> => {
 
   try {
     const { data } = await axios.get<IStuVLecture[]>(
-      `${environment.stuvApiHost}/lectures/${course}?archived=true`
+      `${config.stuv.apiHost}/lectures/${course}?archived=true`
     );
     const lectures: ILecture[] = Array.isArray(data) ? mapLectures(data) : [];
 
     // update in background (dont await it)
-    cache.set(course, lectures, environment.cache.lecturesDuration);
+    cache.set(course, lectures, config.cache.lectures);
     return lectures;
   } catch (e) {
-    console.error(e);
+    logger.error(
+      `Error while fetching lectures for course "${course}".`,
+      e as Error
+    );
     return [];
   }
 };

@@ -2,7 +2,7 @@
   "name": "vorlesungsplan-plus-api",
   "private": true,
   "version": "1.0.0-beta.3",
-  "main": "dist/server.js",
+  "main": "dist/src/server.js",
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",

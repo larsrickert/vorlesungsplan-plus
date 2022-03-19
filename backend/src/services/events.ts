@@ -1,6 +1,7 @@
 import { async as ical, CalendarComponent, VEvent } from 'node-ical';
-import environment from '../config/environment';
-import { cache, CacheKey } from '../helpers/cache';
+import config from '../config';
+import { logger } from '../server';
+import { cache, CacheKey } from '../utils/cache';
 
 interface IEvent {
   id: string;
@@ -59,10 +60,10 @@ export const fetchEvents = async (): Promise<IEvent[]> => {
     );
 
     // update in background (dont await it)
-    cache.set(CacheKey.EVENTS, mapped, environment.cache.eventsDuration);
+    cache.set(CacheKey.EVENTS, mapped, config.cache.events);
     return mapped;
   } catch (e) {
-    console.error(e);
+    logger.error('Error while fetching events.', e as Error);
     return [];
   }
 };

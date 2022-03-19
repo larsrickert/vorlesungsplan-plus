@@ -1,6 +1,7 @@
 import axios from 'axios';
-import environment from '../config/environment';
-import { cache, CacheKey } from '../helpers/cache';
+import config from '../config';
+import { logger } from '../server';
+import { cache, CacheKey } from '../utils/cache';
 
 /**
  * Fetches all available courses at the DHBW. Uses cached data if possible.
@@ -15,22 +16,22 @@ export const fetchCourses = async (): Promise<string[]> => {
 
   try {
     const { data } = await axios.get<string[]>(
-      `${environment.stuvApiHost}/courses`
+      `${config.stuv.apiHost}/courses`
     );
 
     if (
       !Array.isArray(data) ||
       (data.length > 0 && typeof data[0] !== 'string')
     ) {
-      console.error('Response of StuV API for courses is not an string array.');
+      logger.error('Response of StuV API for courses is not an string array.');
       return [];
     }
 
     // update in background (dont await it)
-    cache.set(CacheKey.COURSES, data, environment.cache.coursesDuration);
+    cache.set(CacheKey.COURSES, data, config.cache.courses);
     return data;
   } catch (e) {
-    console.error(e);
+    logger.error('Error while fetching courses.', e as Error);
     return [];
   }
 };

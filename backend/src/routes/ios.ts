@@ -1,7 +1,6 @@
 import { readFile } from 'fs/promises';
-import environment from '../config/environment';
-import logger from '../helpers/logger';
-import router from './index';
+import config from '../config';
+import { logger, router } from '../server';
 
 /**
  * @swagger
@@ -22,13 +21,11 @@ import router from './index';
  *              type: string
  */
 router.get('/ios/widget', async (req, res) => {
-  logger.log('Request to /ios/widget');
-
   try {
-    const widget = await readFile(environment.apps.ios.widget.filePath);
+    const widget = await readFile(config.apps.ios.widget.filePath);
     res.send(JSON.parse(widget.toString()));
   } catch (e) {
-    logger.error(e as Error);
+    logger.error('Error while serving iOS Widget.', e as Error);
     res.status(500).send('Error while serving iOS Widget.');
   }
 });
@@ -47,5 +44,5 @@ router.get('/ios/widget', async (req, res) => {
  */
 router.get('/ios/widget/version', (req, res) => {
   logger.log('Request to /ios/widget/version');
-  res.send({ version: environment.apps.ios.widget.version });
+  res.send({ version: config.apps.ios.widget.version });
 });

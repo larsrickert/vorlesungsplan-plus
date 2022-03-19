@@ -1,6 +1,5 @@
-import logger from '../helpers/logger';
+import { router } from '../server';
 import { fetchLectures } from '../services/lectures';
-import router from './index';
 
 /**
  * @swagger
@@ -26,8 +25,6 @@ import router from './index';
  *                $ref: "#/components/schemas/Lecture"
  */
 router.get('/lectures/:id', async (req, res) => {
-  logger.log(`Request to /lectures/${req.params.id}`);
-
   const lectures = await fetchLectures(req.params.id);
 
   if (req.query.excludePast === 'true') {
