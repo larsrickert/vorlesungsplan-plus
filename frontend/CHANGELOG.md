@@ -1,3 +1,15 @@
+# [vorlesungsplan-plus-v1.0.0-beta.7](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.6...vorlesungsplan-plus-v1.0.0-beta.7) (2022-03-19)
+
+
+### Features
+
+* added button to show/hide past lectures ([b246338](https://github.com/larsrickert/vorlesungsplan-plus/commit/b246338d936afbfd5e7cb072cf25d4120483d44e))
+
+
+### Performance Improvements
+
+* removed duplicate lecture load on app start ([7c0e442](https://github.com/larsrickert/vorlesungsplan-plus/commit/7c0e44268bc2a481b3ca7fc5856d91bd5543280f))
+
 # [vorlesungsplan-plus-v1.0.0-beta.6](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.5...vorlesungsplan-plus-v1.0.0-beta.6) (2022-03-19)
 
 
