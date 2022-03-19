@@ -1,5 +1,3 @@
-import { router } from '../server';
-
 /**
  * @swagger
  * components:
@@ -88,51 +86,6 @@ import { router } from '../server';
  *           items:
  *            type: string
  */
-
-/**
- * @swagger
- * /:
- *   get:
- *    deprecated: true
- *    summary: Returns a list of courses or lectures.
- *    description: This route is deprecated. Please use /courses to get a list of courses and /lectures/{course} to get lectures for the given course. This path is currently still supported for backwards compatibility to the previous API version 1 (wrtitten in PHP).
- *    parameters:
- *      - name: course
- *        in: query
- *        description: Course name. If specified, a list of lectures for the given course will be returned. Filters out past lectures.
- *        schema:
- *          type: string
- *      - name: view
- *        in: query
- *        description: View mode. If set to "archive" only past lectures will be returned.
- *        schema:
- *          type: string
- *          enum:
- *            - archive
- *    responses:
- *      "200":
- *        description: A JSON array of courses if "course" query param is not set or a list of lectures for the given course otherwise. Returns an empty array if an error occurred.
- *        content:
- *          "application/json":
- *            schema:
- *              oneOf:
- *                - type: array
- *                  items:
- *                    type: string
- *                - type: array
- *                  items:
- *                    $ref: "#/components/schemas/Lecture"
- */
-router.get('/', async (req, res) => {
-  if (req.query.course && typeof req.query.course === 'string') {
-    const isArchiveView = req.query.view && req.query.view === 'archive';
-    const queryParams = !isArchiveView ? '?excludePast=true' : '';
-
-    res.redirect(301, `/lectures/${req.query.course}${queryParams}`);
-  } else {
-    res.redirect(301, '/courses');
-  }
-});
 
 require('./courses');
 require('./events');
