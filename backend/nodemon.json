@@ -1,5 +1,5 @@
 {
-  "watch": ["src"],
+  "watch": ["src", "public"],
   "ext": ".ts,.js,.json",
   "ignore": [],
   "exec": "node -r ts-node/register ./src/server.ts"

@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import path from 'path';
 import config from '../config';
 import { logger, router } from '../server';
 
@@ -16,18 +16,34 @@ import { logger, router } from '../server';
  *      "500":
  *        description: Error message when the widget could not be served by the API.
  *        content:
- *          "text/plain":
+ *          "application/json":
  *            schema:
- *              type: string
+ *              type: object
+ *              properties:
+ *                message:
+ *                  type: string
+ *                  description: Error message
+ *              required:
+ *                - message
  */
 router.get('/ios/widget', async (req, res) => {
-  try {
-    const widget = await readFile(config.apps.ios.widget.filePath);
-    res.send(JSON.parse(widget.toString()));
-  } catch (e) {
-    logger.error('Error while serving iOS Widget.', e as Error);
-    res.status(500).send('Error while serving iOS Widget.');
-  }
+  const filename = path.basename(config.apps.ios.widget.filePath);
+
+  res.download(
+    config.apps.ios.widget.filePath,
+    filename,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+    (err) => {
+      if (err) {
+        logger.error('Error while serving iOS Widget.', err);
+        res.status(500).send({
+          message: 'Error while serving iOS Widget. Could not find file.',
+        });
+      }
+    }
+  );
 });
 
 /**
@@ -40,9 +56,14 @@ router.get('/ios/widget', async (req, res) => {
  *        content:
  *          "application/json":
  *            schema:
- *              $ref: "#/components/schemas/AppVersion"
+ *              type: object
+ *              properties:
+ *                version:
+ *                  type: string
+ *                  description: Widget version number
+ *              required:
+ *                - version
  */
 router.get('/ios/widget/version', (req, res) => {
-  logger.log('Request to /ios/widget/version');
   res.send({ version: config.apps.ios.widget.version });
 });
