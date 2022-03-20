@@ -63,7 +63,8 @@
     "notificationTimeDescription": "You won't get a notification before each lecture. | You will get a notification 1 minute before each lecture. You have to grant the notification permission for this feature. | You will get a notification {count} minutes before each lecture. You have to grant the notification permission for this feature.",
     "permissionGranted": "Permission granted",
     "grantPermissionsLinkText": "See how to grant permissions",
-    "selectCoursesToast": "Obviously this is the first time you are using Vorlesungsplan+. Please select one or more courses to be displayed in the timetable."
+    "selectCoursesToast": "Obviously this is the first time you are using Vorlesungsplan+. Please select one or more courses to be displayed in the timetable.",
+    "selectedCourses": "Selected courses: {count}"
   },
   "events": {
     "pageName": "Events",

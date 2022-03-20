@@ -25,7 +25,7 @@
           class="badge"
           :style="{ '--background': getRandomColor(course) }"
         >
-          {{ course.replace('MOS-', '').replace('MGH-', '') }}
+          {{ course }}
         </IonBadge>
       </div>
 

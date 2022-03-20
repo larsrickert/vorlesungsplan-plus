@@ -6,6 +6,8 @@
       <div class="page__content">
         <h2>{{ t('settings.availableCourses') }}</h2>
 
+        <p>{{ t('settings.selectedCourses', settingsStore.courses.length) }}</p>
+
         <IonProgressBar v-if="!isLoaded" type="indeterminate" />
 
         <template v-else>
