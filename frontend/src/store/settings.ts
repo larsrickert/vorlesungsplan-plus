@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
 import config from '../configs';
 import { getInitLocale, isLocaleAvailable } from '../helpers/i18n';
+import { randomColors } from '../helpers/misc';
 import { getValue, initValue, setValue, StorageKey } from '../helpers/storage';
 import { i18n } from '../i18n';
+import { CustomError, ErrorCode } from '../types/errors';
 
 export const allowedNotificationTimes: readonly number[] = Object.freeze([0, 15, 30, 45, 60]);
 
@@ -115,6 +117,13 @@ export const useSettingsStore = defineStore('settings', {
      */
     async changeCourses(value: string[]) {
       if (JSON.stringify(value) === JSON.stringify(this.courses)) return;
+
+      if (value.length > randomColors.length) {
+        throw new CustomError(
+          ErrorCode.COURSE_LIMIT_EXCEEDED,
+          `You cannot select more than ${randomColors.length} courses.`
+        );
+      }
 
       this.courses = value;
       await setValue(StorageKey.COURSES, value);

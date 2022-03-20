@@ -18,7 +18,13 @@
 
     <div class="lecture__content">
       <div v-if="settingsStore.courses.length > 1" class="flex flex--wrap lecture__badges">
-        <IonBadge v-for="course of lecture.courses" :key="course" mode="ios" class="badge">
+        <IonBadge
+          v-for="course of lecture.courses"
+          :key="course"
+          mode="ios"
+          class="badge"
+          :style="{ '--background': getRandomColor(course) }"
+        >
           {{ course.replace('MOS-', '').replace('MGH-', '') }}
         </IonBadge>
       </div>
@@ -52,6 +58,7 @@ import { addCircleOutline, closeCircleOutline, documentTextOutline } from 'ionic
 import { onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import config from '../configs';
+import { getRandomColor } from '../helpers/misc';
 import { useSettingsStore } from '../store/settings';
 import { MergedLecture } from '../types/lectures';
 
@@ -144,7 +151,6 @@ onBeforeUnmount(() => clearInterval(intervall));
     .badge {
       margin-bottom: 6px;
       min-width: auto;
-      --background: rgba(var(--ion-color-success-rgb), 0.8);
 
       &:not(:last-child) {
         margin-right: 10px;

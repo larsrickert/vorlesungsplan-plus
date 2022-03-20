@@ -3,6 +3,7 @@ import { i18n } from '../i18n';
 export enum ErrorCode {
   UNKNOWN = 'A1',
   ROUTER_NOT_AUTHENTICATED = 'A2',
+  COURSE_LIMIT_EXCEEDED = 'A3',
   LECTURE_FETCH_FAILED = 'B1',
   COURSE_FETCH_FAILED = 'B2',
   EVENT_FETCH_FAILED = 'B3',
