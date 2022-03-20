@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.8](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.7...vorlesungsplan-plus-v1.0.0-beta.8) (2022-03-20)
+
+
+### Features
+
+* added setting to enable theme detection ([09e5936](https://github.com/larsrickert/vorlesungsplan-plus/commit/09e59360171cd8da4fb52e406132c2cef0a1dc59))
+
 # [vorlesungsplan-plus-v1.0.0-beta.7](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.6...vorlesungsplan-plus-v1.0.0-beta.7) (2022-03-19)
 
 
