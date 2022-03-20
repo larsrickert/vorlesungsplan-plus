@@ -13,7 +13,7 @@ export const useSettingsStore = defineStore('settings', {
   state() {
     return {
       locale: config.i18n.defaultLocale,
-      theme: 'light',
+      theme: 'dark',
       themeDetection: true,
       courses: [] as string[],
       lecturesLastUpdated: null as Date | null,
