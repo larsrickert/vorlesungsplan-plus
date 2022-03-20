@@ -137,4 +137,8 @@ const notificationStore = useNotificationStore();
     display: block;
   }
 }
+
+p {
+  line-height: 1.6em;
+}
 </style>

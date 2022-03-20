@@ -60,7 +60,7 @@
     "lectureNotificationTime": "Erinnerungen",
     "selectNotificationTime": "Zeit auswählen",
     "xMinutes": "0 Minuten | 1 Minute | {count} Minuten",
-    "notificationTimeDescription": "Du bekommst keine Benachrichtigung vor jeder Vorlesung. | Du bekommst 1 Minute vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen. | Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen.",
+    "notificationTimeDescription": "Du bekommst keine Benachrichtigung vor jeder Vorlesung. | Du bekommst 1 Minute vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen. Wichtig: Du musst die App im Hintergrund geöffnet haben, damit Benachrichtigungen verschickt werden! | Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen. Wichtig: Du musst die App im Hintergrund geöffnet haben, damit Benachrichtigungen verschickt werden!",
     "permissionGranted": "Berechtigung erteilt",
     "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung",
     "selectCoursesToast": "Offensichtlich benutzt die Vorlesungsplan+ zum ersten Mal. Bitte wähle einen oder mehrere Kurse aus, die im Vorlesungsplan angezeigt werden sollen.",
