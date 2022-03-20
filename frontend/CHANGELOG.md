@@ -1,3 +1,15 @@
+# [vorlesungsplan-plus-v1.0.0-beta.15](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.14...vorlesungsplan-plus-v1.0.0-beta.15) (2022-03-20)
+
+
+### Bug Fixes
+
+* event popover not scrollable ([2c0769c](https://github.com/larsrickert/vorlesungsplan-plus/commit/2c0769cd18d96d32ebeb39eb7c92dccce1d71b65))
+
+
+### Features
+
+* added pull animation to refresher ([289ecf3](https://github.com/larsrickert/vorlesungsplan-plus/commit/289ecf355d73029d56a5f4ea3fdba0ee7da7a61c))
+
 # [vorlesungsplan-plus-v1.0.0-beta.14](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.13...vorlesungsplan-plus-v1.0.0-beta.14) (2022-03-20)
 
 
