@@ -19,6 +19,7 @@ export const useSettingsStore = defineStore('settings', {
       lecturesLastUpdated: null as Date | null,
       lectureNotificationTime: 15,
       iosWidgetVersion: '',
+      initialized: false,
     };
   },
   actions: {
@@ -54,6 +55,8 @@ export const useSettingsStore = defineStore('settings', {
 
       const iosWidgetVersion = await getValue<string>(StorageKey.IOS_WIDGET_VERSION);
       if (iosWidgetVersion) this.changeIosWidgetVersion(iosWidgetVersion);
+
+      this.initialized = true;
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
