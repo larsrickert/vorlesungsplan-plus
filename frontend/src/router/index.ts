@@ -11,12 +11,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/settings',
     component: () => import('../views/Settings.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('../views/SettingsMain.vue'),
-      },
-    ],
   },
   {
     path: '/events',
