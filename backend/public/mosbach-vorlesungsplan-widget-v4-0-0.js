@@ -4,7 +4,7 @@
 // icon-color: cyan; icon-glyph: user-graduate;
 // Made by Felix K. INF19A and Lars Rickert INF19B :)
 
-const course = args.widgetParameter || 'inf19a';
+const course = args.widgetParameter || '';
 let lectures = [];
 let hasLoadingError = false;
 
@@ -55,8 +55,9 @@ async function createWidget() {
 
   let text;
 
-  if (hasLoadingError) text = 'Vorlesungen konnten nicht geladen werden.';
-  else if (lectures.length === 0) text = 'Viel Spaß in der Praxisphase 😎';
+  if (!course) text = 'Du hast keinen Kurs ausgewählt.';
+  else if (hasLoadingError) text = 'Vorlesungen konnten nicht geladen werden.';
+  else if (!lectures.length) text = 'Viel Spaß in der Praxisphase 😎';
   if (text) return addText(vStack, text, 15, true);
 
   let titleText;
@@ -92,6 +93,8 @@ async function createWidget() {
 
 // Getting count next LecturingDataFromAPI
 async function fetchNextLectures(count) {
+  if (!course) return [];
+
   const req = new Request(
     `https://api.vorlesungsplan.lars-rickert.de/lectures/${course}?excludePast=true`
   );
@@ -102,13 +105,12 @@ async function fetchNextLectures(count) {
     lectures.forEach((l) => {
       l.start = new Date(l.start);
       l.end = new Date(l.end);
-      l.lastModified = new Date(l.lastModified);
     });
 
     return lectures;
   } catch (e) {
-    console.error(e);
-    throw new Error();
+    console.error('Error while fetching lectures', e);
+    throw new Error('Error while fetching lectures');
   }
 }
 
