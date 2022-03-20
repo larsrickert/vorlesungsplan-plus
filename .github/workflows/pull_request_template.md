@@ -6,7 +6,7 @@ This repository uses [semantic release](https://semantic-release.gitbook.io/sema
 
 ## Header
 
-The title must follow the naming scheme `type(scope): Title`, e.g. `feat(component-xyz): Added click event`.
+The title must follow the naming scheme `type(scope): Title`, e.g. `feat(component-xyz): added click event`.
 
 ### Types
 
