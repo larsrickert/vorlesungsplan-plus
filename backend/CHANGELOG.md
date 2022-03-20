@@ -1,3 +1,20 @@
+# [vorlesungsplan-plus-api-v1.0.0-beta.5](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.4...vorlesungsplan-plus-api-v1.0.0-beta.5) (2022-03-20)
+
+
+### Bug Fixes
+
+* widget not served in prod build ([b94be5c](https://github.com/larsrickert/vorlesungsplan-plus/commit/b94be5c00e341fb0d49c8ab027cbc852a7809bf5))
+
+
+### Features
+
+* added message to index route with docs ref ([66b24ac](https://github.com/larsrickert/vorlesungsplan-plus/commit/66b24ac51e41debdd6f2a4f8a5e5e8b167cf4020))
+
+
+### BREAKING CHANGES
+
+* `ios/widget` returns json instead of string on error
+
 # [vorlesungsplan-plus-api-v1.0.0-beta.4](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.3...vorlesungsplan-plus-api-v1.0.0-beta.4) (2022-03-19)
 
 
