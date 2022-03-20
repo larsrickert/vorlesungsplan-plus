@@ -4,7 +4,7 @@
       :nav-items="navItems"
       :sub-items="subItems"
       heading="Vorlesungsplan+"
-      description="DHBW Mosbach & Mergentheim"
+      description="DHBW Mosbach & Bad Mergentheim"
       :sub-items-heading="`App (${t('global.appVersion', { version: appVersion })})`"
       :img="LogoUrl"
     />
