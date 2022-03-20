@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.10](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.9...vorlesungsplan-plus-v1.0.0-beta.10) (2022-03-20)
+
+
+### Bug Fixes
+
+* removed presenting element from modal ([acbca0b](https://github.com/larsrickert/vorlesungsplan-plus/commit/acbca0b35822affb646f7eaa2fad6a851e78279a))
+
 # [vorlesungsplan-plus-v1.0.0-beta.9](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.8...vorlesungsplan-plus-v1.0.0-beta.9) (2022-03-20)
 
 
