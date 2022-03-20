@@ -16,7 +16,9 @@
     "deactivated": "Deactivated",
     "changelog": "Changelog",
     "contact": "Contact",
-    "aboutTheApp": "About the app"
+    "aboutTheApp": "About the app",
+    "yes": "Yes",
+    "no": "No"
   },
   "locales": {
     "de": "Deutsch",
