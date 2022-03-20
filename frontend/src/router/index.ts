@@ -20,6 +20,10 @@ const routes: RouteRecordRaw[] = [
     path: '/apps',
     component: () => import('../views/Apps.vue'),
   },
+  {
+    path: '/installation',
+    redirect: '/apps',
+  },
   // catch-all 404 route
   {
     path: '/:pathMatch(.*)*',

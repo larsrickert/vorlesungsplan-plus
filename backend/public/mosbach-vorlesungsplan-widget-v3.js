@@ -4,7 +4,7 @@
 // icon-color: cyan; icon-glyph: user-graduate;
 // Made by Felix K. INF19A and Lars Rickert INF19B :)
 
-const course = args.widgetParameter || "inf19a";
+const course = args.widgetParameter || 'inf19a';
 let lectures = [];
 let hasLoadingError = false;
 
@@ -27,7 +27,11 @@ async function createWidget() {
   // Background Gradient
   const gradient = new LinearGradient();
   gradient.locations = [0, 0.5, 1];
-  gradient.colors = [new Color("0F2027"), new Color("203A43"), new Color("2C5364")];
+  gradient.colors = [
+    new Color('0F2027'),
+    new Color('203A43'),
+    new Color('2C5364'),
+  ];
   widget.backgroundGradient = gradient;
 
   const layout = widget.addStack();
@@ -42,7 +46,7 @@ async function createWidget() {
   vStack.layoutVertically();
 
   // DHBW Logo
-  const logoReq = new Request("https://i.ibb.co/XkRGw53/logo.png");
+  const logoReq = new Request('https://i.ibb.co/XkRGw53/logo.png');
   const logoImg = await logoReq.loadImage();
   const wimg = logoStack.addImage(logoImg);
   wimg.imageSize = new Size(40, 40);
@@ -51,30 +55,36 @@ async function createWidget() {
 
   let text;
 
-  if (hasLoadingError) text = "Vorlesungen konnten nicht geladen werden.";
-  else if (lectures.length === 0) text = "Viel Spaß in der Praxisphase 😎";
+  if (hasLoadingError) text = 'Vorlesungen konnten nicht geladen werden.';
+  else if (lectures.length === 0) text = 'Viel Spaß in der Praxisphase 😎';
   if (text) return addText(vStack, text, 15, true);
 
   let titleText;
 
-  if (isToday(lectures[0].start)) titleText = "Heute";
-  else if (isToday(lectures[0].start, 1)) titleText = "Morgen";
+  if (isToday(lectures[0].start)) titleText = 'Heute';
+  else if (isToday(lectures[0].start, 1)) titleText = 'Morgen';
   else {
-    titleText = `${getWeekday(lectures[0].start)} (${lectures[0].start.getDate().toString().padStart(2, "0")}.${
-      lectures[0].start.getMonth() + 1
-    })`;
+    titleText = `${getWeekday(lectures[0].start)} (${lectures[0].start
+      .getDate()
+      .toString()
+      .padStart(2, '0')}.${lectures[0].start.getMonth() + 1})`;
   }
 
   addText(vStack, titleText, 16, true);
   vStack.addSpacer(8);
 
-  const onSameDay = lectures.length >= 2 ? datesOnSameDay(lectures[0].start, lectures[1].start) : false;
+  const onSameDay =
+    lectures.length >= 2
+      ? datesOnSameDay(lectures[0].start, lectures[1].start)
+      : false;
   const max = onSameDay ? 2 : 1;
 
   for (let i = 0; i < max; i++) {
     addText(vStack, lectures[i].name, 10);
 
-    const schedule = vStack.addText(`${timeToString(lectures[i].start)} - ${timeToString(lectures[i].end)}`);
+    const schedule = vStack.addText(
+      `${timeToString(lectures[i].start)} - ${timeToString(lectures[i].end)}`
+    );
     schedule.textColor = Color.white();
     vStack.addSpacer(6);
   }
@@ -82,7 +92,9 @@ async function createWidget() {
 
 // Getting count next LecturingDataFromAPI
 async function fetchNextLectures(count) {
-  const req = new Request(`https://api.rickstack.de/lectures/${course}?excludePast=true`);
+  const req = new Request(
+    `https://api.vorlesungsplan.lars-rickert.de/lectures/${course}?excludePast=true`
+  );
 
   try {
     const lectures = (await req.loadJSON()).slice(0, count);
@@ -102,7 +114,9 @@ async function fetchNextLectures(count) {
 
 function addText(stack, text, size, bold = false) {
   const txt = stack.addText(text);
-  txt.font = bold ? Font.boldRoundedSystemFont(size) : Font.mediumRoundedSystemFont(size);
+  txt.font = bold
+    ? Font.boldRoundedSystemFont(size)
+    : Font.mediumRoundedSystemFont(size);
   txt.textColor = Color.white();
 }
 
@@ -116,22 +130,37 @@ function isToday(date, offset = 0) {
   todayEnd.setHours(23, 59, 59, 59);
   todayEnd.setDate(todayEnd.getDate() + offset);
 
-  return date.getTime() >= todayStart.getTime() && date.getTime() <= todayEnd.getTime();
+  return (
+    date.getTime() >= todayStart.getTime() &&
+    date.getTime() <= todayEnd.getTime()
+  );
 }
 
 function datesOnSameDay(a, b) {
-  return a.getDate() === b.getDate() && a.getMonth() === b.getMonth() && a.getFullYear() === b.getFullYear();
+  return (
+    a.getDate() === b.getDate() &&
+    a.getMonth() === b.getMonth() &&
+    a.getFullYear() === b.getFullYear()
+  );
 }
 
 // Getting Weekday as String
 function getWeekday(date) {
-  const weekdays = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+  const weekdays = [
+    'Sonntag',
+    'Montag',
+    'Dienstag',
+    'Mittwoch',
+    'Donnerstag',
+    'Freitag',
+    'Samstag',
+  ];
   return weekdays[date.getDay()];
 }
 
 // Create 24H Timestring e.g.: 12:23
 function timeToString(date) {
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
 }
