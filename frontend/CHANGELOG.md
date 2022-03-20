@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.14](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.13...vorlesungsplan-plus-v1.0.0-beta.14) (2022-03-20)
+
+
+### Bug Fixes
+
+* fixed notification schedule ([863a86d](https://github.com/larsrickert/vorlesungsplan-plus/commit/863a86d3a7041dd99ff9abd1ea4c578251627802))
+
 # [vorlesungsplan-plus-v1.0.0-beta.13](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.12...vorlesungsplan-plus-v1.0.0-beta.13) (2022-03-20)
 
 
