@@ -32,6 +32,7 @@ module.exports = {
             template: 100,
             comments: 100,
             tabWidth: 2,
+            ignoreStrings: true,
           },
         ],
         'vue/no-deprecated-slot-attribute': 'off',

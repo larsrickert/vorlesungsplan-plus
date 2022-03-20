@@ -16,6 +16,10 @@ const routes: RouteRecordRaw[] = [
     path: '/events',
     component: () => import('../views/Events.vue'),
   },
+  {
+    path: '/apps',
+    component: () => import('../views/Apps.vue'),
+  },
   // catch-all 404 route
   {
     path: '/:pathMatch(.*)*',

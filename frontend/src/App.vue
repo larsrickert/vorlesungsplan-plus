@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { IonApp } from '@ionic/vue';
-import { calendar, cog, openOutline, school } from 'ionicons/icons';
+import { calendar, cog, openOutline, phonePortraitOutline, school } from 'ionicons/icons';
 import { computed, onBeforeUnmount, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
@@ -60,6 +60,11 @@ const subItems = computed<MenuItem[]>(() => {
       title: t('settings.pageName'),
       href: '/settings',
       icon: cog,
+    },
+    {
+      title: t('apps.pageName'),
+      href: '/apps',
+      icon: phonePortraitOutline,
     },
     {
       title: t('global.changelog'),

@@ -78,5 +78,27 @@
   "notifications": {
     "upcomingLecture": "Upcoming lecture ({courses})",
     "lectureStartsInXMinutes": "\"{name}\" starts in {minutes} minutes."
+  },
+  "apps": {
+    "pageName": "Apps",
+    "installVorlesungsplanPlus": "Install Vorlesungsplan+",
+    "pwa": {
+      "title": "Apps",
+      "description": "Vorlesungsplan+ is a PWA (Progressive Web App), which means a web application that can be installed on your device like a native app. You can find instructions on how to install it for the most common browsers below.",
+      "installWith": "Install with {browser}"
+    },
+    "iosWidget": {
+      "title": "iOS Widget",
+      "description": "Follow the instructions below to install the Vorlesungsplan+ iOS widget on your iPhone or iPad.",
+      "download": "Download widget",
+      "installedVersion": "Last downloaded version: {version}",
+      "steps": {
+        "installScriptable": "Install the Scriptable app",
+        "downloadWidget": "Click on the button above to download the widget",
+        "openWithScriptable": "Open the downloaded file, click the share icon and open it with Scriptable. Then click on \"Add to My Scripts\"",
+        "addToHomescreen": "Add a new widget to your home screen as usual. Select the Scriptable app as widget/app",
+        "editWidget": "Press and hold the widget and click on \"Edit widget\". Here, select the Vorlesungsplan+ widget as script and enter your desired course as parameter. Your currently selected courses are: {courses}"
+      }
+    }
   }
 }
