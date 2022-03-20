@@ -6,10 +6,10 @@
     </p>
     <IonPopover
       :is-open="isOpenRef"
-      css-class="app-popover app-popover--large"
+      css-class="app-popover app-popover--large app-popover--scroll"
       :event="event"
       :translucent="false"
-      :show-backdrop="true"
+      :show-backdrop="false"
       @didDismiss="setOpen(false)"
     >
       <div class="popover">
@@ -22,6 +22,7 @@
           </p>
         </div>
 
+        <!-- eslint-disable-next-line vue/no-v-html -->
         <p v-if="description" class="popover__description" v-html="sanitizeHtml(description)"></p>
       </div>
     </IonPopover>
@@ -29,12 +30,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from 'vue-i18n';
-import { IonPopover, IonIcon } from '@ionic/vue';
-import { ref } from 'vue';
-import sanitizeHtml from 'sanitize-html';
-
+import { IonIcon, IonPopover } from '@ionic/vue';
 import { time } from 'ionicons/icons';
+import sanitizeHtml from 'sanitize-html';
+import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 interface CalendarEntryProps {
   isToday?: boolean;

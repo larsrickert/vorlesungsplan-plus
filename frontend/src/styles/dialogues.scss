@@ -12,6 +12,10 @@
     --width: 400px;
     --max-width: 90%;
   }
+
+  &--scroll {
+    overflow: auto;
+  }
 }
 
 .app-modal {
