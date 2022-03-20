@@ -1,3 +1,15 @@
+# [vorlesungsplan-plus-v1.0.0-beta.13](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.12...vorlesungsplan-plus-v1.0.0-beta.13) (2022-03-20)
+
+
+### Features
+
+* added colored course badges and course limit ([5df090f](https://github.com/larsrickert/vorlesungsplan-plus/commit/5df090fbd820236b0f4567121810f1b0160b531e))
+
+
+### BREAKING CHANGES
+
+* Limited number of selected courses to 5
+
 # [vorlesungsplan-plus-v1.0.0-beta.12](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.11...vorlesungsplan-plus-v1.0.0-beta.12) (2022-03-20)
 
 
