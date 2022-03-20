@@ -1,3 +1,5 @@
+import { router } from '../server';
+
 /**
  * @swagger
  * components:
@@ -80,6 +82,13 @@
  *           items:
  *            type: string
  */
+
+router.get('/', (req, res) => {
+  res.status(404).send({
+    message:
+      'You tried to access the index route of the Vorlesungsplan+ API. This route does not provide any data. For available routes, please see API documentation on route /docs',
+  });
+});
 
 require('./courses');
 require('./events');
