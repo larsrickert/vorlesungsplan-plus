@@ -54,11 +54,6 @@ export async function showModal({ component, data }: ModalOptions) {
     cssClass: 'app-modal',
     componentProps: data,
     swipeToClose: true,
-    // null is not supported as type for presentingElement
-    // but it somehow as a nice card style effect that cannot be achieved
-    // with setting the element to e.g. ion-router-outlet
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    presentingElement: null as any,
   });
 
   await modal.present();
