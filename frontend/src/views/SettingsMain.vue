@@ -22,6 +22,9 @@
               :interface-options="{ header: t('settings.selectTheme') }"
               :placeholder="`${t('global.select')}...`"
             >
+              <IonSelectOption value="auto">
+                {{ t('settings.themes.auto') }}
+              </IonSelectOption>
               <IonSelectOption value="light">
                 {{ t('settings.themes.light') }}
               </IonSelectOption>
@@ -102,8 +105,11 @@ const { t } = useI18n();
 const settingsStore = useSettingsStore();
 
 const theme = computed({
-  get: (): string => settingsStore.theme,
-  set: (value: string) => settingsStore.changeTheme(value),
+  get: (): string => (settingsStore.themeDetection ? 'auto' : settingsStore.theme),
+  set: async (value: string) => {
+    if (value !== 'auto') await settingsStore.changeTheme(value);
+    await settingsStore.changeThemeDetection(value === 'auto');
+  },
 });
 
 const openCourseSelect = async () => {

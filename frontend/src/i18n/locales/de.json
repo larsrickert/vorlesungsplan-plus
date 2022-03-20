@@ -49,6 +49,7 @@
     "selectTheme": "Design auswählen",
     "theme": "Design",
     "themes": {
+      "auto": "Geräteeinstellung",
       "light": "Hell",
       "dark": "Dunkel"
     },

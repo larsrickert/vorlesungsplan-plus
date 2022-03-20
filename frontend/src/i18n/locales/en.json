@@ -49,6 +49,7 @@
     "selectTheme": "Select design",
     "theme": "Theme",
     "themes": {
+      "auto": "Device setting",
       "light": "Light",
       "dark": "Dark"
     },

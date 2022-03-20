@@ -3,6 +3,7 @@ import { Storage } from '@capacitor/storage';
 export enum StorageKey {
   LOCALE = 'locale',
   THEME = 'theme',
+  THEME_DETECTION = 'themeDetection',
   COURSES = 'courses',
   LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
   LECTURES_NOTIFICATION_TIME = 'lecturesNotificationTime',

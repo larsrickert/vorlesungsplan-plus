@@ -6,11 +6,15 @@ import { i18n } from '../i18n';
 
 export const allowedNotificationTimes: readonly number[] = Object.freeze([0, 15, 30, 45, 60]);
 
+let themeMediaQueryList: MediaQueryList | undefined;
+let themeListener: ((ev: MediaQueryListEvent) => unknown) | undefined;
+
 export const useSettingsStore = defineStore('settings', {
   state() {
     return {
       locale: config.i18n.defaultLocale,
       theme: 'light',
+      themeDetection: true,
       courses: [] as string[],
       lecturesLastUpdated: null as Date | null,
       lectureNotificationTime: 15,
@@ -24,21 +28,27 @@ export const useSettingsStore = defineStore('settings', {
      */
     async loadAndInitDefaults() {
       const localeSetting = await initValue(StorageKey.LOCALE, await getInitLocale());
+      this.changeLocale(localeSetting);
+
       const themeSetting = await initValue(StorageKey.THEME, this.theme);
+      this.changeTheme(themeSetting);
+
+      const themeDetection = await initValue(StorageKey.THEME_DETECTION, this.themeDetection);
+      this.changeThemeDetection(themeDetection);
+
       const coursesSetting = await initValue(StorageKey.COURSES, this.courses);
+      this.changeCourses(coursesSetting);
+
       const lastUpdatedSetting = await initValue(
         StorageKey.LECTURES_LAST_UPDATED,
         this.lecturesLastUpdated
       );
+      if (lastUpdatedSetting) this.changeLecturesLastUpdated(new Date(lastUpdatedSetting));
+
       const lectureNotificationTime = await initValue(
         StorageKey.LECTURES_NOTIFICATION_TIME,
         this.lectureNotificationTime
       );
-
-      this.changeLocale(localeSetting);
-      this.changeTheme(themeSetting);
-      this.changeCourses(coursesSetting);
-      if (lastUpdatedSetting) this.changeLecturesLastUpdated(new Date(lastUpdatedSetting));
       this.changeLectureNotificationTime(lectureNotificationTime);
     },
     /**
@@ -70,6 +80,28 @@ export const useSettingsStore = defineStore('settings', {
 
       this.theme = value;
       await setValue(StorageKey.THEME, value);
+    },
+    async changeThemeDetection(value: boolean) {
+      if (this.themeDetection !== value) {
+        this.themeDetection = value;
+        await setValue(StorageKey.THEME_DETECTION, value);
+      }
+
+      if (!window.matchMedia) return;
+      if (!themeMediaQueryList) {
+        themeMediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+      }
+
+      if (value) {
+        this.changeTheme(themeMediaQueryList.matches ? 'dark' : 'light');
+        if (!themeListener) {
+          themeListener = (event) => this.changeTheme(event.matches ? 'dark' : 'light');
+        }
+        themeMediaQueryList.addEventListener('change', themeListener);
+      } else if (!value && themeListener) {
+        themeMediaQueryList.removeEventListener('change', themeListener);
+        themeListener = undefined;
+      }
     },
     /**
      * Sets the current selected courses and stores it in the storage.
