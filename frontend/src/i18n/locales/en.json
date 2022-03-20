@@ -37,12 +37,13 @@
       "exams": "Exams ({count})",
       "changes": "Changes ({count})"
     },
-    "noLecturesText": "Have fun in the practical phase!",
+    "noLecturesText": "Have fun in the practical phase! 😎",
     "clearChanges": "Mark changes as read",
     "showPastLectures": "Show past lectures",
     "showingPastLecturesToast": "Past lectures are now displayed.",
     "hidePastLectures": "Hide past lecture",
-    "hidingPastLecturesToast": "Past lectures are no longer displayed."
+    "hidingPastLecturesToast": "Past lectures are no longer displayed.",
+    "noCoursesSelected": "No course selected. Please select at least one course in the settings page."
   },
   "settings": {
     "pageName": "Settings",

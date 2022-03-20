@@ -92,6 +92,8 @@ networkStore.initListener();
 const router = useRouter();
 
 settingsStore.loadAndInitDefaults().then(() => {
+  if (!settingsStore.courses.length) store.lecturesLoaded = true;
+
   // init notifications
   const lectures = computed(() => store.lectures);
   notificationStore.requestPermissions().then(() => {

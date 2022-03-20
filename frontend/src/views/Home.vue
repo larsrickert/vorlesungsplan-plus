@@ -22,6 +22,7 @@
       <div class="page__content">
         <AppRefresher :pulling-text="refresherText" :refresh-func="refreshLectures" />
         <IonProgressBar v-if="!store.lecturesLoaded" type="indeterminate" />
+        <p v-else-if="!settingsStore.courses.length">{{ t('timetable.noCoursesSelected') }}</p>
 
         <template v-else>
           <template v-if="!store.countUpcomingLectures">
