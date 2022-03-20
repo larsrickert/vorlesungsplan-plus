@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-api-v1.0.0-beta.7](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.6...vorlesungsplan-plus-api-v1.0.0-beta.7) (2022-03-20)
+
+
+### Features
+
+* updated ios widget ([#7](https://github.com/larsrickert/vorlesungsplan-plus/issues/7)) ([5da5805](https://github.com/larsrickert/vorlesungsplan-plus/commit/5da5805c6d44daa89f5390125a4acb3184c99049))
+
 # [vorlesungsplan-plus-api-v1.0.0-beta.6](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.5...vorlesungsplan-plus-api-v1.0.0-beta.6) (2022-03-20)
 
 
