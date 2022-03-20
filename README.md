@@ -48,6 +48,12 @@ Vorlesungsplan+ API is build with [Node.js](https://nodejs.org/), [express](http
 
 <br />
 
+# Bug reports / feature requests
+
+If you found a bug in the app or the API or want to propose a new feature, just create a [GitHub issue](https://github.com/larsrickert/vorlesungsplan-plus/issues) and I will take a look at it. If you are familiar with the used technologies you can also fork the code and create a PR yourself.
+
+<br />
+
 # Contribution
 
 If you want to contribute to this app and API you can fork, create a pull request, contact me on Discord
