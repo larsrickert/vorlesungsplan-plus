@@ -11,7 +11,7 @@ The API is live on: https://api.vorlesungsplan.lars-rickert.de
 The Vorlesungsplan+ app is intended to be an alternative to the official stuv survival/stuv companion app of the DHBW
 Mosbach and Bad Mergentheim. In contrast to the official app, this app offers a cross-platform unified look and feel. This app is a PWA (
 Progressive Web App) that allows you to "install" the app to your native device. Alternatively this app is also
-available as android app. The APK can be downloaded on https://vorlesungsplan.lars-rickert.de/installation.
+available as android app. The APK can be downloaded on https://vorlesungsplan.lars-rickert.de/apps.
 
 ## Features
 
@@ -43,7 +43,7 @@ For available endpoints and documentation, see https://api.vorlesungsplan.lars-r
 
 ## Technologies
 
-Vorlesungsplan+ API is build with [Node.js](https://nodejs.org/en/), [express](http://expressjs.com/) and [TypeScript](https://www.typescriptlang.org/).
+Vorlesungsplan+ API is build with [Node.js](https://nodejs.org/), [express](http://expressjs.com/) and [TypeScript](https://www.typescriptlang.org/).
 
 <br />
 
