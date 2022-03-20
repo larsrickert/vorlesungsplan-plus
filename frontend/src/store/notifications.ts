@@ -43,12 +43,11 @@ export const useNotificationStore = defineStore('notifications', {
       if (!lectures.length) return;
 
       const promises: Promise<unknown>[] = [];
-
       const { t } = i18n.global;
+      const now = new Date();
 
       for (let i = 0; i < lectures.length; i++) {
         const lecture = lectures[i];
-        const now = new Date();
 
         // lecture is currently active/started, so dont send notification
         if (new Date(lecture.start).getTime() < now.getTime()) continue;
@@ -60,8 +59,8 @@ export const useNotificationStore = defineStore('notifications', {
 
         if (scheduleDate.getTime() < now.getTime()) {
           // lecture starts sooner than scheduleOffsetMinutes
-          const diffInMs = now.getTime() - scheduleDate.getTime();
-          startingInMinutes = Math.round(diffInMs / 1000 / 60);
+          const diff = now.getTime() - scheduleDate.getTime();
+          startingInMinutes = Math.round(diff / 1000 / 60);
         }
 
         const promise = LocalNotifications.schedule({

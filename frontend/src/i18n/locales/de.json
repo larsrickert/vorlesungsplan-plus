@@ -1,6 +1,5 @@
 {
   "global": {
-    "placeholder": "Dies ist ein Platzhalter-Text.",
     "close": "Schließen",
     "errorCode": "Fehlercode",
     "select": "Auswählen",
@@ -11,10 +10,8 @@
     "dateRange": "{start} bis {end} Uhr",
     "today": "Heute",
     "tomorrow": "Morgen",
-    "emptySeach": "Keine Ergebnisse für die Suche gefunden.",
+    "emptySearch": "Keine Ergebnisse für die Suche gefunden.",
     "appVersion": "v{version}",
-    "yes": "Ja",
-    "no": "Nein",
     "notAvailableOnPlatform": "Nicht verfügbar für {platform}",
     "deactivated": "Deaktiviert",
     "changelog": "Änderungsprotokoll",
@@ -59,10 +56,10 @@
     "lectureNotificationTime": "Erinnerungen",
     "selectNotificationTime": "Zeit auswählen",
     "xMinutes": "0 Minuten | 1 Minute | {count} Minuten",
-    "notificationTimeDescription": "Du bekommst keine Benachrichtigung vor jeder Vorlesung. | Du bekommst 1 Minute vor jeder Vorlesung eine Benachrichtung. Dafür musst du dieser App die Berechtigung dafür erteilen. | Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtung. Dafür musst du dieser App die Berechtigung dafür erteilen.",
+    "notificationTimeDescription": "Du bekommst keine Benachrichtigung vor jeder Vorlesung. | Du bekommst 1 Minute vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen. | Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen.",
     "permissionGranted": "Berechtigung erteilt",
     "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung",
-    "selectCoursesToast": "Offensichtlich benutzt die Vorlesungsplan+ das erste Mal. Bitte wähle einen oder mehrere Kurse aus, die im Vorlesungsplan angezeigt werden sollen."
+    "selectCoursesToast": "Offensichtlich benutzt die Vorlesungsplan+ zum ersten Mal. Bitte wähle einen oder mehrere Kurse aus, die im Vorlesungsplan angezeigt werden sollen."
   },
   "events": {
     "pageName": "Veranstaltungen",

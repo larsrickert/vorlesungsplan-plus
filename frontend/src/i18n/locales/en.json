@@ -1,6 +1,5 @@
 {
   "global": {
-    "placeholder": "This is a placeholder text.",
     "close": "Close",
     "errorCode": "Error code",
     "select": "Select",
@@ -11,10 +10,8 @@
     "dateRange": "{start} until {end}",
     "today": "Today",
     "tomorrow": "Tomorrow",
-    "emptySeach": "No results found for the search.",
+    "emptySearch": "No results found for the search.",
     "appVersion": "v{version}",
-    "yes": "Yes",
-    "no": "No",
     "notAvailableOnPlatform": "Not available for {platform}",
     "deactivated": "Deactivated",
     "changelog": "Changelog",

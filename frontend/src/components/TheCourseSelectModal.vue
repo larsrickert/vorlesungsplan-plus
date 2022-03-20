@@ -27,7 +27,7 @@
             />
 
             <p v-if="searchValue && !coursesFilteredBySearch.length">
-              {{ t('global.emptySeach') }}
+              {{ t('global.emptySearch') }}
             </p>
 
             <IonItemGroup v-for="group of getGroups(coursesFilteredBySearch)" :key="group.name">

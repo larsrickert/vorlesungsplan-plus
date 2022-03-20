@@ -48,7 +48,7 @@
                 :lectures="block.lectures"
               />
 
-              <p v-if="!searchBlocks.length">{{ t('global.emptySeach') }}</p>
+              <p v-if="!searchBlocks.length">{{ t('global.emptySearch') }}</p>
             </div>
 
             <div v-show="!searchValue">
