@@ -18,7 +18,8 @@
     "contact": "Kontakt",
     "aboutTheApp": "Über die App",
     "yes": "Ja",
-    "no": "Nein"
+    "no": "Nein",
+    "pullToRefresh": "zum Aktualisieren ziehen"
   },
   "locales": {
     "de": "Deutsch",

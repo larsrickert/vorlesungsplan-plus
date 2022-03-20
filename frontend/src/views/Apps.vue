@@ -4,7 +4,7 @@
 
     <IonContent :fullscreen="true">
       <div class="page__content">
-        <div ref="lottieRef" class="animation"></div>
+        <LottieAnimation :animation-data="lottieDownloadAnimationData" class="animation" />
 
         <AppSegment v-model="selectedSegment" :options="segments" />
 
@@ -107,14 +107,14 @@
 <script lang="ts" setup>
 import { IonChip, IonContent, IonIcon, IonPage } from '@ionic/vue';
 import { apps, logoApple, logoChrome, logoEdge } from 'ionicons/icons';
-import lottie from 'lottie-web';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import lottieDownloadAnimationData from '../assets/lottie/download.json';
 import axiosInstance from '../axios';
 import AppHeader from '../components/AppHeader.vue';
 import AppSegment from '../components/AppSegment.vue';
+import LottieAnimation from '../components/LottieAnimation.vue';
 import config from '../configs';
 import { navigate } from '../helpers/misc';
 import { useSettingsStore } from '../store/settings';
@@ -149,20 +149,6 @@ watch(selectedSegment, (newValue) => {
       type: newValue !== 'apps' ? newValue : undefined,
     },
   });
-});
-
-const lottieRef = ref<HTMLElement | null>(null);
-
-onMounted(() => {
-  if (lottieRef.value) {
-    lottie.loadAnimation({
-      container: lottieRef.value,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      animationData: lottieDownloadAnimationData,
-    });
-  }
 });
 
 const widgetVersion = ref('');

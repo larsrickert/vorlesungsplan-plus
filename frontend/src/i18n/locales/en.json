@@ -18,7 +18,8 @@
     "contact": "Contact",
     "aboutTheApp": "About the app",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "pullToRefresh": "Pull to refresh"
   },
   "locales": {
     "de": "Deutsch",
