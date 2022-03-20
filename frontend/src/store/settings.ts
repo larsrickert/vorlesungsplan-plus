@@ -12,7 +12,7 @@ let themeMediaQueryList: MediaQueryList | undefined;
 let themeListener: ((ev: MediaQueryListEvent) => unknown) | undefined;
 
 export const useSettingsStore = defineStore('settings', {
-  state() {
+  state: () => {
     return {
       locale: config.i18n.defaultLocale,
       theme: 'dark',

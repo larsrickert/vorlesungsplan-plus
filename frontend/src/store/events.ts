@@ -4,7 +4,7 @@ import { CustomError, ErrorCode } from '../types/errors';
 import { DhbwEvent } from '../types/events';
 
 export const useEventStore = defineStore('events', {
-  state() {
+  state: () => {
     return {
       events: [] as DhbwEvent[],
     };

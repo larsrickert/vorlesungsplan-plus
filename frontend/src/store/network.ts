@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 let listener: null | PluginListenerHandle = null;
 
 export const useNetworkStore = defineStore('network', {
-  state() {
+  state: () => {
     return {
       status: {
         connected: false,

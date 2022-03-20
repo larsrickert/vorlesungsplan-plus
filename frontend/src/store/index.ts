@@ -12,7 +12,7 @@ export const pinia = createPinia();
 if (!isProduction) pinia.use(loggerPlugin);
 
 export const useStore = defineStore('main', {
-  state() {
+  state: () => {
     return {
       lectureDayBlocks: [] as DayLectureBlock[],
       lecturesLoaded: false,

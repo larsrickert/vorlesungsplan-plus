@@ -10,7 +10,7 @@ function getNotificationIdentifier(lecture: MergedLecture): string {
 }
 
 export const useNotificationStore = defineStore('notifications', {
-  state() {
+  state: () => {
     return {
       hasPermissions: false,
       scheduledLectures: [] as string[],
