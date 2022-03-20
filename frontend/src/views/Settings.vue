@@ -36,7 +36,7 @@
 
           <div>
             <IonItem lines="none" class="setting">
-              <IonIcon slot="start" :icon="alarm" />
+              <IonIcon slot="start" :icon="notificationTime ? notifications : notificationsOff" />
 
               <span class="setting__name">{{ t('settings.lectureNotificationTime') }}:</span>
 
@@ -91,7 +91,7 @@ import {
   IonSelect,
   IonSelectOption,
 } from '@ionic/vue';
-import { alarm, contrast, list } from 'ionicons/icons';
+import { contrast, list, notifications, notificationsOff } from 'ionicons/icons';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
