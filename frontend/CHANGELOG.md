@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.9](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.8...vorlesungsplan-plus-v1.0.0-beta.9) (2022-03-20)
+
+
+### Bug Fixes
+
+* added message when no courses selected ([7d1004d](https://github.com/larsrickert/vorlesungsplan-plus/commit/7d1004d4da370ba63cebb7aef85aa3cc3cf40015))
+
 # [vorlesungsplan-plus-v1.0.0-beta.8](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.7...vorlesungsplan-plus-v1.0.0-beta.8) (2022-03-20)
 
 
