@@ -20,7 +20,7 @@ export default defineConfig({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       workbox: {
         // default only includes js,css and html files, so images (logo etc.) will not be cached in pwa
-        globPatterns: ['**/*.{js,css,html,svg,jpg,png}'],
+        globPatterns: ['**/*.{js,css,html,svg,jpg,png,json}'],
       },
       manifest: {
         name: 'Vorlesungsplan+',

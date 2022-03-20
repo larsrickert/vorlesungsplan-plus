@@ -78,5 +78,19 @@
   "notifications": {
     "upcomingLecture": "Upcoming lecture ({courses})",
     "lectureStartsInXMinutes": "\"{name}\" starts in {minutes} minutes."
+  },
+  "apps": {
+    "pageName": "Apps",
+    "installVorlesungsplanPlus": "Install Vorlesungsplan+",
+    "pwa": {
+      "title": "Apps",
+      "description": "Vorlesungsplan+ is a PWA (Progressive Web App), which means a web application that can be installed on your device like a native app. You can find instructions on how to install it for the most common browsers below.",
+      "installWith": "Install with {browser}"
+    },
+    "iosWidget": {
+      "title": "iOS Widget",
+      "description": "Lorem ipsum.",
+      "download": "Download Widget"
+    }
   }
 }
