@@ -78,5 +78,27 @@
   "notifications": {
     "upcomingLecture": "Anstehende Vorlesung ({courses})",
     "lectureStartsInXMinutes": "\"{name}\" startet in {minutes} Minuten."
+  },
+  "apps": {
+    "pageName": "Apps",
+    "installVorlesungsplanPlus": "Vorlesungsplan+ installieren",
+    "pwa": {
+      "title": "Apps",
+      "description": "Vorlesungsplan+ ist eine PWA (Progressive Web App), d.h. eine Web-Anwendung, die wie eine native App auf deinem Gerät installiert werden kann. Unten findest du Installationsanleitungen für die üblichsten Browser.",
+      "installWith": "Mit {browser} installieren"
+    },
+    "iosWidget": {
+      "title": "iOS Widget",
+      "description": "Folge der unten stehenden Anleitung, um das Vorlesungsplan+ iOS Widget auf deinem iPhone oder iPad zu installieren.",
+      "download": "Widget herunterladen",
+      "installedVersion": "Zuletzt heruntergeladene Version: {version}",
+      "steps": {
+        "installScriptable": "Installiere die Scriptable App",
+        "downloadWidget": "Klicke auf die Schaltfläche oben, um das Widget herunterzuladen",
+        "openWithScriptable": "Öffne die heruntergeladene Datei, klicke auf das Teilen-Symbol und öffne sie mit Scriptable. Klicke anschließend auf \"Add to My Scripts\"",
+        "addToHomescreen": "Füge wie gewohnt ein neues Widget zu deinem Home-Screen hinzu. Wähle als Widget/App die Scriptable App aus",
+        "editWidget": "Halte das soeben hinzugefügte Widget gedrückt und klicke auf \"Widget bearbeiten\". Wähle hier als Script das Vorlesungsplan+ Widget und gib als Parameter deinen gewünschten Kurs ein. Deine aktuell ausgewählten Kurse sind: {courses}"
+      }
+    }
   }
 }

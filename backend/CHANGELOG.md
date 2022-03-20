@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-api-v1.0.0-beta.6](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.5...vorlesungsplan-plus-api-v1.0.0-beta.6) (2022-03-20)
+
+
+### Features
+
+* changed app and api host ([704ecd4](https://github.com/larsrickert/vorlesungsplan-plus/commit/704ecd4735190faf43e7fd27390879da94ffcf45))
+
 # [vorlesungsplan-plus-api-v1.0.0-beta.5](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0-beta.4...vorlesungsplan-plus-api-v1.0.0-beta.5) (2022-03-20)
 
 

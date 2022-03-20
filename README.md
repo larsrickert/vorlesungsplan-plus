@@ -1,8 +1,8 @@
 # Vorlesungsplan+ for DHBW Mosbach and Bad Mergentheim
 
-The app is live on: https://dhbw.rickstack.de
+The app is live on: https://vorlesungsplan.lars-rickert.de
 
-The API is live on: https://api.rickstack.de
+The API is live on: https://api.vorlesungsplan.lars-rickert.de
 
 <br />
 
@@ -11,7 +11,7 @@ The API is live on: https://api.rickstack.de
 The Vorlesungsplan+ app is intended to be an alternative to the official stuv survival/stuv companion app of the DHBW
 Mosbach and Bad Mergentheim. In contrast to the official app, this app offers a cross-platform unified look and feel. This app is a PWA (
 Progressive Web App) that allows you to "install" the app to your native device. Alternatively this app is also
-available as android app. The APK can be downloaded on https://dhbw.rickstack.de/installation.
+available as android app. The APK can be downloaded on https://vorlesungsplan.lars-rickert.de/installation.
 
 ## Features
 
@@ -24,7 +24,7 @@ available as android app. The APK can be downloaded on https://dhbw.rickstack.de
 
 ## Technologies
 
-Vorlesungsplan+ is built with [Vue.js](https://vuejs.org/) and the [Ionic Framework](https://ionicframework.com/docs/).
+Vorlesungsplan+ is built with [Vue.js](https://vuejs.org/), the [Ionic Framework](https://ionicframework.com/docs/) and [TypeScript](https://www.typescriptlang.org/).
 
 <br />
 
@@ -34,7 +34,7 @@ The Vorlesungsplan+ API is an Open Source Node.js API to request courses, lectur
 Mosbach and Bad Mergentheim. This API is not an official API, but it uses the official StuV API for its data. You can use
 this API in your own projects without annoying CORS errors.
 
-For available endpoints and documentation, see https://api.rickstack.de/docs.
+For available endpoints and documentation, see https://api.vorlesungsplan.lars-rickert.de/docs.
 
 ## Features
 

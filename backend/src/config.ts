@@ -31,12 +31,8 @@ const config: IConfig = {
         },
         servers: [
           {
-            url: 'https://api.rickstack.de',
+            url: 'https://api.vorlesungsplan.lars-rickert.de',
             description: 'Production server',
-          },
-          {
-            url: 'https://api-beta.rickstack.de',
-            description: 'Beta server',
           },
           {
             url: `http://localhost:${appPort}`,

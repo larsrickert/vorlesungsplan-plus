@@ -1,3 +1,17 @@
+# [vorlesungsplan-plus-v1.0.0-beta.12](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.11...vorlesungsplan-plus-v1.0.0-beta.12) (2022-03-20)
+
+
+### Features
+
+* changed app and api host ([704ecd4](https://github.com/larsrickert/vorlesungsplan-plus/commit/704ecd4735190faf43e7fd27390879da94ffcf45))
+
+# [vorlesungsplan-plus-v1.0.0-beta.11](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.10...vorlesungsplan-plus-v1.0.0-beta.11) (2022-03-20)
+
+
+### Features
+
+* added apps page with installation instructions for pwa and ios widget ([#6](https://github.com/larsrickert/vorlesungsplan-plus/issues/6)) ([673ac41](https://github.com/larsrickert/vorlesungsplan-plus/commit/673ac4113ce7b8acd3d89f5371c0d3522fa71868))
+
 # [vorlesungsplan-plus-v1.0.0-beta.10](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.9...vorlesungsplan-plus-v1.0.0-beta.10) (2022-03-20)
 
 
