@@ -96,7 +96,7 @@ async function fetchNextLectures(count) {
   if (!course) return [];
 
   const req = new Request(
-    `https://api.dhbw.lars-rickert.de/lectures/${course}?excludePast=true`
+    `https://api.vorlesungsplan.lars-rickert.de/lectures/${course}?excludePast=true`
   );
 
   try {
