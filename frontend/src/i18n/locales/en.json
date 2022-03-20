@@ -89,8 +89,16 @@
     },
     "iosWidget": {
       "title": "iOS Widget",
-      "description": "Lorem ipsum.",
-      "download": "Download Widget"
+      "description": "Follow the instructions below to install the Vorlesungsplan+ iOS widget on your iPhone or iPad.",
+      "download": "Download widget",
+      "installedVersion": "Last downloaded version: {version}",
+      "steps": {
+        "installScriptable": "Install the Scriptable app",
+        "downloadWidget": "Click on the button above to download the widget",
+        "openWithScriptable": "Open the downloaded file, click the share icon and open it with Scriptable. Then click on \"Add to My Scripts\"",
+        "addToHomescreen": "Add a new widget to your home screen as usual. Select the Scriptable app as widget/app",
+        "editWidget": "Press and hold the widget and click on \"Edit widget\". Here, select the Vorlesungsplan+ widget as script and enter your desired course as parameter. Your currently selected courses are: {courses}"
+      }
     }
   }
 }

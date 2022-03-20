@@ -7,6 +7,7 @@ export enum StorageKey {
   COURSES = 'courses',
   LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
   LECTURES_NOTIFICATION_TIME = 'lecturesNotificationTime',
+  IOS_WIDGET_VERSION = 'iosWidgetVersion',
 }
 
 let isConfigured = false;

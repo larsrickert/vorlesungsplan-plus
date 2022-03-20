@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import config from '../configs';
 import { getInitLocale, isLocaleAvailable } from '../helpers/i18n';
-import { initValue, setValue, StorageKey } from '../helpers/storage';
+import { getValue, initValue, setValue, StorageKey } from '../helpers/storage';
 import { i18n } from '../i18n';
 
 export const allowedNotificationTimes: readonly number[] = Object.freeze([0, 15, 30, 45, 60]);
@@ -18,6 +18,7 @@ export const useSettingsStore = defineStore('settings', {
       courses: [] as string[],
       lecturesLastUpdated: null as Date | null,
       lectureNotificationTime: 15,
+      iosWidgetVersion: '',
     };
   },
   actions: {
@@ -50,6 +51,9 @@ export const useSettingsStore = defineStore('settings', {
         this.lectureNotificationTime
       );
       this.changeLectureNotificationTime(lectureNotificationTime);
+
+      const iosWidgetVersion = await getValue<string>(StorageKey.IOS_WIDGET_VERSION);
+      if (iosWidgetVersion) this.changeIosWidgetVersion(iosWidgetVersion);
     },
     /**
      * Sets the locale setting to the passed value if locale is available for this application and
@@ -123,6 +127,12 @@ export const useSettingsStore = defineStore('settings', {
 
       this.lectureNotificationTime = value;
       await setValue(StorageKey.LECTURES_NOTIFICATION_TIME, value);
+    },
+    async changeIosWidgetVersion(value: string) {
+      if (this.iosWidgetVersion === value) return;
+
+      this.iosWidgetVersion = value;
+      await setValue(StorageKey.IOS_WIDGET_VERSION, value);
     },
   },
 });
