@@ -60,8 +60,8 @@ const config: IConfig = {
   apps: {
     ios: {
       widget: {
-        version: '3.0.0',
-        filePath: `${publicPath}mosbach-vorlesungsplan-widget-v3.scriptable`,
+        version: '4.0.0',
+        filePath: `${publicPath}mosbach-vorlesungsplan-widget-v4.scriptable`,
       },
     },
   },
