@@ -7,7 +7,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path ../.gitignore --fix src",
-    "format": "prettier --write \"./{src,tests}/**/*.{js,json,ts,html,scss,vue}\"",
+    "format": "prettier --write \"./{src,tests}/**/*.{js,json,ts,html,scss,vue}\" !src/assets",
     "update": "npx npm-check-updates -i"
   },
   "dependencies": {
