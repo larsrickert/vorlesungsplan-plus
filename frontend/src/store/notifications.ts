@@ -5,8 +5,8 @@ import { i18n } from '../i18n';
 import { MergedLecture } from '../types/lectures';
 import { useSettingsStore } from './settings';
 
-function getNotificationIdentifier(lecture: MergedLecture): string {
-  return `${lecture.ids.join(',')};${lecture.start}`;
+function getNotificationIdentifier(lecture: MergedLecture, scheduleOffset: number): string {
+  return `${lecture.ids.join(',')};${lecture.start};${scheduleOffset}`;
 }
 
 export const useNotificationStore = defineStore('notifications', {
@@ -54,7 +54,7 @@ export const useNotificationStore = defineStore('notifications', {
 
       lectures.forEach((lecture) => {
         const start = new Date(lecture.start);
-        const identifier = getNotificationIdentifier(lecture);
+        const identifier = getNotificationIdentifier(lecture, scheduleOffsetMinutes);
 
         // lecture is currently active/started, so dont send notification
         if (start.getTime() < now.getTime()) return;
