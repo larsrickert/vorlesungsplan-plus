@@ -1,3 +1,11 @@
+# [vorlesungsplan-plus-v2.0.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.0.0...vorlesungsplan-plus-v2.0.1) (2022-03-21)
+
+
+### Bug Fixes
+
+* notification not send when setting increases ([4b137bd](https://github.com/larsrickert/vorlesungsplan-plus/commit/4b137bd230ad8a722d0dd7f8c359dbf6e1779b7f))
+* **timetable:** empty page after clearing changes ([f2b719f](https://github.com/larsrickert/vorlesungsplan-plus/commit/f2b719f3e32381927e93ab68b57b9f8db5418ade))
+
 # [vorlesungsplan-plus-v2.0.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0...vorlesungsplan-plus-v2.0.0) (2022-03-21)
 
 
