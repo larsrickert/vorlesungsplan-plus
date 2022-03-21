@@ -11,12 +11,12 @@
         <template v-else>
           <p v-if="!eventStore.events.length">{{ t('events.noEventsAvailable') }}</p>
 
-          <template v-else>
+          <div v-else class="calendar">
             <p v-if="eventStore.upcomingEvents.length">
               {{ t('events.upcomingEvents', eventStore.upcomingEvents.length) }}
             </p>
             <AppCalendar />
-          </template>
+          </div>
         </template>
       </div>
     </IonContent>
@@ -58,4 +58,12 @@ watch(
 );
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import '../styles/mixin.scss';
+
+.calendar {
+  @include breakpoint(s) {
+    margin-top: 10px;
+  }
+}
+</style>
