@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v1.0.0-beta.16](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.15...vorlesungsplan-plus-v1.0.0-beta.16) (2022-03-21)
+
+
+### Bug Fixes
+
+* fixed position of refresher animation ([34a4cb8](https://github.com/larsrickert/vorlesungsplan-plus/commit/34a4cb87c51cf7d546a3d94dbb8124aa1670b41e))
+
 # [vorlesungsplan-plus-v1.0.0-beta.15](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v1.0.0-beta.14...vorlesungsplan-plus-v1.0.0-beta.15) (2022-03-20)
 
 
