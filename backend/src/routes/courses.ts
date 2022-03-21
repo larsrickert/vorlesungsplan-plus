@@ -1,6 +1,5 @@
-import { fetchCourses } from "../services/courses";
-import logger from "../services/logger";
-import router from "./index";
+import { router } from '../server';
+import { fetchCourses } from '../services/courses';
 
 /**
  * @swagger
@@ -18,7 +17,7 @@ import router from "./index";
  *              items:
  *                type: string
  */
-router.get("/courses", async (req, res) => {
-  logger.log("Request to /courses");
-  res.send(await fetchCourses());
+router.get('/courses', async (req, res) => {
+  const courses: string[] = await fetchCourses();
+  res.send(courses);
 });

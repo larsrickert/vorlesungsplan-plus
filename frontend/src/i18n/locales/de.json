@@ -1,0 +1,106 @@
+{
+  "global": {
+    "close": "Schließen",
+    "errorCode": "Fehlercode",
+    "select": "Auswählen",
+    "cancel": "Abbrechen",
+    "searchPlaceholder": "Suchen...",
+    "refresh": "Aktualisieren",
+    "isRefreshing": "Wird aktualisiert...",
+    "dateRange": "{start} bis {end} Uhr",
+    "today": "Heute",
+    "tomorrow": "Morgen",
+    "emptySearch": "Keine Ergebnisse für die Suche gefunden.",
+    "appVersion": "v{version}",
+    "notAvailableOnPlatform": "Nicht verfügbar für {platform}",
+    "deactivated": "Deaktiviert",
+    "changelog": "Änderungsprotokoll",
+    "contact": "Kontakt",
+    "aboutTheApp": "Über die App",
+    "yes": "Ja",
+    "no": "Nein",
+    "pullToRefresh": "zum Aktualisieren ziehen"
+  },
+  "locales": {
+    "de": "Deutsch",
+    "en": "English"
+  },
+  "pwa": {
+    "newContentAvailable": "Neue Inhalte verfügbar. Klicke auf die Schaltfläche, um die App zu aktualisieren.",
+    "reload": "Aktualisieren"
+  },
+  "timetable": {
+    "pageName": "Vorlesungsplan | Vorlesungsplan | Vorlesungspläne ({count})",
+    "lastUpdated": "Zuletzt aktualisiert: {date}",
+    "segments": {
+      "all": "Alle ({count})",
+      "presence": "Präsenz ({count})",
+      "exams": "Klausuren ({count})",
+      "changes": "Änderungen ({count})"
+    },
+    "noLecturesText": "Viel Spaß in der Praxisphase! 😎",
+    "clearChanges": "Änderungen als gelesen markieren",
+    "showPastLectures": "Vergangene Vorlesungen anzeigen",
+    "showingPastLecturesToast": "Vergangene Vorlesungen werden jetzt angezeigt.",
+    "hidePastLectures": "Vergangene Vorlesungen ausblenden",
+    "hidingPastLecturesToast": "Vergangene Vorlesungen sind jetzt ausgeblendet.",
+    "noCoursesSelected": "Keinen Kurs ausgewählt. Bitte wähle mindestens einen Kurs in den Einstellungen aus."
+  },
+  "settings": {
+    "pageName": "Einstellungen",
+    "selectTheme": "Design auswählen",
+    "theme": "Design",
+    "themes": {
+      "auto": "Geräteeinstellung",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "selectCourses": "Kurse auswählen",
+    "availableCourses": "Verfügbare Kurse",
+    "noCoursesAvailable": "Es sind keine Kurse verfügbar.",
+    "lectureNotificationTime": "Erinnerungen",
+    "selectNotificationTime": "Zeit auswählen",
+    "xMinutes": "0 Minuten | 1 Minute | {count} Minuten",
+    "notificationTimeDescription": "Du bekommst keine Benachrichtigung vor jeder Vorlesung. | Du bekommst 1 Minute vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen. Wichtig: Du musst die App im Hintergrund geöffnet haben, damit Benachrichtigungen verschickt werden! | Du bekommst {count} Minuten vor jeder Vorlesung eine Benachrichtigung. Dafür musst du dieser App die Berechtigung dafür erteilen. Wichtig: Du musst die App im Hintergrund geöffnet haben, damit Benachrichtigungen verschickt werden!",
+    "permissionGranted": "Berechtigung erteilt",
+    "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung",
+    "selectCoursesToast": "Offensichtlich benutzt die Vorlesungsplan+ zum ersten Mal. Bitte wähle einen oder mehrere Kurse aus, die im Vorlesungsplan angezeigt werden sollen.",
+    "selectedCourses": "Ausgewählte Kurse: {count}"
+  },
+  "events": {
+    "pageName": "Veranstaltungen",
+    "noEventsAvailable": "Es sind noch keine Veranstaltungen eingetragen.",
+    "upcomingEvents": "Bevorstehende Veranstaltungen: { count }"
+  },
+  "toasts": {
+    "savedCourses": "0 Kurse gespeichert | 1 Kurs gespeichert | {count} Kurse gespeichert.",
+    "fetchedLectures": "Vorlesungen aktualisiert.",
+    "fetchedEvents": "Veranstaltungen aktualisiert."
+  },
+  "notifications": {
+    "upcomingLecture": "Anstehende Vorlesung ({courses})",
+    "lectureStartsInXMinutes": "\"{name}\" startet in {minutes} Minuten."
+  },
+  "apps": {
+    "pageName": "Apps",
+    "installVorlesungsplanPlus": "Vorlesungsplan+ installieren",
+    "pwa": {
+      "title": "Apps",
+      "description": "Vorlesungsplan+ ist eine PWA (Progressive Web App), d.h. eine Web-Anwendung, die wie eine native App auf deinem Gerät installiert werden kann. Unten findest du Installationsanleitungen für die üblichsten Browser.",
+      "installWith": "Mit {browser} installieren"
+    },
+    "iosWidget": {
+      "title": "iOS Widget",
+      "description": "Folge der unten stehenden Anleitung, um das Vorlesungsplan+ iOS Widget auf deinem iPhone oder iPad zu installieren.",
+      "download": "Widget herunterladen",
+      "installedVersion": "Zuletzt heruntergeladene Version: {version}",
+      "steps": {
+        "installScriptable": "Installiere die Scriptable App",
+        "downloadWidget": "Klicke auf die Schaltfläche oben, um das Widget herunterzuladen",
+        "openWithScriptable": "Öffne die heruntergeladene Datei, klicke auf das Teilen-Symbol und öffne sie mit Scriptable. Klicke anschließend auf \"Add to My Scripts\"",
+        "addToHomescreen": "Füge wie gewohnt ein neues Widget zu deinem Home-Screen hinzu. Wähle als Widget/App die Scriptable App aus",
+        "editWidget": "Halte das soeben hinzugefügte Widget gedrückt und klicke auf \"Widget bearbeiten\". Wähle hier als Script das Vorlesungsplan+ Widget und gib als Parameter deinen gewünschten Kurs ein. Deine aktuell ausgewählten Kurse sind: {courses}"
+      }
+    }
+  }
+}

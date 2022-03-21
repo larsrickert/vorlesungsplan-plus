@@ -1,8 +1,4 @@
-import express from "express";
-import logger from "../services/logger";
-
-const router = express.Router();
-export default router;
+import { router } from '../server';
 
 /**
  * @swagger
@@ -11,28 +7,36 @@ export default router;
  *     Lecture:
  *       type: object
  *       properties:
- *         uid:
- *           type: string
+ *         id:
+ *           type: number
  *           description: Unique lecture ID.
- *         name:
- *           type: string
- *           description: Lecture name.
- *         lecturer:
- *           type: string
- *           description: Name of the lecturer.
- *         room:
- *           type: string
- *           description: Name of rooms or locations
  *         start:
  *           type: string
  *           description: Lecture start date as date string.
  *         end:
  *           type: string
  *           description: Lecture end date as date string.
- *         lastModified:
+ *         rooms:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: Room or location names.
+ *         name:
  *           type: string
- *           deprecated: true
- *           description: Date string of last modified, not supported any longer
+ *           description: Lecture name.
+ *         lecturer:
+ *           type: string
+ *           description: Name of the lecturer.
+ *         course:
+ *           type: string
+ *           description: Course name this lecture belongs to.
+ *         type:
+ *           type: string
+ *           enum: [PRESENCE, ONLINE]
+ *           description: Type of the lecture (online or presence).
+ *         isExam:
+ *           type: boolean
+ *           description: Whether this lecture is an exam. Will be false for exam reviews.
  *     Event:
  *       type: object
  *       properties:
@@ -57,12 +61,6 @@ export default router;
  *         end:
  *           type: string
  *           description: End end date as date string.
- *     AppVersion:
- *       type: object
- *       properties:
- *         version:
- *           type: string
- *           description: App version number.
  *     ScriptableWidget:
  *       type: object
  *       properties:
@@ -85,55 +83,14 @@ export default router;
  *            type: string
  */
 
-/**
- * @swagger
- * /:
- *   get:
- *    deprecated: true
- *    summary: Returns a list of courses or lectures.
- *    description: This route is deprecated. Please use /courses to get a list of courses and /lectures/{course} to get lectures for the given course. This path is currently still supported for backwards compatibility to the previous API version 1 (wrtitten in PHP).
- *    parameters:
- *      - name: course
- *        in: query
- *        description: Course name. If specified, a list of lectures for the given course will be returned. Filters out past lectures.
- *        schema:
- *          type: string
- *      - name: view
- *        in: query
- *        description: View mode. If set to "archive" only past lectures will be returned.
- *        schema:
- *          type: string
- *          enum:
- *            - archive
- *    responses:
- *      "200":
- *        description: A JSON array of courses if "course" query param is not set or a list of lectures for the given course otherwise. Returns an empty array if an error occurred.
- *        content:
- *          "application/json":
- *            schema:
- *              oneOf:
- *                - type: array
- *                  items:
- *                    type: string
- *                - type: array
- *                  items:
- *                    $ref: "#/components/schemas/Lecture"
- */
-router.get("/", async (req, res) => {
-  logger.log(`Request to route "/"`);
-
-  if (req.query.course && typeof req.query.course === "string") {
-    const isArchiveView = req.query.view && req.query.view === "archive";
-    const queryParams = !isArchiveView ? "?excludePast=true" : "";
-
-    res.redirect(301, `/lectures/${req.query.course}${queryParams}`);
-  } else res.redirect(301, "/courses");
+router.get('/', (req, res) => {
+  res.status(404).send({
+    message:
+      'You tried to access the index route of the Vorlesungsplan+ API. This route does not provide any data. For available routes, please see API documentation on route /docs',
+  });
 });
 
-require("./android");
-require("./courses");
-require("./events");
-require("./ios");
-require("./lectures");
-require("./mail");
-require("./redirects");
+require('./courses');
+require('./events');
+require('./ios');
+require('./lectures');

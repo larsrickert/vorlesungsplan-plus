@@ -1,57 +1,34 @@
-export interface ICacheConfig {
-  /**
-   * Time in ms to cache courses.
-   */
-  coursesDuration: number;
-  /**
-   * Time in ms to cache lectures.
-   */
-  lecturesDuration: number;
-  /**
-   * Time in ms to cache events.
-   */
-  eventsDuration: number;
-}
+import { CorsOptions } from 'cors';
+import { Options } from 'swagger-jsdoc';
 
-export interface IAppConfig {
-  android: {
-    version: string;
-    filePath: string;
+export interface IConfig {
+  app: {
+    /** Port to run the server on. */
+    port: number;
+    cors: CorsOptions;
+    swagger: Options;
   };
-  ios: {
-    widget: {
-      version: string;
-      filePath: string;
+  logger: {
+    /** Max size of the log file in bytes */
+    maxSize: number;
+  };
+  cache: {
+    /** Time in ms to cache courses. */
+    courses: number;
+    /** Time in ms to cache lectures. */
+    lectures: number;
+    /** Time in ms to cache events. */
+    events: number;
+  };
+  stuv: {
+    apiHost: string;
+  };
+  apps: {
+    ios: {
+      widget: {
+        version: string;
+        filePath: string;
+      };
     };
   };
-}
-
-export interface IEnvironment {
-  /**
-   * Port to run the server on.
-   */
-  port: number;
-  cache: ICacheConfig;
-  stuvApiHost: string;
-  calendarListHost: string;
-  apps: IAppConfig;
-}
-
-export interface ILoggerConfig {
-  /**
-   * Path to the directory where log files should be stored. Includes trailing slash.
-   */
-  dir: string;
-  /**
-   * Filename for default logs.
-   */
-  logFile: string;
-  /**
-   * Filename for error logs.
-   */
-  errorFile: string;
-  /**
-   * Max file size for the logger file in bytes.
-   */
-  maxSize: number;
 }

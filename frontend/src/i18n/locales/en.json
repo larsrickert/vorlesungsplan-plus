@@ -1,0 +1,106 @@
+{
+  "global": {
+    "close": "Close",
+    "errorCode": "Error code",
+    "select": "Select",
+    "cancel": "Cancel",
+    "searchPlaceholder": "Search...",
+    "refresh": "Refresh",
+    "isRefreshing": "Is refreshing...",
+    "dateRange": "{start} until {end}",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "emptySearch": "No results found for the search.",
+    "appVersion": "v{version}",
+    "notAvailableOnPlatform": "Not available for {platform}",
+    "deactivated": "Deactivated",
+    "changelog": "Changelog",
+    "contact": "Contact",
+    "aboutTheApp": "About the app",
+    "yes": "Yes",
+    "no": "No",
+    "pullToRefresh": "Pull to refresh"
+  },
+  "locales": {
+    "de": "Deutsch",
+    "en": "English"
+  },
+  "pwa": {
+    "newContentAvailable": "New content available, click on reload button to update.",
+    "reload": "Reload"
+  },
+  "timetable": {
+    "pageName": "Timetable | Timetable | Timetables ({count})",
+    "lastUpdated": "Last updated: {date}",
+    "segments": {
+      "all": "All ({count})",
+      "presence": "Presence ({count})",
+      "exams": "Exams ({count})",
+      "changes": "Changes ({count})"
+    },
+    "noLecturesText": "Have fun in the practical phase! 😎",
+    "clearChanges": "Mark changes as read",
+    "showPastLectures": "Show past lectures",
+    "showingPastLecturesToast": "Past lectures are now displayed.",
+    "hidePastLectures": "Hide past lecture",
+    "hidingPastLecturesToast": "Past lectures are no longer displayed.",
+    "noCoursesSelected": "No course selected. Please select at least one course in the settings page."
+  },
+  "settings": {
+    "pageName": "Settings",
+    "selectTheme": "Select design",
+    "theme": "Theme",
+    "themes": {
+      "auto": "Device setting",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "selectCourses": "Select courses",
+    "availableCourses": "Available courses",
+    "noCoursesAvailable": "There are no courses available.",
+    "lectureNotificationTime": "Notifications",
+    "selectNotificationTime": "Select time",
+    "xMinutes": "0 minutes | 1 minute | {count} minutes",
+    "notificationTimeDescription": "You won't get a notification before each lecture. | You will get a notification 1 minute before each lecture. You have to grant the notification permission for this feature. Important: You must have the app open in the background for notifications to be sent! | You will get a notification {count} minutes before each lecture. You have to grant the notification permission for this feature. Important: You must have the app open in the background for notifications to be sent!",
+    "permissionGranted": "Permission granted",
+    "grantPermissionsLinkText": "See how to grant permissions",
+    "selectCoursesToast": "Obviously this is the first time you are using Vorlesungsplan+. Please select one or more courses to be displayed in the timetable.",
+    "selectedCourses": "Selected courses: {count}"
+  },
+  "events": {
+    "pageName": "Events",
+    "noEventsAvailable": "There are not events available yet.",
+    "upcomingEvents": "Upcoming events: { count }"
+  },
+  "toasts": {
+    "savedCourses": "Saved 0 courses | Saved 1 course | Saved {count} courses.",
+    "fetchedLectures": "Lectures loaded.",
+    "fetchedEvents": "Events loaded."
+  },
+  "notifications": {
+    "upcomingLecture": "Upcoming lecture ({courses})",
+    "lectureStartsInXMinutes": "\"{name}\" starts in {minutes} minutes."
+  },
+  "apps": {
+    "pageName": "Apps",
+    "installVorlesungsplanPlus": "Install Vorlesungsplan+",
+    "pwa": {
+      "title": "Apps",
+      "description": "Vorlesungsplan+ is a PWA (Progressive Web App), which means a web application that can be installed on your device like a native app. You can find instructions on how to install it for the most common browsers below.",
+      "installWith": "Install with {browser}"
+    },
+    "iosWidget": {
+      "title": "iOS Widget",
+      "description": "Follow the instructions below to install the Vorlesungsplan+ iOS widget on your iPhone or iPad.",
+      "download": "Download widget",
+      "installedVersion": "Last downloaded version: {version}",
+      "steps": {
+        "installScriptable": "Install the Scriptable app",
+        "downloadWidget": "Click on the button above to download the widget",
+        "openWithScriptable": "Open the downloaded file, click the share icon and open it with Scriptable. Then click on \"Add to My Scripts\"",
+        "addToHomescreen": "Add a new widget to your home screen as usual. Select the Scriptable app as widget/app",
+        "editWidget": "Press and hold the widget and click on \"Edit widget\". Here, select the Vorlesungsplan+ widget as script and enter your desired course as parameter. Your currently selected courses are: {courses}"
+      }
+    }
+  }
+}

@@ -1,19 +1,28 @@
-import axios from "axios";
-import environment from "../config/environment";
-import { ILecture, IStuvLecture } from "../types/courses-and-lectures";
-import { cache } from "./cache";
+import axios from 'axios';
+import config from '../config';
+import { logger } from '../server';
+import { ILecture, IStuVLecture } from '../types/lectures';
+import { cache } from '../utils/cache';
 
-const mapLectures = (lectures: IStuvLecture[]): ILecture[] => {
+function isExam(lecture: IStuVLecture): boolean {
+  const name = lecture.name.toLowerCase();
+  if (['klausureinsicht', 'klausurvorbereitung'].some((i) => name.includes(i)))
+    return false;
+  return name.includes('klausur');
+}
+
+const mapLectures = (lectures: IStuVLecture[]): ILecture[] => {
   return lectures.map((l) => {
     return {
-      uid: l.id.toString(),
-      start: new Date(l.startTime),
-      end: new Date(l.endTime),
-      room: l.rooms.join(", "),
+      id: l.id,
+      start: l.startTime,
+      end: l.endTime,
+      rooms: l.rooms,
       name: l.name,
       lecturer: l.lecturer,
-      // course: l.course,
-      lastModified: new Date(2021, 9, 6),
+      course: l.course,
+      type: l.type || 'PRESENCE',
+      isExam: isExam(l),
     };
   });
 };
@@ -27,32 +36,22 @@ export const fetchLectures = async (course: string): Promise<ILecture[]> => {
   course = course.toUpperCase();
 
   const cachedCourses = (await cache.get(course)) as ILecture[] | undefined;
-  if (cachedCourses) {
-    for (let i = 0; i < cachedCourses.length; i++) {
-      const c = cachedCourses[i];
-      c.start = new Date(c.start);
-      c.end = new Date(c.end);
-    }
-    return cachedCourses;
-  }
+  if (cachedCourses) return cachedCourses;
 
   try {
-    const { data } = await axios.get<IStuvLecture[]>(`${environment.stuvApiHost}/lectures/${course}`);
-
-    let lectures: ILecture[];
-
-    if (!Array.isArray(data)) {
-      console.error(`Response of StuV API for ${course} lectures is not an array.`);
-      return [];
-    } else {
-      lectures = mapLectures(data);
-    }
+    const { data } = await axios.get<IStuVLecture[]>(
+      `${config.stuv.apiHost}/lectures/${course}?archived=true`
+    );
+    const lectures: ILecture[] = Array.isArray(data) ? mapLectures(data) : [];
 
     // update in background (dont await it)
-    cache.set(course, lectures, environment.cache.lecturesDuration);
+    cache.set(course, lectures, config.cache.lectures);
     return lectures;
   } catch (e) {
-    console.error(e);
+    logger.error(
+      `Error while fetching lectures for course "${course}".`,
+      e as Error
+    );
     return [];
   }
 };

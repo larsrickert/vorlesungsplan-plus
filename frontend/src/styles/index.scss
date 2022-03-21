@@ -1,0 +1,10 @@
+@import 'mixin';
+@import 'variables';
+@import 'layout';
+@import 'dialogues';
+@import 'components';
+@import 'fonts';
+
+ion-datetime {
+  --background: var(--ion-background-color);
+}

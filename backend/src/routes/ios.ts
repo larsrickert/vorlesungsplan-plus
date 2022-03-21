@@ -1,7 +1,6 @@
-import { readFile } from "fs/promises";
-import environment from "../config/environment";
-import logger from "../services/logger";
-import router from "./index";
+import path from 'path';
+import config from '../config';
+import { logger, router } from '../server';
 
 /**
  * @swagger
@@ -17,20 +16,34 @@ import router from "./index";
  *      "500":
  *        description: Error message when the widget could not be served by the API.
  *        content:
- *          "text/plain":
+ *          "application/json":
  *            schema:
- *              type: string
+ *              type: object
+ *              properties:
+ *                message:
+ *                  type: string
+ *                  description: Error message
+ *              required:
+ *                - message
  */
-router.get("/ios/widget", async (req, res) => {
-  logger.log("Request to /ios/widget");
+router.get('/ios/widget', async (req, res) => {
+  const filename = path.basename(config.apps.ios.widget.filePath);
 
-  try {
-    const widget = await readFile(environment.apps.ios.widget.filePath);
-    res.send(JSON.parse(widget.toString()));
-  } catch (e) {
-    logger.error(e as Error);
-    res.status(500).send("Error while serving iOS Widget.");
-  }
+  res.download(
+    config.apps.ios.widget.filePath,
+    filename,
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+    (err) => {
+      if (err) {
+        logger.error('Error while serving iOS Widget.', err);
+        res.status(500).send({
+          message: 'Error while serving iOS Widget. Could not find file.',
+        });
+      }
+    }
+  );
 });
 
 /**
@@ -43,9 +56,14 @@ router.get("/ios/widget", async (req, res) => {
  *        content:
  *          "application/json":
  *            schema:
- *              $ref: "#/components/schemas/AppVersion"
+ *              type: object
+ *              properties:
+ *                version:
+ *                  type: string
+ *                  description: Widget version number
+ *              required:
+ *                - version
  */
-router.get("/ios/widget/version", (req, res) => {
-  logger.log("Request to /ios/widget/version");
-  res.send({ version: environment.apps.ios.widget.version });
+router.get('/ios/widget/version', (req, res) => {
+  res.send({ version: config.apps.ios.widget.version });
 });

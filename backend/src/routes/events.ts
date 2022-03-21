@@ -1,6 +1,5 @@
-import router from "./index";
-import { fetchEvents } from "../services/events";
-import logger from "../services/logger";
+import { router } from '../server';
+import { fetchEvents } from '../services/events';
 
 /**
  * @swagger
@@ -24,12 +23,12 @@ import logger from "../services/logger";
  *              items:
  *                $ref: "#/components/schemas/Event"
  */
-router.get("/events", async (req, res) => {
-  logger.log("Request to /events");
-
+router.get('/events', async (req, res) => {
   const events = await fetchEvents();
 
-  if (req.query.excludePast && req.query.excludePast === "true") {
+  if (req.query.excludePast && req.query.excludePast === 'true') {
     res.send(events.filter((e) => e.end.getTime() > Date.now()));
-  } else res.send(events);
+  } else {
+    res.send(events);
+  }
 });
