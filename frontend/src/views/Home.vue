@@ -97,7 +97,7 @@
         v-if="store.countChangedLectures"
         :icon="checkmarkDone"
         :title="t('timetable.clearChanges')"
-        @click="store.clearChanges"
+        @click="clearChanges"
       />
     </IonContent>
   </IonPage>
@@ -184,6 +184,11 @@ const toggleArchiveView = async () => {
       : t('timetable.hidingPastLecturesToast'),
     duration: 2500,
   });
+};
+
+const clearChanges = async () => {
+  await store.clearChanges();
+  selectedSegment.value = 'all';
 };
 </script>
 
