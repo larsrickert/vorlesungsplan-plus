@@ -12,6 +12,7 @@
 * add changelog link to menu ([0bf752a](https://github.com/larsrickert/vorlesungsplan-plus/commit/0bf752aaddabd8aa084a45b341c6faae81772b66))
 * add animation to refresher ([289ecf3](https://github.com/larsrickert/vorlesungsplan-plus/commit/289ecf355d73029d56a5f4ea3fdba0ee7da7a61c))
 * redirect to settings on initial app launch ([b597cd2](https://github.com/larsrickert/vorlesungsplan-plus/commit/b597cd239caea7c972693296f8669d54817f3a56))
+* add i18n support (available languages: German and English)
 
 
 ### BREAKING CHANGES
