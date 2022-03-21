@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v2.0.2](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.0.1...vorlesungsplan-plus-v2.0.2) (2022-03-21)
+
+
+### Bug Fixes
+
+* **no-release:** overlapping event page refresher ([a17f77e](https://github.com/larsrickert/vorlesungsplan-plus/commit/a17f77eef30fe7011a587b4f4870300e8d13ed43))
+
 # [vorlesungsplan-plus-v2.0.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.0.0...vorlesungsplan-plus-v2.0.1) (2022-03-21)
 
 
