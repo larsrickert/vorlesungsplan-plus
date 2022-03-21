@@ -43,7 +43,7 @@
                   :checked="selectedCourses.includes(course)"
                   @ionChange="toggleCourse(course)"
                 />
-                {{ course.replace('MOS-', '').replace('MGH-', '') }}
+                {{ course }}
               </IonItem>
             </IonItemGroup>
           </div>
