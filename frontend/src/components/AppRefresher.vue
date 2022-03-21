@@ -44,9 +44,18 @@ const refresh = async (ev: CustomEvent) => {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/mixin.scss';
+
 .animation {
   height: 48px;
-  margin-top: -32px;
+  width: 100%;
   cursor: grab;
+  position: absolute;
+  left: 0;
+  top: 76px;
+
+  @include breakpoint(s) {
+    top: 72px;
+  }
 }
 </style>
