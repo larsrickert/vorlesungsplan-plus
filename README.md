@@ -39,7 +39,7 @@ For available endpoints and documentation, see https://api.vorlesungsplan.lars-r
 ## Features
 
 1. Request courses, lectures and event at the DHBW Mosbach and Bad Mergentheim.
-2. Caching layer that speeds up API calls up to 4 times in comparison to the official StuV API.
+2. Caching layer that speeds up repeated API calls.
 
 ## Technologies
 
