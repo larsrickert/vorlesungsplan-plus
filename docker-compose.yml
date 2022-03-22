@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  vorlesungsplan-plus:
+  frontend:
     build:
       context: ./frontend
       args:
@@ -14,7 +14,7 @@ services:
       VIRTUAL_HOST: '${FRONTEND_DOMAIN}'
       LETSENCRYPT_HOST: '${FRONTEND_DOMAIN}'
 
-  vorlesungsplan-plus-api:
+  backend:
     build: ./backend
     image: larsrickert/vorlesungsplan-plus-api
     restart: always
