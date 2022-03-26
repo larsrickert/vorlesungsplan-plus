@@ -103,13 +103,18 @@ export const useStore = defineStore('main', {
       return lectures;
     },
     shownLectureDayBlocks(): DayLectureBlock[] {
-      if (this.showArchivedLectures) return this.lectureDayBlocks;
-
+      const settingsStore = useSettingsStore();
       const blocks: DayLectureBlock[] = [];
 
       this.lectureDayBlocks.forEach((block) => {
         const lectures = block.lectures.filter((lecture) => {
-          return new Date(lecture.end).getTime() > Date.now();
+          if (!this.showArchivedLectures && new Date(lecture.end).getTime() < Date.now()) {
+            return false;
+          }
+          if (settingsStore.excludeHolidays && lecture.type === 'HOLIDAY') {
+            return false;
+          }
+          return true;
         });
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });

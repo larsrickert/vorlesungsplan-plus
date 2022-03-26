@@ -51,6 +51,7 @@
     "pageName": "Einstellungen",
     "selectTheme": "Design auswählen",
     "theme": "Design",
+    "excludeHolidays": "Feiertage ausblenden",
     "themes": {
       "auto": "Geräteeinstellung",
       "light": "Hell",

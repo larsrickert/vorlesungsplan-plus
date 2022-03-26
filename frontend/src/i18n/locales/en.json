@@ -51,6 +51,7 @@
     "pageName": "Settings",
     "selectTheme": "Select design",
     "theme": "Theme",
+    "excludeHolidays": "Exclude holidays",
     "themes": {
       "auto": "Device setting",
       "light": "Light",
