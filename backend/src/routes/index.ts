@@ -32,8 +32,8 @@ import { router } from '../server';
  *           description: Course name this lecture belongs to.
  *         type:
  *           type: string
- *           enum: [PRESENCE, ONLINE]
- *           description: Type of the lecture (online or presence).
+ *           enum: [PRESENCE, ONLINE, HOLIDAY]
+ *           description: Type of the lecture (PRESENCE = face-to-face event, ONLINE = hosted online (e.g. BBB, Zoom, Microsoft teams), HOLIDAY = free day ("Feiertag") in Baden-Württemberg).
  *         isExam:
  *           type: boolean
  *           description: Whether this lecture is an exam. Will be false for exam reviews.

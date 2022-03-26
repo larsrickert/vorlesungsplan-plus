@@ -8,6 +8,7 @@ import {
   lectureTypes,
 } from '../types/lectures';
 import { cache } from '../utils/cache';
+import { isHoliday } from './holidays';
 
 /**
  * Keywords that the lecture name must contain to be classified as exam.
@@ -28,7 +29,7 @@ function isExam(lecture: IStuVLecture): boolean {
   return examIdentifiers.some((i) => name.includes(i));
 }
 
-function getType(lecture: IStuVLecture): LectureType {
+async function getType(lecture: IStuVLecture): Promise<LectureType> {
   const type = lectureTypes.includes(lecture.type) ? lecture.type : 'PRESENCE';
 
   // StuV API classifies selbststudium as presence which is not correct
@@ -39,12 +40,15 @@ function getType(lecture: IStuVLecture): LectureType {
     return 'ONLINE';
   }
 
+  if (await isHoliday(new Date(lecture.startTime))) return 'HOLIDAY';
   return type;
 }
 
-const mapLectures = (lectures: IStuVLecture[]): ILecture[] => {
-  return lectures.map((l) => {
-    return {
+async function mapLectures(lectures: IStuVLecture[]): Promise<ILecture[]> {
+  const mapped: ILecture[] = [];
+
+  for (const l of lectures) {
+    mapped.push({
       id: l.id,
       start: l.startTime,
       end: l.endTime,
@@ -52,11 +56,13 @@ const mapLectures = (lectures: IStuVLecture[]): ILecture[] => {
       name: l.name,
       lecturer: l.lecturer,
       course: l.course,
-      type: getType(l),
+      type: await getType(l),
       isExam: isExam(l),
-    };
-  });
-};
+    });
+  }
+
+  return mapped;
+}
 
 /**
  * Fetches all available lectures for the given course. Uses cached data if possible.
@@ -73,7 +79,9 @@ export const fetchLectures = async (course: string): Promise<ILecture[]> => {
     const { data } = await axios.get<IStuVLecture[]>(
       `${config.stuv.apiHost}/lectures/${course}?archived=true`
     );
-    const lectures: ILecture[] = Array.isArray(data) ? mapLectures(data) : [];
+    const lectures: ILecture[] = Array.isArray(data)
+      ? await mapLectures(data)
+      : [];
 
     // update in background (dont await it)
     cache.set(course, lectures, config.cache.lectures);

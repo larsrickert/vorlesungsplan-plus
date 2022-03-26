@@ -14,6 +14,16 @@ import { fetchLectures } from '../services/lectures';
  *        description: The course name to get the lectures for.
  *        schema:
  *          type: string
+ *      - name: excludePast
+ *        in: query
+ *        description: Whether to exclude past lectures.
+ *        schema:
+ *          type: boolean
+ *      - name: excludeHolidays
+ *        in: query
+ *        description: Whether to exclude lectures that are holidays (Feiertage).
+ *        schema:
+ *          type: boolean
  *    responses:
  *      "200":
  *        description: A JSON array of lectures or empty array if an error occurred.
@@ -25,9 +35,14 @@ import { fetchLectures } from '../services/lectures';
  *                $ref: "#/components/schemas/Lecture"
  */
 router.get('/lectures/:id', async (req, res) => {
-  const lectures = await fetchLectures(req.params.id);
+  let lectures = await fetchLectures(req.params.id);
 
   if (req.query.excludePast === 'true') {
-    res.send(lectures.filter((l) => new Date(l.end).getTime() > Date.now()));
-  } else res.send(lectures);
+    lectures = lectures.filter((l) => new Date(l.end).getTime() > Date.now());
+  }
+  if (req.query.excludeHolidays === 'true') {
+    lectures = lectures.filter((l) => l.type !== 'HOLIDAY');
+  }
+
+  res.send(lectures);
 });
