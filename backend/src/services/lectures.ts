@@ -4,11 +4,23 @@ import { logger } from '../server';
 import { ILecture, IStuVLecture } from '../types/lectures';
 import { cache } from '../utils/cache';
 
+/**
+ * Keywords that the lecture name must contain to be classified as exam.
+ * Only apply if `noExamIdentifiers` has no match.
+ */
+const examIdentifiers: readonly string[] = ['klausur', 'prüfung'] as const;
+
+/** Keywords that explicitly specify that the given lecture name is not an exam. */
+const noExamIdentifiers: readonly string[] = [
+  'klausureinsicht',
+  'klausurvorbereitung',
+  'prüfungsvorbereitung',
+] as const;
+
 function isExam(lecture: IStuVLecture): boolean {
   const name = lecture.name.toLowerCase();
-  if (['klausureinsicht', 'klausurvorbereitung'].some((i) => name.includes(i)))
-    return false;
-  return name.includes('klausur');
+  if (noExamIdentifiers.some((i) => name.includes(i))) return false;
+  return examIdentifiers.some((i) => name.includes(i));
 }
 
 const mapLectures = (lectures: IStuVLecture[]): ILecture[] => {
