@@ -1,3 +1,16 @@
+# [vorlesungsplan-plus-v2.1.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.0.2...vorlesungsplan-plus-v2.1.0) (2022-03-26)
+
+
+### Bug Fixes
+
+* removed vulnerable dependencies ([7f7c907](https://github.com/larsrickert/vorlesungsplan-plus/commit/7f7c907f7b072bf22be9e69ad52718b955b72f3a))
+
+
+### Features
+
+* add setting to show/hide holidays ([c2933e0](https://github.com/larsrickert/vorlesungsplan-plus/commit/c2933e071e876deea5e7d7ae678540ad045d0ee3))
+* add timetable segment to view holidays ([8679efa](https://github.com/larsrickert/vorlesungsplan-plus/commit/8679efaec103221e1c5ffcb94e6a296ddf01b1ca))
+
 # [vorlesungsplan-plus-v2.0.2](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.0.1...vorlesungsplan-plus-v2.0.2) (2022-03-21)
 
 
