@@ -1,4 +1,5 @@
-export type LectureType = 'PRESENCE' | 'ONLINE';
+export const lectureTypes = ['PRESENCE', 'ONLINE'] as const;
+export type LectureType = typeof lectureTypes[number];
 
 export interface IStuVLecture {
   id: number;

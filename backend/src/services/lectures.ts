@@ -1,7 +1,12 @@
 import axios from 'axios';
 import config from '../config';
 import { logger } from '../server';
-import { ILecture, IStuVLecture } from '../types/lectures';
+import {
+  ILecture,
+  IStuVLecture,
+  LectureType,
+  lectureTypes,
+} from '../types/lectures';
 import { cache } from '../utils/cache';
 
 /**
@@ -23,6 +28,20 @@ function isExam(lecture: IStuVLecture): boolean {
   return examIdentifiers.some((i) => name.includes(i));
 }
 
+function getType(lecture: IStuVLecture): LectureType {
+  const type = lectureTypes.includes(lecture.type) ? lecture.type : 'PRESENCE';
+
+  // StuV API classifies selbststudium as presence which is not correct
+  if (
+    lecture.name.toLowerCase().includes('selbststudium') &&
+    !lecture.rooms.length
+  ) {
+    return 'ONLINE';
+  }
+
+  return type;
+}
+
 const mapLectures = (lectures: IStuVLecture[]): ILecture[] => {
   return lectures.map((l) => {
     return {
@@ -33,7 +52,7 @@ const mapLectures = (lectures: IStuVLecture[]): ILecture[] => {
       name: l.name,
       lecturer: l.lecturer,
       course: l.course,
-      type: l.type || 'PRESENCE',
+      type: getType(l),
       isExam: isExam(l),
     };
   });
