@@ -11,7 +11,7 @@
           </IonItem>
 
           <IonItem lines="none" class="setting">
-            <IonIcon slot="start" :icon="contrast" />
+            <IonIcon slot="start" :icon="invertMode" />
 
             <span class="setting__name">{{ t('settings.theme') }}:</span>
 
@@ -32,6 +32,12 @@
                 {{ t('settings.themes.dark') }}
               </IonSelectOption>
             </IonSelect>
+          </IonItem>
+
+          <IonItem lines="none" class="setting">
+            <IonIcon slot="start" :icon="excludeHolidays ? eyeOff : eye" />
+            <span class="setting__name">{{ t('settings.excludeHolidays') }}:</span>
+            <IonCheckbox slot="end" v-model="excludeHolidays" />
           </IonItem>
 
           <div>
@@ -84,6 +90,7 @@
 <script lang="ts" setup>
 import {
   IonBadge,
+  IonCheckbox,
   IonContent,
   IonIcon,
   IonItem,
@@ -91,7 +98,7 @@ import {
   IonSelect,
   IonSelectOption,
 } from '@ionic/vue';
-import { contrast, list, notifications, notificationsOff } from 'ionicons/icons';
+import { eye, eyeOff, invertMode, list, notifications, notificationsOff } from 'ionicons/icons';
 import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppHeader from '../components/AppHeader.vue';
@@ -121,6 +128,13 @@ const openCourseSelect = async () => {
 const notificationTime = computed({
   get: (): number => settingsStore.lectureNotificationTime,
   set: (value: number) => settingsStore.changeLectureNotificationTime(value),
+});
+
+const excludeHolidays = computed<boolean>({
+  get: () => settingsStore.excludeHolidays,
+  set: async (value) => {
+    await settingsStore.changeExcludeHolidays(value);
+  },
 });
 
 const notificationStore = useNotificationStore();

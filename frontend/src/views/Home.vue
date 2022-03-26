@@ -88,6 +88,15 @@
                   :lectures="block.lectures"
                 />
               </div>
+
+              <div v-show="selectedSegment === 'holidays'">
+                <AppLectureBlock
+                  v-for="block of store.holidayLectureDayBlocks"
+                  :key="block.date.toISOString()"
+                  :date="block.date"
+                  :lectures="block.lectures"
+                />
+              </div>
             </div>
           </template>
         </template>
@@ -164,6 +173,12 @@ const segments = computed((): SelectOption[] => {
     options.unshift({
       name: t('timetable.segments.changes', { count: store.countChangedLectures }),
       value: 'changes',
+    });
+  }
+  if (store.countHolidayLectures) {
+    options.push({
+      name: t('timetable.segments.holidays', { count: store.countHolidayLectures }),
+      value: 'holidays',
     });
   }
 

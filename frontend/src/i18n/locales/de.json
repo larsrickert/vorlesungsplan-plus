@@ -36,7 +36,8 @@
       "all": "Alle ({count})",
       "presence": "Präsenz ({count})",
       "exams": "Klausuren ({count})",
-      "changes": "Änderungen ({count})"
+      "changes": "Änderungen ({count})",
+      "holidays": "Feiertage ({count})"
     },
     "noLecturesText": "Viel Spaß in der Praxisphase! 😎",
     "clearChanges": "Änderungen als gelesen markieren",
@@ -50,6 +51,7 @@
     "pageName": "Einstellungen",
     "selectTheme": "Design auswählen",
     "theme": "Design",
+    "excludeHolidays": "Feiertage ausblenden",
     "themes": {
       "auto": "Geräteeinstellung",
       "light": "Hell",

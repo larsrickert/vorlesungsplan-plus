@@ -8,6 +8,7 @@ export enum StorageKey {
   LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
   LECTURES_NOTIFICATION_TIME = 'lecturesNotificationTime',
   IOS_WIDGET_VERSION = 'iosWidgetVersion',
+  EXCLUDE_HOLIDAYS = 'excludeHolidays',
 }
 
 let isConfigured = false;

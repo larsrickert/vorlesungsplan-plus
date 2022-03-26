@@ -42,8 +42,8 @@ ion-segment {
 
     --padding-top: 8px;
     --padding-bottom: 8px;
-    --padding-start: 8px;
-    --padding-end: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
   }
 }
 </style>

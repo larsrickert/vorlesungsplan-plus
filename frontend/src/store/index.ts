@@ -103,13 +103,18 @@ export const useStore = defineStore('main', {
       return lectures;
     },
     shownLectureDayBlocks(): DayLectureBlock[] {
-      if (this.showArchivedLectures) return this.lectureDayBlocks;
-
+      const settingsStore = useSettingsStore();
       const blocks: DayLectureBlock[] = [];
 
       this.lectureDayBlocks.forEach((block) => {
         const lectures = block.lectures.filter((lecture) => {
-          return new Date(lecture.end).getTime() > Date.now();
+          if (!this.showArchivedLectures && new Date(lecture.end).getTime() < Date.now()) {
+            return false;
+          }
+          if (settingsStore.excludeHolidays && lecture.type === 'HOLIDAY') {
+            return false;
+          }
+          return true;
         });
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
@@ -150,6 +155,17 @@ export const useStore = defineStore('main', {
 
       return blocks;
     },
+    holidayLectureDayBlocks(): DayLectureBlock[] {
+      const blocks: DayLectureBlock[] = [];
+
+      this.shownLectureDayBlocks.forEach((block) => {
+        const lectures = block.lectures.filter((lecture) => lecture.type === 'HOLIDAY');
+        if (!lectures.length) return;
+        blocks.push({ date: block.date, lectures });
+      });
+
+      return blocks;
+    },
     countUpcomingLectures(): number {
       return this.shownLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
@@ -161,6 +177,9 @@ export const useStore = defineStore('main', {
     },
     countChangedLectures(): number {
       return this.changedLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
+    },
+    countHolidayLectures(): number {
+      return this.holidayLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
     filteredLectureDayBlocks(): (searchvalue: string) => DayLectureBlock[] {
       return (searchValue) => {

@@ -21,6 +21,7 @@ export const useSettingsStore = defineStore('settings', {
       lecturesLastUpdated: null as Date | null,
       lectureNotificationTime: 15,
       iosWidgetVersion: '',
+      excludeHolidays: false,
       initialized: false,
     };
   },
@@ -57,6 +58,9 @@ export const useSettingsStore = defineStore('settings', {
 
       const iosWidgetVersion = await getValue<string>(StorageKey.IOS_WIDGET_VERSION);
       if (iosWidgetVersion) this.changeIosWidgetVersion(iosWidgetVersion);
+
+      const excludeHolidays = await initValue(StorageKey.EXCLUDE_HOLIDAYS, this.excludeHolidays);
+      this.changeExcludeHolidays(excludeHolidays);
 
       this.initialized = true;
     },
@@ -145,6 +149,12 @@ export const useSettingsStore = defineStore('settings', {
 
       this.iosWidgetVersion = value;
       await setValue(StorageKey.IOS_WIDGET_VERSION, value);
+    },
+    async changeExcludeHolidays(value: boolean) {
+      if (this.excludeHolidays === value) return;
+
+      this.excludeHolidays = value;
+      await setValue(StorageKey.EXCLUDE_HOLIDAYS, value);
     },
   },
 });

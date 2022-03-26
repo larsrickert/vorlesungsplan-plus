@@ -1,4 +1,5 @@
-export type LectureType = 'PRESENCE' | 'ONLINE';
+export const lectureTypes = ['PRESENCE', 'ONLINE', 'HOLIDAY'] as const;
+export type LectureType = typeof lectureTypes[number];
 
 export interface IStuVLecture {
   id: number;
@@ -6,7 +7,7 @@ export interface IStuVLecture {
   startTime: string;
   endTime: string;
   name: string;
-  type: LectureType;
+  type: Exclude<LectureType, 'HOLIDAY'>;
   /** Lecturer is currently empty due to data privacy reasons. */
   lecturer: string;
   rooms: string[];
