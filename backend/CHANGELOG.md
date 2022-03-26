@@ -1,3 +1,16 @@
+# [vorlesungsplan-plus-api-v2.1.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v2.0.0...vorlesungsplan-plus-api-v2.1.0) (2022-03-26)
+
+
+### Bug Fixes
+
+* lectures containing "prüfung" not classified as exam ([820e846](https://github.com/larsrickert/vorlesungsplan-plus/commit/820e846764e191a4c25954c827d68318eea99413))
+* self study ("Selbststudium") classified as PRESENCE ([9a8b6ff](https://github.com/larsrickert/vorlesungsplan-plus/commit/9a8b6ff6899d0e3b7ef14b634eb8fd064344f4f3))
+
+
+### Features
+
+* add lecture type "HOLIDAY" ([79eb922](https://github.com/larsrickert/vorlesungsplan-plus/commit/79eb9221a41cebadbd4d46797a7f90ec78defaf8))
+
 # [vorlesungsplan-plus-api-v2.0.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v1.0.0...vorlesungsplan-plus-api-v2.0.0) (2022-03-21)
 
 
