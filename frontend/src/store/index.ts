@@ -150,6 +150,17 @@ export const useStore = defineStore('main', {
 
       return blocks;
     },
+    holidayLectureDayBlocks(): DayLectureBlock[] {
+      const blocks: DayLectureBlock[] = [];
+
+      this.shownLectureDayBlocks.forEach((block) => {
+        const lectures = block.lectures.filter((lecture) => lecture.type === 'HOLIDAY');
+        if (!lectures.length) return;
+        blocks.push({ date: block.date, lectures });
+      });
+
+      return blocks;
+    },
     countUpcomingLectures(): number {
       return this.shownLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
@@ -161,6 +172,9 @@ export const useStore = defineStore('main', {
     },
     countChangedLectures(): number {
       return this.changedLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
+    },
+    countHolidayLectures(): number {
+      return this.holidayLectureDayBlocks.reduce((prev, curr) => prev + curr.lectures.length, 0);
     },
     filteredLectureDayBlocks(): (searchvalue: string) => DayLectureBlock[] {
       return (searchValue) => {

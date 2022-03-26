@@ -11,7 +11,7 @@ export interface Lecture {
   isExam: boolean;
 }
 
-export type LectureType = 'PRESENCE' | 'ONLINE';
+export type LectureType = 'PRESENCE' | 'ONLINE' | 'HOLIDAY';
 export type LectureStatus = 'added' | 'removed' | '';
 
 export type ApiLecture = Omit<Lecture, 'status'>;

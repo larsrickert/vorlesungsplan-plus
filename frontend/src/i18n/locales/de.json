@@ -36,7 +36,8 @@
       "all": "Alle ({count})",
       "presence": "Präsenz ({count})",
       "exams": "Klausuren ({count})",
-      "changes": "Änderungen ({count})"
+      "changes": "Änderungen ({count})",
+      "holidays": "Feiertage ({count})"
     },
     "noLecturesText": "Viel Spaß in der Praxisphase! 😎",
     "clearChanges": "Änderungen als gelesen markieren",

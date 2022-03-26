@@ -36,7 +36,8 @@
       "all": "All ({count})",
       "presence": "Presence ({count})",
       "exams": "Exams ({count})",
-      "changes": "Changes ({count})"
+      "changes": "Changes ({count})",
+      "holidays": "Holidays ({count})"
     },
     "noLecturesText": "Have fun in the practical phase! 😎",
     "clearChanges": "Mark changes as read",
