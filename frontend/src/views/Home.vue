@@ -115,7 +115,7 @@
 <script lang="ts" setup>
 import { IonButton, IonContent, IonIcon, IonPage, IonProgressBar, IonSearchbar } from '@ionic/vue';
 import { checkmarkDone, timeOutline } from 'ionicons/icons';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import AppFab from '../components/AppFab.vue';
 import AppHeader from '../components/AppHeader.vue';
@@ -205,6 +205,15 @@ const clearChanges = async () => {
   await store.clearChanges();
   selectedSegment.value = 'all';
 };
+
+watch(
+  () => settingsStore.excludeHolidays,
+  (newValue) => {
+    if (newValue && selectedSegment.value === 'holidays') {
+      selectedSegment.value = 'all';
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
