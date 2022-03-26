@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v2.1.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.1.0...vorlesungsplan-plus-v2.1.1) (2022-03-26)
+
+
+### Bug Fixes
+
+* empty timetable when holidays are viewed and then excluded in settings ([7bf2788](https://github.com/larsrickert/vorlesungsplan-plus/commit/7bf27886146b98f26cfec49ebd1f052fbf9a18b0))
+
 # [vorlesungsplan-plus-v2.1.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.0.2...vorlesungsplan-plus-v2.1.0) (2022-03-26)
 
 
