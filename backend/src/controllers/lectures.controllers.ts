@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { logger } from '../app';
-import config from '../config';
+import { config } from '../config';
 import {
   ILecture,
   IStuVLecture,

@@ -7,7 +7,7 @@ const publicPath = path.join(__dirname, '../public/');
 export const isProduction = process.env.NODE_ENV === 'production';
 const appPort = Number.parseInt(process.env.PORT ?? '') || 3000;
 
-const config: IConfig = {
+export const config: IConfig = {
   app: {
     port: appPort,
     cors: {
@@ -62,5 +62,3 @@ const config: IConfig = {
     },
   },
 };
-
-export default config;

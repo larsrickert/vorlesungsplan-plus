@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import config from './config';
+import { config } from './config';
 import errorMiddleware from './middleware/error.middleware';
 import loggerMiddleware from './middleware/logger.middleware';
 import { coursesRouteGetHandler } from './routes/courses.routes';

@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import config, { isProduction } from '../config';
+import { config, isProduction } from '../config';
 import { Logger } from '../types/logger';
 
 const logDir = path.join(__dirname, '../../logs/');
