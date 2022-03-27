@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { logger } from '../server';
+import { logger } from '../app';
 import { ApiHolidays, Holiday } from '../types/holidays';
 import { cache, CacheKey } from '../utils/cache';
 import { getEndOfYear, isSameDay, isValidDate } from '../utils/dates';
@@ -36,7 +36,7 @@ export async function fetchHolidays(year: number): Promise<Holiday[]> {
 
     return holidays;
   } catch (e) {
-    logger.error('Error while fetching holidays', e);
+    logger.error('Error while fetching holidays', e as Error);
     return [];
   }
 }

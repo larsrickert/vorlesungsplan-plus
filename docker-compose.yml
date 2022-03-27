@@ -20,13 +20,14 @@ services:
     restart: always
     expose:
       - 3000
+    ports:
+      - 3000:3000
     environment:
       VIRTUAL_HOST: '${BACKEND_DOMAIN}'
       LETSENCRYPT_HOST: '${BACKEND_DOMAIN}'
     volumes:
-      - ./logs:/usr/src/app/dist/logs
-
-networks:
-  default:
-    name: nginx-proxy
-    external: true
+      - ./logs:/usr/src/app/logs
+# networks:
+#   default:
+#     name: nginx-proxy
+#     external: true

@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { logger } from '../app';
 import config from '../config';
-import { logger } from '../server';
 import {
   ILecture,
   IStuVLecture,
@@ -8,7 +8,7 @@ import {
   lectureTypes,
 } from '../types/lectures';
 import { cache } from '../utils/cache';
-import { isHoliday } from './holidays';
+import { isHoliday } from './holidays.controllers';
 
 /**
  * Keywords that the lecture name must contain to be classified as exam.

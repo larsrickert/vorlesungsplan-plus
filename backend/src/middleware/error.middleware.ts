@@ -1,5 +1,5 @@
 import { ErrorRequestHandler } from 'express';
-import { logger } from '../server';
+import { logger } from '../app';
 
 /**
  * Creates a error log for every unhandled application error and sends http code 500.

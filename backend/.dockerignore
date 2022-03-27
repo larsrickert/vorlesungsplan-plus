@@ -4,3 +4,5 @@ logs
 dist
 .git
 *.local
+.env
+.env.example

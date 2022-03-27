@@ -1,6 +1,7 @@
+import { RequestHandler } from 'express';
 import path from 'path';
+import { logger } from '../app';
 import config from '../config';
-import { logger, router } from '../server';
 
 /**
  * @swagger
@@ -26,7 +27,7 @@ import { logger, router } from '../server';
  *              required:
  *                - message
  */
-router.get('/ios/widget', async (req, res) => {
+export const iosWidgetRouteGetHandler: RequestHandler = (_, res) => {
   const filename = path.basename(config.apps.ios.widget.filePath);
 
   res.download(
@@ -44,7 +45,7 @@ router.get('/ios/widget', async (req, res) => {
       }
     }
   );
-});
+};
 
 /**
  * @swagger
@@ -64,6 +65,6 @@ router.get('/ios/widget', async (req, res) => {
  *              required:
  *                - version
  */
-router.get('/ios/widget/version', (req, res) => {
+export const iosWidgetVersionRouteGetHandler: RequestHandler = (_, res) => {
   res.send({ version: config.apps.ios.widget.version });
-});
+};

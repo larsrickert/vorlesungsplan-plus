@@ -1,5 +1,5 @@
-import { router } from '../server';
-import { fetchLectures } from '../services/lectures';
+import { RequestHandler } from 'express';
+import { fetchLectures } from '../controllers/lectures.controllers';
 
 /**
  * @swagger
@@ -34,7 +34,7 @@ import { fetchLectures } from '../services/lectures';
  *              items:
  *                $ref: "#/components/schemas/Lecture"
  */
-router.get('/lectures/:id', async (req, res) => {
+export const lecturesRouteGetHandler: RequestHandler = async (req, res) => {
   let lectures = await fetchLectures(req.params.id);
 
   if (req.query.excludePast === 'true') {
@@ -45,4 +45,4 @@ router.get('/lectures/:id', async (req, res) => {
   }
 
   res.send(lectures);
-});
+};

@@ -1,6 +1,6 @@
 import fs from 'fs/promises';
 import path from 'path';
-import config from '../config';
+import config, { isProduction } from '../config';
 import { Logger } from '../types/logger';
 
 const logDir = path.join(__dirname, '../../logs/');
@@ -54,8 +54,12 @@ export function createLogger(): Logger {
       let msg = `${getTimestamp()}: ***ERROR*** ${message}`;
       error ? console.error(msg, error) : console.error(msg);
 
-      if (error) msg += ` (${error.message})`;
+      if (error) msg += `, ${error.stack || error.message}`;
       await writeToLogFile(errorLogFilePath, `${msg}\n`);
+    },
+    debug: async (message) => {
+      if (isProduction) return;
+      console.log(`${getTimestamp()}: ***DEBUG*** ${message}`);
     },
   };
 }

@@ -1,6 +1,6 @@
 import { async as ical, CalendarComponent, VEvent } from 'node-ical';
+import { logger } from '../app';
 import config from '../config';
-import { logger } from '../server';
 import { cache, CacheKey } from '../utils/cache';
 
 interface IEvent {

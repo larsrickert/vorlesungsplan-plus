@@ -1,4 +1,4 @@
-import { router } from '../server';
+import { RequestHandler } from 'express';
 
 /**
  * @swagger
@@ -82,15 +82,9 @@ import { router } from '../server';
  *           items:
  *            type: string
  */
-
-router.get('/', (req, res) => {
+export const indexRouteGetHandler: RequestHandler = (_, res) => {
   res.status(404).send({
     message:
       'You tried to access the index route of the Vorlesungsplan+ API. This route does not provide any data. For available routes, please see API documentation on route /docs',
   });
-});
-
-require('./courses');
-require('./events');
-require('./ios');
-require('./lectures');
+};
