@@ -1,5 +1,5 @@
-import { router } from '../server';
-import { fetchEvents } from '../services/events';
+import { RequestHandler } from 'express';
+import { fetchEvents } from '../controllers/events.controllers';
 
 /**
  * @swagger
@@ -23,12 +23,12 @@ import { fetchEvents } from '../services/events';
  *              items:
  *                $ref: "#/components/schemas/Event"
  */
-router.get('/events', async (req, res) => {
-  const events = await fetchEvents();
+export const eventsRouteGetHandler: RequestHandler = async (req, res) => {
+  let events = await fetchEvents();
 
   if (req.query.excludePast && req.query.excludePast === 'true') {
-    res.send(events.filter((e) => e.end.getTime() > Date.now()));
-  } else {
-    res.send(events);
+    events = events.filter((e) => e.end.getTime() > Date.now());
   }
-});
+
+  res.send(events);
+};

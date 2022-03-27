@@ -1,5 +1,5 @@
-import { router } from '../server';
-import { fetchCourses } from '../services/courses';
+import { RequestHandler } from 'express';
+import { fetchCourses } from '../controllers/courses.controllers';
 
 /**
  * @swagger
@@ -17,7 +17,7 @@ import { fetchCourses } from '../services/courses';
  *              items:
  *                type: string
  */
-router.get('/courses', async (req, res) => {
+export const coursesRouteGetHandler: RequestHandler = async (_, res) => {
   const courses: string[] = await fetchCourses();
   res.send(courses);
-});
+};

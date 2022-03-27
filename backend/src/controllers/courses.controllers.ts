@@ -1,6 +1,6 @@
 import axios from 'axios';
-import config from '../config';
-import { logger } from '../server';
+import { logger } from '../app';
+import { config } from '../config';
 import { cache, CacheKey } from '../utils/cache';
 
 /**

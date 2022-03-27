@@ -58,8 +58,8 @@ jobs:
           cache-dependency-path: backend/package-lock.json
       - name: Install node modules
         run: npm ci
-      - name: Build
-        run: npm run build
+      - name: Lint
+        run: npm run lint
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
