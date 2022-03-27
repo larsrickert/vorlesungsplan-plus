@@ -20,12 +20,14 @@ router.use(
   swaggerUi.setup(swaggerJSDoc(config.app.swagger))
 );
 
-// middleware
+// middleware (has to be registered before routes)
 router.use(loggerMiddleware);
-router.use(errorMiddleware);
 
 require('./routes');
 
 app.listen(config.app.port, () =>
   console.log(`Running on http://localhost:${config.app.port}`)
 );
+
+// error middleware must be registered at the end
+router.use(errorMiddleware);

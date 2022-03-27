@@ -11,7 +11,7 @@ const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
   );
 
   res.status(500).send({
-    message: 'An internal error occurred.',
+    message: 'An unknown internal error occurred.',
   });
 };
 
