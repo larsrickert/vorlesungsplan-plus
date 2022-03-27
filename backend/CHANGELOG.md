@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-api-v2.1.2](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v2.1.1...vorlesungsplan-plus-api-v2.1.2) (2022-03-27)
+
+
+### Bug Fixes
+
+* error middleware not catching app errors ([642a144](https://github.com/larsrickert/vorlesungsplan-plus/commit/642a1449333963def672964f79c5e71ac635738a))
+
 # [vorlesungsplan-plus-api-v2.1.2-beta.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v2.1.1...vorlesungsplan-plus-api-v2.1.2-beta.1) (2022-03-27)
 
 
