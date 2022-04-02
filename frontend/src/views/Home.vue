@@ -219,6 +219,7 @@ watch(
 <style lang="scss" scoped>
 ion-searchbar {
   margin-bottom: 20px;
+  padding-top: 0;
 }
 
 .archived-btn {

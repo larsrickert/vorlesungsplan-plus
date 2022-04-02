@@ -11,7 +11,7 @@
         <template v-else>
           <p v-if="!eventStore.events.length">{{ t('events.noEventsAvailable') }}</p>
 
-          <div v-else class="calendar">
+          <div v-else>
             <p v-if="eventStore.upcomingEvents.length">
               {{ t('events.upcomingEvents', eventStore.upcomingEvents.length) }}
             </p>
@@ -58,12 +58,4 @@ watch(
 );
 </script>
 
-<style lang="scss" scoped>
-@import '../styles/mixin.scss';
-
-.calendar {
-  @include breakpoint(s) {
-    margin-top: 10px;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

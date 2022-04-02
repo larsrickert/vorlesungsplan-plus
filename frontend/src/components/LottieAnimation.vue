@@ -1,5 +1,5 @@
 <template>
-  <div ref="lottieRef"></div>
+  <div ref="lottieRef" class="lottie-animation"></div>
 </template>
 
 <script lang="ts" setup>
@@ -42,3 +42,10 @@ const setSpeed = (speed: number) => {
   animation.value?.setSpeed(speed);
 };
 </script>
+
+<style lang="scss" scoped>
+.lottie-animation {
+  height: 100%;
+  width: 100%;
+}
+</style>

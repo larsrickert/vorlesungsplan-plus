@@ -1,19 +1,21 @@
 <template>
-  <IonRefresher slot="fixed" pull-min="100" pull-max="150" @ionRefresh="refresh">
-    <IonRefresherContent
-      :pulling-icon="chevronDown"
-      :pulling-text="pullingText"
-      refreshing-spinner="circles"
-      :refreshing-text="t('global.isRefreshing')"
-    />
-  </IonRefresher>
+  <div class="refresher-wrapper">
+    <IonRefresher slot="fixed" pull-min="100" pull-max="150" @ionRefresh="refresh">
+      <IonRefresherContent
+        :pulling-icon="chevronDown"
+        :pulling-text="pullingText"
+        refreshing-spinner="circles"
+        :refreshing-text="t('global.isRefreshing')"
+      />
+    </IonRefresher>
 
-  <LottieAnimation
-    :animation-data="swipeDownAnimationData"
-    :speed="0.6"
-    class="animation"
-    :title="t('global.pullToRefresh')"
-  />
+    <LottieAnimation
+      :animation-data="swipeDownAnimationData"
+      :speed="0.6"
+      class="animation"
+      :title="t('global.pullToRefresh')"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -46,6 +48,14 @@ const refresh = async (ev: CustomEvent) => {
 <style lang="scss" scoped>
 @import '../styles/mixin.scss';
 
+.refresher-wrapper {
+  margin-bottom: 12px;
+
+  @include breakpoint(s) {
+    margin-bottom: 32px;
+  }
+}
+
 .animation {
   height: 48px;
   width: 100%;
@@ -53,9 +63,5 @@ const refresh = async (ev: CustomEvent) => {
   position: absolute;
   left: 0;
   top: 76px;
-
-  @include breakpoint(s) {
-    top: 72px;
-  }
 }
 </style>
