@@ -1,3 +1,17 @@
+# [vorlesungsplan-plus-v2.2.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.1.1...vorlesungsplan-plus-v2.2.0) (2022-04-02)
+
+
+### Bug Fixes
+
+* refresher animation spacing not pretty on mobile ([e51ceac](https://github.com/larsrickert/vorlesungsplan-plus/commit/e51ceacd7f319607d59cfae2430588dbaf3e1960))
+* **timetable:** past lectures are being marked as `added` when toggling past/archive view ([1b6d2f1](https://github.com/larsrickert/vorlesungsplan-plus/commit/1b6d2f1ed5484401be9f60f76ead9eeec8211c74)), closes [#11](https://github.com/larsrickert/vorlesungsplan-plus/issues/11)
+
+
+### Features
+
+* **settings:** show number of max selectable courses ([7e9773f](https://github.com/larsrickert/vorlesungsplan-plus/commit/7e9773faf968c8aee76e4e5e75fd35a8ae842675))
+* **timetable:** grey out past dates when past/archived lectures are shown ([f0151a5](https://github.com/larsrickert/vorlesungsplan-plus/commit/f0151a5e75ad507f68615e18cf405617f1755eaa))
+
 # [vorlesungsplan-plus-v2.1.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.1.0...vorlesungsplan-plus-v2.1.1) (2022-03-26)
 
 
