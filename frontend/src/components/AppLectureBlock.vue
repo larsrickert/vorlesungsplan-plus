@@ -1,6 +1,12 @@
 <template>
   <div class="block">
-    <IonLabel class="block__heading"> {{ dateString }} </IonLabel>
+    <IonLabel
+      class="block__heading"
+      :class="{ 'block__heading--past': isPast }"
+      :title="isPast ? t('timetable.lectureBlockIsPast', lectures.length) : ''"
+    >
+      {{ dateString }}
+    </IonLabel>
     <AppLecture v-for="lecture of lectures" :key="lecture.ids.join(',')" :lecture="lecture" />
   </div>
 </template>
@@ -27,6 +33,12 @@ const dateString = computed((): string => {
   if (isToday(props.date, 1)) return t('global.tomorrow');
   return d(props.date, 'dateFullWeekday');
 });
+
+const isPast = computed<boolean>(() => {
+  const date = new Date(props.date);
+  date.setHours(23, 59, 59, 999);
+  return date.getTime() < Date.now();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -43,6 +55,11 @@ const dateString = computed((): string => {
     padding: 20px;
     font-weight: 500;
     border-bottom: 1px solid var(--ion-border-color);
+
+    &--past {
+      color: var(--ion-color-dark);
+      cursor: help;
+    }
   }
 
   .lecture {

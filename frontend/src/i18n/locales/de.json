@@ -45,7 +45,8 @@
     "showingPastLecturesToast": "Vergangene Vorlesungen werden jetzt angezeigt.",
     "hidePastLectures": "Vergangene Vorlesungen ausblenden",
     "hidingPastLecturesToast": "Vergangene Vorlesungen sind jetzt ausgeblendet.",
-    "noCoursesSelected": "Keinen Kurs ausgewählt. Bitte wähle mindestens einen Kurs in den Einstellungen aus."
+    "noCoursesSelected": "Keinen Kurs ausgewählt. Bitte wähle mindestens einen Kurs in den Einstellungen aus.",
+    "lectureBlockIsPast": "Diese Vorlesung ist bereits vorbei. | Diese Vorlesungen sind bereits vorbei."
   },
   "settings": {
     "pageName": "Einstellungen",
