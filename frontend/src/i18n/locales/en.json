@@ -67,7 +67,7 @@
     "permissionGranted": "Permission granted",
     "grantPermissionsLinkText": "See how to grant permissions",
     "selectCoursesToast": "Obviously this is the first time you are using Vorlesungsplan+. Please select one or more courses to be displayed in the timetable.",
-    "selectedCourses": "Selected courses: {count}"
+    "selectedCourses": "Selected courses: {count} of {max}"
   },
   "events": {
     "pageName": "Events",

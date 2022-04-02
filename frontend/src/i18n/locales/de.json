@@ -67,7 +67,7 @@
     "permissionGranted": "Berechtigung erteilt",
     "grantPermissionsLinkText": "Anleitung zum Erteilen der Berechtigung",
     "selectCoursesToast": "Offensichtlich benutzt die Vorlesungsplan+ zum ersten Mal. Bitte wähle einen oder mehrere Kurse aus, die im Vorlesungsplan angezeigt werden sollen.",
-    "selectedCourses": "Ausgewählte Kurse: {count}"
+    "selectedCourses": "Ausgewählte Kurse: {count} von {max}"
   },
   "events": {
     "pageName": "Veranstaltungen",

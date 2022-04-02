@@ -6,7 +6,14 @@
       <div class="page__content">
         <h2>{{ t('settings.availableCourses') }}</h2>
 
-        <p>{{ t('settings.selectedCourses', settingsStore.courses.length) }}</p>
+        <p>
+          {{
+            t('settings.selectedCourses', {
+              count: settingsStore.courses.length,
+              max: settingsStore.maxCoursesCount,
+            })
+          }}
+        </p>
 
         <IonProgressBar v-if="!isLoaded" type="indeterminate" />
 

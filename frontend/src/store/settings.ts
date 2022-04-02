@@ -122,10 +122,10 @@ export const useSettingsStore = defineStore('settings', {
     async changeCourses(value: string[]) {
       if (JSON.stringify(value) === JSON.stringify(this.courses)) return;
 
-      if (value.length > randomColors.length) {
+      if (value.length > this.maxCoursesCount) {
         throw new CustomError(
           ErrorCode.COURSE_LIMIT_EXCEEDED,
-          `You cannot select more than ${randomColors.length} courses.`
+          `You cannot select more than ${this.maxCoursesCount} courses.`
         );
       }
 
@@ -155,6 +155,11 @@ export const useSettingsStore = defineStore('settings', {
 
       this.excludeHolidays = value;
       await setValue(StorageKey.EXCLUDE_HOLIDAYS, value);
+    },
+  },
+  getters: {
+    maxCoursesCount(): number {
+      return randomColors.length;
     },
   },
 });
