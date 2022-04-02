@@ -107,6 +107,8 @@ export function getLectureStatus(
   previous: Lecture[],
   current: ApiLecture[]
 ): LectureStatus {
+  if (new Date(lecture.end).getTime() < Date.now()) return '';
+
   const inPrevious = previous.find((i) => i.id === lecture.id);
   const inCurrent = current.find((i) => i.id === lecture.id);
 
