@@ -64,3 +64,22 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+
+  deploy:
+    name: Deploy
+    needs:
+      - release_frontend
+      - release_backend
+    runs-on: ubuntu-latest
+    if: $GITHUB_REF_NAME == "main"
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v2
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          envs: GITHUB_SERVER_URL,GITHUB_REPOSITORY
+          script: npx nginx-proxy-cli@beta deploy $GITHUB_SERVER_URL/$GITHUB_REPOSITORY --dir=~/nginx-proxy/applications --folder=vorlesungsplan.lars-rickert.de
