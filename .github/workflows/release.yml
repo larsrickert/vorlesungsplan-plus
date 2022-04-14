@@ -71,7 +71,7 @@ jobs:
       - release_frontend
       - release_backend
     runs-on: ubuntu-latest
-    if: $GITHUB_REF_NAME == "main"
+    if: env.GITHUB_REF_NAME == "main"
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v2
