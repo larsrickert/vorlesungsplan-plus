@@ -53,7 +53,7 @@ export async function showModal({ component, data }: ModalOptions) {
     component,
     cssClass: 'app-modal',
     componentProps: data,
-    swipeToClose: true,
+    canDismiss: true,
   });
 
   await modal.present();
