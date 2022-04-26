@@ -67,6 +67,21 @@ export const useStore = defineStore('main', {
       }
     },
     async clearChanges() {
+      // clear status of stored/cached lectures
+      for (const course of useSettingsStore().courses) {
+        const storedFallbacks = await getValue<Lecture[]>(`lectures-${course}`);
+        if (storedFallbacks) {
+          const lectures: Lecture[] = storedFallbacks
+            .filter((lecture) => lecture.status !== 'removed')
+            .map((lecture) => {
+              lecture.status = '';
+              return lecture;
+            });
+
+          await setValue(`lectures-${course}`, lectures);
+        }
+      }
+
       const blocks: DayLectureBlock[] = [];
       this.lectureDayBlocks.slice(0).forEach((block) => {
         block.lectures = block.lectures.filter((lecture) => lecture.status !== 'removed');
@@ -77,23 +92,6 @@ export const useStore = defineStore('main', {
         if (block.lectures.length) blocks.push(block);
       });
       this.lectureDayBlocks = blocks;
-
-      // clear status of stored/cached lectures
-      for (const course of useSettingsStore().courses) {
-        const storedFallbacks = await getValue<Lecture[]>(`lectures-${course}`);
-        if (storedFallbacks) {
-          const lectures: Lecture[] = storedFallbacks
-            .filter((lecture) => {
-              return this.lectures.find((l) => l.ids.includes(lecture.id));
-            })
-            .map((lecture) => {
-              lecture.status = '';
-              return lecture;
-            });
-
-          await setValue(`lectures-${course}`, lectures);
-        }
-      }
     },
   },
   getters: {

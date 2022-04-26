@@ -88,7 +88,7 @@ export function mergeAndSortSameLectures(lectures: Lecture[]): MergedLecture[] {
   return merged;
 }
 
-function isSameLectureContent(a: Lecture, b: Lecture): boolean {
+function isSameLectureContent(a: ApiLecture, b: ApiLecture): boolean {
   if (a === b) return true;
 
   return (
@@ -102,27 +102,23 @@ function isSameLectureContent(a: Lecture, b: Lecture): boolean {
   );
 }
 
-export function getLectureStatus(
-  lecture: ApiLecture,
-  previous: Lecture[],
-  current: ApiLecture[]
-): LectureStatus {
+function getLectureStatus(lecture: ApiLecture, previous: Lecture[]): LectureStatus {
   if (new Date(lecture.end).getTime() < Date.now()) return '';
 
-  const inPrevious = previous.find((i) => i.id === lecture.id);
-  const inCurrent = current.find((i) => i.id === lecture.id);
+  const inPrevious = previous.find((i) => i.id === lecture.id && isSameLectureContent(lecture, i));
 
-  if (inPrevious && !inCurrent) return 'removed';
-  if (!inPrevious && inCurrent) return 'added';
-  if (inPrevious && inCurrent) return inPrevious.status === 'removed' ? 'added' : inPrevious.status;
-  return '';
+  if (!inPrevious || inPrevious.status === 'removed') return 'added';
+  return inPrevious.status;
 }
 
 export function mapLectures(lectures: ApiLecture[], cachedLectures?: Lecture[]): Lecture[] {
   const removedLectures: Lecture[] =
     cachedLectures
       ?.filter((lecture) => {
-        return !lectures.find((l) => l.id === lecture.id);
+        return !lectures.find(
+          (l) =>
+            l.id === lecture.id && (isSameLectureContent(lecture, l) || lecture.status === 'added')
+        );
       })
       .map((lecture) => {
         return { ...lecture, status: 'removed' };
@@ -131,7 +127,7 @@ export function mapLectures(lectures: ApiLecture[], cachedLectures?: Lecture[]):
   let mapped: Lecture[] = lectures.map((lecture) => {
     return {
       ...lecture,
-      status: cachedLectures ? getLectureStatus(lecture, cachedLectures, lectures) : '',
+      status: cachedLectures ? getLectureStatus(lecture, cachedLectures) : '',
     };
   });
 
