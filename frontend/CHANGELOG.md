@@ -1,3 +1,16 @@
+# [vorlesungsplan-plus-v2.3.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.2.1...vorlesungsplan-plus-v2.3.0) (2022-04-26)
+
+
+### Bug Fixes
+
+* lectures not marked as `added` or `removed` when content changes ([83432ae](https://github.com/larsrickert/vorlesungsplan-plus/commit/83432aee10df829bc97221beb434b2959b7231b2))
+* remove lecture progress bar when status is `removed` ([d39ea1b](https://github.com/larsrickert/vorlesungsplan-plus/commit/d39ea1b7985a8c48a75e9d89f15a3f326572d457))
+
+
+### Features
+
+* add icon to online lectures ([1d36be0](https://github.com/larsrickert/vorlesungsplan-plus/commit/1d36be0d37dc9afe2b3c1d48a7b61cc5d53ea46e))
+
 # [vorlesungsplan-plus-v2.2.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.2.0...vorlesungsplan-plus-v2.2.1) (2022-04-20)
 
 
