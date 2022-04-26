@@ -7,7 +7,11 @@
     >
       {{ dateString }}
     </IonLabel>
-    <AppLecture v-for="lecture of lectures" :key="lecture.ids.join(',')" :lecture="lecture" />
+    <AppLecture
+      v-for="lecture of lectures"
+      :key="lecture.ids.join(',') + lecture.status ? `-${lecture.status}` : ''"
+      :lecture="lecture"
+    />
   </div>
 </template>
 
