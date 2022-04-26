@@ -30,7 +30,12 @@
       </div>
 
       <IonLabel class="lecture__name">{{ lecture.name }}</IonLabel>
-      <IonProgressBar v-if="progress" class="lecture__progress" :value="progress" buffer="0" />
+      <IonProgressBar
+        v-if="progress && lecture.status !== 'removed'"
+        class="lecture__progress"
+        :value="progress"
+        buffer="0"
+      />
 
       <!-- Meta -->
       <div class="lecture__meta">
