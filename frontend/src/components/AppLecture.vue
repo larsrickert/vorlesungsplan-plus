@@ -51,7 +51,10 @@
           <IonText class="lecture__lecturer">{{ lecture.lecturer }}</IonText>
         </div>
 
-        <IonText>{{ lecture.rooms.join(', ') }}</IonText>
+        <IonText v-if="lecture.rooms.length" class="rooms">
+          <IonIcon v-if="lecture.type === 'ONLINE'" :icon="desktopOutline" class="rooms__icon" />
+          {{ lecture.rooms.join(', ') }}
+        </IonText>
       </div>
     </div>
   </IonItem>
@@ -59,7 +62,12 @@
 
 <script lang="ts" setup>
 import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
-import { addCircleOutline, closeCircleOutline, documentTextOutline } from 'ionicons/icons';
+import {
+  addCircleOutline,
+  closeCircleOutline,
+  desktopOutline,
+  documentTextOutline,
+} from 'ionicons/icons';
 import { onBeforeUnmount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import config from '../configs';
@@ -160,6 +168,16 @@ onBeforeUnmount(() => clearInterval(intervall));
       &:not(:last-child) {
         margin-right: 10px;
       }
+    }
+  }
+
+  .rooms {
+    display: flex;
+    align-items: center;
+
+    &__icon {
+      margin-right: 4px;
+      min-width: 14px;
     }
   }
 }
