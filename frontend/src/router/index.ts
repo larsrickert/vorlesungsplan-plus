@@ -1,24 +1,24 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import { baseUrl } from '../configs';
-import Home from '../views/Home.vue';
+import HomeView from '../views/HomeView.vue';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: Home,
+    component: HomeView,
   },
   {
     path: '/settings',
-    component: () => import('../views/Settings.vue'),
+    component: () => import('../views/SettingsView.vue'),
   },
   {
     path: '/events',
-    component: () => import('../views/Events.vue'),
+    component: () => import('../views/EventsView.vue'),
   },
   {
     path: '/apps',
-    component: () => import('../views/Apps.vue'),
+    component: () => import('../views/AppsView.vue'),
   },
   {
     path: '/installation',
