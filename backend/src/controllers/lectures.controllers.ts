@@ -72,8 +72,8 @@ async function mapLectures(lectures: IStuVLecture[]): Promise<ILecture[]> {
 export const fetchLectures = async (course: string): Promise<ILecture[]> => {
   course = course.toUpperCase();
 
-  const cachedCourses = (await cache.get(course)) as ILecture[] | undefined;
-  if (cachedCourses) return cachedCourses;
+  const cachedLectures = (await cache.get(course)) as ILecture[] | undefined;
+  if (cachedLectures) return cachedLectures;
 
   try {
     const { data } = await axios.get<IStuVLecture[]>(
