@@ -28,8 +28,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from '@vue/reactivity';
 import { Calendar } from 'v-calendar';
+import { computed } from 'vue';
 import { useEventStore } from '../store/events';
 import AppCalendarEntry from './AppCalendarEntry.vue';
 
