@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-api-v2.1.5](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v2.1.4...vorlesungsplan-plus-api-v2.1.5) (2022-06-10)
+
+
+### Bug Fixes
+
+* remove vulnerable dependencies ([fbb02ac](https://github.com/larsrickert/vorlesungsplan-plus/commit/fbb02ac95158be02a8c2806738e76e630efe9bdc))
+
 # [vorlesungsplan-plus-api-v2.1.4](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-api-v2.1.3...vorlesungsplan-plus-api-v2.1.4) (2022-06-05)
 
 
