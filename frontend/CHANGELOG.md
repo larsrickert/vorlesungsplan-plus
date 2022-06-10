@@ -1,3 +1,10 @@
+# [vorlesungsplan-plus-v2.3.2](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.3.1...vorlesungsplan-plus-v2.3.2) (2022-06-10)
+
+
+### Bug Fixes
+
+* remove vulnerable dependencies ([fbb02ac](https://github.com/larsrickert/vorlesungsplan-plus/commit/fbb02ac95158be02a8c2806738e76e630efe9bdc))
+
 # [vorlesungsplan-plus-v2.3.1](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.3.0...vorlesungsplan-plus-v2.3.1) (2022-06-05)
 
 
