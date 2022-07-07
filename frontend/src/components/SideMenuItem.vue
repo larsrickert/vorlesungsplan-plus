@@ -1,10 +1,10 @@
 <template>
-  <IonMenuToggle auto-hide="false">
+  <IonMenuToggle :auto-hide="false">
     <IonItem
       :button="!!href"
       :class="{ selected: href === $route.path }"
       class="hydrated"
-      detail="false"
+      :detail="false"
       lines="none"
       @click="openLink"
     >

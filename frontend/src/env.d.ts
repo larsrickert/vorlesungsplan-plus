@@ -18,3 +18,9 @@ interface ImportMetaEnv extends Readonly<Record<string, string>> {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare module 'v-calendar' {
+  import { DefineComponent } from 'vue';
+  const Calendar: DefineComponent;
+  export { Calendar };
+}

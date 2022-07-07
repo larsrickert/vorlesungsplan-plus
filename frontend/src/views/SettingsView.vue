@@ -47,11 +47,12 @@
               <span class="setting__name">{{ t('settings.lectureNotificationTime') }}:</span>
 
               <IonSelect
-                v-model="notificationTime"
+                :value="notificationTime"
                 :ok-text="t('global.select')"
                 :cancel-text="t('global.close')"
                 :interface-options="{ header: t('settings.selectNotificationTime') }"
                 :placeholder="`${t('global.select')}...`"
+                @update:modelValue="notificationTime = Number.parseInt($event)"
               >
                 <IonSelectOption v-for="time of allowedNotificationTimes" :key="time" :value="time">
                   {{ time !== 0 ? t('settings.xMinutes', time) : t('global.deactivated') }}

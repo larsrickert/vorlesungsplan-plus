@@ -1,6 +1,6 @@
 <template>
   <div class="refresher-wrapper">
-    <IonRefresher slot="fixed" pull-min="100" pull-max="150" @ionRefresh="refresh">
+    <IonRefresher slot="fixed" :pull-min="100" :pull-max="150" @ionRefresh="refresh">
       <IonRefresherContent
         :pulling-icon="chevronDown"
         :pulling-text="pullingText"

@@ -34,7 +34,7 @@
         v-if="progress && lecture.status !== 'removed'"
         class="lecture__progress"
         :value="progress"
-        buffer="0"
+        :buffer="0"
       />
 
       <!-- Meta -->
