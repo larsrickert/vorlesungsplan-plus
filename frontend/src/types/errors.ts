@@ -43,6 +43,9 @@ export class CustomError extends Error {
   /** Generates a string representing the error */
   public toString(): string {
     const { code, message, originalError } = this;
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const { t } = i18n.global;
 
     return `${t('global.errorCode')} ${code}: ${message}${
