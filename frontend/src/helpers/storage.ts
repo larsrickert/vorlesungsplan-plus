@@ -1,4 +1,4 @@
-import { Storage } from '@capacitor/storage';
+import { Preferences } from '@capacitor/preferences';
 
 export enum StorageKey {
   LOCALE = 'locale',
@@ -15,7 +15,7 @@ let isConfigured = false;
 async function configureStorage() {
   if (isConfigured) return;
 
-  await Storage.configure({
+  await Preferences.configure({
     group: 'VorlesungsplanPlus',
   });
   isConfigured = true;
@@ -29,7 +29,7 @@ async function configureStorage() {
  */
 export const getValue = async <T>(key: StorageKey | string): Promise<T | null> => {
   await configureStorage();
-  const { value } = await Storage.get({ key });
+  const { value } = await Preferences.get({ key });
 
   try {
     return value != null ? JSON.parse(value) : null;
@@ -48,7 +48,7 @@ export const getValue = async <T>(key: StorageKey | string): Promise<T | null> =
 export const setValue = async (key: StorageKey | string, value: unknown): Promise<void> => {
   await configureStorage();
   try {
-    await Storage.set({ key, value: JSON.stringify(value) });
+    await Preferences.set({ key, value: JSON.stringify(value) });
   } catch (e) {
     console.error(`Error while setting ${key} to storage`, e);
   }
@@ -73,7 +73,7 @@ export const initValue = async <T>(key: StorageKey | string, value: T): Promise<
  */
 export const clearStorage = async () => {
   await configureStorage();
-  await Storage.clear();
+  await Preferences.clear();
 };
 
 /**
@@ -84,7 +84,7 @@ export const clearStorage = async () => {
 export const removeValue = async (key: StorageKey | string): Promise<void> => {
   await configureStorage();
   try {
-    await Storage.remove({ key });
+    await Preferences.remove({ key });
   } catch (e) {
     console.error(`Error while removing ${key} from storage`, e);
   }
@@ -98,7 +98,7 @@ export const removeValue = async (key: StorageKey | string): Promise<void> => {
 export const getKeys = async (): Promise<string[]> => {
   await configureStorage();
   try {
-    const { keys } = await Storage.keys();
+    const { keys } = await Preferences.keys();
     return keys;
   } catch (e) {
     console.error('Error while getting keys from storage', e);
