@@ -1,20 +1,18 @@
-import vueI18n from '@intlify/vite-plugin-vue-i18n';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import vue from '@vitejs/plugin-vue';
-import path from 'path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    port: 3001,
-  },
   plugins: [
     vue(),
     eslintPlugin(),
-    vueI18n({
-      include: path.resolve(__dirname, './src/i18n/locales/**'),
+    VueI18nPlugin({
+      include: resolve(dirname(fileURLToPath(import.meta.url)), './src/i18n/locales/**'),
     }),
     VitePWA({
       includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],

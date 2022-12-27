@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "lib": ["esnext", "dom"],
-    "types": ["@intlify/vite-plugin-vue-i18n/client", "vite-plugin-pwa/client"]
+    "types": ["@intlify/unplugin-vue-i18n/messages", "vite-plugin-pwa/client"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
