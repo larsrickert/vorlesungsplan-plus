@@ -21,14 +21,7 @@
 
         <div class="flex">
           <IonIcon :icon="time" />
-          <p>
-            {{
-              t('global.dateRange', {
-                start: start ? d(start, 'dateTime') : 'N/A',
-                end: end ? d(end, 'time') : 'N/A',
-              })
-            }}
-          </p>
+          <p>{{ formattedDate }}</p>
         </div>
 
         <div v-if="location" class="flex">
@@ -47,7 +40,7 @@
 import { IonIcon, IonPopover } from '@ionic/vue';
 import { location as locationIcon, time } from 'ionicons/icons';
 import sanitizeHtml from 'sanitize-html';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 interface CalendarEntryProps {
@@ -59,7 +52,7 @@ interface CalendarEntryProps {
   location?: string;
 }
 
-defineProps<CalendarEntryProps>();
+const props = defineProps<CalendarEntryProps>();
 
 const { t, d } = useI18n();
 
@@ -69,6 +62,43 @@ const setOpen = (state: boolean, ev?: MouseEvent) => {
   event.value = ev;
   isOpenRef.value = state;
 };
+
+const formattedDate = computed(() => {
+  if (!props.start && !props.end) return '';
+
+  const start = props.start ? d(props.start, 'dateTime') : '';
+  const end = props.end ? d(props.end, 'dateTime') : '';
+
+  if (props.start && props.end) {
+    let isSameDay = d(props.start, 'date') === d(props.end, 'date');
+    if (!isSameDay) {
+      // some events are full day so the end time is already the next day at 00:00
+      const end = new Date(props.end);
+      end.setDate(end.getDate() - 1);
+      isSameDay = d(props.start, 'date') === d(end, 'date');
+    }
+
+    const start = d(props.start, 'dateTime');
+
+    const startTime = d(props.start, 'time');
+    const endTime = d(props.end, 'time');
+
+    if (startTime === endTime) {
+      return startTime !== '00:00'
+        ? t('global.date', { value: startTime })
+        : d(props.start, 'date');
+    }
+
+    return t('global.dateRange', {
+      start,
+      end: isSameDay ? endTime : d(props.end, 'dateTime'),
+    });
+  }
+
+  if (start) return t('global.date', { value: start });
+  if (end) return t('global.date', { value: end });
+  return '';
+});
 </script>
 
 <style scoped lang="scss">

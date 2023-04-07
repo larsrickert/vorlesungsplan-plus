@@ -8,6 +8,7 @@
     "refresh": "Refresh",
     "isRefreshing": "Is refreshing...",
     "dateRange": "{start} until {end}",
+    "date": "{value}",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "emptySearch": "No results found for the search.",

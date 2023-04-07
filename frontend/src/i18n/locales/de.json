@@ -8,6 +8,7 @@
     "refresh": "Aktualisieren",
     "isRefreshing": "Wird aktualisiert...",
     "dateRange": "{start} bis {end} Uhr",
+    "date": "{value} Uhr",
     "today": "Heute",
     "tomorrow": "Morgen",
     "emptySearch": "Keine Ergebnisse für die Suche gefunden.",
