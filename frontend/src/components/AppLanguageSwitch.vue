@@ -68,19 +68,24 @@ $flagSize: 18px;
   cursor: pointer;
   display: block;
 }
+
 ul {
   list-style: none;
   margin: 0;
   padding: 6px 0;
+
   li {
     padding: 6px 12px;
     cursor: pointer;
+
     &.active {
       background: rgba(var(--ion-text-color-rgb), 0.05);
     }
+
     &:hover {
       background: rgba(var(--ion-text-color-rgb), 0.1);
     }
+
     span {
       font-size: 15px;
       color: var(--app-font-color);

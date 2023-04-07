@@ -1,5 +1,5 @@
 <template>
-  <IonSegment v-model="value" scrollable mode="ios">
+  <IonSegment v-model="value" mode="ios" scrollable>
     <IonSegmentButton v-for="option of options" :key="option.value" :value="option.value">
       {{ option.name }}
     </IonSegmentButton>

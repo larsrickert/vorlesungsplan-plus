@@ -13,10 +13,9 @@
           <IonItem lines="none" class="setting">
             <IonIcon slot="start" :icon="invertMode" />
 
-            <span class="setting__name">{{ t('settings.theme') }}:</span>
-
             <IonSelect
               v-model="theme"
+              :label="`${t('settings.theme')}:`"
               :ok-text="t('global.select')"
               :cancel-text="t('global.close')"
               :interface-options="{ header: t('settings.selectTheme') }"
@@ -36,18 +35,18 @@
 
           <IonItem lines="none" class="setting">
             <IonIcon slot="start" :icon="excludeHolidays ? eyeOff : eye" />
-            <span class="setting__name">{{ t('settings.excludeHolidays') }}:</span>
-            <IonCheckbox slot="end" v-model="excludeHolidays" />
+            <IonCheckbox v-model="excludeHolidays">
+              <span>{{ t('settings.excludeHolidays') }}:</span>
+            </IonCheckbox>
           </IonItem>
 
           <div>
             <IonItem lines="none" class="setting">
               <IonIcon slot="start" :icon="notificationTime ? notifications : notificationsOff" />
 
-              <span class="setting__name">{{ t('settings.lectureNotificationTime') }}:</span>
-
               <IonSelect
                 :value="notificationTime"
+                :label="`${t('settings.lectureNotificationTime')}:`"
                 :ok-text="t('global.select')"
                 :cancel-text="t('global.close')"
                 :interface-options="{ header: t('settings.selectNotificationTime') }"
