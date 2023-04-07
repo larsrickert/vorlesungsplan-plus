@@ -1,6 +1,6 @@
 {
   "name": "vorlesungsplan-plus-api",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "main": "src/app.ts",
   "private": true,
   "packageManager": "pnpm@8.1.1",
