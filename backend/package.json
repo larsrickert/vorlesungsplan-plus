@@ -8,7 +8,6 @@
     "dev": "cross-env NODE_ENV=development ts-node-dev .",
     "start": "cross-env NODE_ENV=production ts-node .",
     "lint": "tsc --noEmit && eslint --fix src",
-    "type-check": "tsc --noEmit",
     "format": "prettier --write src --ignore-path ../.gitignore",
     "preinstall": "npx only-allow pnpm"
   },

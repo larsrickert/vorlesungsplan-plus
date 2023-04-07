@@ -66,8 +66,8 @@ jobs:
           cache-dependency-path: backend/pnpm-lock.yaml
       - name: 📦 Install dependencies
         run: pnpm install
-      - name: ⚒️ Type check
-        run: pnpm type-check
+      - name: 🔎 Lint
+        run: pnpm lint
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
