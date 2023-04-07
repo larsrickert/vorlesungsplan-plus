@@ -1,3 +1,16 @@
+# [vorlesungsplan-plus-v2.4.0](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.3.3...vorlesungsplan-plus-v2.4.0) (2023-04-07)
+
+
+### Bug Fixes
+
+* remove vulnerable dependencies ([fbb1010](https://github.com/larsrickert/vorlesungsplan-plus/commit/fbb1010c3e01abcbb2f3df9c8ec95f4f991852ae))
+
+
+### Features
+
+* **events:** display location ([d381279](https://github.com/larsrickert/vorlesungsplan-plus/commit/d381279a1ccae006687d4990bfe9d819bb8ed0f7))
+* **events:** use prettier format for displaying event time ([37d6dfd](https://github.com/larsrickert/vorlesungsplan-plus/commit/37d6dfd5c274b9cf2fa24e318f037efb2339d295))
+
 # [vorlesungsplan-plus-v2.3.3](https://github.com/larsrickert/vorlesungsplan-plus/compare/vorlesungsplan-plus-v2.3.2...vorlesungsplan-plus-v2.3.3) (2022-08-02)
 
 
