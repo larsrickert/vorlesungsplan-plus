@@ -1,14 +1,20 @@
 # build stage
 FROM node:18-alpine as build
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+
+COPY pnpm-lock.yaml package.json ./
+
+# install pnpm as defined in package.json
+RUN npm i -g $(node -p "require('./package.json').packageManager")
+
+RUN pnpm install --frozen-lockfile
+
+COPY . ./
 
 ARG VITE_APP_API_HOST
 ENV VITE_APP_API_HOST $VITE_APP_API_HOST
 
-COPY . ./
-RUN npm run build
+RUN pnpm build
 
 # production stage
 FROM nginx:stable-alpine

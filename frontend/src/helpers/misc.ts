@@ -36,9 +36,9 @@ export const randomColors = [
   'var(--ion-color-primary)',
 ] as const;
 let currentColorIndex = 0;
-const colorMap: Record<string, typeof randomColors[number]> = {};
+const colorMap: Record<string, (typeof randomColors)[number]> = {};
 
-export function getRandomColor(key: string): typeof randomColors[number] {
+export function getRandomColor(key: string): (typeof randomColors)[number] {
   if (colorMap[key]) return colorMap[key];
 
   const color = randomColors[currentColorIndex];

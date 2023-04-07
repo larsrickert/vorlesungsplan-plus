@@ -1,5 +1,9 @@
-import { ComponentProps, ComponentRef } from '@ionic/core';
-import { loadingController, modalController, toastController } from '@ionic/vue';
+import {
+  loadingController,
+  modalController,
+  toastController,
+  type ModalOptions as IonicModalOptions,
+} from '@ionic/vue';
 
 export interface Toast {
   message: string;
@@ -43,9 +47,9 @@ export async function showLoading(message: string): Promise<HTMLIonLoadingElemen
 
 export interface ModalOptions {
   /** The component (page) that should be displayed in the modal. */
-  component: ComponentRef;
+  component: IonicModalOptions['component'];
   /** Custom data that can be passed to the modal. */
-  data?: ComponentProps;
+  data?: IonicModalOptions['componentProps'];
 }
 
 export async function showModal({ component, data }: ModalOptions) {

@@ -3,31 +3,31 @@
 ## Project setup
 
 ```
-npm install
+pnpm install
 ```
 
 ### Run with hot-reload for development
 
 ```
-npm run dev
+pnpm dev
 ```
 
 ### Compiles and minifies for production
 
 ```
-npm run build
+pnpm build
 ```
 
 ### Serves production build in local webserver
 
 ```
-npm run preview
+pnpm preview
 ```
 
 ### Lints and fixes files
 
 ```
-npm run lint
+pnpm lint
 ```
 
 # Pursue following guidelines

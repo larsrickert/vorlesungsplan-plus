@@ -1,18 +1,18 @@
-version: '3'
+version: "3"
 
 services:
   frontend:
     build:
       context: ./frontend
       args:
-        VITE_APP_API_HOST: 'https://${BACKEND_DOMAIN}'
+        VITE_APP_API_HOST: "https://${BACKEND_DOMAIN}"
     image: larsrickert/vorlesungsplan-plus
     restart: always
     expose:
       - 80
     environment:
-      VIRTUAL_HOST: '${FRONTEND_DOMAIN}'
-      LETSENCRYPT_HOST: '${FRONTEND_DOMAIN}'
+      VIRTUAL_HOST: "${FRONTEND_DOMAIN}"
+      LETSENCRYPT_HOST: "${FRONTEND_DOMAIN}"
 
   backend:
     build: ./backend
@@ -21,8 +21,8 @@ services:
     expose:
       - 3000
     environment:
-      VIRTUAL_HOST: '${BACKEND_DOMAIN}'
-      LETSENCRYPT_HOST: '${BACKEND_DOMAIN}'
+      VIRTUAL_HOST: "${BACKEND_DOMAIN}"
+      LETSENCRYPT_HOST: "${BACKEND_DOMAIN}"
     volumes:
       - ./logs:/usr/src/app/logs
 

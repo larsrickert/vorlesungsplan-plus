@@ -3,12 +3,14 @@
   "version": "2.1.6",
   "main": "src/app.ts",
   "private": true,
+  "packageManager": "pnpm@8.1.1",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev .",
     "start": "cross-env NODE_ENV=production ts-node .",
     "lint": "tsc --noEmit && eslint --fix src",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write src --ignore-path ../.gitignore",
-    "update": "npx npm-check-updates -i"
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@types/cors": "^2.8.13",
@@ -22,10 +24,11 @@
     "express": "^4.18.2",
     "keyv": "^4.5.2",
     "node-ical": "^0.16.0",
+    "rrule": "^2.7.2",
     "swagger-jsdoc": "6.2.8",
     "swagger-ui-express": "^4.6.2",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -36,6 +39,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.7",
+    "semantic-release": "20",
     "semantic-release-monorepo": "^7.0.5",
     "ts-node-dev": "^2.0.0"
   },

@@ -1,6 +1,6 @@
-import { NumberFormats } from '@intlify/core-base';
+import { IntlNumberFormats } from 'vue-i18n';
 
-const numberFormats: NumberFormats = {
+const numberFormats = {
   en: {
     currency: {
       style: 'currency',
@@ -15,6 +15,6 @@ const numberFormats: NumberFormats = {
       notation: 'standard',
     },
   },
-};
+} satisfies IntlNumberFormats;
 
 export default numberFormats;

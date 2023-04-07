@@ -3,25 +3,25 @@
 ## Project setup
 
 ```
-npm install
+pnpm install
 ```
 
 ### Run with hot-reload for development
 
 ```
-npm run dev
+pnpm dev
 ```
 
 ### Start for production
 
 ```
-npm start
+pnpm start
 ```
 
 ### Lints and fixes files
 
 ```
-npm run lint
+pnpm lint
 ```
 
 <br />
