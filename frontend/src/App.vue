@@ -155,7 +155,6 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
-@import 'v-calendar/dist/style.css';
 @import '@ionic/vue/css/core.css';
 @import '@ionic/vue/css/normalize.css';
 @import '@ionic/vue/css/structure.css';

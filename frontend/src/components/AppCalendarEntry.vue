@@ -5,6 +5,7 @@
       <span v-else> {{ title }}</span>
     </p>
     <IonPopover
+      v-if="start || end"
       :is-open="isOpenRef"
       css-class="app-popover app-popover--large app-popover--scroll"
       :event="event"
@@ -13,12 +14,20 @@
       @didDismiss="setOpen(false)"
     >
       <div class="popover">
-        <h5 class="popover__title">{{ title }}</h5>
+        <h5 class="popover__title">
+          <span v-if="isToday">{{ t('global.today') }}</span>
+          <span v-else> {{ title || 'N/A' }}</span>
+        </h5>
 
         <div class="flex">
           <IonIcon :icon="time" />
           <p>
-            {{ t('global.dateRange', { start: d(start, 'dateTime'), end: d(end, 'time') }) }}
+            {{
+              t('global.dateRange', {
+                start: start ? d(start, 'dateTime') : 'N/A',
+                end: end ? d(end, 'time') : 'N/A',
+              })
+            }}
           </p>
         </div>
 
@@ -38,10 +47,10 @@ import { useI18n } from 'vue-i18n';
 
 interface CalendarEntryProps {
   isToday?: boolean;
-  title: string;
-  start: Date;
-  end: Date;
-  description: string;
+  title?: string;
+  start?: Date;
+  end?: Date;
+  description?: string;
 }
 
 defineProps<CalendarEntryProps>();
@@ -80,6 +89,7 @@ const setOpen = (state: boolean, ev?: MouseEvent) => {
 
     &.today {
       background-color: var(--ion-color-primary);
+      cursor: default;
     }
   }
 }

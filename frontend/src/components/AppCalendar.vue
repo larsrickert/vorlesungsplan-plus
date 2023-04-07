@@ -4,23 +4,34 @@
     :masks="masks"
     :attributes="calendarAttributes"
     disable-page-swipe
-    is-expanded
     :min-date="minDate"
     :max-date="maxDate"
+    expanded
+    trim-weeks
   >
-    <template #day-content="{ day, attributes }">
+    <template
+      #day-content="{
+        day,
+        attributes,
+      }: {
+        day: CalendarDay,
+        attributes: (Omit<Attribute, 'customData'> & { customData?: DhbwEvent })[],
+      }"
+    >
       <div class="day">
         <span class="day__label">{{ day.day }}</span>
         <div class="day__events">
-          <AppCalendarEntry
-            v-for="attr in attributes"
-            :key="attr.key"
-            :title="attr.customData ? attr.customData.name : 'N/A'"
-            :is-today="attr.key === 'today'"
-            :start="attr.customData ? attr.customData.start : undefined"
-            :end="attr.customData ? attr.customData.end : undefined"
-            :description="attr.customData ? attr.customData.description : ''"
-          />
+          <template v-for="attr in attributes" :key="attr.key">
+            <AppCalendarEntry v-if="attr.key === 'today'" is-today />
+
+            <AppCalendarEntry
+              v-else-if="attr.customData"
+              :title="attr.customData.name"
+              :start="attr.customData.start"
+              :end="attr.customData.end"
+              :description="attr.customData.description"
+            />
+          </template>
         </div>
       </div>
     </template>
@@ -29,8 +40,12 @@
 
 <script lang="ts" setup>
 import { Calendar } from 'v-calendar';
+import { Attribute, AttributeConfig } from 'v-calendar/dist/types/src/utils/attribute';
+import { CalendarDay } from 'v-calendar/dist/types/src/utils/page';
+import 'v-calendar/style.css';
 import { computed } from 'vue';
 import { useEventStore } from '../store/events';
+import { DhbwEvent } from '../types/events';
 import AppCalendarEntry from './AppCalendarEntry.vue';
 
 const masks = {
@@ -40,15 +55,19 @@ const masks = {
 const eventStore = useEventStore();
 
 const calendarAttributes = computed(() => {
-  const eventAttributes = eventStore.events.map((event) => {
+  const eventAttributes = eventStore.events.map<Partial<AttributeConfig>>((event) => {
     return {
       key: event.id,
       customData: event,
-      dates: event.start,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      dates: event.start as any,
     };
   });
 
-  return [{ key: 'today', customData: null, dates: Date.now() }, ...eventAttributes];
+  return [
+    { key: 'today', customData: null, dates: Date.now() },
+    ...eventAttributes,
+  ] as AttributeConfig[];
 });
 
 const minDate = computed((): Date | undefined =>
@@ -71,14 +90,9 @@ const maxDate = computed((): Date | undefined => {
   display: none;
 }
 
-.custom-calendar {
-  max-width: 100%;
-}
-
 .day {
   z-index: 10;
   overflow: hidden;
-  height: 100%;
   flex-direction: column;
   display: flex;
 
@@ -112,51 +126,35 @@ $day-padding-x: 5px;
     --day-height: 60px;
   }
 
-  & .vc-header {
-    background-color: var(--app-color-grey-medium);
-    padding: 10px 0;
+  .vc-header {
+    margin: 0;
+    padding: 10px;
+    box-sizing: content-box;
     border-radius: var(--app-border-radius-l) var(--app-border-radius-l) 0 0;
+    background-color: var(--app-color-grey-medium);
 
-    & .vc-title {
+    .vc-title {
+      z-index: 10;
       color: var(--ion-text-color);
+      font-size: 18px;
+      background-color: transparent;
     }
   }
 
-  & .vc-arrow {
+  .vc-arrow {
     color: var(--ion-text-color);
+    background-color: transparent;
 
     &:hover {
-      background: rgba(var(--ion-text-color-rgb), 0.1);
+      background-color: rgba(var(--ion-text-color-rgb), 0.1);
     }
   }
 
-  & .vc-nav-popover-container {
-    background-color: var(--app-color-grey-medium);
-    border-color: var(--ion-border-color);
-    color: var(--ion-text-color);
-
-    .vc-nav-item {
-      &.is-active {
-        background: rgba(var(--ion-text-color-rgb), 0.05);
-      }
-    }
-
-    .vc-nav-item,
-    .vc-nav-title,
-    .vc-nav-arrow {
-      color: var(--ion-text-color);
-
-      &:hover {
-        background: rgba(var(--ion-text-color-rgb), 0.05);
-      }
-    }
-  }
-
-  & .vc-weeks {
+  .vc-weeks {
     padding: 0;
   }
 
-  & .vc-weekday {
+  .vc-weekday {
     background-color: var(--weekday-bg);
     border-bottom: var(--weekday-border);
     border-top: var(--weekday-border);
@@ -164,7 +162,7 @@ $day-padding-x: 5px;
     color: var(--ion-text-color);
   }
 
-  & .vc-day {
+  .vc-day {
     padding: 0 $day-padding-x 3px $day-padding-x;
     text-align: left;
     height: var(--day-height);
@@ -200,8 +198,31 @@ $day-padding-x: 5px;
     }
   }
 
-  & .vc-day-dots {
+  .vc-day-dots {
     margin-bottom: 5px;
+  }
+}
+
+.vc-nav-popover-container {
+  background-color: var(--app-color-grey-medium);
+  border-color: var(--ion-border-color);
+  top: 76px;
+
+  .vc-nav-item {
+    &.is-active {
+      background: rgba(var(--ion-text-color-rgb), 0.05);
+    }
+  }
+
+  .vc-nav-item,
+  .vc-nav-title,
+  .vc-nav-arrow {
+    color: var(--ion-text-color);
+    background-color: transparent;
+
+    &:hover {
+      background-color: rgba(var(--ion-text-color-rgb), 0.05);
+    }
   }
 }
 </style>
