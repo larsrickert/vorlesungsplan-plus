@@ -31,6 +31,11 @@
           </p>
         </div>
 
+        <div v-if="location" class="flex">
+          <IonIcon :icon="locationIcon" />
+          <p>{{ location }}</p>
+        </div>
+
         <!-- eslint-disable-next-line vue/no-v-html -->
         <p v-if="description" class="popover__description" v-html="sanitizeHtml(description)"></p>
       </div>
@@ -40,7 +45,7 @@
 
 <script lang="ts" setup>
 import { IonIcon, IonPopover } from '@ionic/vue';
-import { time } from 'ionicons/icons';
+import { location as locationIcon, time } from 'ionicons/icons';
 import sanitizeHtml from 'sanitize-html';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -51,6 +56,7 @@ interface CalendarEntryProps {
   start?: Date;
   end?: Date;
   description?: string;
+  location?: string;
 }
 
 defineProps<CalendarEntryProps>();

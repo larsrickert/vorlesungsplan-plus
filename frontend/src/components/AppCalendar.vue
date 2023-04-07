@@ -30,6 +30,7 @@
               :start="attr.customData.start"
               :end="attr.customData.end"
               :description="attr.customData.description"
+              :location="attr.customData.location"
             />
           </template>
         </div>
