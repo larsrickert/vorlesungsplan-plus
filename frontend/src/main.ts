@@ -1,12 +1,12 @@
-import { IonicVue } from '@ionic/vue';
-import { createApp } from 'vue';
-import App from './App.vue';
-import { registerJavaScriptErrorHandler, registerPromiseErrorHandler } from './helpers/errors';
-import { i18n } from './i18n';
-import router from './router';
-import { pinia } from './store';
-import { useErrorStore } from './store/error-handler';
-import { CustomError } from './types/errors';
+import { IonicVue } from "@ionic/vue";
+import { createApp } from "vue";
+import App from "./App.vue";
+import { registerJavaScriptErrorHandler, registerPromiseErrorHandler } from "./helpers/errors";
+import { i18n } from "./i18n";
+import router from "./router";
+import { pinia } from "./store";
+import { useErrorStore } from "./store/error-handler";
+import { CustomError } from "./types/errors";
 
 const app = createApp(App).use(i18n).use(router).use(pinia).use(IonicVue);
 const errorStore = useErrorStore();
@@ -22,5 +22,5 @@ registerJavaScriptErrorHandler();
 registerPromiseErrorHandler();
 
 router.isReady().then(() => {
-  app.mount('#app');
+  app.mount("#app");
 });

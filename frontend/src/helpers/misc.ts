@@ -1,4 +1,4 @@
-import router from '../router';
+import router from "../router";
 
 /**
  * Creates a timeout / delay.
@@ -23,17 +23,17 @@ export function isToday(date: Date, offsetDays = 0): boolean {
 }
 
 export async function navigate(href: string) {
-  if (href.startsWith('mailto')) window.open(href, '_self');
-  else if (href.startsWith('http')) window.open(href, '_blank');
+  if (href.startsWith("mailto")) window.open(href, "_self");
+  else if (href.startsWith("http")) window.open(href, "_blank");
   else await router.push(href);
 }
 
 export const randomColors = [
-  'rgba(var(--ion-color-success-rgb), 0.8)',
-  'var(--ion-color-tertiary)',
-  'var(--ion-color-secondary)',
-  'var(--ion-color-danger)',
-  'var(--ion-color-primary)',
+  "rgba(var(--ion-color-success-rgb), 0.8)",
+  "var(--ion-color-tertiary)",
+  "var(--ion-color-secondary)",
+  "var(--ion-color-danger)",
+  "var(--ion-color-primary)",
 ] as const;
 let currentColorIndex = 0;
 const colorMap: Record<string, (typeof randomColors)[number]> = {};

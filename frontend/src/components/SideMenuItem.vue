@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-import { IonIcon, IonItem, IonLabel, IonMenuToggle } from '@ionic/vue';
-import { navigate } from '../helpers/misc';
+import { IonIcon, IonItem, IonLabel, IonMenuToggle } from "@ionic/vue";
+import { navigate } from "../helpers/misc";
 
 interface SideMenuItemProps {
   title: string;

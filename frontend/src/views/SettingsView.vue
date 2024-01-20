@@ -7,7 +7,7 @@
         <div class="grid">
           <IonItem detail lines="none" class="setting" button @click="openCourseSelect">
             <IonIcon slot="start" :icon="list" />
-            <span>{{ t('settings.selectCourses') }} ({{ settingsStore.courses.length }})</span>
+            <span>{{ t("settings.selectCourses") }} ({{ settingsStore.courses.length }})</span>
           </IonItem>
 
           <IonItem lines="none" class="setting">
@@ -22,13 +22,13 @@
               :placeholder="`${t('global.select')}...`"
             >
               <IonSelectOption value="auto">
-                {{ t('settings.themes.auto') }}
+                {{ t("settings.themes.auto") }}
               </IonSelectOption>
               <IonSelectOption value="light">
-                {{ t('settings.themes.light') }}
+                {{ t("settings.themes.light") }}
               </IonSelectOption>
               <IonSelectOption value="dark">
-                {{ t('settings.themes.dark') }}
+                {{ t("settings.themes.dark") }}
               </IonSelectOption>
             </IonSelect>
           </IonItem>
@@ -36,7 +36,7 @@
           <IonItem lines="none" class="setting">
             <IonIcon slot="start" :icon="excludeHolidays ? eyeOff : eye" />
             <IonCheckbox v-model="excludeHolidays">
-              <span>{{ t('settings.excludeHolidays') }}:</span>
+              <span>{{ t("settings.excludeHolidays") }}:</span>
             </IonCheckbox>
           </IonItem>
 
@@ -54,21 +54,21 @@
                 @update:modelValue="notificationTime = Number.parseInt($event)"
               >
                 <IonSelectOption v-for="time of allowedNotificationTimes" :key="time" :value="time">
-                  {{ time !== 0 ? t('settings.xMinutes', time) : t('global.deactivated') }}
+                  {{ time !== 0 ? t("settings.xMinutes", time) : t("global.deactivated") }}
                 </IonSelectOption>
               </IonSelect>
             </IonItem>
 
-            <p>* {{ t('settings.notificationTimeDescription', notificationTime) }}</p>
-            <p>{{ t('global.notAvailableOnPlatform', { platform: 'iOS' }) }}</p>
+            <p>* {{ t("settings.notificationTimeDescription", notificationTime) }}</p>
+            <p>{{ t("global.notAvailableOnPlatform", { platform: "iOS" }) }}</p>
 
             <div class="flex">
-              <span>{{ t('settings.permissionGranted') }}:</span>
+              <span>{{ t("settings.permissionGranted") }}:</span>
               <IonBadge
                 class="permissions__badge"
                 :color="notificationStore.hasPermissions ? 'success' : 'danger'"
               >
-                {{ t(`global.${notificationStore.hasPermissions ? 'yes' : 'no'}`) }}
+                {{ t(`global.${notificationStore.hasPermissions ? "yes" : "no"}`) }}
               </IonBadge>
             </div>
 
@@ -78,7 +78,7 @@
               href="https://support.google.com/chrome/answer/114662"
               target="_blank"
             >
-              {{ t('settings.grantPermissionsLinkText') }}
+              {{ t("settings.grantPermissionsLinkText") }}
             </a>
           </div>
         </div>
@@ -97,25 +97,25 @@ import {
   IonPage,
   IonSelect,
   IonSelectOption,
-} from '@ionic/vue';
-import { eye, eyeOff, invertMode, list, notifications, notificationsOff } from 'ionicons/icons';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import AppHeader from '../components/AppHeader.vue';
-import TheCourseSelectModal from '../components/TheCourseSelectModal.vue';
-import { showModal } from '../helpers/io';
-import { useNotificationStore } from '../store/notifications';
-import { allowedNotificationTimes, useSettingsStore } from '../store/settings';
+} from "@ionic/vue";
+import { eye, eyeOff, invertMode, list, notifications, notificationsOff } from "ionicons/icons";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+import AppHeader from "../components/AppHeader.vue";
+import TheCourseSelectModal from "../components/TheCourseSelectModal.vue";
+import { showModal } from "../helpers/io";
+import { useNotificationStore } from "../store/notifications";
+import { allowedNotificationTimes, useSettingsStore } from "../store/settings";
 
 const { t } = useI18n();
 
 const settingsStore = useSettingsStore();
 
 const theme = computed({
-  get: (): string => (settingsStore.themeDetection ? 'auto' : settingsStore.theme),
+  get: (): string => (settingsStore.themeDetection ? "auto" : settingsStore.theme),
   set: async (value: string) => {
-    if (value !== 'auto') await settingsStore.changeTheme(value);
-    await settingsStore.changeThemeDetection(value === 'auto');
+    if (value !== "auto") await settingsStore.changeTheme(value);
+    await settingsStore.changeThemeDetection(value === "auto");
   },
 });
 

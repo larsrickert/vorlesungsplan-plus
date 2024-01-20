@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonFab, IonFabButton, IonIcon } from '@ionic/vue';
+import { IonFab, IonFabButton, IonIcon } from "@ionic/vue";
 
 interface FabProps {
   icon: string;
@@ -18,12 +18,12 @@ interface FabProps {
 const props = defineProps<FabProps>();
 
 const emit = defineEmits<{
-  (event: 'click', ev: MouseEvent): void;
+  (event: "click", ev: MouseEvent): void;
 }>();
 
 const onClick = (ev: MouseEvent) => {
   if (props.disabled) return;
-  emit('click', ev);
+  emit("click", ev);
 };
 </script>
 

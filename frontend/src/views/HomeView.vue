@@ -22,11 +22,11 @@
       <div class="page__content">
         <AppRefresher :pulling-text="refresherText" :refresh-func="refreshLectures" />
         <IonProgressBar v-if="!store.lecturesLoaded" type="indeterminate" />
-        <p v-else-if="!settingsStore.courses.length">{{ t('timetable.noCoursesSelected') }}</p>
+        <p v-else-if="!settingsStore.courses.length">{{ t("timetable.noCoursesSelected") }}</p>
 
         <template v-else>
           <template v-if="!store.countUpcomingLectures">
-            <p>{{ t('timetable.noLecturesText') }}</p>
+            <p>{{ t("timetable.noLecturesText") }}</p>
           </template>
 
           <template v-else>
@@ -49,7 +49,7 @@
                 :lectures="block.lectures"
               />
 
-              <p v-if="!searchBlocks.length">{{ t('global.emptySearch') }}</p>
+              <p v-if="!searchBlocks.length">{{ t("global.emptySearch") }}</p>
             </div>
 
             <div v-show="!searchValue">
@@ -113,79 +113,79 @@
 </template>
 
 <script lang="ts" setup>
-import { IonButton, IonContent, IonIcon, IonPage, IonProgressBar, IonSearchbar } from '@ionic/vue';
-import { checkmarkDone, timeOutline } from 'ionicons/icons';
-import { computed, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import AppFab from '../components/AppFab.vue';
-import AppHeader from '../components/AppHeader.vue';
-import AppLectureBlock from '../components/AppLectureBlock.vue';
-import AppRefresher from '../components/AppRefresher.vue';
-import AppSegment from '../components/AppSegment.vue';
-import { showToast } from '../helpers/io';
-import { useStore } from '../store';
-import { useSettingsStore } from '../store/settings';
-import { DayLectureBlock } from '../types/lectures';
-import { SelectOption } from '../types/misc';
+import { IonButton, IonContent, IonIcon, IonPage, IonProgressBar, IonSearchbar } from "@ionic/vue";
+import { checkmarkDone, timeOutline } from "ionicons/icons";
+import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import AppFab from "../components/AppFab.vue";
+import AppHeader from "../components/AppHeader.vue";
+import AppLectureBlock from "../components/AppLectureBlock.vue";
+import AppRefresher from "../components/AppRefresher.vue";
+import AppSegment from "../components/AppSegment.vue";
+import { showToast } from "../helpers/io";
+import { useStore } from "../store";
+import { useSettingsStore } from "../store/settings";
+import type { DayLectureBlock } from "../types/lectures";
+import type { SelectOption } from "../types/misc";
 
 const { t, d } = useI18n();
 const settingsStore = useSettingsStore();
 
 const headerTitle = computed((): string => {
   const count = settingsStore.courses.length;
-  if (count === 1) return `${t('timetable.pageName')} ${settingsStore.courses[0]}`;
-  return t('timetable.pageName', settingsStore.courses.length);
+  if (count === 1) return `${t("timetable.pageName")} ${settingsStore.courses[0]}`;
+  return t("timetable.pageName", settingsStore.courses.length);
 });
 
 const store = useStore();
 
 const refreshLectures = async () => {
   await store.fetchLectures();
-  await showToast({ message: t('toasts.fetchedLectures'), duration: 2000 });
+  await showToast({ message: t("toasts.fetchedLectures"), duration: 2000 });
 };
 
 const refresherText = computed((): string => {
   return settingsStore.lecturesLastUpdated
-    ? t('timetable.lastUpdated', {
-        date: d(settingsStore.lecturesLastUpdated, 'dateTime'),
+    ? t("timetable.lastUpdated", {
+        date: d(settingsStore.lecturesLastUpdated, "dateTime"),
       })
-    : t('global.refresh');
+    : t("global.refresh");
 });
 
-const selectedSegment = ref('all');
+const selectedSegment = ref("all");
 const segments = computed((): SelectOption[] => {
   const options: SelectOption[] = [
     {
-      name: t('timetable.segments.all', { count: store.countUpcomingLectures }),
-      value: 'all',
+      name: t("timetable.segments.all", { count: store.countUpcomingLectures }),
+      value: "all",
     },
     {
-      name: t('timetable.segments.presence', { count: store.countPresenceLectures }),
-      value: 'presence',
+      name: t("timetable.segments.presence", { count: store.countPresenceLectures }),
+      value: "presence",
     },
     {
-      name: t('timetable.segments.exams', { count: store.countExamLectures }),
-      value: 'exams',
+      name: t("timetable.segments.exams", { count: store.countExamLectures }),
+      value: "exams",
     },
   ];
 
   if (store.countChangedLectures) {
     options.unshift({
-      name: t('timetable.segments.changes', { count: store.countChangedLectures }),
-      value: 'changes',
+      name: t("timetable.segments.changes", { count: store.countChangedLectures }),
+      value: "changes",
     });
   }
   if (store.countHolidayLectures) {
     options.push({
-      name: t('timetable.segments.holidays', { count: store.countHolidayLectures }),
-      value: 'holidays',
+      name: t("timetable.segments.holidays", { count: store.countHolidayLectures }),
+      value: "holidays",
     });
   }
 
   return options;
 });
 
-const searchValue = ref('');
+const searchValue = ref("");
 const searchBlocks = computed((): DayLectureBlock[] => {
   return store.filteredLectureDayBlocks(searchValue.value);
 });
@@ -195,24 +195,24 @@ const toggleArchiveView = async () => {
 
   await showToast({
     message: store.showArchivedLectures
-      ? t('timetable.showingPastLecturesToast')
-      : t('timetable.hidingPastLecturesToast'),
+      ? t("timetable.showingPastLecturesToast")
+      : t("timetable.hidingPastLecturesToast"),
     duration: 2500,
   });
 };
 
 const clearChanges = async () => {
   await store.clearChanges();
-  selectedSegment.value = 'all';
+  selectedSegment.value = "all";
 };
 
 watch(
   () => settingsStore.excludeHolidays,
   (newValue) => {
-    if (newValue && selectedSegment.value === 'holidays') {
-      selectedSegment.value = 'all';
+    if (newValue && selectedSegment.value === "holidays") {
+      selectedSegment.value = "all";
     }
-  }
+  },
 );
 </script>
 

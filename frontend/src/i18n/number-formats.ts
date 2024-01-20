@@ -1,18 +1,18 @@
-import { IntlNumberFormats } from 'vue-i18n';
+import type { IntlNumberFormats } from "vue-i18n";
 
 const numberFormats = {
   en: {
     currency: {
-      style: 'currency',
-      currency: 'USD',
-      notation: 'standard',
+      style: "currency",
+      currency: "USD",
+      notation: "standard",
     },
   },
   de: {
     currency: {
-      style: 'currency',
-      currency: 'EUR',
-      notation: 'standard',
+      style: "currency",
+      currency: "EUR",
+      notation: "standard",
     },
   },
 } satisfies IntlNumberFormats;

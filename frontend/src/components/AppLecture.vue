@@ -42,9 +42,9 @@
         <div class="flex flex--between">
           <IonText>
             {{
-              t('global.dateRange', {
-                start: d(lecture.start, 'time'),
-                end: d(lecture.end, 'time'),
+              t("global.dateRange", {
+                start: d(lecture.start, "time"),
+                end: d(lecture.end, "time"),
               })
             }}
           </IonText>
@@ -53,7 +53,7 @@
 
         <IonText v-if="lecture.rooms.length" class="rooms">
           <IonIcon v-if="lecture.type === 'ONLINE'" :icon="desktopOutline" class="rooms__icon" />
-          {{ lecture.rooms.join(', ') }}
+          {{ lecture.rooms.join(", ") }}
         </IonText>
       </div>
     </div>
@@ -61,19 +61,19 @@
 </template>
 
 <script lang="ts" setup>
-import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from '@ionic/vue';
+import { IonBadge, IonIcon, IonItem, IonLabel, IonProgressBar, IonText } from "@ionic/vue";
 import {
   addCircleOutline,
   closeCircleOutline,
   desktopOutline,
   documentTextOutline,
-} from 'ionicons/icons';
-import { onBeforeUnmount, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import config from '../configs';
-import { getRandomColor } from '../helpers/misc';
-import { useSettingsStore } from '../store/settings';
-import { MergedLecture } from '../types/lectures';
+} from "ionicons/icons";
+import { onBeforeUnmount, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import config from "../configs";
+import { getRandomColor } from "../helpers/misc";
+import { useSettingsStore } from "../store/settings";
+import type { MergedLecture } from "../types/lectures";
 
 interface LectureProps {
   lecture: MergedLecture;
@@ -102,7 +102,7 @@ const calculateProgress = () => {
 calculateProgress();
 const intervall = setInterval(
   () => calculateProgress(),
-  config.intervalls.updateLectureProgressBar
+  config.intervalls.updateLectureProgressBar,
 );
 onBeforeUnmount(() => clearInterval(intervall));
 </script>

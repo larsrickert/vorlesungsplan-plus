@@ -1,5 +1,5 @@
-import { RequestHandler } from 'express';
-import { fetchCourses } from '../controllers/courses.controllers';
+import { RequestHandler } from "express";
+import { fetchCourses } from "../controllers/courses.controllers";
 
 /**
  * @swagger

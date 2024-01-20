@@ -1,7 +1,7 @@
-import { RequestHandler } from 'express';
-import path from 'path';
-import { logger } from '../app';
-import { config } from '../config';
+import { RequestHandler } from "express";
+import path from "path";
+import { logger } from "../app";
+import { config } from "../config";
 
 /**
  * @swagger
@@ -34,16 +34,16 @@ export const iosWidgetRouteGetHandler: RequestHandler = (_, res) => {
     config.apps.ios.widget.filePath,
     filename,
     {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     },
     (err) => {
       if (err) {
-        logger.error('Error while serving iOS Widget.', err);
+        logger.error("Error while serving iOS Widget.", err);
         res.status(500).send({
-          message: 'Error while serving iOS Widget. Could not find file.',
+          message: "Error while serving iOS Widget. Could not find file.",
         });
       }
-    }
+    },
   );
 };
 

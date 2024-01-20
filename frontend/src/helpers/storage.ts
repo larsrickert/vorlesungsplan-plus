@@ -1,14 +1,14 @@
-import { Preferences } from '@capacitor/preferences';
+import { Preferences } from "@capacitor/preferences";
 
 export enum StorageKey {
-  LOCALE = 'locale',
-  THEME = 'theme',
-  THEME_DETECTION = 'themeDetection',
-  COURSES = 'courses',
-  LECTURES_LAST_UPDATED = 'lecturesLastUpdated',
-  LECTURES_NOTIFICATION_TIME = 'lecturesNotificationTime',
-  IOS_WIDGET_VERSION = 'iosWidgetVersion',
-  EXCLUDE_HOLIDAYS = 'excludeHolidays',
+  LOCALE = "locale",
+  THEME = "theme",
+  THEME_DETECTION = "themeDetection",
+  COURSES = "courses",
+  LECTURES_LAST_UPDATED = "lecturesLastUpdated",
+  LECTURES_NOTIFICATION_TIME = "lecturesNotificationTime",
+  IOS_WIDGET_VERSION = "iosWidgetVersion",
+  EXCLUDE_HOLIDAYS = "excludeHolidays",
 }
 
 let isConfigured = false;
@@ -16,7 +16,7 @@ async function configureStorage() {
   if (isConfigured) return;
 
   await Preferences.configure({
-    group: 'VorlesungsplanPlus',
+    group: "VorlesungsplanPlus",
   });
   isConfigured = true;
 }
@@ -101,7 +101,7 @@ export const getKeys = async (): Promise<string[]> => {
     const { keys } = await Preferences.keys();
     return keys;
   } catch (e) {
-    console.error('Error while getting keys from storage', e);
+    console.error("Error while getting keys from storage", e);
     return [];
   }
 };

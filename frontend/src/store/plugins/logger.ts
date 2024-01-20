@@ -1,5 +1,5 @@
-import { PiniaPluginContext } from 'pinia';
-import { DebuggerEvent } from 'vue';
+import type { PiniaPluginContext } from "pinia";
+import type { DebuggerEvent } from "vue";
 
 export function loggerPlugin(context: PiniaPluginContext): void {
   context.store.$subscribe((mutation) => {
@@ -15,7 +15,7 @@ export function loggerPlugin(context: PiniaPluginContext): void {
 
     console.log(
       `Pinia state from store "${mutation.storeId}" changed, mutation type: ${mutation.type}\n`,
-      changes
+      changes,
     );
   });
 }

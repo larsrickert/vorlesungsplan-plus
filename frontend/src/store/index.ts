@@ -1,17 +1,17 @@
-import { createPinia, defineStore } from 'pinia';
-import axiosInstance from '../axios';
-import { isProduction } from '../configs';
-import { createLectureBlocks, mapLectures, mergeAndSortSameLectures } from '../helpers/lectures';
-import { getValue, setValue } from '../helpers/storage';
-import { loggerPlugin } from '../store/plugins/logger';
-import { CustomError, ErrorCode } from '../types/errors';
-import { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from '../types/lectures';
-import { useSettingsStore } from './settings';
+import { createPinia, defineStore } from "pinia";
+import axiosInstance from "../axios";
+import { isProduction } from "../configs";
+import { createLectureBlocks, mapLectures, mergeAndSortSameLectures } from "../helpers/lectures";
+import { getValue, setValue } from "../helpers/storage";
+import { loggerPlugin } from "../store/plugins/logger";
+import { CustomError, ErrorCode } from "../types/errors";
+import type { ApiLecture, DayLectureBlock, Lecture, MergedLecture } from "../types/lectures";
+import { useSettingsStore } from "./settings";
 
 export const pinia = createPinia();
 if (!isProduction) pinia.use(loggerPlugin);
 
-export const useStore = defineStore('main', {
+export const useStore = defineStore("main", {
   state: () => {
     return {
       lectureDayBlocks: [] as DayLectureBlock[],
@@ -62,7 +62,7 @@ export const useStore = defineStore('main', {
         throw new CustomError(
           ErrorCode.LECTURE_FETCH_FAILED,
           `Error while fetching lectures. Using cached data if available.`,
-          error
+          error,
         );
       }
     },
@@ -72,9 +72,9 @@ export const useStore = defineStore('main', {
         const storedFallbacks = await getValue<Lecture[]>(`lectures-${course}`);
         if (storedFallbacks) {
           const lectures: Lecture[] = storedFallbacks
-            .filter((lecture) => lecture.status !== 'removed')
+            .filter((lecture) => lecture.status !== "removed")
             .map((lecture) => {
-              lecture.status = '';
+              lecture.status = "";
               return lecture;
             });
 
@@ -84,9 +84,9 @@ export const useStore = defineStore('main', {
 
       const blocks: DayLectureBlock[] = [];
       this.lectureDayBlocks.slice(0).forEach((block) => {
-        block.lectures = block.lectures.filter((lecture) => lecture.status !== 'removed');
+        block.lectures = block.lectures.filter((lecture) => lecture.status !== "removed");
         block.lectures.forEach((lecture) => {
-          lecture.status = '';
+          lecture.status = "";
         });
 
         if (block.lectures.length) blocks.push(block);
@@ -109,7 +109,7 @@ export const useStore = defineStore('main', {
           if (!this.showArchivedLectures && new Date(lecture.end).getTime() < Date.now()) {
             return false;
           }
-          if (settingsStore.excludeHolidays && lecture.type === 'HOLIDAY') {
+          if (settingsStore.excludeHolidays && lecture.type === "HOLIDAY") {
             return false;
           }
           return true;
@@ -124,7 +124,7 @@ export const useStore = defineStore('main', {
       const blocks: DayLectureBlock[] = [];
 
       this.shownLectureDayBlocks.forEach((block) => {
-        const lectures = block.lectures.filter((lecture) => lecture.type === 'PRESENCE');
+        const lectures = block.lectures.filter((lecture) => lecture.type === "PRESENCE");
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
       });
@@ -157,7 +157,7 @@ export const useStore = defineStore('main', {
       const blocks: DayLectureBlock[] = [];
 
       this.shownLectureDayBlocks.forEach((block) => {
-        const lectures = block.lectures.filter((lecture) => lecture.type === 'HOLIDAY');
+        const lectures = block.lectures.filter((lecture) => lecture.type === "HOLIDAY");
         if (!lectures.length) return;
         blocks.push({ date: block.date, lectures });
       });

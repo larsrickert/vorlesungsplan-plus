@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts" setup>
-import { IonRefresher, IonRefresherContent } from '@ionic/vue';
-import { chevronDown } from 'ionicons/icons';
-import { useI18n } from 'vue-i18n';
-import swipeDownAnimationData from '../assets/lottie/swipe-down.json';
-import LottieAnimation from './LottieAnimation.vue';
+import { IonRefresher, IonRefresherContent } from "@ionic/vue";
+import { chevronDown } from "ionicons/icons";
+import { useI18n } from "vue-i18n";
+import swipeDownAnimationData from "../assets/lottie/swipe-down.json";
+import LottieAnimation from "./LottieAnimation.vue";
 
 const props = defineProps<{
   pullingText: string;
@@ -46,7 +46,7 @@ const refresh = async (ev: CustomEvent) => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixin.scss';
+@import "../styles/mixin.scss";
 
 .refresher-wrapper {
   margin-bottom: 12px;

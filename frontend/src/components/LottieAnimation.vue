@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts" setup>
-import lottie, { AnimationItem } from 'lottie-web';
-import { onMounted, ref, watchEffect } from 'vue';
+import lottie, { type AnimationItem } from "lottie-web";
+import { onMounted, ref, watchEffect } from "vue";
 
 interface AnimationProps {
   animationData: unknown;
@@ -29,7 +29,7 @@ const load = (animationData: unknown) => {
   animation.value?.destroy();
   animation.value = lottie.loadAnimation({
     container: lottieRef.value,
-    renderer: 'svg',
+    renderer: "svg",
     loop: true,
     autoplay: true,
     animationData,

@@ -1,7 +1,7 @@
-import { Device } from '@capacitor/device';
-import config from '../configs';
-import { getValue, StorageKey } from '../helpers/storage';
-import { i18n } from '../i18n';
+import { Device } from "@capacitor/device";
+import config from "../configs";
+import { getValue, StorageKey } from "../helpers/storage";
+import { i18n } from "../i18n";
 
 /**
  * Checks whether the given locale is available for this application.
@@ -9,7 +9,8 @@ import { i18n } from '../i18n';
  * @returns true if locale is available, false otherwise.
  */
 export function isLocaleAvailable(locale: string): boolean {
-  return i18n.global.availableLocales.includes(locale);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return i18n.global.availableLocales.includes(locale as any);
 }
 
 /**
@@ -25,7 +26,7 @@ export async function getDeviceLocale(availableOnly = true): Promise<string | nu
   if (isLocaleAvailable(value)) return value;
 
   // check if value is e.g. de-DE an locale de is available
-  const splitted = value.split('-');
+  const splitted = value.split("-");
   return splitted.length > 0 && isLocaleAvailable(splitted[0]) ? splitted[0] : null;
 }
 

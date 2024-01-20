@@ -1,5 +1,5 @@
-import { CorsOptions } from 'cors';
-import { Options } from 'swagger-jsdoc';
+import { CorsOptions } from "cors";
+import { Options } from "swagger-jsdoc";
 
 export interface IConfig {
   app: {

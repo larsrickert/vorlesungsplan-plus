@@ -1,5 +1,5 @@
-import { RequestHandler } from 'express';
-import { fetchEvents } from '../controllers/events.controllers';
+import { RequestHandler } from "express";
+import { fetchEvents } from "../controllers/events.controllers";
 
 /**
  * @swagger
@@ -26,7 +26,7 @@ import { fetchEvents } from '../controllers/events.controllers';
 export const eventsRouteGetHandler: RequestHandler = async (req, res) => {
   let events = await fetchEvents();
 
-  if (req.query.excludePast && req.query.excludePast === 'true') {
+  if (req.query.excludePast && req.query.excludePast === "true") {
     events = events.filter((e) => e.end.getTime() > Date.now());
   }
 

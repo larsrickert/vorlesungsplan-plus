@@ -1,5 +1,5 @@
-import { useErrorStore } from '../store/error-handler';
-import { CustomError } from '../types/errors';
+import { useErrorStore } from "../store/error-handler";
+import { CustomError } from "../types/errors";
 
 export function isSameCustomError(a: CustomError | null, b: CustomError | null): boolean {
   if (!a || !b) return false;
@@ -30,7 +30,7 @@ export function registerPromiseErrorHandler(): void {
     errorStore.handle(error);
   };
 
-  window.addEventListener('unhandledrejection', promiseErrorListener);
+  window.addEventListener("unhandledrejection", promiseErrorListener);
 }
 
 let jsErrorListener: ((event: ErrorEvent) => void) | undefined;
@@ -54,10 +54,10 @@ export function registerJavaScriptErrorHandler(): void {
     return true;
   };
 
-  window.addEventListener('error', jsErrorListener);
+  window.addEventListener("error", jsErrorListener);
 }
 
 export function removeErrorHandlerListeners(): void {
-  if (promiseErrorListener) window.removeEventListener('unhandledrejection', promiseErrorListener);
-  if (jsErrorListener) window.removeEventListener('error', jsErrorListener);
+  if (promiseErrorListener) window.removeEventListener("unhandledrejection", promiseErrorListener);
+  if (jsErrorListener) window.removeEventListener("error", jsErrorListener);
 }

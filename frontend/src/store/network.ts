@@ -1,15 +1,15 @@
-import { PluginListenerHandle } from '@capacitor/core';
-import { ConnectionStatus, Network } from '@capacitor/network';
-import { defineStore } from 'pinia';
+import type { PluginListenerHandle } from "@capacitor/core";
+import { Network, type ConnectionStatus } from "@capacitor/network";
+import { defineStore } from "pinia";
 
 let listener: null | PluginListenerHandle = null;
 
-export const useNetworkStore = defineStore('network', {
+export const useNetworkStore = defineStore("network", {
   state: () => {
     return {
       status: {
         connected: false,
-        connectionType: 'none',
+        connectionType: "none",
       } as ConnectionStatus,
     };
   },
@@ -21,7 +21,7 @@ export const useNetworkStore = defineStore('network', {
       if (listener) return;
       this.status = await Network.getStatus();
 
-      listener = await Network.addListener('networkStatusChange', (status) => {
+      listener = await Network.addListener("networkStatusChange", (status) => {
         this.status = status;
       });
     },

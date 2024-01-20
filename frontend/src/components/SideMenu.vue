@@ -59,10 +59,10 @@ import {
   IonNote,
   IonRouterOutlet,
   IonSplitPane,
-} from '@ionic/vue';
-import AppLanguageSwitch from '../components/AppLanguageSwitch.vue';
-import SideMenuItem from '../components/SideMenuItem.vue';
-import { MenuItem } from '../types/misc';
+} from "@ionic/vue";
+import AppLanguageSwitch from "../components/AppLanguageSwitch.vue";
+import SideMenuItem from "../components/SideMenuItem.vue";
+import type { MenuItem } from "../types/misc";
 
 interface SideMenuProps {
   navItems: MenuItem[];
@@ -74,23 +74,23 @@ interface SideMenuProps {
   description: string;
   img?: string;
   swipeGesture?: boolean;
-  side?: 'start' | 'end';
-  animation?: 'overlay' | 'reveal' | 'push';
+  side?: "start" | "end";
+  animation?: "overlay" | "reveal" | "push";
 }
 
 withDefaults(defineProps<SideMenuProps>(), {
   subItems: () => [],
-  contentId: 'main-content',
-  subItemsHeading: '',
-  img: '',
+  contentId: "main-content",
+  subItemsHeading: "",
+  img: "",
   swipeGesture: true,
-  side: 'start',
-  animation: 'overlay',
+  side: "start",
+  animation: "overlay",
 });
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixin';
+@import "../styles/mixin";
 
 ion-menu {
   border-color: var(--ion-border-color);

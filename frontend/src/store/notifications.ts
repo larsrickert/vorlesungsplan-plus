@@ -1,15 +1,15 @@
-import { LocalNotifications } from '@capacitor/local-notifications';
-import { defineStore } from 'pinia';
-import { useStore } from '.';
-import { i18n } from '../i18n';
-import { MergedLecture } from '../types/lectures';
-import { useSettingsStore } from './settings';
+import { LocalNotifications } from "@capacitor/local-notifications";
+import { defineStore } from "pinia";
+import { useStore } from ".";
+import { i18n } from "../i18n";
+import type { MergedLecture } from "../types/lectures";
+import { useSettingsStore } from "./settings";
 
 function getNotificationIdentifier(lecture: MergedLecture, scheduleOffset: number): string {
-  return `${lecture.ids.join(',')};${lecture.start};${scheduleOffset}`;
+  return `${lecture.ids.join(",")};${lecture.start};${scheduleOffset}`;
 }
 
-export const useNotificationStore = defineStore('notifications', {
+export const useNotificationStore = defineStore("notifications", {
   state: () => {
     return {
       hasPermissions: false,
@@ -20,9 +20,9 @@ export const useNotificationStore = defineStore('notifications', {
     async requestPermissions() {
       try {
         const { display } = await LocalNotifications.requestPermissions();
-        this.hasPermissions = display === 'granted';
+        this.hasPermissions = display === "granted";
       } catch (e) {
-        if ((e as Record<string, unknown>).code === 'UNAVAILABLE') {
+        if ((e as Record<string, unknown>).code === "UNAVAILABLE") {
           this.hasPermissions = false;
           return;
         }
@@ -45,7 +45,7 @@ export const useNotificationStore = defineStore('notifications', {
 
       // schedule notifications for all current lectures
       const store = useStore();
-      const lectures = store.lectures.filter((l) => l.status !== 'removed');
+      const lectures = store.lectures.filter((l) => l.status !== "removed");
       if (!lectures.length) return;
 
       const promises: Promise<unknown>[] = [];
@@ -80,8 +80,8 @@ export const useNotificationStore = defineStore('notifications', {
           notifications: [
             {
               id: lecture.ids.length ? lecture.ids[0] : -1,
-              title: t('notifications.upcomingLecture', { courses: lecture.courses.join(', ') }),
-              body: t('notifications.lectureStartsInXMinutes', {
+              title: t("notifications.upcomingLecture", { courses: lecture.courses.join(", ") }),
+              body: t("notifications.lectureStartsInXMinutes", {
                 name: lecture.name,
                 minutes: startingInMinutes,
               }),
