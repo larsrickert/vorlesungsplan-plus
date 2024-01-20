@@ -1,9 +1,9 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { config, isProduction } from '../config';
-import { Logger } from '../types/logger';
+import fs from "fs/promises";
+import path from "path";
+import { config, isProduction } from "../config";
+import { Logger } from "../types/logger";
 
-const logDir = path.join(__dirname, '../../logs/');
+const logDir = path.join(__dirname, "../../logs/");
 const textEncoder = new TextEncoder();
 
 function getTimestamp(): string {
@@ -24,7 +24,7 @@ async function writeToLogFile(path: string, data: string) {
           path,
           `${getTimestamp()}: Log file exceeded max. size of ${
             config.logger.maxSize
-          } bytes, cleared log file \n${data}`
+          } bytes, cleared log file \n${data}`,
         );
       } else {
         // log file size not reached
@@ -41,8 +41,8 @@ async function writeToLogFile(path: string, data: string) {
 }
 
 export function createLogger(): Logger {
-  const logFilePath = path.join(logDir, 'logs.txt');
-  const errorLogFilePath = path.join(logDir, 'errors.txt');
+  const logFilePath = path.join(logDir, "logs.txt");
+  const errorLogFilePath = path.join(logDir, "errors.txt");
 
   return {
     log: async (message) => {

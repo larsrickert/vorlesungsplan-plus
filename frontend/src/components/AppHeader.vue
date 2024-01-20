@@ -37,8 +37,8 @@ import {
   IonMenuButton,
   IonTitle,
   IonToolbar,
-} from '@ionic/vue';
-import { chevronBack, close as closeIcon } from 'ionicons/icons';
+} from "@ionic/vue";
+import { chevronBack, close as closeIcon } from "ionicons/icons";
 
 interface HeaderProps {
   /** Header title. */
@@ -52,13 +52,13 @@ interface HeaderProps {
 defineProps<HeaderProps>();
 
 const emit = defineEmits<{
-  (event: 'close'): void;
+  (event: "close"): void;
 }>();
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
-@import '../styles/mixin.scss';
+@import "../styles/variables.scss";
+@import "../styles/mixin.scss";
 
 .header {
   box-shadow: 0 0 10px rgb(0, 0, 0, 0.25);

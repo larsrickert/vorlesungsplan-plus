@@ -1,9 +1,9 @@
-import { defineStore } from 'pinia';
-import axiosInstance from '../axios';
-import { CustomError, ErrorCode } from '../types/errors';
-import { DhbwEvent } from '../types/events';
+import { defineStore } from "pinia";
+import axiosInstance from "../axios";
+import { CustomError, ErrorCode } from "../types/errors";
+import type { DhbwEvent } from "../types/events";
 
-export const useEventStore = defineStore('events', {
+export const useEventStore = defineStore("events", {
   state: () => {
     return {
       events: [] as DhbwEvent[],
@@ -12,7 +12,7 @@ export const useEventStore = defineStore('events', {
   actions: {
     async fetchEvents() {
       try {
-        const { data } = await axiosInstance.get<DhbwEvent[]>('events');
+        const { data } = await axiosInstance.get<DhbwEvent[]>("events");
 
         data.forEach((event) => {
           event.start = new Date(event.start);
@@ -23,8 +23,8 @@ export const useEventStore = defineStore('events', {
       } catch (e) {
         throw new CustomError(
           ErrorCode.EVENT_FETCH_FAILED,
-          'Error while fetching events',
-          e as Error
+          "Error while fetching events",
+          e as Error,
         );
       }
     },

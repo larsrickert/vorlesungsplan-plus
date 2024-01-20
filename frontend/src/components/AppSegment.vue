@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts" setup>
-import { IonSegment, IonSegmentButton } from '@ionic/vue';
-import { computed } from 'vue';
-import { SelectOption } from '../types/misc';
+import { IonSegment, IonSegmentButton } from "@ionic/vue";
+import { computed } from "vue";
+import type { SelectOption } from "../types/misc";
 
 interface SegmentProps {
   options: SelectOption[];
@@ -19,12 +19,12 @@ interface SegmentProps {
 const props = defineProps<SegmentProps>();
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', value: string): void;
+  (event: "update:modelValue", value: string): void;
 }>();
 
 const value = computed({
-  get: (): string => props.modelValue ?? '',
-  set: (value: string) => emit('update:modelValue', value),
+  get: (): string => props.modelValue ?? "",
+  set: (value: string) => emit("update:modelValue", value),
 });
 </script>
 

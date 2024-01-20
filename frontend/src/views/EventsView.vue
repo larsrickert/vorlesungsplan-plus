@@ -9,11 +9,11 @@
         <IonProgressBar v-if="!isLoaded" type="indeterminate" />
 
         <template v-else>
-          <p v-if="!eventStore.events.length">{{ t('events.noEventsAvailable') }}</p>
+          <p v-if="!eventStore.events.length">{{ t("events.noEventsAvailable") }}</p>
 
           <div v-else>
             <p v-if="eventStore.upcomingEvents.length">
-              {{ t('events.upcomingEvents', eventStore.upcomingEvents.length) }}
+              {{ t("events.upcomingEvents", eventStore.upcomingEvents.length) }}
             </p>
             <AppCalendar />
           </div>
@@ -24,15 +24,15 @@
 </template>
 
 <script lang="ts" setup>
-import { IonContent, IonPage, IonProgressBar } from '@ionic/vue';
-import { ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import AppCalendar from '../components/AppCalendar.vue';
-import AppHeader from '../components/AppHeader.vue';
-import AppRefresher from '../components/AppRefresher.vue';
-import { showToast } from '../helpers/io';
-import { useEventStore } from '../store/events';
-import { useSettingsStore } from '../store/settings';
+import { IonContent, IonPage, IonProgressBar } from "@ionic/vue";
+import { ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import AppCalendar from "../components/AppCalendar.vue";
+import AppHeader from "../components/AppHeader.vue";
+import AppRefresher from "../components/AppRefresher.vue";
+import { showToast } from "../helpers/io";
+import { useEventStore } from "../store/events";
+import { useSettingsStore } from "../store/settings";
 
 const { t } = useI18n();
 
@@ -42,7 +42,7 @@ const settingsStore = useSettingsStore();
 
 const refreshEvents = async () => {
   await eventStore.fetchEvents();
-  await showToast({ message: t('toasts.fetchedEvents'), duration: 2000 });
+  await showToast({ message: t("toasts.fetchedEvents"), duration: 2000 });
 };
 
 watch(
@@ -54,7 +54,7 @@ watch(
       });
     }
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 

@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { RequestHandler } from "express";
 
 /**
  * @swagger
@@ -85,6 +85,6 @@ import { RequestHandler } from 'express';
 export const indexRouteGetHandler: RequestHandler = (_, res) => {
   res.status(404).send({
     message:
-      'You tried to access the index route of the Vorlesungsplan+ API. This route does not provide any data. For available routes, please see API documentation on route /docs',
+      "You tried to access the index route of the Vorlesungsplan+ API. This route does not provide any data. For available routes, please see API documentation on route /docs",
   });
 };

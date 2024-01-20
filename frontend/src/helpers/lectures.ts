@@ -1,10 +1,10 @@
-import {
+import type {
   ApiLecture,
   DayLectureBlock,
   Lecture,
   LectureStatus,
   MergedLecture,
-} from '../types/lectures';
+} from "../types/lectures";
 
 export function createLectureBlocks(lectures: MergedLecture[]): DayLectureBlock[] {
   const map = new Map<number, MergedLecture[]>();
@@ -96,18 +96,18 @@ function isSameLectureContent(a: ApiLecture, b: ApiLecture): boolean {
     a.end === b.end &&
     a.lecturer === b.lecturer &&
     a.name === b.name &&
-    a.rooms.join(',') === b.rooms.join(',') &&
+    a.rooms.join(",") === b.rooms.join(",") &&
     a.type === b.type &&
     a.isExam === b.isExam
   );
 }
 
 function getLectureStatus(lecture: ApiLecture, previous: Lecture[]): LectureStatus {
-  if (new Date(lecture.end).getTime() < Date.now()) return '';
+  if (new Date(lecture.end).getTime() < Date.now()) return "";
 
   const inPrevious = previous.find((i) => i.id === lecture.id && isSameLectureContent(lecture, i));
 
-  if (!inPrevious || inPrevious.status === 'removed') return 'added';
+  if (!inPrevious || inPrevious.status === "removed") return "added";
   return inPrevious.status;
 }
 
@@ -117,17 +117,17 @@ export function mapLectures(lectures: ApiLecture[], cachedLectures?: Lecture[]):
       ?.filter((lecture) => {
         return !lectures.find(
           (l) =>
-            l.id === lecture.id && (isSameLectureContent(lecture, l) || lecture.status === 'added')
+            l.id === lecture.id && (isSameLectureContent(lecture, l) || lecture.status === "added"),
         );
       })
       .map((lecture) => {
-        return { ...lecture, status: 'removed' };
+        return { ...lecture, status: "removed" };
       }) ?? [];
 
   let mapped: Lecture[] = lectures.map((lecture) => {
     return {
       ...lecture,
-      status: cachedLectures ? getLectureStatus(lecture, cachedLectures) : '',
+      status: cachedLectures ? getLectureStatus(lecture, cachedLectures) : "",
     };
   });
 

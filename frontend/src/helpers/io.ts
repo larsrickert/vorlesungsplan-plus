@@ -3,7 +3,7 @@ import {
   modalController,
   toastController,
   type ModalOptions as IonicModalOptions,
-} from '@ionic/vue';
+} from "@ionic/vue";
 
 export interface Toast {
   message: string;
@@ -24,12 +24,12 @@ export async function showToast({
   const toast = await toastController.create({
     message,
     duration,
-    cssClass: 'app-toast',
+    cssClass: "app-toast",
     buttons: btn
       ? [
           {
             text: btn.text,
-            role: 'cancel',
+            role: "cancel",
             handler: () => btn?.onClick?.(),
           },
         ]
@@ -47,15 +47,15 @@ export async function showLoading(message: string): Promise<HTMLIonLoadingElemen
 
 export interface ModalOptions {
   /** The component (page) that should be displayed in the modal. */
-  component: IonicModalOptions['component'];
+  component: IonicModalOptions["component"];
   /** Custom data that can be passed to the modal. */
-  data?: IonicModalOptions['componentProps'];
+  data?: IonicModalOptions["componentProps"];
 }
 
 export async function showModal({ component, data }: ModalOptions) {
   const modal = await modalController.create({
     component,
-    cssClass: 'app-modal',
+    cssClass: "app-modal",
     componentProps: data,
   });
 

@@ -17,12 +17,12 @@
             />
 
             <div>
-              <p>{{ t('apps.iosWidget.description') }}</p>
+              <p>{{ t("apps.iosWidget.description") }}</p>
 
               <p v-if="settingsStore.iosWidgetVersion">
                 <strong>
                   {{
-                    t('apps.iosWidget.installedVersion', {
+                    t("apps.iosWidget.installedVersion", {
                       version: settingsStore.iosWidgetVersion,
                     })
                   }}
@@ -30,9 +30,9 @@
               </p>
 
               <IonChip color="medium" @click="downloadWidget">
-                {{ t('apps.iosWidget.download') }}
+                {{ t("apps.iosWidget.download") }}
                 <span v-if="widgetVersion" class="widget__version">
-                  {{ `(${t('global.appVersion', { version: widgetVersion })})` }}
+                  {{ `(${t("global.appVersion", { version: widgetVersion })})` }}
                 </span>
                 <IonIcon :icon="apps" />
               </IonChip>
@@ -42,22 +42,22 @@
           <ol>
             <li>
               <a href="https://apps.apple.com/de/app/scriptable/id1405459188" target="_blank">{{
-                t('apps.iosWidget.steps.installScriptable')
+                t("apps.iosWidget.steps.installScriptable")
               }}</a>
             </li>
             <li>
-              {{ t('apps.iosWidget.steps.downloadWidget') }}
+              {{ t("apps.iosWidget.steps.downloadWidget") }}
             </li>
             <li>
-              {{ t('apps.iosWidget.steps.openWithScriptable') }}
+              {{ t("apps.iosWidget.steps.openWithScriptable") }}
             </li>
             <li>
-              {{ t('apps.iosWidget.steps.addToHomescreen') }}
+              {{ t("apps.iosWidget.steps.addToHomescreen") }}
             </li>
             <li>
               {{
-                t('apps.iosWidget.steps.editWidget', {
-                  courses: settingsStore.courses.join(', ') || '-',
+                t("apps.iosWidget.steps.editWidget", {
+                  courses: settingsStore.courses.join(", ") || "-",
                 })
               }}
             </li>
@@ -65,13 +65,13 @@
         </template>
 
         <template v-else>
-          <p>{{ t('apps.pwa.description') }}</p>
+          <p>{{ t("apps.pwa.description") }}</p>
 
           <IonChip
             color="medium"
             @click="navigate('https://support.google.com/chrome/answer/9658361')"
           >
-            {{ t('apps.pwa.installWith', { browser: 'Chrome' }) }}
+            {{ t("apps.pwa.installWith", { browser: "Chrome" }) }}
             <IonIcon :icon="logoChrome" />
           </IonChip>
 
@@ -79,11 +79,11 @@
             color="medium"
             @click="
               navigate(
-                'https://howtomanagedevices.com/windows-10/5720/how-to-install-progressive-web-app-in-microsoft-edge-chromium'
+                'https://howtomanagedevices.com/windows-10/5720/how-to-install-progressive-web-app-in-microsoft-edge-chromium',
               )
             "
           >
-            {{ t('apps.pwa.installWith', { browser: 'Edge' }) }}
+            {{ t("apps.pwa.installWith", { browser: "Edge" }) }}
             <IonIcon :icon="logoEdge" />
           </IonChip>
 
@@ -91,11 +91,11 @@
             color="medium"
             @click="
               navigate(
-                'https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/'
+                'https://mobilesyrup.com/2020/05/24/how-install-progressive-web-app-pwa-android-ios-pc-mac/',
               )
             "
           >
-            {{ t('apps.pwa.installWith', { browser: 'Safari' }) }}
+            {{ t("apps.pwa.installWith", { browser: "Safari" }) }}
             <IonIcon :icon="logoApple" />
           </IonChip>
         </template>
@@ -105,20 +105,20 @@
 </template>
 
 <script lang="ts" setup>
-import { IonChip, IonContent, IonIcon, IonPage } from '@ionic/vue';
-import { apps, logoApple, logoChrome, logoEdge } from 'ionicons/icons';
-import { computed, ref, watch } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
-import lottieDownloadAnimationData from '../assets/lottie/download.json';
-import axiosInstance from '../axios';
-import AppHeader from '../components/AppHeader.vue';
-import AppSegment from '../components/AppSegment.vue';
-import LottieAnimation from '../components/LottieAnimation.vue';
-import config from '../configs';
-import { navigate } from '../helpers/misc';
-import { useSettingsStore } from '../store/settings';
-import { SelectOption } from '../types/misc';
+import { IonChip, IonContent, IonIcon, IonPage } from "@ionic/vue";
+import { apps, logoApple, logoChrome, logoEdge } from "ionicons/icons";
+import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+import lottieDownloadAnimationData from "../assets/lottie/download.json";
+import axiosInstance from "../axios";
+import AppHeader from "../components/AppHeader.vue";
+import AppSegment from "../components/AppSegment.vue";
+import LottieAnimation from "../components/LottieAnimation.vue";
+import config from "../configs";
+import { navigate } from "../helpers/misc";
+import { useSettingsStore } from "../store/settings";
+import type { SelectOption } from "../types/misc";
 
 const { t } = useI18n();
 const settingsStore = useSettingsStore();
@@ -127,40 +127,40 @@ const router = useRouter();
 const segments = computed((): SelectOption[] => {
   return [
     {
-      name: t('apps.pwa.title'),
-      value: 'apps',
+      name: t("apps.pwa.title"),
+      value: "apps",
     },
     {
-      name: t('apps.iosWidget.title'),
-      value: 'iosWidget',
+      name: t("apps.iosWidget.title"),
+      value: "iosWidget",
     },
   ];
 });
 const selectedSegment = ref<string>(
   segments.value.find((s) => s.value === router.currentRoute.value.query.type)
     ? (router.currentRoute.value.query.type as string)
-    : 'apps'
+    : "apps",
 );
 
 watch(selectedSegment, (newValue) => {
   router.replace({
     path: router.currentRoute.value.path,
     query: {
-      type: newValue !== 'apps' ? newValue : undefined,
+      type: newValue !== "apps" ? newValue : undefined,
     },
   });
 });
 
-const widgetVersion = ref('');
+const widgetVersion = ref("");
 
 const fetchWidgetVersion = async () => {
   if (widgetVersion.value) return;
 
   try {
-    const { data } = await axiosInstance.get<{ version: string }>('ios/widget/version');
+    const { data } = await axiosInstance.get<{ version: string }>("ios/widget/version");
     widgetVersion.value = data.version;
   } catch (e) {
-    console.error('Error while fetching widget version', e);
+    console.error("Error while fetching widget version", e);
   }
 };
 fetchWidgetVersion();
@@ -174,7 +174,7 @@ const downloadWidget = async () => {
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixin.scss';
+@import "../styles/mixin.scss";
 
 .animation {
   height: 200px;

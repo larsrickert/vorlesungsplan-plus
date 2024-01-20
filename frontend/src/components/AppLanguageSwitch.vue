@@ -30,10 +30,10 @@
 </template>
 
 <script lang="ts" setup>
-import { IonPopover } from '@ionic/vue';
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useSettingsStore } from '../store/settings';
+import { IonPopover } from "@ionic/vue";
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useSettingsStore } from "../store/settings";
 
 const isOpenRef = ref(false);
 const event = ref<MouseEvent | undefined>();
@@ -56,7 +56,7 @@ const getFlag = (locale: string): string =>
 </script>
 
 <style scoped lang="scss">
-@import '../styles/variables';
+@import "../styles/variables";
 
 $flagSize: 18px;
 

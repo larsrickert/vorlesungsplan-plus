@@ -1,18 +1,18 @@
 <template>
   <div v-if="needRefresh" class="pwa-toast" role="alert">
     <div class="message">
-      <span> {{ t('pwa.newContentAvailable') }} </span>
+      <span> {{ t("pwa.newContentAvailable") }} </span>
     </div>
 
-    <IonButton size="small" @click="updateServiceWorker()">{{ t('pwa.reload') }}</IonButton>
-    <IonButton size="small" @click="close">{{ t('global.close') }}</IonButton>
+    <IonButton size="small" @click="updateServiceWorker()">{{ t("pwa.reload") }}</IonButton>
+    <IonButton size="small" @click="close">{{ t("global.close") }}</IonButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { IonButton } from '@ionic/vue';
-import { useRegisterSW } from 'virtual:pwa-register/vue';
-import { useI18n } from 'vue-i18n';
+import { IonButton } from "@ionic/vue";
+import { useRegisterSW } from "virtual:pwa-register/vue";
+import { useI18n } from "vue-i18n";
 
 const { needRefresh, updateServiceWorker } = useRegisterSW();
 
@@ -24,7 +24,7 @@ const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/variables.scss';
+@import "../styles/variables.scss";
 
 .pwa-toast {
   position: fixed;

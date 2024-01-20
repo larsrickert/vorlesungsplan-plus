@@ -1,12 +1,12 @@
-import { i18n } from '../i18n';
+import { i18n } from "../i18n";
 
 export enum ErrorCode {
-  UNKNOWN = 'A1',
-  ROUTER_NOT_AUTHENTICATED = 'A2',
-  COURSE_LIMIT_EXCEEDED = 'A3',
-  LECTURE_FETCH_FAILED = 'B1',
-  COURSE_FETCH_FAILED = 'B2',
-  EVENT_FETCH_FAILED = 'B3',
+  UNKNOWN = "A1",
+  ROUTER_NOT_AUTHENTICATED = "A2",
+  COURSE_LIMIT_EXCEEDED = "A3",
+  LECTURE_FETCH_FAILED = "B1",
+  COURSE_FETCH_FAILED = "B2",
+  EVENT_FETCH_FAILED = "B3",
 }
 
 export class CustomError extends Error {
@@ -25,7 +25,7 @@ export class CustomError extends Error {
   /** Constructor */
   public constructor(code: string, message: string, originalError?: Error) {
     super(message);
-    this.name = 'CustomError';
+    this.name = "CustomError";
 
     this.code = code;
     this.message = message;
@@ -48,8 +48,8 @@ export class CustomError extends Error {
     // @ts-ignore
     const { t } = i18n.global;
 
-    return `${t('global.errorCode')} ${code}: ${message}${
-      originalError ? ' (' + originalError.message + ')' : ''
+    return `${t("global.errorCode")} ${code}: ${message}${
+      originalError ? " (" + originalError.message + ")" : ""
     }`;
   }
 }

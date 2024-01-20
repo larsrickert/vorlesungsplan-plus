@@ -14,8 +14,8 @@
         day,
         attributes,
       }: {
-        day: CalendarDay,
-        attributes: (Omit<Attribute, 'customData'> & { customData?: DhbwEvent })[],
+        day: CalendarDay;
+        attributes: (Omit<Attribute, 'customData'> & { customData?: DhbwEvent })[];
       }"
     >
       <div class="day">
@@ -40,17 +40,17 @@
 </template>
 
 <script lang="ts" setup>
-import { Calendar } from 'v-calendar';
-import { Attribute, AttributeConfig } from 'v-calendar/dist/types/src/utils/attribute';
-import { CalendarDay } from 'v-calendar/dist/types/src/utils/page';
-import 'v-calendar/style.css';
-import { computed } from 'vue';
-import { useEventStore } from '../store/events';
-import { DhbwEvent } from '../types/events';
-import AppCalendarEntry from './AppCalendarEntry.vue';
+import { Calendar } from "v-calendar";
+import type { Attribute, AttributeConfig } from "v-calendar/dist/types/src/utils/attribute.js";
+import type { CalendarDay } from "v-calendar/dist/types/src/utils/page.js";
+import "v-calendar/style.css";
+import { computed } from "vue";
+import { useEventStore } from "../store/events";
+import type { DhbwEvent } from "../types/events";
+import AppCalendarEntry from "./AppCalendarEntry.vue";
 
 const masks = {
-  weekdays: 'WWW',
+  weekdays: "WWW",
 };
 
 const eventStore = useEventStore();
@@ -66,13 +66,13 @@ const calendarAttributes = computed(() => {
   });
 
   return [
-    { key: 'today', customData: null, dates: Date.now() },
+    { key: "today", customData: null, dates: Date.now() },
     ...eventAttributes,
   ] as AttributeConfig[];
 });
 
 const minDate = computed((): Date | undefined =>
-  eventStore.events.length ? eventStore.events[0].start : undefined
+  eventStore.events.length ? eventStore.events[0].start : undefined,
 );
 
 const maxDate = computed((): Date | undefined => {
@@ -82,7 +82,7 @@ const maxDate = computed((): Date | undefined => {
 </script>
 
 <style lang="scss">
-@import '../styles/mixin.scss';
+@import "../styles/mixin.scss";
 
 ::-webkit-scrollbar {
   width: 0;

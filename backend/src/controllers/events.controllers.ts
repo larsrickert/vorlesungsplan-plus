@@ -1,7 +1,7 @@
-import { async as ical, CalendarComponent, VEvent } from 'node-ical';
-import { logger } from '../app';
-import { config } from '../config';
-import { cache, CacheKey } from '../utils/cache';
+import { async as ical, CalendarComponent, VEvent } from "node-ical";
+import { logger } from "../app";
+import { config } from "../config";
+import { cache, CacheKey } from "../utils/cache";
 
 interface IEvent {
   id: string;
@@ -14,17 +14,17 @@ interface IEvent {
 }
 
 function mapEvents(events: CalendarComponent[]): IEvent[] {
-  const filtered = events.filter((e) => e.type === 'VEVENT') as VEvent[];
+  const filtered = events.filter((e) => e.type === "VEVENT") as VEvent[];
 
   return filtered.map((e) => {
     return {
-      id: (e.uid as string) ?? '',
-      name: (e.summary as string) ?? '',
-      description: (e.description as string) ?? '',
+      id: (e.uid as string) ?? "",
+      name: (e.summary as string) ?? "",
+      description: (e.description as string) ?? "",
       start: new Date(e.start),
       end: new Date(e.end),
       lastModified: new Date(e.lastmodified),
-      location: (e.location as string) ?? '',
+      location: (e.location as string) ?? "",
     };
   });
 }
@@ -35,9 +35,7 @@ function mapEvents(events: CalendarComponent[]): IEvent[] {
  * @returns
  */
 export const fetchEvents = async (): Promise<IEvent[]> => {
-  const cachedEvents = (await cache.get(CacheKey.EVENTS)) as
-    | IEvent[]
-    | undefined;
+  const cachedEvents = (await cache.get(CacheKey.EVENTS)) as IEvent[] | undefined;
   if (cachedEvents) {
     for (let i = 0; i < cachedEvents.length; i++) {
       const e = cachedEvents[i];
@@ -51,19 +49,17 @@ export const fetchEvents = async (): Promise<IEvent[]> => {
   try {
     const events = Object.values(
       await ical.fromURL(
-        'https://www.google.com/calendar/ical/asta.dhbw.de_08mkcuqcrppq8cg8vlutdsgpjg%40group.calendar.google.com/public/basic.ics'
-      )
+        "https://www.google.com/calendar/ical/asta.dhbw.de_08mkcuqcrppq8cg8vlutdsgpjg%40group.calendar.google.com/public/basic.ics",
+      ),
     );
 
-    const mapped = mapEvents(events).sort(
-      (a, b) => a.start.getTime() - b.start.getTime()
-    );
+    const mapped = mapEvents(events).sort((a, b) => a.start.getTime() - b.start.getTime());
 
     // update in background (dont await it)
     cache.set(CacheKey.EVENTS, mapped, config.cache.events);
     return mapped;
   } catch (e) {
-    logger.error('Error while fetching events.', e as Error);
+    logger.error("Error while fetching events.", e as Error);
     return [];
   }
 };

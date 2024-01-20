@@ -4,11 +4,11 @@
 
     <IonContent :fullscreen="true">
       <div class="page__content">
-        <h2>{{ t('settings.availableCourses') }}</h2>
+        <h2>{{ t("settings.availableCourses") }}</h2>
 
         <p>
           {{
-            t('settings.selectedCourses', {
+            t("settings.selectedCourses", {
               count: settingsStore.courses.length,
               max: settingsStore.maxCoursesCount,
             })
@@ -18,7 +18,7 @@
         <IonProgressBar v-if="!isLoaded" type="indeterminate" />
 
         <template v-else>
-          <p v-if="!courses.length">{{ t('settings.noCoursesAvailable') }}</p>
+          <p v-if="!courses.length">{{ t("settings.noCoursesAvailable") }}</p>
 
           <div v-else>
             <IonSearchbar
@@ -31,7 +31,7 @@
             />
 
             <p v-if="searchValue && !coursesFilteredBySearch.length">
-              {{ t('global.emptySearch') }}
+              {{ t("global.emptySearch") }}
             </p>
 
             <IonItemGroup v-for="group of getGroups(coursesFilteredBySearch)" :key="group.name">
@@ -74,16 +74,16 @@ import {
   IonProgressBar,
   IonSearchbar,
   modalController,
-} from '@ionic/vue';
-import { save as saveIcon } from 'ionicons/icons';
-import { computed, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import axiosInstance from '../axios';
-import AppHeader from '../components/AppHeader.vue';
-import { showToast } from '../helpers/io';
-import { useSettingsStore } from '../store/settings';
-import { CustomError, ErrorCode } from '../types/errors';
-import AppFab from './AppFab.vue';
+} from "@ionic/vue";
+import { save as saveIcon } from "ionicons/icons";
+import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
+import axiosInstance from "../axios";
+import AppHeader from "../components/AppHeader.vue";
+import { showToast } from "../helpers/io";
+import { useSettingsStore } from "../store/settings";
+import { CustomError, ErrorCode } from "../types/errors";
+import AppFab from "./AppFab.vue";
 
 const { t } = useI18n();
 
@@ -91,15 +91,15 @@ const courses = ref<string[]>([]);
 const isLoaded = ref(false);
 
 axiosInstance
-  .get<string[]>('courses')
+  .get<string[]>("courses")
   .then((response) => {
     courses.value = response.data;
   })
   .catch((e) => {
     throw new CustomError(
       ErrorCode.COURSE_FETCH_FAILED,
-      'Error while fetching courses',
-      e as Error
+      "Error while fetching courses",
+      e as Error,
     );
   })
   .finally(() => {
@@ -112,7 +112,7 @@ interface CourseGroup {
 }
 
 const getGroup = (course: string): string => {
-  return course.split(/\d/)[0] ?? '';
+  return course.split(/\d/)[0] ?? "";
 };
 
 const getGroups = (courses: string[]): CourseGroup[] => {
@@ -149,22 +149,22 @@ const save = async () => {
   await settingsStore.changeCourses(selectedCourses.value);
   modalController.dismiss();
   await showToast({
-    message: t('toasts.savedCourses', selectedCourses.value.length),
+    message: t("toasts.savedCourses", selectedCourses.value.length),
     duration: 2000,
   });
 };
 
-const searchValue = ref('');
+const searchValue = ref("");
 const coursesFilteredBySearch = computed((): string[] => {
   if (!searchValue.value) return courses.value;
   return courses.value.filter((course) =>
-    course.toLowerCase().includes(searchValue.value.toLowerCase())
+    course.toLowerCase().includes(searchValue.value.toLowerCase()),
   );
 });
 </script>
 
 <style lang="scss" scoped>
-@import '../styles/mixin.scss';
+@import "../styles/mixin.scss";
 
 h2 {
   margin-top: 0;

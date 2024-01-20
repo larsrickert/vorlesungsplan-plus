@@ -1,5 +1,5 @@
-import { RequestHandler } from 'express';
-import { fetchLectures } from '../controllers/lectures.controllers';
+import { RequestHandler } from "express";
+import { fetchLectures } from "../controllers/lectures.controllers";
 
 /**
  * @swagger
@@ -37,11 +37,11 @@ import { fetchLectures } from '../controllers/lectures.controllers';
 export const lecturesRouteGetHandler: RequestHandler = async (req, res) => {
   let lectures = await fetchLectures(req.params.id);
 
-  if (req.query.excludePast === 'true') {
+  if (req.query.excludePast === "true") {
     lectures = lectures.filter((l) => new Date(l.end).getTime() > Date.now());
   }
-  if (req.query.excludeHolidays === 'true') {
-    lectures = lectures.filter((l) => l.type !== 'HOLIDAY');
+  if (req.query.excludeHolidays === "true") {
+    lectures = lectures.filter((l) => l.type !== "HOLIDAY");
   }
 
   res.send(lectures);

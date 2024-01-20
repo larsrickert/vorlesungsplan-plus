@@ -16,12 +16,12 @@
 </template>
 
 <script lang="ts" setup>
-import { IonLabel } from '@ionic/vue';
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
-import AppLecture from '../components/AppLecture.vue';
-import { isToday } from '../helpers/misc';
-import { MergedLecture } from '../types/lectures';
+import { IonLabel } from "@ionic/vue";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+import AppLecture from "../components/AppLecture.vue";
+import { isToday } from "../helpers/misc";
+import type { MergedLecture } from "../types/lectures";
 
 interface LectureBlockProps {
   date: Date;
@@ -33,9 +33,9 @@ const props = defineProps<LectureBlockProps>();
 const { d, t } = useI18n();
 
 const dateString = computed((): string => {
-  if (isToday(props.date)) return t('global.today');
-  if (isToday(props.date, 1)) return t('global.tomorrow');
-  return d(props.date, 'dateFullWeekday');
+  if (isToday(props.date)) return t("global.today");
+  if (isToday(props.date, 1)) return t("global.tomorrow");
+  return d(props.date, "dateFullWeekday");
 });
 
 const isPast = computed<boolean>(() => {

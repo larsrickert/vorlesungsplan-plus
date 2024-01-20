@@ -1,26 +1,26 @@
-import { defineStore } from 'pinia';
-import config from '../configs';
-import { getInitLocale, isLocaleAvailable } from '../helpers/i18n';
-import { randomColors } from '../helpers/misc';
-import { getValue, initValue, setValue, StorageKey } from '../helpers/storage';
-import { i18n } from '../i18n';
-import { CustomError, ErrorCode } from '../types/errors';
+import { defineStore } from "pinia";
+import config from "../configs";
+import { getInitLocale, isLocaleAvailable } from "../helpers/i18n";
+import { randomColors } from "../helpers/misc";
+import { StorageKey, getValue, initValue, setValue } from "../helpers/storage";
+import { i18n } from "../i18n";
+import { CustomError, ErrorCode } from "../types/errors";
 
 export const allowedNotificationTimes: readonly number[] = Object.freeze([0, 15, 30, 45, 60]);
 
 let themeMediaQueryList: MediaQueryList | undefined;
 let themeListener: ((ev: MediaQueryListEvent) => unknown) | undefined;
 
-export const useSettingsStore = defineStore('settings', {
+export const useSettingsStore = defineStore("settings", {
   state: () => {
     return {
       locale: config.i18n.defaultLocale,
-      theme: 'dark',
+      theme: "dark",
       themeDetection: true,
       courses: [] as string[],
       lecturesLastUpdated: null as Date | null,
       lectureNotificationTime: 15,
-      iosWidgetVersion: '',
+      iosWidgetVersion: "",
       excludeHolidays: false,
       initialized: false,
     };
@@ -46,13 +46,13 @@ export const useSettingsStore = defineStore('settings', {
 
       const lastUpdatedSetting = await initValue(
         StorageKey.LECTURES_LAST_UPDATED,
-        this.lecturesLastUpdated
+        this.lecturesLastUpdated,
       );
       if (lastUpdatedSetting) this.changeLecturesLastUpdated(new Date(lastUpdatedSetting));
 
       const lectureNotificationTime = await initValue(
         StorageKey.LECTURES_NOTIFICATION_TIME,
-        this.lectureNotificationTime
+        this.lectureNotificationTime,
       );
       this.changeLectureNotificationTime(lectureNotificationTime);
 
@@ -75,7 +75,7 @@ export const useSettingsStore = defineStore('settings', {
       }
 
       const { locale } = i18n.global;
-      locale.value = value;
+      locale.value = value as typeof locale.value;
       document.documentElement.lang = value;
 
       if (this.locale === value) return;
@@ -87,7 +87,7 @@ export const useSettingsStore = defineStore('settings', {
      * Sets the current theme and stores it in the storage.
      */
     async changeTheme(value: string) {
-      document.documentElement.setAttribute('theme', value);
+      document.documentElement.setAttribute("theme", value);
 
       if (this.theme === value) return;
 
@@ -102,17 +102,17 @@ export const useSettingsStore = defineStore('settings', {
 
       if (!window.matchMedia) return;
       if (!themeMediaQueryList) {
-        themeMediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+        themeMediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
       }
 
       if (value) {
-        this.changeTheme(themeMediaQueryList.matches ? 'dark' : 'light');
+        this.changeTheme(themeMediaQueryList.matches ? "dark" : "light");
         if (!themeListener) {
-          themeListener = (event) => this.changeTheme(event.matches ? 'dark' : 'light');
+          themeListener = (event) => this.changeTheme(event.matches ? "dark" : "light");
         }
-        themeMediaQueryList.addEventListener('change', themeListener);
+        themeMediaQueryList.addEventListener("change", themeListener);
       } else if (!value && themeListener) {
-        themeMediaQueryList.removeEventListener('change', themeListener);
+        themeMediaQueryList.removeEventListener("change", themeListener);
         themeListener = undefined;
       }
     },
@@ -125,7 +125,7 @@ export const useSettingsStore = defineStore('settings', {
       if (value.length > this.maxCoursesCount) {
         throw new CustomError(
           ErrorCode.COURSE_LIMIT_EXCEEDED,
-          `You cannot select more than ${this.maxCoursesCount} courses.`
+          `You cannot select more than ${this.maxCoursesCount} courses.`,
         );
       }
 
