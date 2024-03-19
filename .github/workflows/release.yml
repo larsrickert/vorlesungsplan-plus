@@ -21,9 +21,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          package_json_file: frontend/package.json
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -55,9 +55,9 @@ jobs:
       - name: Pull latest changes from frontend semantic-release
         run: git pull
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          package_json_file: backend/package.json
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
