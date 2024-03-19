@@ -27,6 +27,7 @@
               show-cancel-button="focus"
               :cancel-button-text="t('global.cancel')"
               :placeholder="t('global.searchPlaceholder')"
+              autocapitalize="sentences"
               mode="ios"
             />
 
