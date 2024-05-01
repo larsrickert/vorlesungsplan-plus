@@ -84,10 +84,10 @@ jobs:
       - name: Checkout Git repository
         uses: actions/checkout@v4
       - name: Deploy
-        uses: appleboy/ssh-action@v0.1.6
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           envs: GITHUB_SERVER_URL,GITHUB_REPOSITORY
-          script: npx nginx-proxy-cli deploy $GITHUB_SERVER_URL/$GITHUB_REPOSITORY --dir=~/nginx-proxy/applications --folder=vorlesungsplan.lars-rickert.de
+          script: npx nginx-proxy-cli@3 deploy $GITHUB_SERVER_URL/$GITHUB_REPOSITORY --dir=~/nginx-proxy/applications --folder=vorlesungsplan.lars-rickert.de
